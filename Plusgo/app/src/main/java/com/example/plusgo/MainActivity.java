@@ -21,13 +21,38 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        NICbutton=(Button)findViewById(R.id.NICbutton);
-        NICbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, NicUploadActivity.class);
-                startActivity(i);
+//        NICbutton=(Button)findViewById(R.id.NICbutton);
+//        NICbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(MainActivity.this, NicUploadActivity.class);
+//                startActivity(i);
+//            }
+//    });
+
+        //splash screen at the start
+        Thread splashScreen = new Thread(){
+            public void run(){
+                try {
+                    sleep(3000); //for 3 seconds
+
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                finally {
+                    Intent home = new Intent(MainActivity.this, Home.class);
+                    startActivity(home);
+                }
             }
-    });
+        };
+        splashScreen.start();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
+    }
+
 }
