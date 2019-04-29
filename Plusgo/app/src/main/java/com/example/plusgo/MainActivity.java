@@ -13,8 +13,6 @@ import java.io.File;
 public class MainActivity extends AppCompatActivity {
 
 
-    Button NICbutton;
-    Button RatingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

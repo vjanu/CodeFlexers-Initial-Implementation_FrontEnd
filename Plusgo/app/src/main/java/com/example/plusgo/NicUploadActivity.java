@@ -1,10 +1,20 @@
+/*
+ * *
+ *  * Created by Ashane Edirisinghe
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 4/14/19 11:44 PM
+ *
+ */
+
 package com.example.plusgo;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -19,6 +29,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 public class NicUploadActivity extends Activity {
@@ -27,6 +38,7 @@ public class NicUploadActivity extends Activity {
     ImageView imageview;
     static final int PERMISSION_CODE = 1000;
     static final int IMAGE_CAPTURE_CODE = 1001;
+    final int CROP_PIC = 2;
 
 
     Uri image_uri;
@@ -69,6 +81,7 @@ public class NicUploadActivity extends Activity {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_uri);
+        performCrop();
         startActivityForResult(cameraIntent,IMAGE_CAPTURE_CODE);
     }
 
@@ -77,7 +90,21 @@ public class NicUploadActivity extends Activity {
        if(resultCode == RESULT_OK){
            Log.e("EEEEEEEEEEE", String.valueOf(image_uri));
            Log.e("FFFFFFFFF", String.valueOf(MediaStore.Images.Media.EXTERNAL_CONTENT_URI));
-           imageview.setImageURI(image_uri);
+
+//           imageview.setImageURI(image_uri);
+           if (requestCode == CROP_PIC) {
+               Bundle extras = data.getExtras();
+               Bitmap thePic = extras.getParcelable("data");
+//               imageview.setImageBitmap(thePic);
+
+               ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+               thePic.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+               String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), thePic, "Title", null);
+
+               Log.e("AAAAAAA", path);
+               imageview.setImageURI(Uri.parse(path));
+
+           }
        }
     }
 
@@ -92,6 +119,36 @@ public class NicUploadActivity extends Activity {
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
                 }
             }
+        }
+    }
+
+    private void performCrop() {
+        // take care of exceptions
+        try {
+            // call the standard crop action intent (the user device may not
+            // support it)
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            // indicate image type and Uri
+            cropIntent.setDataAndType(image_uri, "image/*");
+            // set crop properties
+            cropIntent.putExtra("crop", "true");
+            // indicate aspect of desired crop
+            cropIntent.putExtra("aspectX", 3);//change this to make it a square or rectangle
+            cropIntent.putExtra("aspectY", 4);//change this to make it a square or rectangle
+            // indicate output X and Y
+            cropIntent.putExtra("outputX", 256);
+            cropIntent.putExtra("outputY", 256);
+            // retrieve data on return
+            cropIntent.putExtra("return-data", true);
+
+            // start the activity - we handle returning in onActivityResult
+            startActivityForResult(cropIntent, CROP_PIC);
+        }
+        // respond to users whose devices do not support the crop action
+        catch (ActivityNotFoundException anfe) {
+            Toast toast = Toast
+                    .makeText(this, "This device doesn't support the crop action!", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 }

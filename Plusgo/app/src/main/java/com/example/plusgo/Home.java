@@ -32,7 +32,7 @@ public class Home extends AppCompatActivity {
         btnSign.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signup = new Intent(Home.this, VerifyMobilePhone.class);
+                Intent signup = new Intent(Home.this, Signup.class);
                 startActivity(signup);
 
             }
