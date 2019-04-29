@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context=".RatingMainActivity">
+
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="PLEASE RATE YOUR EXPERIENCE"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:stepSize="1"
+            android:visibility="visible" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutcomplement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center|center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="WRITE A COMPLEMENT TO THE DRIVER"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="write here (Optional)" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutdissatis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center|center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="WHICH MADE YOU DISSATISFIED ?"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="THE DRIVER"
+            android:textSize="18sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="THE VEHICLE"
+            android:textSize="18sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text=" CO - PASSENGERS"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center|center_horizontal"
+        android:orientation="vertical"
+        android:padding="1dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="SUBMIT"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/skip"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="skip"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
+    </LinearLayout>
+</LinearLayout>
