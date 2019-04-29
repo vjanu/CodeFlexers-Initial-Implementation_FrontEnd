@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     Button NICbutton;
+    Button RatingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,14 +22,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-//        NICbutton=(Button)findViewById(R.id.NICbutton);
-//        NICbutton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MainActivity.this, NicUploadActivity.class);
-//                startActivity(i);
-//            }
-//    });
 
         //splash screen at the start
         Thread splashScreen = new Thread(){
@@ -47,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         splashScreen.start();
+
     }
 
     @Override
