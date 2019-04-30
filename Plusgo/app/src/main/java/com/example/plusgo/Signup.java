@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * @author  Viraj
- */
+
 public class Signup extends AppCompatActivity {
+
+
+    Button NICbutton;
+    Button RatingButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +28,25 @@ public class Signup extends AppCompatActivity {
 //
 //            }
 //        });
+
+        NICbutton=(Button)findViewById(R.id.NICbutton);
+        NICbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent verify = new Intent(Signup.this, NicUploadActivity.class);
+                startActivity(verify);
+
+            }
+        });
+
+        RatingButton=(Button)findViewById(R.id.Ratingbutton);
+        RatingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent verify = new Intent(Signup.this, RatingMainActivity.class);
+                startActivity(verify);
+
+            }
+        });
     }
 }

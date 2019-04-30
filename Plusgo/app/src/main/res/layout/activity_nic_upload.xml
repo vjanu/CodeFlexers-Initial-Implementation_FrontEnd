@@ -10,12 +10,12 @@
     tools:context=".NicUploadActivity">
 
     <ImageView
-        android:layout_width="400dp"
-        android:layout_height="400dp"
         android:id="@+id/image_view_nic"
+        android:layout_width="269dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
-        android:layout_gravity="center_horizontal"/>
+        android:src="@mipmap/ic_launcher" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
