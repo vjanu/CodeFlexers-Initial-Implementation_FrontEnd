@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".UserProfile"></activity>
-        <activity android:name=".TripSummaryActivity" />
+        <activity android:name=".TripSummaryActivity" >
+
+        </activity>
         <activity android:name=".VerifyCode" />
         <activity android:name=".VerifyMobilePhone" />
         <activity android:name=".Login" />
