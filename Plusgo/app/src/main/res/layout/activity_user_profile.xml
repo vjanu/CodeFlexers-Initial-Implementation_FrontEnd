@@ -14,24 +14,398 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_centerInParent="true"
+            <!--User Image-->
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/pp"
-                app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"
-                />
+                app:civ_border_width="2dp" />
+
+            <!--User Name-->
+            <TextView
+
+                android:layout_below="@id/profile_image"
+                android:id="@+id/txtuserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Sunil Perera"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
+            <!--Vehicle Name-->
+            <TextView
+                android:layout_below="@id/txtuserName"
+                android:id="@+id/txtVehicleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Suzuki Wagon R"
+                android:layout_marginBottom="20dp"
+                android:textColor="#52BAFF"
+                android:textSize="16sp" />
+
+            <!--Trip Count -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/TripCardView"
+                android:layout_below="@id/txtVehicleName"
+                android:layout_width="325dp"
+                android:layout_height="140dp"
+                android:layout_columnWeight="2"
+                android:layout_rowWeight="2"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="12dp"
+
+                >
+                <RelativeLayout
+                    android:orientation="vertical"
+                    android:paddingLeft="35dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingRight="30dp"
+
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <!--Total Number of Ride-->
+                    <TextView
+                        android:id="@+id/totalRideCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="26"
+                        android:textColor="#52BAFF"
+                        android:textSize="60sp" />
+
+                    <!--Text Driver-->
+                    <TextView
+                        android:id="@+id/txtDriver"
+                        android:layout_marginTop="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_toRightOf="@+id/totalRideCount"
+                        android:layout_marginLeft="35dp"
+                        android:text="Driver"
+                        android:textSize="20dp"
+                        />
+
+                    <!--Text Driver Count-->
+                    <TextView
+                        android:id="@+id/txtDriverCount"
+                        android:layout_marginTop="13dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_toRightOf="@+id/txtDriver"
+                        android:layout_marginLeft="48dp"
+                        android:text="- 12"
+                        android:textSize="20dp"
+                        />
+
+                    <!--Text Passenger-->
+                    <TextView
+                        android:id="@+id/txtPassenger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtDriver"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_toRightOf="@+id/totalRideCount"
+                        android:text="Passenger "
+                        android:textSize="20dp" />
+
+                    <!--Text Passenger Count-->
+                    <TextView
+                        android:id="@+id/txtPassengerCount"
+                        android:layout_marginTop="2dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtDriverCount"
+                        android:layout_toRightOf="@+id/txtPassenger"
+                        android:text="- 14"
+                        android:textSize="20dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtTripComplete"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/totalRideCount"
+                        android:layout_centerHorizontal="true"
+                        android:text="Trips Completed"
+                        android:textSize="24dp"
+                        android:textColor="#52BAFF"
+                        />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--Rating Card -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/RatingCard"
+                android:layout_below="@id/TripCardView"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_columnWeight="2"
+                android:layout_rowWeight="2"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="12dp"
+
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
+
+
+                    <!--User Rating Bar-->
+                    <RatingBar
+                        android:id="@+id/userRatingBar"
+                        style="@android:style/Widget.Holo.RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal"
+                        android:isIndicator="true"
+                        android:numStars="1"
+                        android:rating="0.94"
+                        android:stepSize="0.05"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp" />
+
+                    <!--Text of User Rating-->
+                    <TextView
+                        android:id="@+id/txtUserRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/userRatingBar"
+                        android:layout_alignParentLeft="true"
+                        android:text="User Rating"
+                        android:textColor="#52BAFF"
+                        android:textSize="10dp" />
+
+                    <!--Value of user rating out of 5.0-->
+                    <TextView
+                        android:id="@+id/txtUserRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtUserRate"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="5dp"
+                        android:text="4.7 / 5.0"
+                        android:textColor="#52BAFF"
+                        android:textSize="10dp" />
+
+                    <!--Vehicle Rting Bar-->
+                    <RatingBar
+                        android:id="@+id/vehicleRatingBar"
+                        style="@android:style/Widget.Holo.RatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="45dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginLeft="25dp"
+                        android:layout_toRightOf="@+id/userRatingBar"
+                        android:gravity="center_horizontal"
+                        android:isIndicator="true"
+                        android:numStars="1"
+                        android:rating="0.76"
+                        android:stepSize="0.05"
+                        android:transformPivotX="0dp"
+                        android:transformPivotY="0dp" />
+
+                    <!--Text of Vehicle Rating-->
+                    <TextView
+                        android:id="@+id/txtVehicleRate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/vehicleRatingBar"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="18dp"
+                        android:layout_toRightOf="@+id/userRatingBar"
+                        android:text="Vehicle Rating"
+                        android:textColor="#52BAFF"
+                        android:textSize="10dp"
+
+                        />
+
+                    <!--Value of vehicle rating out of 5.0-->
+                    <TextView
+                        android:id="@+id/txtVehicleRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtVehicleRate"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_toRightOf="@+id/userRatingBar"
+                        android:text="3.8 / 5.0"
+                        android:textColor="#52BAFF"
+                        android:textSize="10dp" />
+
+                    <TextView
+                        android:id="@+id/txtViewReview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtUserRating"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="5dp"
+                        android:text="View More"
+                        android:textColor="#52BAFF"
+                        android:textSize="20dp"
+
+                        />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <!--Interest Card -->
+            <android.support.v7.widget.CardView
+                android:layout_below="@id/TripCardView"
+                android:layout_toRightOf="@id/RatingCard"
+                android:layout_width="150dp"
+                android:layout_height="130dp"
+                android:layout_columnWeight="2"
+                android:layout_rowWeight="2"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="12dp"
+
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
+
+                    <!--Text Of Unterest-->
+                    <TextView
+                        android:id="@+id/txtInterest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Interests"
+                        android:layout_marginBottom="3dp"
+                        android:textColor="#52BAFF"
+                        android:textSize="18sp" />
+
+                    <!--Text Of Unterest-->
+                    <TextView
+                        android:id="@+id/txtSmoke"
+                        android:layout_below="@id/txtInterest"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Smoke"
+                        android:textColor="#52BAFF"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/txtMusicLover"
+                        android:layout_below="@id/txtSmoke"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Music Lover"
+                        android:textColor="#52BAFF"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/txtMotionSickness"
+                        android:layout_below="@id/txtMusicLover"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Motion Sickness"
+                        android:textColor="#52BAFF"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <!--Language Card -->
+            <android.support.v7.widget.CardView
+                android:layout_below="@id/RatingCard"
+
+                android:layout_width="325dp"
+                android:layout_height="50dp"
+                android:layout_columnWeight="2"
+                android:layout_rowWeight="2"
+                app:cardElevation="6dp"
+                app:cardCornerRadius="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="0dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp">
+
+                    <!--Text Of Languages-->
+                    <TextView
+                        android:id="@+id/txtLanguage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Languages :"
+                        android:textColor="#52BAFF"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/Languages"
+                        android:layout_below="@id/txtLanguage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Sinhala / English"
+                        android:textColor="#52BAFF"
+                        android:textSize="16sp" />
+
+
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
         </RelativeLayout>
     </LinearLayout>
+
 
 </ScrollView>
