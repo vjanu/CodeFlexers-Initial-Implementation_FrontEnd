@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorButton">#30A534</color>
     <color name="colorText">#FFFFFF</color>
+    <color name="colorDelete">#F70000</color>
+    <color name="colorBlack">#000000</color>
 </resources>

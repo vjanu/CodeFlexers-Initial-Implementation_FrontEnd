@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UPM.NewUserActivity"></activity>
+        <activity android:name=".UPM.AddPreferenceActivity"></activity>
+        <activity android:name=".UPM.NewUserActivity" />
         <activity android:name=".UserProfile" />
         <activity android:name=".TripSummaryActivity">
             <intent-filter>
@@ -27,7 +28,7 @@
         <activity android:name=".Signup" />
         <activity android:name=".RatingMainActivity" />
         <activity android:name=".NicUploadActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

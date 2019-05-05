@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Viraj Wickramasinghe
+  ~  * Copyright (c) 2019 . All rights reserved.
+  ~  * Last modified 5/5/19 9:54 PM
+  ~  */
+  -->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UPM.AddPreferenceActivity">
+
+</android.support.constraint.ConstraintLayout>
