@@ -1,22 +1,23 @@
-
 /*
  * *
  *  * Created by Viraj Wickramasinghe
  *  * Copyright (c) 2019 . All rights reserved.
- *  * Last modified 4/17/19 1:40 PM
+ *  * Last modified 5/5/19 8:18 PM
  *
  */
 
-package com.example.plusgo;
+package com.example.plusgo.UPM;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Login extends AppCompatActivity {
+import com.example.plusgo.R;
+
+public class NewUserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_new_user);
     }
 }
