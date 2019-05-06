@@ -133,11 +133,11 @@ public class NicUploadActivity extends Activity {
             // set crop properties
             cropIntent.putExtra("crop", "true");
             // indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 3);//change this to make it a square or rectangle
-            cropIntent.putExtra("aspectY", 4);//change this to make it a square or rectangle
+            cropIntent.putExtra("aspectX", 4);//change this to make it a square or rectangle
+            cropIntent.putExtra("aspectY", 3);//change this to make it a square or rectangle
             // indicate output X and Y
-            cropIntent.putExtra("outputX", 256);
-            cropIntent.putExtra("outputY", 256);
+//            cropIntent.putExtra("outputX", 3096);
+//            cropIntent.putExtra("outputY", 4128);
             // retrieve data on return
             cropIntent.putExtra("return-data", true);
 

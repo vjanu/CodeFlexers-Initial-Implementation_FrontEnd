@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="visible"
@@ -15,6 +14,7 @@
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
         android:gravity="center|center_horizontal"
         android:orientation="vertical"
         android:padding="5dp">
@@ -32,6 +32,7 @@
             android:paddingBottom="5dp"
             android:text="PLEASE RATE YOUR EXPERIENCE"
             android:textAlignment="center"
+            android:textColor="#FCFCFC"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -153,7 +154,7 @@
         <Button
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="#202F65"
             android:text="SUBMIT"
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
@@ -166,7 +167,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
-            android:background="@android:color/white"
+            android:background="#00FFFFFF"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
             android:text="skip"

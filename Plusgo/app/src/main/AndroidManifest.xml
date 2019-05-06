@@ -14,11 +14,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".UserProfile"></activity>
         <activity android:name=".TripSummaryActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".VerifyCode" />
         <activity android:name=".VerifyMobilePhone" />
@@ -28,7 +28,11 @@
         <activity android:name=".RatingMainActivity" />
         <activity android:name=".NicUploadActivity" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
