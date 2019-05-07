@@ -1,4 +1,12 @@
-package com.example.plusgo;
+/*
+ * *
+ *  * Created by Viraj Wickramasinghe
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 4/17/19 2:19 PM
+ *
+ */
+
+package com.example.plusgo.UPM;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,10 +14,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * @author  Viraj
- */
-public class VerifyMobilePhone extends AppCompatActivity {
+import com.example.plusgo.R;
+
+public class VerifyMobilePhoneActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +28,7 @@ public class VerifyMobilePhone extends AppCompatActivity {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent send = new Intent(VerifyMobilePhone.this, VerifyCode.class);
+                Intent send = new Intent(VerifyMobilePhoneActivity.this, VerifyCodeActivity.class);
                 startActivity(send);
 
             }
