@@ -11,24 +11,25 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".UPM.AddPreferenceActivity"></activity>
         <activity android:name=".UPM.NewUserActivity" />
         <activity android:name=".UserProfile" />
-        <activity android:name=".TripSummaryActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".TripSummaryActivity"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".UPM.VerifyCodeActivity" />
         <activity android:name=".UPM.VerifyMobilePhoneActivity" />
         <activity android:name=".Login" />
         <activity android:name=".Signup" />
         <activity android:name=".RatingMainActivity" />
         <activity android:name=".NicUploadActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
