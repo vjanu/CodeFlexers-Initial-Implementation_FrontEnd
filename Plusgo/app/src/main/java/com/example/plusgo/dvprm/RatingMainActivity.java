@@ -2,12 +2,15 @@
  * *
  *  * Created by Ashane Edirisinghe
  *  * Copyright (c) 2019 . All rights reserved.
- *  * Last modified 4/29/19 9:13 PM
+ *  * Last modified 5/3/19 9:49 PM
  *
  */
 
-package com.example.plusgo;
+package com.example.plusgo.dvprm;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,11 +19,15 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.example.plusgo.R;
+
 public class RatingMainActivity extends AppCompatActivity {
 
+    SharedPreferences sharedpreferences;
     RatingBar ratingbar;
     LinearLayout layoutcomplement;
     LinearLayout layoutdissatis;
+    Button vehiclebtn,driverbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,31 @@ public class RatingMainActivity extends AppCompatActivity {
                 }
             }
         });
-//        button=(Button)findViewById(R.id.nic_upload);
+        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        vehiclebtn=(Button)findViewById(R.id.selectedVehicle);
+        vehiclebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                editor.putString("selectedRateTab", "vehicle");
+                editor.commit();
+                Intent verify = new Intent(RatingMainActivity.this, RatingPassActivity.class);
+                startActivity(verify);
+            }
+        });
+
+        driverbtn=(Button)findViewById(R.id.selectedDriver);
+        driverbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                editor.putString("selectedRateTab", "driver");
+                editor.commit();
+                Intent verify = new Intent(RatingMainActivity.this, RatingPassActivity.class);
+                startActivity(verify);
+            }
+        });
     }
 }
