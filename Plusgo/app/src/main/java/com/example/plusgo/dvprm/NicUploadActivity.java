@@ -2,11 +2,11 @@
  * *
  *  * Created by Ashane Edirisinghe
  *  * Copyright (c) 2019 . All rights reserved.
- *  * Last modified 4/14/19 11:44 PM
+ *  * Last modified 5/4/19 12:16 AM
  *
  */
 
-package com.example.plusgo;
+package com.example.plusgo.dvprm;
 
 import android.Manifest;
 import android.app.Activity;
@@ -28,6 +28,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.plusgo.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

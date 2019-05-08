@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="visible"
-    tools:context=".RatingMainActivity">
+    tools:context=".dvprm.RatingMainActivity">
 
 
     <LinearLayout
@@ -104,19 +104,8 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
-
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="3dp"
-            android:padding="5dp"
-            android:text="THE DRIVER"
-            android:textSize="18sp" />
-
-        <Button
+            android:id="@+id/selectedVehicle"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="30dp"
@@ -128,6 +117,19 @@
             android:textSize="18sp" />
 
         <Button
+            android:id="@+id/selectedDriver"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="3dp"
+            android:padding="5dp"
+            android:text="THE DRIVER"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/selectedCoPass"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="30dp"
