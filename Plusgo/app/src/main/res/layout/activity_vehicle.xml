@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="fill_horizontal|fill_vertical"
+    android:orientation="vertical"
+    tools:context=".UPM.VehicleActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="8dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorBlack"
+            android:textSize="24dp"
+            android:text="Vehicle Details"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="0.5"
+                android:text="Vehicle Brand"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/brand"
+                android:layout_width="175dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="0dp"
+                android:text="Vehicle Model"
+                android:textColor="@color/colorBlack"
+                android:layout_weight="0.5"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/model"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+            </Spinner>
+    </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="0.5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.868"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.359">
+
+                <EditText
+                    android:id="@+id/vehicleno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:hint="Vehicle Number"
+                    android:layout_weight="0.5"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.868"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_weight="0.5"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.359">
+
+                <EditText
+                    android:id="@+id/mileage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:layout_weight="0.5"
+                    android:hint="Mileage"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="0dp"
+                android:text="Manufactured Year"
+                android:layout_weight="0.5"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/mYear"
+                android:layout_width="175dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="0.5"
+                android:text="Registered Year"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/rYear"
+                android:layout_width="175dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="0.5"
+                android:text="Fuel Type"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/fuel"
+                android:layout_width="175dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="0.5"
+                android:text="Transmission Type"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/transmission"
+                android:layout_width="175dp"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content">
+
+            </Spinner>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginRight="0dp"
+            android:text="Engine Capacity"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/engine"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload Vehicle Photos"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        android:paddingTop="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="35dp"
+        android:paddingTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/music"
+        android:layout_weight="0.3"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/music"
+        android:layout_weight="0.3"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/music"
+        android:layout_weight="0.3"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="15dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/music"
+            android:layout_weight="0.5"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/music"
+            android:layout_weight="0.5"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAddVehicle"
+        android:layout_width="374dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorButton"
+        android:text="Confirm"
+        android:layout_gravity="center"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/colorText" />
+
+</LinearLayout>
