@@ -14,11 +14,11 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp">
 
             <!--User Image-->
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -33,10 +33,10 @@
             <!--User Name-->
             <TextView
 
-                android:layout_below="@id/profile_image"
                 android:id="@+id/txtuserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/profile_image"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:text="Sunil Perera"
@@ -45,39 +45,40 @@
 
             <!--Vehicle Name-->
             <TextView
-                android:layout_below="@id/txtuserName"
                 android:id="@+id/txtVehicleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/txtuserName"
                 android:layout_centerHorizontal="true"
-                android:text="Suzuki Wagon R"
                 android:layout_marginBottom="20dp"
+                android:text="Suzuki Wagon R"
                 android:textColor="#52BAFF"
                 android:textSize="16sp" />
 
             <!--Trip Count -->
             <android.support.v7.widget.CardView
                 android:id="@+id/TripCardView"
-                android:layout_below="@id/txtVehicleName"
                 android:layout_width="325dp"
                 android:layout_height="140dp"
-                android:layout_columnWeight="2"
                 android:layout_rowWeight="2"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
+                android:layout_columnWeight="2"
+                android:layout_below="@id/txtVehicleName"
                 android:layout_margin="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
 
                 >
+
                 <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingLeft="35dp"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+
+
                     android:paddingRight="30dp"
-
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:paddingBottom="10dp">
 
                     <!--Total Number of Ride-->
                     <TextView
@@ -92,28 +93,26 @@
                     <!--Text Driver-->
                     <TextView
                         android:id="@+id/txtDriver"
-                        android:layout_marginTop="13dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:layout_toRightOf="@+id/totalRideCount"
                         android:layout_marginLeft="35dp"
+
+                        android:layout_marginTop="13dp"
+                        android:layout_toRightOf="@+id/totalRideCount"
                         android:text="Driver"
-                        android:textSize="20dp"
-                        />
+                        android:textSize="20dp" />
 
                     <!--Text Driver Count-->
                     <TextView
                         android:id="@+id/txtDriverCount"
-                        android:layout_marginTop="13dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:layout_toRightOf="@+id/txtDriver"
                         android:layout_marginLeft="48dp"
+
+                        android:layout_marginTop="13dp"
+                        android:layout_toRightOf="@+id/txtDriver"
                         android:text="- 12"
-                        android:textSize="20dp"
-                        />
+                        android:textSize="20dp" />
 
                     <!--Text Passenger-->
                     <TextView
@@ -130,14 +129,13 @@
                     <!--Text Passenger Count-->
                     <TextView
                         android:id="@+id/txtPassengerCount"
-                        android:layout_marginTop="2dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtDriverCount"
+                        android:layout_marginTop="2dp"
                         android:layout_toRightOf="@+id/txtPassenger"
                         android:text="- 14"
-                        android:textSize="20dp"
-                        />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/txtTripComplete"
@@ -147,9 +145,8 @@
                         android:layout_below="@id/totalRideCount"
                         android:layout_centerHorizontal="true"
                         android:text="Trips Completed"
-                        android:textSize="24dp"
                         android:textColor="#52BAFF"
-                        />
+                        android:textSize="24dp" />
 
                 </RelativeLayout>
 
@@ -158,14 +155,14 @@
             <!--Rating Card -->
             <android.support.v7.widget.CardView
                 android:id="@+id/RatingCard"
-                android:layout_below="@id/TripCardView"
                 android:layout_width="150dp"
                 android:layout_height="130dp"
-                android:layout_columnWeight="2"
                 android:layout_rowWeight="2"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
+                android:layout_columnWeight="2"
+                android:layout_below="@id/TripCardView"
                 android:layout_margin="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
 
                 >
 
@@ -283,15 +280,15 @@
 
             <!--Interest Card -->
             <android.support.v7.widget.CardView
-                android:layout_below="@id/TripCardView"
-                android:layout_toRightOf="@id/RatingCard"
                 android:layout_width="150dp"
                 android:layout_height="130dp"
-                android:layout_columnWeight="2"
                 android:layout_rowWeight="2"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
+                android:layout_columnWeight="2"
+                android:layout_below="@id/TripCardView"
                 android:layout_margin="12dp"
+                android:layout_toRightOf="@id/RatingCard"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
 
                 >
 
@@ -310,40 +307,41 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="Interests"
                         android:layout_marginBottom="3dp"
+                        android:text="Interests"
                         android:textColor="#52BAFF"
                         android:textSize="18sp" />
 
                     <!--Text Of Unterest-->
                     <TextView
                         android:id="@+id/txtSmoke"
-                        android:layout_below="@id/txtInterest"
-                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/txtInterest"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginTop="5dp"
                         android:text="Smoke"
                         android:textColor="#52BAFF"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txtMusicLover"
-                        android:layout_below="@id/txtSmoke"
-                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/txtSmoke"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginTop="5dp"
                         android:text="Music Lover"
                         android:textColor="#52BAFF"
                         android:textSize="16sp" />
+
                     <TextView
                         android:id="@+id/txtMotionSickness"
-                        android:layout_below="@id/txtMusicLover"
-                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/txtMusicLover"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginTop="5dp"
                         android:text="Motion Sickness"
                         android:textColor="#52BAFF"
                         android:textSize="16sp" />
@@ -354,19 +352,18 @@
 
             <!--Language Card -->
             <android.support.v7.widget.CardView
-                android:layout_below="@id/RatingCard"
-
                 android:layout_width="325dp"
+
                 android:layout_height="50dp"
-                android:layout_columnWeight="2"
                 android:layout_rowWeight="2"
-                app:cardElevation="6dp"
-                app:cardCornerRadius="12dp"
-                android:layout_marginRight="12dp"
+                android:layout_columnWeight="2"
+                android:layout_below="@id/RatingCard"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="12dp"
                 android:layout_marginBottom="10dp"
-                >
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -389,14 +386,13 @@
 
                     <TextView
                         android:id="@+id/Languages"
-                        android:layout_below="@id/txtLanguage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/txtLanguage"
                         android:layout_centerHorizontal="true"
                         android:text="Sinhala / English"
                         android:textColor="#52BAFF"
                         android:textSize="16sp" />
-
 
 
                 </RelativeLayout>

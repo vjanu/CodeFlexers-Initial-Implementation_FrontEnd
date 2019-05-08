@@ -26,7 +26,7 @@ public class Signup extends AppCompatActivity {
 //        btnLog.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent verify = new Intent(Signup.this, VerifyMobilePhone.class);
+//                Intent verify = new Intent(Signup.this, VerifyMobilePhoneActivity.class);
 //                startActivity(verify);
 //
 //            }

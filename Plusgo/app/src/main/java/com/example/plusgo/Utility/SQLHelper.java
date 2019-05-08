@@ -1,12 +1,17 @@
-package com.example.plusgo.Utility;
+/*
+ * *
+ *  * Created by Viraj Wickramasinghe
+ *  * Copyright (c) 2019 . All rights reserved.
+ *  * Last modified 4/17/19 1:40 PM
+ *
+ */
 
+package com.example.plusgo.Utility;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-/**
- * @author  Viraj
- */
+
 public class SQLHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "com.example.plusgo";
