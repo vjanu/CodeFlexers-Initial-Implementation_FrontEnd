@@ -181,13 +181,13 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_constraintBottom_toBottomOf="parent"
-            android:layout_constraintEnd_toEndOf="parent"
-            android:layout_constraintHorizontal_bias="0.022"
-            android:layout_constraintStart_toStartOf="parent"
-            android:playout_constraintTop_toTopOf="parent"
-            android:layout_constraintVertical_bias="0.367"
-            android:srcCompat="@drawable/location" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.367"
+            app:srcCompat="@drawable/location" />
         <android.support.design.widget.TextInputLayout
             android:id="@+id/source"
             android:layout_width="310dp"
@@ -229,13 +229,13 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_constraintBottom_toBottomOf="parent"
-            android:layout_constraintEnd_toEndOf="parent"
-            android:layout_constraintHorizontal_bias="0.022"
-            android:layout_constraintStart_toStartOf="parent"
-            android:playout_constraintTop_toTopOf="parent"
-            android:layout_constraintVertical_bias="0.367"
-            android:srcCompat="@drawable/location" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.367"
+            app:srcCompat="@drawable/location" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/desti"
@@ -283,13 +283,13 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_constraintBottom_toBottomOf="parent"
-            android:layout_constraintEnd_toEndOf="parent"
-            android:layout_constraintHorizontal_bias="0.022"
-            android:layout_constraintStart_toStartOf="parent"
-            android:playout_constraintTop_toTopOf="parent"
-            android:layout_constraintVertical_bias="0.367"
-            android:srcCompat="@drawable/start_date" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.367"
+            app:srcCompat="@drawable/start_date" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/strt_date"
@@ -336,13 +336,13 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_constraintBottom_toBottomOf="parent"
-            android:layout_constraintEnd_toEndOf="parent"
-            android:layout_constraintHorizontal_bias="0.022"
-            android:layout_constraintStart_toStartOf="parent"
-            android:playout_constraintTop_toTopOf="parent"
-            android:layout_constraintVertical_bias="0.367"
-            android:srcCompat="@drawable/start_time" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.367"
+            app:srcCompat="@drawable/start_time" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/strtime"
@@ -388,13 +388,13 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_constraintBottom_toBottomOf="parent"
-            android:layout_constraintEnd_toEndOf="parent"
-            android:layout_constraintHorizontal_bias="0.022"
-            android:layout_constraintStart_toStartOf="parent"
-            android:playout_constraintTop_toTopOf="parent"
-            android:layout_constraintVertical_bias="0.367"
-            android:srcCompat="@drawable/waitingtime" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.367"
+            app:srcCompat="@drawable/waitingtime" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/waittime"
@@ -441,12 +441,12 @@
             style="?android:textAppearanceSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_constraintHorizontal_bias="0.75"
-            android:layout_constraintVertical_bias="0.045"
-            android:layout_constraintTop_toBottomOf="@+id/waitingtime"
-            android:layout_constraintBottom_toBottomOf="parent"
-            android:layout_constraintEnd_toEndOf="parent"
-            android:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintVertical_bias="0.045"
+            app:layout_constraintTop_toBottomOf="@+id/waitingtime"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="1dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"

@@ -8,6 +8,7 @@
 
 package com.example.plusgo.OPR;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.plusgo.FC.UserProfile;
 import com.example.plusgo.R;
 
 public class OfferRide extends AppCompatActivity {
@@ -43,4 +45,6 @@ public class OfferRide extends AppCompatActivity {
         });
 
     }
+
+
 }

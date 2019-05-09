@@ -50,9 +50,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.022"
             app:layout_constraintStart_toStartOf="parent"
-            app:playout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.367"
-            android:srcCompat="@drawable/location"
+            app:srcCompat="@drawable/location"
             tools:ignore="MissingPrefix" />
 
         <android.support.design.widget.TextInputLayout
