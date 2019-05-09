@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -38,6 +39,10 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".dvprm.NicUploadActivity" />
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".OPR.Report_accident"/>
+        <activity android:name=".OPR.OfferRide"/>
+        <activity android:name=".OPR.SetRidePass"/>
+
     </application>
 
 </manifest>

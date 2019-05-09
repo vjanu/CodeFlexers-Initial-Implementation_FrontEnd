@@ -1,12 +1,12 @@
 /*
  * *
- *  * Athrie
+ *  * Created by Viraj Wickramasinghe
  *  * Copyright (c) 2019 . All rights reserved.
- *  * Last modified 5/1/19 11:45 AM
+ *  * Last modified 5/9/19 11:50 AM
  *
  */
 
-package com.example.plusgo;
+package com.example.plusgo.OPR;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.plusgo.R;
 
 public class OfferRide extends AppCompatActivity {
 
