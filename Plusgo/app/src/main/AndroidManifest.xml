@@ -14,13 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".LiveCalculation">
+            android:name=".FC.LiveCalculation">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".UPM.AddPreferenceActivity" />
@@ -29,7 +25,11 @@
         <activity
             android:name=".FC.TripSummaryActivity"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".UPM.VerifyCodeActivity" />
         <activity android:name=".UPM.VerifyMobilePhoneActivity" />

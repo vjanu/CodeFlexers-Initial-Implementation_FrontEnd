@@ -1,12 +1,12 @@
 /*
  * *
- *  * Created by Surath Gunawardena
+ *  * Created by Viraj Wickramasinghe
  *  * Copyright (c) 2019 . All rights reserved.
- *  * Last modified 5/9/19 11:00 AM
+ *  * Last modified 5/10/19 2:00 AM
  *
  */
 
-package com.example.plusgo;
+package com.example.plusgo.FC;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.plusgo.R;
 import com.sohrab.obd.reader.application.ObdPreferences;
 import com.sohrab.obd.reader.obdCommand.ObdConfiguration;
 import com.sohrab.obd.reader.service.ObdReaderService;
