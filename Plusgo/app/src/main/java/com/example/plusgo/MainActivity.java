@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 finally {
-                    Intent home = new Intent(MainActivity.this, Home.class);
+                    Intent home = new Intent(MainActivity.this, Login.class);
                     startActivity(home);
                 }
             }

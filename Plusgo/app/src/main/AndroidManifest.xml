@@ -11,25 +11,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".UserProfile"></activity>
-        <activity android:name=".TripSummaryActivity" >
-
-        </activity>
-        <activity android:name=".VerifyCode" />
-        <activity android:name=".VerifyMobilePhone" />
-        <activity android:name=".Login" />
-        <activity android:name=".Signup" />
-        <activity android:name=".Home" />
-        <activity android:name=".RatingMainActivity" />
-        <activity android:name=".NicUploadActivity" />
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".LiveCalculation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UPM.AddPreferenceActivity" />
+        <activity android:name=".UPM.NewUserActivity" />
+        <activity android:name=".FC.UserProfile" />
+        <activity
+            android:name=".FC.TripSummaryActivity"
+            android:theme="@style/AppTheme">
+
+        </activity>
+        <activity android:name=".UPM.VerifyCodeActivity" />
+        <activity android:name=".UPM.VerifyMobilePhoneActivity" />
+        <activity android:name=".Login" />
+        <activity android:name=".Signup" /> <!-- <activity android:name=".Home" /> -->
+        <activity android:name=".dvprm.RatingMainActivity" />
+        <activity
+            android:name=".dvprm.RatingPassActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".dvprm.NicUploadActivity" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

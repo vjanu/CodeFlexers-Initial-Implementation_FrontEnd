@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.plusgo.dvprm.NicUploadActivity;
+import com.example.plusgo.dvprm.RatingMainActivity;
+
 
 public class Signup extends AppCompatActivity {
 
@@ -23,7 +26,7 @@ public class Signup extends AppCompatActivity {
 //        btnLog.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent verify = new Intent(Signup.this, VerifyMobilePhone.class);
+//                Intent verify = new Intent(Signup.this, VerifyMobilePhoneActivity.class);
 //                startActivity(verify);
 //
 //            }
