@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -14,11 +15,13 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".LiveCalculation">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".UPM.AddPreferenceActivity" />
         <activity android:name=".UPM.NewUserActivity" />
@@ -38,6 +41,11 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".dvprm.NicUploadActivity" />
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".OPR.Report_accident" android:theme="@style/AppTheme"></activity>
+        <activity android:name=".OPR.Report_traffic_jam" android:theme="@style/AppTheme"></activity>
+        <activity android:name=".OPR.OfferRide" android:theme="@style/AppTheme"></activity>
+        <activity android:name=".OPR.SetRidePass" android:theme="@style/AppTheme"></activity>
+
     </application>
 
 </manifest>
