@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="350dp"
+    android:layout_height="370dp"
+    android:background="@color/background"
+    android:padding="5dp"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/txtClose"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/white"
+        android:text="X"
+        android:textStyle="bold"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:background="@drawable/circlebackground"
+        android:layout_marginRight="15dp"
+        />
+
+
+
+    <android.support.v7.widget.CardView
+
+        android:layout_width="312dp"
+        android:layout_height="170dp"
+        android:layout_rowWeight="2"
+        android:layout_columnWeight="2"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        app:cardBackgroundColor="@color/PopUpbackground"
+        >
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:text="Compliments"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+
+            <!--Compliment 1-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="2dp"
+                android:text="Compliment 1"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+            <!--Compliment 2-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="2dp"
+                android:text="Compliment 2 "
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+            <!--Comliment 3-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="2dp"
+                android:text="Compliment 3"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+            <!--Compliment 4-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="2dp"
+                android:text="Compliment 4"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+
+            <!--Compliment 5-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="2dp"
+                android:text="Compliment 5"
+                android:textColor="@color/white"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/ProgressCard"
+        android:layout_width="312dp"
+        android:layout_height="140dp"
+        android:layout_rowWeight="2"
+        android:layout_columnWeight="2"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        app:cardBackgroundColor="@color/PopUpbackground"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="30dp"
+
+            >
+
+            <ProgressBar
+                android:id="@+id/progressBarNavigation"
+                style="@android:style/Widget.ProgressBar.Large"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/progressBarNavigation"
+                android:layout_marginLeft="32dp"
+                android:text="Navigation"
+                android:textColor="@color/white"
+                android:textSize="10dp" />
+
+            <ProgressBar
+                android:id="@+id/progressBarBehaviour"
+                style="@android:style/Widget.ProgressBar.Large"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/progressBarNavigation"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/progressBarBehaviour"
+                android:layout_marginLeft="113dp"
+
+                android:text="Behaviour"
+                android:textColor="@color/white"
+                android:textSize="10dp" />
+
+
+            <ProgressBar
+                android:id="@+id/progressBarDriving"
+                style="@android:style/Widget.ProgressBar.Large"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/progressBarBehaviour"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/progressBarDriving"
+                android:layout_marginLeft="200dp"
+
+                android:text="Driving"
+                android:textColor="@color/white"
+                android:textSize="10dp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
