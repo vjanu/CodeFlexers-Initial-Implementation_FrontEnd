@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgapps"
-    tools:context=".UserProfile">
+    tools:context=".FC.UserProfile">
 
     <LinearLayout
         android:orientation="horizontal"
