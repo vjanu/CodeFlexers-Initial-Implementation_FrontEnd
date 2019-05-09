@@ -35,8 +35,7 @@ public class SetRidePass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setride);
 
-        srctxt=findViewById(R.id.srctxt);
-        destxt=findViewById(R.id.destxt);
+
         search_btn=findViewById(R.id.search_btn);
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
