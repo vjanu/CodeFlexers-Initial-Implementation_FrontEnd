@@ -1,15 +1,17 @@
 /*
  * *
- *  * Created by Surath Gunawardena
+ *  * Created by Viraj Wickramasinghe
  *  * Copyright (c) 2019 . All rights reserved.
- *  * Last modified 4/30/19 9:50 AM
+ *  * Last modified 5/9/19 10:25 AM
  *
  */
 
-package com.example.plusgo;
+package com.example.plusgo.FC;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.plusgo.R;
 
 public class UserProfile extends AppCompatActivity {
 
