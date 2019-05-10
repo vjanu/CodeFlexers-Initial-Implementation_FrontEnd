@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Surath Gunawardena
+  ~  * Copyright (c) 2019 . All rights reserved.
+  ~  * Last modified 5/10/19 8:06 AM
+  ~  */
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="ring"
+    android:innerRadiusRatio="2.5"
+    android:thickness="4dp"
+    android:useLevel="true"
+
+    >
+
+    <solid android:color="@color/white"></solid>
+
+</shape>
