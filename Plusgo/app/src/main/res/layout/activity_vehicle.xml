@@ -12,21 +12,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="0dp"
 
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="18dp"
+        android:layout_marginEnd="1dp"
         android:layout_marginBottom="8dp">
-        <TextView
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/colorBlack"
-            android:textSize="24dp"
-            android:text="Vehicle Details"/>
-    </LinearLayout>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@color/colorButton"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/colorText"
+                    android:textSize="24dp"
+                    android:text="Vehicle Details"/>
+            </LinearLayout>
 
+
+        </android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -356,17 +368,17 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/music"
+        android:src="@drawable/rec"
         android:layout_weight="0.3"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/music"
+        android:src="@drawable/rec"
         android:layout_weight="0.3"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/music"
+        android:src="@drawable/rec"
         android:layout_weight="0.3"/>
     </LinearLayout>
 
@@ -380,12 +392,12 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/music"
+            android:src="@drawable/rec"
             android:layout_weight="0.5"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/music"
+            android:src="@drawable/rec"
             android:layout_weight="0.5"/>
 
     </LinearLayout>

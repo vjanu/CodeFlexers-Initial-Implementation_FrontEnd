@@ -15,7 +15,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.plusgo.R;
-import com.example.plusgo.Signup;
+import com.example.plusgo.SignUp;
 
 public class VerifyCodeActivity extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
         btnVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent verify = new Intent(VerifyCodeActivity.this, Signup.class);
+                Intent verify = new Intent(VerifyCodeActivity.this, SignUp.class);
                 startActivity(verify);
 
             }
