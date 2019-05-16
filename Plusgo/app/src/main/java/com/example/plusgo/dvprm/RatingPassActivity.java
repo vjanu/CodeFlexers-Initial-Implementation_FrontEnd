@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.plusgo.R;
-import com.example.plusgo.Signup;
+import com.example.plusgo.SignUp;
 
 public class RatingPassActivity extends AppCompatActivity {
 
