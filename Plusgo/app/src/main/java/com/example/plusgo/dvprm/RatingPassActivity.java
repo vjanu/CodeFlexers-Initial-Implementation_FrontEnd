@@ -29,7 +29,7 @@ public class RatingPassActivity extends AppCompatActivity {
     Button btnother;
     Button back;
     Button keyw1,keyw2,keyw3,keyw4,keyw5,keyw6;
-    String vehiclekey[]={"Air Condition","Comfortability","Cleanliness","Noise","Vehicle Quality","Break Functionality"};
+    String vehiclekey[]={"Air Condition","Comfortability","Cleanliness","Noise","Breaks","Vehicle Quality"};
     String driverkey[]={"Bad Navigation","Professionalism","Cleanliness","Service","Music","Reckless Driving"};
 
     @Override
@@ -43,7 +43,7 @@ public class RatingPassActivity extends AppCompatActivity {
         int width = dm1.widthPixels;
         int height = dm1.heightPixels;
 
-        getWindow().setLayout((int)(width*.95),(int)(height*.70));
+        getWindow().setLayout((int)(width*.95),(int)(height*.66));
 
         layoutrew = (LinearLayout)findViewById(R.id.layoutownrew);
         btnother =(Button)findViewById(R.id.btnother);
@@ -95,7 +95,7 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 layoutrew.setVisibility(View.GONE);
-                ((Button)v).setBackgroundColor(Color.TRANSPARENT);
+                ((Button)v).setTextColor(Color.GRAY);
                 editor.putString("selectedKey", keyw1.getText().toString());
                 editor.commit();
             }
