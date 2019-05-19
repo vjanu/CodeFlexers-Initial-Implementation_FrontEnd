@@ -8,4 +8,10 @@
     <color name="colorDelete">#F70000</color>
     <color name="colorBlack">#000000</color>
     <color name="colorButton">#202F65</color>
+
+    <!--Pop up Box Colours-->
+    <!--Added By Surath-->
+    <color name="white">#FFF</color>
+    <color name="background">#202f65</color>
+    <color name="PopUpbackground">#AE204165</color>
 </resources>

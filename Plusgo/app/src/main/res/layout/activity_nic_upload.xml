@@ -11,17 +11,33 @@
 
     <ImageView
         android:id="@+id/image_view_nic"
-        android:layout_width="269dp"
-        android:layout_height="400dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
-    <Button
+        android:src="@drawable/nictemp" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Capture NIC"
-        android:id="@+id/nic_upload"
-        android:layout_gravity="center_horizontal"/>
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/nic_upload"
+            android:layout_width="180dp"
+            android:layout_margin="5dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/keywordbtns"
+            android:drawableTop="@drawable/capture"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:text="I have normal NIC" />
+
+    </LinearLayout>
+
 
 
 </LinearLayout>

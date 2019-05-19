@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgapps"
-    tools:context=".TripSummaryActivity">
+    android:background="@drawable/background"
+    tools:context=".FC.TripSummaryActivity">
 
     <LinearLayout
         android:orientation="vertical"

@@ -20,12 +20,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.plusgo.R;
-import com.example.plusgo.Signup;
+import com.example.plusgo.SignUp;
+
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.GRAY;
+import static android.graphics.Color.WHITE;
 
 public class RatingPassActivity extends AppCompatActivity {
 
     SharedPreferences sharedpreferences;
-    LinearLayout layoutrew;
+    LinearLayout layoutrew,layoutReport;
     Button btnother;
     Button back;
     Button keyw1,keyw2,keyw3,keyw4,keyw5,keyw6;
@@ -43,14 +47,22 @@ public class RatingPassActivity extends AppCompatActivity {
         int width = dm1.widthPixels;
         int height = dm1.heightPixels;
 
-        getWindow().setLayout((int)(width*.95),(int)(height*.66));
+        getWindow().setLayout((int)(width*.95),(int)(height*.70));
 
         layoutrew = (LinearLayout)findViewById(R.id.layoutownrew);
+        layoutReport= (LinearLayout)findViewById(R.id.layoutrep);
         btnother =(Button)findViewById(R.id.btnother);
         btnother.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                keyw1.setTextColor(BLACK);
+                keyw2.setTextColor(BLACK);
+                keyw3.setTextColor(BLACK);
+                keyw4.setTextColor(BLACK);
+                keyw5.setTextColor(BLACK);
+                keyw6.setTextColor(BLACK);
                 layoutrew.setVisibility(View.VISIBLE);
+                layoutReport.setVisibility(View.GONE);
             }
         });
 
@@ -82,6 +94,7 @@ public class RatingPassActivity extends AppCompatActivity {
             keyw4.setText(vehiclekey[3]);
             keyw5.setText(vehiclekey[4]);
             keyw6.setText(vehiclekey[5]);
+
         }else if(selectedTab.equals("driver")){
             keyw1.setText(driverkey[0]);
             keyw2.setText(driverkey[1]);
@@ -89,14 +102,91 @@ public class RatingPassActivity extends AppCompatActivity {
             keyw4.setText(driverkey[3]);
             keyw5.setText(driverkey[4]);
             keyw6.setText(driverkey[5]);
+            layoutReport.setVisibility(View.VISIBLE);
         }
 
         keyw1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 layoutrew.setVisibility(View.GONE);
-                ((Button)v).setTextColor(Color.GRAY);
+                ((Button)v).setTextColor(GRAY);
+                keyw2.setTextColor(BLACK);
+                keyw3.setTextColor(BLACK);
+                keyw4.setTextColor(BLACK);
+                keyw5.setTextColor(BLACK);
+                keyw6.setTextColor(BLACK);
                 editor.putString("selectedKey", keyw1.getText().toString());
+                editor.commit();
+            }
+        });
+
+        keyw2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutrew.setVisibility(View.GONE);
+                ((Button)v).setTextColor(GRAY);
+                keyw1.setTextColor(BLACK);
+                keyw3.setTextColor(BLACK);
+                keyw4.setTextColor(BLACK);
+                keyw5.setTextColor(BLACK);
+                keyw6.setTextColor(BLACK);
+                editor.putString("selectedKey", keyw2.getText().toString());
+                editor.commit();
+            }
+        });
+        keyw3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutrew.setVisibility(View.GONE);
+                ((Button)v).setTextColor(GRAY);
+                keyw1.setTextColor(BLACK);
+                keyw2.setTextColor(BLACK);
+                keyw4.setTextColor(BLACK);
+                keyw5.setTextColor(BLACK);
+                keyw6.setTextColor(BLACK);
+                editor.putString("selectedKey", keyw3.getText().toString());
+                editor.commit();
+            }
+        });
+        keyw4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutrew.setVisibility(View.GONE);
+                ((Button)v).setTextColor(GRAY);
+                keyw1.setTextColor(BLACK);
+                keyw2.setTextColor(BLACK);
+                keyw3.setTextColor(BLACK);
+                keyw5.setTextColor(BLACK);
+                keyw6.setTextColor(BLACK);
+                editor.putString("selectedKey", keyw4.getText().toString());
+                editor.commit();
+            }
+        });
+        keyw5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutrew.setVisibility(View.GONE);
+                ((Button)v).setTextColor(GRAY);
+                keyw1.setTextColor(BLACK);
+                keyw2.setTextColor(BLACK);
+                keyw3.setTextColor(BLACK);
+                keyw4.setTextColor(BLACK);
+                keyw6.setTextColor(BLACK);
+                editor.putString("selectedKey", keyw5.getText().toString());
+                editor.commit();
+            }
+        });
+        keyw6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                layoutrew.setVisibility(View.GONE);
+                ((Button)v).setTextColor(GRAY);
+                keyw1.setTextColor(BLACK);
+                keyw2.setTextColor(BLACK);
+                keyw3.setTextColor(BLACK);
+                keyw4.setTextColor(BLACK);
+                keyw5.setTextColor(BLACK);
+                editor.putString("selectedKey", keyw6.getText().toString());
                 editor.commit();
             }
         });

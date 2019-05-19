@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Ashane Edirisinghe
+  ~  * Copyright (c) 2019 . All rights reserved.
+  ~  * Last modified 5/18/19 4:33 PM
+  ~  */
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="visible"
+    tools:context=".dvprm.RatingDriverActivity">
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center|center_horizontal"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="PLEASE RATE THE PASSENGER"
+            android:textAlignment="center"
+            android:textColor="#FCFCFC"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <RatingBar
+            android:id="@+id/ratingBarD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:stepSize="1"
+            android:visibility="visible"
+            android:theme="@style/RatingBar"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewForDriver"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="3dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="5dp"
+            android:gravity="center|center_horizontal|center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="WHAT NEEDS TO BE IMPROVED ?"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="18dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/keywd1"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/keywordbtnsfordrivers"
+                    android:drawableTop="@drawable/professional"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:padding="10dp"
+                    android:text="Professional Behaviour"
+                    android:textSize="18sp"></Button>
+
+                <Button
+                    android:id="@+id/keywd2"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/keywordbtnsfordrivers"
+                    android:drawableTop="@drawable/timeliness"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:padding="10dp"
+                    android:text="Timeliness"
+                    android:textSize="18sp"></Button>
+
+                <Button
+                    android:id="@+id/keywd3"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/keywordbtnsfordrivers"
+                    android:drawableTop="@drawable/clean"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:padding="10dp"
+                    android:text="Cleanliness"
+                    android:textSize="18sp"></Button>
+
+                <Button
+                    android:id="@+id/keywd4"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/keywordbtnsfordrivers"
+                    android:drawableTop="@drawable/attitude"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:padding="10dp"
+                    android:text="Attitude"
+                    android:textSize="18sp"></Button>
+
+                <Button
+                    android:id="@+id/keywd5"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/keywordbtnsfordrivers"
+                    android:drawableTop="@drawable/social"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:padding="10dp"
+                    android:text="Socialness"
+                    android:textSize="18sp"></Button>
+
+                <Button
+                    android:id="@+id/keywd6"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/keywordbtnsfordrivers"
+                    android:drawableTop="@drawable/review"
+                    android:drawableTint="@color/colorPrimaryDark"
+                    android:padding="10dp"
+                    android:text="Other"
+                    android:textSize="18sp"></Button>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </android.support.v7.widget.CardView>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardViewForDriver2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        app:cardCornerRadius="1dp"
+        app:cardElevation="2dp"
+        android:visibility="gone">
+        <LinearLayout
+            android:id="@+id/layoutownrew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center|center_horizontal"
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:visibility="visible">
+
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/ScrollView01"
+                android:layout_width="wrap_content"
+                android:layout_height="60dip">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Write your own review"
+                    android:inputType="text|textMultiLine"
+                    android:textColor="#030303" />
+            </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <LinearLayout
+        android:id="@+id/layoutsubmitD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:padding="1dp"
+        android:visibility="gone">
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="#202F65"
+            android:text="SUBMIT"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:padding="1dp"
+        android:visibility="visible">
+        <Button
+            android:id="@+id/skip"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:text="skip"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
+    </LinearLayout>
+</LinearLayout>

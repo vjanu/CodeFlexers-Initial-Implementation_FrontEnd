@@ -162,8 +162,33 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp" />
                 </LinearLayout>
-            </LinearLayout>
 
+            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutrep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center|center_horizontal"
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:visibility="gone">
+
+
+            <Button
+                android:id="@+id/btnRpt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:background="#FF0000"
+                android:padding="5dp"
+                android:text="Block Driver"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutownrew"
