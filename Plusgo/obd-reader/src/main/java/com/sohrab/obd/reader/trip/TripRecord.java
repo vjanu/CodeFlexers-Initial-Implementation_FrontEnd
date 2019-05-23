@@ -118,7 +118,7 @@ public class TripRecord implements DefineObdReader {
     private String mPendingTroubleCode;
     private String mEquivRatio;
     //1
-    private float mDistanceTraveledAfterCodesCleared =0.0f;
+    private String mDistanceTraveledAfterCodesCleared;
     private String mControlModuleVoltage;
     private String mFuelRailPressure;
     private String mVehicleIdentificationNumber;
@@ -426,7 +426,7 @@ public class TripRecord implements DefineObdReader {
                 break;
             //2
             case DISTANCE_TRAVELED_AFTER_CODES_CLEARED:
-                mDistanceTraveledAfterCodesCleared = Float.parseFloat(command.getFormattedResult());
+                mDistanceTraveledAfterCodesCleared = command.getFormattedResult();
                 break;
 
             case CONTROL_MODULE_VOLTAGE:
@@ -576,8 +576,7 @@ public class TripRecord implements DefineObdReader {
 
 
     //3
-    //Return Type should change as a float
-    public float getmDistanceTraveledAfterCodesCleared() {
+    public String getmDistanceTraveledAfterCodesCleared() {
         return mDistanceTraveledAfterCodesCleared;
     }
 
@@ -708,5 +707,13 @@ public class TripRecord implements DefineObdReader {
                 "\n" + AvailableCommandNames.PENDING_TROUBLE_CODES.getValue() + ":  " + mPendingTroubleCode;
 
     }
+
+    public String getMileage()
+    {
+        String result = getmDistanceTraveledAfterCodesCleared();
+        String MileageWithoutKm = result.split("km")[0];
+        return MileageWithoutKm;
+    }
+
 
 }
