@@ -99,7 +99,7 @@ public class LiveCalculation extends AppCompatActivity {
 
                 TripRecord tripRecord = TripRecord.getTripRecode(LiveCalculation.this);
 
-                mObdInfoTextView.setText(tripRecord.toString());
+                mObdInfoTextView.setText(tripRecord.getMileage());
                 // here you can fetch real time data from TripRecord using getter methods like
                 //tripRecord.getSpeed();
                 //tripRecord.getEngineRpm();
