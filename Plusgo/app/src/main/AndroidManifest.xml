@@ -19,7 +19,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".UPM.DriverListActivity"></activity>
         <activity android:name=".FC.LiveCalculation"></activity>
-        <activity
+
         <activity
             android:name=".FC.TripSummaryActivity"
             android:theme="@style/AppTheme"></activity>
