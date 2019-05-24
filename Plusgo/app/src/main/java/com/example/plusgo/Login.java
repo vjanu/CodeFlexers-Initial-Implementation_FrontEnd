@@ -79,10 +79,10 @@ public class Login extends AppCompatActivity {
                 if (validateInputs()) {
                     login(username, password);
                 }
-                else {
-                    Toast.makeText(getApplicationContext(),
-                            "Fields Cannot be Empty", Toast.LENGTH_SHORT).show();
-                }
+//                else {
+//                    Toast.makeText(getApplicationContext(),
+//                            "Fields Cannot be Empty", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
     }
