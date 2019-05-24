@@ -50,24 +50,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/photo"
-            android:layout_width="95dp"
-            android:layout_height="74dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.024"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.012"
-            app:srcCompat="@drawable/propic" />
-
-
-
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginTop="12dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/user2"
+            app:civ_border_color="#313030"
+            android:onClick="openCamera"
+            app:civ_border_width="2dp" />
 
     </LinearLayout>
 
@@ -143,7 +136,7 @@
 
         <Spinner
             android:id="@+id/profession"
-            android:layout_width="match_parent"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
@@ -207,34 +200,7 @@
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginRight="5dp">
 
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.022"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.367"
-            app:srcCompat="@drawable/dob" />
-
-        <CalendarView
-            android:id="@+id/simpleCalendarView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -260,6 +226,7 @@
             app:srcCompat="@drawable/gender" />
 
         <RadioGroup
+            android:id="@+id/gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -428,16 +395,37 @@
         </LinearLayout>
     </LinearLayout>
 
-    <android.support.v7.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <ImageButton
-        android:id="@+id/btnPreference"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginLeft="290dp"
-        android:background="@null"
-        app:srcCompat="@drawable/ar4" />
+        android:orientation="horizontal"
+        android:gravity="center">
+
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorButton"
+                android:text="Confirm"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/colorText" />
+
+            <Button
+                android:id="@+id/btnUpdateDetails"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorButton"
+                android:text="Update"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/colorText" />
+
+
+
+
+
+    </LinearLayout>
+
 </LinearLayout>

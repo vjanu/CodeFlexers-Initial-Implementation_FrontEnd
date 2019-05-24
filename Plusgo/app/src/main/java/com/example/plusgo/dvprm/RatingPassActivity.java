@@ -9,7 +9,6 @@
 package com.example.plusgo.dvprm;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.plusgo.R;
-import com.example.plusgo.SignUp;
 
 public class RatingPassActivity extends AppCompatActivity {
 
