@@ -26,6 +26,7 @@ public class RatingMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_main);
+        getSupportActionBar().hide();
 
         ratingbar = (RatingBar)findViewById(R.id.ratingBar);
         layoutcomplement = (LinearLayout)findViewById(R.id.layoutcomplement);
