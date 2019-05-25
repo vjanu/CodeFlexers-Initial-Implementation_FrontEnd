@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< .merge_file_a12724
 <<<<<<< .merge_file_a01500
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#FFC300</color>
 =======
+=======
+>>>>>>> .merge_file_a10400
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#202F65</color>
     <color name="colorAccent">#FF4081</color>
@@ -19,5 +22,8 @@
     <color name="white">#FFF</color>
     <color name="background">#202f65</color>
     <color name="PopUpbackground">#AE204165</color>
+<<<<<<< .merge_file_a12724
 >>>>>>> .merge_file_a06388
+=======
+>>>>>>> .merge_file_a10400
 </resources>
