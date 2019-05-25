@@ -12,22 +12,20 @@
 
     <application
         android:allowBackup="true"
-<<<<<<< .merge_file_a03044
-        android:icon="@drawable/logo"
-        android:label="@string/app_name2"
-=======
         android:icon="@drawable/log10"
         android:label="@string/app_name"
->>>>>>> .merge_file_a04732
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/log10"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".UPM.DriverListActivity"></activity>
-        <activity android:name=".FC.LiveCalculation"></activity>
-
+        <activity android:name=".dvprm.LisenceUploadActivity"></activity>
+        <activity android:name=".dvprm.NicUploadMainActivity" />
+        <activity android:name=".FC.LiveCalculation" />
+        <activity
+            android:name=".FC.UserProfile"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".FC.TripSummaryActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".UPM.VehicleActivity" />
         <activity android:name=".UPM.AddPreferenceActivity" />
         <activity android:name=".UPM.NewUserActivity" />
@@ -35,18 +33,31 @@
         <activity android:name=".UPM.VerifyMobilePhoneActivity" />
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
-        <activity android:name=".dvprm.RatingMainActivity" />
-        <activity
-            android:name=".dvprm.RatingPassActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".dvprm.NicUploadActivity" />
         <activity android:name=".MainActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity> <!-- <activity android:name=".Home" /> -->
+        <activity android:name=".dvprm.DummyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".dvprm.RatingMainActivity" />
+        <activity android:name=".dvprm.RatingDriverActivity" />
+        <activity
+            android:name=".dvprm.RatingPassActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".dvprm.NicUploadActivity" />
+        <activity
+            android:name=".dvprm.CopassengerListActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".OPR.Report_accident"
             android:theme="@style/AppTheme" />
@@ -59,7 +70,6 @@
         <activity
             android:name=".OPR.SetRidePass"
             android:theme="@style/AppTheme" />
-        <activity android:name=".UPM.CameraActivity"/>
     </application>
 
 </manifest>

@@ -12,155 +12,196 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00FCFCFC"
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="visible"
     tools:context=".dvprm.RatingPassActivity">
 
-
-    <LinearLayout
-        android:id="@+id/layoutcomplement"
-        android:layout_width="match_parent"
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center|center_horizontal"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:visibility="visible">
+        android:layout_margin="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView3"
+            <LinearLayout
+                android:id="@+id/layoutcomplement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:padding="3dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="15dp"
+                    android:text="WHAT WENT WRONG ?"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/layvehicle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal"
+                    android:padding="0dp"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/keyw1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/keywordbtns"
+                        android:padding="5dp"
+                        android:text="Air Condition"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/keyw2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/keywordbtns"
+                        android:padding="5dp"
+                        android:text="Comfortability"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layvehicle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal"
+                    android:padding="0dp"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/keyw3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/keywordbtns"
+                        android:padding="5dp"
+                        android:text="Cleanliness"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/keyw4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/keywordbtns"
+                        android:padding="5dp"
+                        android:text="Noise"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/keyw5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/keywordbtns"
+                        android:padding="5dp"
+                        android:text="Vehicle Quality"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layvehicle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal"
+                    android:padding="0dp"
+                    android:visibility="visible">
+
+                    <Button
+                        android:id="@+id/keyw6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/keywordbtns"
+                        android:padding="5dp"
+                        android:text="Break Functionality"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/btnother"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        android:background="@drawable/keywordbtns"
+                        android:padding="5dp"
+                        android:text="Other"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layoutrep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="2"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="WHAT WENT WRONG ?"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:id="@+id/layvehicle"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="20dp"
             android:gravity="center|center_horizontal"
-            android:orientation="horizontal"
-            android:padding="0dp"
-            android:visibility="visible">
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:visibility="gone">
+
 
             <Button
-                android:id="@+id/keyw1"
-                android:layout_width="wrap_content"
+                android:id="@+id/btnRpt"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:text="Air Condition"
+                android:layout_margin="3dp"
+                android:background="#FF0000"
+                android:padding="5dp"
+                android:text="Block Driver"
                 android:textSize="14sp" />
 
-            <Button
-                android:id="@+id/keyw2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:text="Comfortability"
-                android:textSize="14sp" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/layvehicle1"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:gravity="center|center_horizontal"
-            android:orientation="horizontal"
-            android:padding="0dp"
-            android:visibility="visible">
-
-            <Button
-                android:id="@+id/keyw3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="Cleanliness"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/keyw4"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:text="Noise"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/keyw5"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="Vehicle Quality"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layvehicle3"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:gravity="center|center_horizontal"
-            android:orientation="horizontal"
-            android:padding="0dp"
-            android:visibility="visible">
-
-            <Button
-                android:id="@+id/keyw6"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="Break Functionality"
-                android:textSize="14sp" />
-
-            <Button
-                android:id="@+id/btnother"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:text="Other"
-                android:textColor="#FC0303"
-                android:textSize="14sp" />
-        </LinearLayout>
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/layoutownrew"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
         android:gravity="center|center_horizontal"
         android:orientation="vertical"
-        android:padding="5dp"
+        android:padding="3dp"
         android:visibility="gone">
+
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/ScrollView01"
             android:layout_width="wrap_content"
@@ -211,4 +252,6 @@
             android:text="back"
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
     </LinearLayout>
+</LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

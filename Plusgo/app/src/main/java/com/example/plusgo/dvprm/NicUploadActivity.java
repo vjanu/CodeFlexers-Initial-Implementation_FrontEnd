@@ -42,7 +42,6 @@ public class NicUploadActivity extends Activity {
     static final int IMAGE_CAPTURE_CODE = 1001;
     final int CROP_PIC = 2;
 
-
     Uri image_uri;
 
     @Override
@@ -100,7 +99,7 @@ public class NicUploadActivity extends Activity {
 //               imageview.setImageBitmap(thePic);
 
                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-               thePic.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//               thePic.compress(Bitmap.CompressFormat.PNG, 100, bytes);
                String path = MediaStore.Images.Media.insertImage(this.getContentResolver(), thePic, "Title", null);
 
                Log.e("AAAAAAA", path);
