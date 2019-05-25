@@ -2,26 +2,44 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.plusgo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
+<<<<<<< .merge_file_a03044
         android:icon="@drawable/logo"
         android:label="@string/app_name2"
+=======
+        android:icon="@drawable/log10"
+        android:label="@string/app_name"
+>>>>>>> .merge_file_a04732
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".UPM.DriverListActivity"></activity>
+        <activity android:name=".FC.LiveCalculation"></activity>
 
-        <activity android:name=".VerifyCode"></activity>
-        <activity android:name=".VerifyMobilePhone" />
+        <activity
+            android:name=".FC.TripSummaryActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".UPM.VehicleActivity" />
+        <activity android:name=".UPM.AddPreferenceActivity" />
+        <activity android:name=".UPM.NewUserActivity" />
+        <activity android:name=".UPM.VerifyCodeActivity" />
+        <activity android:name=".UPM.VerifyMobilePhoneActivity" />
         <activity android:name=".Login" />
-        <activity android:name=".Signup" />
-        <activity android:name=".Home" />
-
-        <activity android:name=".RatingMainActivity"></activity>
-
-        <activity android:name=".NicUploadActivity" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".dvprm.RatingMainActivity" />
+        <activity
+            android:name=".dvprm.RatingPassActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".dvprm.NicUploadActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +47,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".OPR.Report_accident"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".OPR.Report_traffic_jam"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".OPR.OfferRide"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".OPR.SetRidePass"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".UPM.CameraActivity"/>
     </application>
 
 </manifest>

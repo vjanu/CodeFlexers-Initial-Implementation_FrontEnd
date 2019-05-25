@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="visible"
-    tools:context=".RatingMainActivity">
+    tools:context=".dvprm.RatingMainActivity">
 
 
     <LinearLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< .merge_file_a03444
         android:layout_marginBottom="5dp"
+=======
+        android:background="@color/colorPrimaryDark"
+>>>>>>> .merge_file_a11452
         android:gravity="center|center_horizontal"
         android:orientation="vertical"
         android:paddingLeft="5dp"
@@ -35,6 +38,7 @@
             android:paddingBottom="5dp"
             android:text="PLEASE RATE YOUR EXPERIENCE"
             android:textAlignment="center"
+            android:textColor="#FCFCFC"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -109,8 +113,37 @@
             android:id="@+id/layoutdissatis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< .merge_file_a03444
+=======
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="2"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="WHICH MADE YOU DISSATISFIED ?"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/selectedVehicle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="3dp"
+            android:padding="5dp"
+            android:text="THE VEHICLE"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/selectedDriver"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+>>>>>>> .merge_file_a11452
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+<<<<<<< .merge_file_a03444
             android:layout_marginBottom="5dp"
             android:gravity="center|center_horizontal"
             android:orientation="vertical"
@@ -171,6 +204,27 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
+=======
+            android:layout_marginBottom="3dp"
+            android:padding="5dp"
+            android:text="THE DRIVER"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/selectedCoPass"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="30dp"
+            android:padding="5dp"
+            android:text=" CO - PASSENGERS"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+>>>>>>> .merge_file_a11452
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -185,7 +239,7 @@
         <Button
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="#202F65"
             android:text="SUBMIT"
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
@@ -198,7 +252,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
             android:layout_weight="1"
-            android:background="@android:color/white"
+            android:background="#00FFFFFF"
             android:paddingTop="0dp"
             android:paddingBottom="0dp"
             android:text="skip"
