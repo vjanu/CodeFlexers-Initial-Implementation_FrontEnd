@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.plusgo.dvprm;
+package com.example.plusgo.DVPRM;
 
 import android.content.Context;
 import android.content.Intent;

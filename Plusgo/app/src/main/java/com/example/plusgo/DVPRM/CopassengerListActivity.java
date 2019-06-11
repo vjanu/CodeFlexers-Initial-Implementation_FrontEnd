@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.plusgo.dvprm;
+package com.example.plusgo.DVPRM;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +22,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.R;
-import com.example.plusgo.dvprm.adapters.RecyclerViewAdapter;
-import com.example.plusgo.dvprm.model.copassenger;
+import com.example.plusgo.DVPRM.adapters.RecyclerViewAdapter;
+import com.example.plusgo.DVPRM.model.copassenger;
 
 import org.json.JSONArray;
 import org.json.JSONException;

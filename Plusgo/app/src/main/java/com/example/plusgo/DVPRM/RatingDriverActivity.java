@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.plusgo.dvprm;
+package com.example.plusgo.DVPRM;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,11 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.Toast;
 
 import com.example.plusgo.R;
-
-import static android.graphics.Color.BLACK;
 
 public class RatingDriverActivity extends AppCompatActivity {
 

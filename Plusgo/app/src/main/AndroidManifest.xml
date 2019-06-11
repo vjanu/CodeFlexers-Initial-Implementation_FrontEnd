@@ -17,8 +17,8 @@
         android:roundIcon="@drawable/log10"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".dvprm.LisenceUploadActivity"></activity>
-        <activity android:name=".dvprm.NicUploadMainActivity" />
+        <activity android:name=".DVPRM.LisenceUploadActivity"></activity>
+        <activity android:name=".DVPRM.NicUploadMainActivity" />
         <activity android:name=".FC.LiveCalculation" />
         <activity
             android:name=".FC.UserProfile"
@@ -42,21 +42,21 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity> <!-- <activity android:name=".Home" /> -->
-        <activity android:name=".dvprm.DummyActivity">
+        <activity android:name=".DVPRM.DummyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".dvprm.RatingMainActivity" />
-        <activity android:name=".dvprm.RatingDriverActivity" />
+        <activity android:name=".DVPRM.RatingMainActivity" />
+        <activity android:name=".DVPRM.RatingDriverActivity" />
         <activity
-            android:name=".dvprm.RatingPassActivity"
+            android:name=".DVPRM.RatingPassActivity"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".dvprm.NicUploadActivity" />
+        <activity android:name=".DVPRM.NicUploadActivity" />
         <activity
-            android:name=".dvprm.CopassengerListActivity"
+            android:name=".DVPRM.CopassengerListActivity"
             android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".OPR.Report_accident"

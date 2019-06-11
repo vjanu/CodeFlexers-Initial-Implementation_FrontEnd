@@ -6,12 +6,10 @@
  *
  */
 
-package com.example.plusgo.dvprm;
+package com.example.plusgo.DVPRM;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -20,11 +18,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.plusgo.R;
-import com.example.plusgo.SignUp;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.GRAY;
-import static android.graphics.Color.WHITE;
 
 public class RatingPassActivity extends AppCompatActivity {
 

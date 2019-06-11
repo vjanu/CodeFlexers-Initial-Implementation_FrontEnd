@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.plusgo.dvprm;
+package com.example.plusgo.DVPRM;
 
 import android.Manifest;
 import android.content.ActivityNotFoundException;

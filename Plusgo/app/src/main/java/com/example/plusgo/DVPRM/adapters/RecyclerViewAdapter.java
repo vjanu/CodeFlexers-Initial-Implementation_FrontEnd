@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.plusgo.dvprm.adapters;
+package com.example.plusgo.DVPRM.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.R;
-import com.example.plusgo.dvprm.model.copassenger;
+import com.example.plusgo.DVPRM.model.copassenger;
 
 import java.util.List;
 

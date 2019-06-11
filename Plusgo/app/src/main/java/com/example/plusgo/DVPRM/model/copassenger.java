@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.plusgo.dvprm.model;
+package com.example.plusgo.DVPRM.model;
 
 public class copassenger {
     private String name;
