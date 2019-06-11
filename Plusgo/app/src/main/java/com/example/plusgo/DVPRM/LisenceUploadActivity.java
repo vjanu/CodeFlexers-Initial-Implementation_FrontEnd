@@ -86,13 +86,13 @@ public class LisenceUploadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lisence_upload);
 
-        capture=(Button)findViewById(R.id.button);
-        upload=(Button)findViewById(R.id.button2);
+        capture=(Button)findViewById(R.id.buttonll);
+        upload=(Button)findViewById(R.id.button2ll);
         upload.setEnabled(false);
-        imageview=(ImageView)findViewById(R.id.imageView);
+        imageview=(ImageView)findViewById(R.id.imageViewll);
 
-        SharedPreferences mPrefs = getSharedPreferences("teacherStore",MODE_PRIVATE);
-        id = mPrefs.getString("TeacherId", null);
+//        SharedPreferences mPrefs = getSharedPreferences("teacherStore",MODE_PRIVATE);
+//        id = mPrefs.getString("TeacherId", null);
 
 
         //capturing images from the camera
@@ -231,8 +231,8 @@ public class LisenceUploadActivity extends AppCompatActivity {
                 Bitmap thePic = extras.getParcelable("data");
 
                 Bitmap newPic = RotateBitmap(thePic, 90);
-//                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//                newPic.compress(Bitmap.CompressFormat.PNG, 0, bytes);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                newPic.compress(Bitmap.CompressFormat.PNG, 0, bytes);
                 path = MediaStore.Images.Media.insertImage(this.getContentResolver(), newPic, "Title", null);
 
                 Matrix matrix = new Matrix();
@@ -269,13 +269,13 @@ public class LisenceUploadActivity extends AppCompatActivity {
             // indicate image type and Uri
             cropIntent.setDataAndType(image_uri, "image/*");
             // set crop properties
-//            cropIntent.putExtra("crop", "true");
+            cropIntent.putExtra("crop", "true");
             // indicate aspect of desired crop
-//            cropIntent.putExtra("aspectX", 3);//change this to make it a square or rectangle
-//            cropIntent.putExtra("aspectY", 4);//change this to make it a square or rectangle
+            cropIntent.putExtra("aspectX", 3);//change this to make it a square or rectangle
+            cropIntent.putExtra("aspectY", 4);//change this to make it a square or rectangle
             // indicate output X and Y
-//            cropIntent.putExtra("outputX", 1024);
-//            cropIntent.putExtra("outputY", 1024);
+            cropIntent.putExtra("outputX", 1024);
+            cropIntent.putExtra("outputY", 1024);
             // retrieve data on return
             cropIntent.putExtra("return-data", true);
 

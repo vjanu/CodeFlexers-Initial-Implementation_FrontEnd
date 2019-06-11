@@ -11,13 +11,15 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".app.AppController"
         android:allowBackup="true"
         android:icon="@drawable/log10"
         android:label="@string/app_name"
         android:roundIcon="@drawable/log10"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".DVPRM.LisenceUploadActivity"></activity>
+        <activity android:name=".DVPRM.NicUploadElecActivity"></activity>
+        <activity android:name=".DVPRM.LisenceUploadActivity" />
         <activity android:name=".DVPRM.NicUploadMainActivity" />
         <activity android:name=".FC.LiveCalculation" />
         <activity
