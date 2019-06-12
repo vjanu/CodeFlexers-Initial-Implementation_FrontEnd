@@ -34,12 +34,15 @@ import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
 import com.example.plusgo.R;
+import com.example.plusgo.Utility.Telephone;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VerifyMobilePhoneActivity extends AppCompatActivity {
     private static final String KEY_EMPTY = "";
@@ -50,10 +53,15 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
     private String JSON_URL_CHECK = BASECONTENT.IpAddress + "/telephone/specific/";
     private boolean result = false;
     private RequestQueue requestQueue;
+    List<Telephone> tpN;
+    static int x;
+//    private Telephone telephone = new Telephone();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_mobile_phone);
+
+        tpN = new ArrayList<>();
 
         number = (TextView) findViewById(R.id.phoneNumber);
         account = (TextView) findViewById(R.id.account);
@@ -65,6 +73,9 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
             public void onClick(View v) {
                 tp = number.getText().toString().trim();
                 if (validateInputs()) {
+                    isExists();
+
+                    Log.d("ttt", String.valueOf(x));
                     addTP();
                 }
             }
@@ -84,7 +95,7 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
     public void addTP() {
         try {
 
-            if(isExists()){
+            if(x > 0){
                 number.setError("Telephone Number already exists");
                 number.requestFocus();
             }
@@ -145,25 +156,32 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
 
     }
 
-    private boolean isExists() {
+    private void isExists() {
+
         Log.d("www1","qqqqqq");
         JsonArrayRequest request = new JsonArrayRequest(JSON_URL_CHECK+tp, new Response.Listener<JSONArray>() {
 
             public void onResponse(JSONArray response) {
-
-                JSONObject jsonObject = null;
-                for(int i= 0; i<response.length(); i++){
-                    Log.d("www2",String.valueOf(response.length()));
-                    try{
-                        result = true;
-                    }catch (Exception e){
-
-                        e.printStackTrace();
-                        Log.d("JSONREQUEST","ERROR");
-                        Toast.makeText(VerifyMobilePhoneActivity.this, "Error Occured", Toast.LENGTH_LONG).show();
-                    }
-
-                }
+            x = response.length();
+                Log.d("size1", String.valueOf(x));
+//                JSONObject jsonObject = null;
+//                for(int i= 0; i<response.length(); i++){
+//                    Log.d("www2",String.valueOf(response.length()));
+//                    try{
+//                        Telephone telephone = new Telephone();
+//                        jsonObject = response.getJSONObject(i);
+//                        telephone.setTelephoneNumber(jsonObject.getString("Telephone"));
+//                        Log.d("zzz",jsonObject.getString("Telephone"));
+//                        tpN.add(telephone);
+//
+//                    }catch (Exception e){
+//
+//                        e.printStackTrace();
+//                        Log.d("JSONREQUEST","ERROR");
+//                        Toast.makeText(VerifyMobilePhoneActivity.this, "Error Occured", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                }
 
             }
         }, new Response.ErrorListener() {
@@ -177,7 +195,7 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(VerifyMobilePhoneActivity.this);
         requestQueue.add(request);
-        return result;
+
     }
 
     public void sendSMS(){
