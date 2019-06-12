@@ -18,14 +18,12 @@
         android:roundIcon="@drawable/log10"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".UPM.DriverListActivity"></activity>
+        <activity android:name=".FC.LiveCalculation"></activity>
 
-        <activity android:name=".FC.LiveCalculation" />
-        <activity
-            android:name=".FC.UserProfile"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".FC.TripSummaryActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"></activity>
         <activity android:name=".UPM.VehicleActivity" />
         <activity android:name=".UPM.AddPreferenceActivity" />
         <activity android:name=".UPM.NewUserActivity" />
@@ -75,6 +73,7 @@
         <activity
             android:name=".OPR.SetRidePass"
             android:theme="@style/AppTheme" />
+        <activity android:name=".UPM.CameraActivity"/>
     </application>
 
 </manifest>

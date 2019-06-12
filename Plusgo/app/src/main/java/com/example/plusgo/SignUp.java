@@ -101,7 +101,7 @@ public class SignUp extends AppCompatActivity {
 
     //method to check whether the username has already registered
     private void isUserExists(String userName) {
-        final String JSON_URL = BASECONTENT.IpAddress+"/users/validate/"+userName;
+        final String JSON_URL = BASECONTENT.IpAddress+"/login/validate/"+userName;
         Log.e("JSONREQUEST","isUserExists");
         request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
             public void onResponse(JSONArray response) {
@@ -135,7 +135,7 @@ public class SignUp extends AppCompatActivity {
     public void addNewUser(String Username,String Password,String Name) {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(SignUp.this);
-            String URL = BASECONTENT.IpAddress+"/users";
+            String URL = BASECONTENT.IpAddress+"/login";
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("Username", Username);
             jsonBody.put("Password", Password);
@@ -145,7 +145,10 @@ public class SignUp extends AppCompatActivity {
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(SignUp.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this, "Successfully Registered", Toast.LENGTH_LONG).show();
+                    finish();
+                    Intent directToLogin = new Intent(SignUp.this, Login.class);
+                    startActivity(directToLogin);
                     Log.i("LOG_VOLLEY", response);
                 }
             }, new Response.ErrorListener() {

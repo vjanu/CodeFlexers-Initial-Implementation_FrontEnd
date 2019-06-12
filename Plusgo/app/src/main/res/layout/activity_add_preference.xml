@@ -79,6 +79,7 @@
             app:srcCompat="@drawable/gender" />
 
         <RadioGroup
+            android:id="@+id/gPref"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -158,6 +159,7 @@
             app:srcCompat="@drawable/lang" />
 
         <RadioGroup
+            android:id="@+id/lang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -236,6 +238,7 @@
             app:srcCompat="@drawable/smoking" />
 
         <RadioGroup
+            android:id="@+id/smo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -309,6 +312,7 @@
             app:srcCompat="@drawable/music" />
 
         <RadioGroup
+            android:id="@+id/musi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -382,6 +386,7 @@
             app:srcCompat="@drawable/motion" />
 
         <RadioGroup
+            android:id="@+id/sic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -418,15 +423,38 @@
             app:layout_constraintVertical_bias="0.359"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnConfirm"
-        android:layout_width="374dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorButton"
-        android:text="Confirm"
-        android:layout_gravity="center"
-        android:layout_marginTop="35dp"
-        android:textColor="@color/colorText" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorButton"
+                android:text="Confirm"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/colorText" />
+
+            <Button
+                android:id="@+id/btnUpdatePreferences"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorButton"
+                android:text="Update"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/colorText" />
+
+
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

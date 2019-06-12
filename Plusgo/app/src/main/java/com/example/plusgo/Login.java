@@ -25,7 +25,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.plusgo.UPM.DriverListActivity;
 import com.example.plusgo.UPM.NewUserActivity;
+import com.example.plusgo.UPM.VehicleActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,15 +42,13 @@ import java.util.List;
 public class Login extends AppCompatActivity {
 
     private static final String KEY_EMPTY = "";
-    private static final String STUDENT = "Student";
-    private static final String TEACHER = "Teacher";
     private EditText etUsername;
     private EditText etPassword;
     private String username;
     private String password;
     private ProgressDialog pDialog;
     BaseContent BASECONTENT = new BaseContent();
-    private String JSON_URL = BASECONTENT.IpAddress + "/users/specific/";
+    private String JSON_URL = BASECONTENT.IpAddress + "/login/specific/";
 
 
     private JsonArrayRequest request;
@@ -75,6 +75,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 username = etUsername.getText().toString().trim();
                 password = etPassword.getText().toString().trim();
+
                 if (validateInputs()) {
                     login(username, password);
                 }
