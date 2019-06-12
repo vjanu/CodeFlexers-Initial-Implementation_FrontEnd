@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!--Driver Name-->
             <TextView
                 android:id="@+id/txtUserName"
                 android:text="Sunil Perera"
@@ -28,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <!--Vehicle -->
             <TextView
                 android:id="@+id/VehicleName"
                 android:layout_below="@+id/txtUserName"
@@ -37,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <!--Trip ID-->
             <TextView
                 android:id="@+id/UserID"
                 android:layout_below="@+id/VehicleName"
@@ -46,8 +49,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            <!--User Circle Imgae-->
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
@@ -57,6 +61,7 @@
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="1dp" />
 
+            <!--Link View Profile-->
             <TextView
                 android:id="@+id/txtviewprofile"
                 android:layout_width="wrap_content"
@@ -81,6 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!--Begin of Date Card Layout-->
             <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,16 +94,14 @@
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-
-                >
+                android:layout_margin="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="2dp">
+                    android:padding="4dp">
 
                     <TextView
                         android:id="@+id/lblDate"
@@ -127,8 +131,10 @@
                         android:textColor="#6f6f6f"
                         android:textSize="18sp" />
                 </LinearLayout>
-
             </android.support.v7.widget.CardView>
+            <!--End of Date card Layout-->
+
+            <!--Begin of Time Card Layout-->
             <android.support.v7.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,15 +142,16 @@
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="5dp"
+                android:layout_margin="8dp"
+
 
                 >
                 <LinearLayout
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="4dp">
 
                     <TextView
                         android:id="@+id/lblTime"
@@ -175,6 +182,8 @@
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
+            <!--End of Time Card Layout-->
+
 
             <!--2nd Row-->
             <android.support.v7.widget.CardView
@@ -184,12 +193,11 @@
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
-
+                android:layout_margin="8dp"
                 >
                 <LinearLayout
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:padding="4dp"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -232,12 +240,12 @@
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
+                android:layout_margin="8dp"
 
                 >
                 <LinearLayout
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:padding="4dp"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -291,12 +299,12 @@
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
+                android:layout_margin="8dp"
 
                 >
                 <LinearLayout
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:padding="4dp"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -336,12 +344,12 @@
                 android:layout_rowWeight="1"
                 app:cardElevation="6dp"
                 app:cardCornerRadius="12dp"
-                android:layout_margin="12dp"
+                android:layout_margin="8dp"
 
                 >
                 <LinearLayout
                     android:orientation="vertical"
-                    android:padding="16dp"
+                    android:padding="4dp"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -378,7 +386,14 @@
         </GridLayout>
 
 
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Join a Ride"
+            android:padding="10dp"
+            />
     </LinearLayout>
+
+
 
 </ScrollView>
