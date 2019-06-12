@@ -11,10 +11,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".app.AppController"
         android:allowBackup="true"
-        android:icon="@drawable/log10"
+        android:icon="@mipmap/logoplusgo_round"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logoplusgo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".UPM.DriverListActivity"></activity>
@@ -30,18 +31,36 @@
         <activity android:name=".UPM.VerifyMobilePhoneActivity" />
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
-        <activity android:name=".dvprm.RatingMainActivity" />
-        <activity
-            android:name=".dvprm.RatingPassActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".dvprm.NicUploadActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+        </activity> <!-- <activity android:name=".Home" /> -->
+        <activity android:name=".DVPRM.DummyActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
+
+        <activity
+            android:name=".DVPRM.DocUploadActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".DVPRM.LisenceUpActivity"></activity>
+        <activity android:name=".DVPRM.NicUpActivity" />
+        <activity android:name=".DVPRM.NicUploadMainActivity" />
+        <activity android:name=".DVPRM.RatingMainActivity" />
+        <activity android:name=".DVPRM.RatingDriverActivity" />
+        <activity
+            android:name=".DVPRM.RatingPassActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".DVPRM.CopassengerListActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
         <activity
             android:name=".OPR.Report_accident"
             android:theme="@style/AppTheme" />
