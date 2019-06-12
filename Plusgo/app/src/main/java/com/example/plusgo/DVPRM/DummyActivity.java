@@ -53,7 +53,7 @@ public class DummyActivity extends AppCompatActivity {
         UploLice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent verify = new Intent(DummyActivity.this, LisenceUploadActivity.class);
+                Intent verify = new Intent(DummyActivity.this, LisenceUpActivity.class);
                 startActivity(verify);
             }
         });

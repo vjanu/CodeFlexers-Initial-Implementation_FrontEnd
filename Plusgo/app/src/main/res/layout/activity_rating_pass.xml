@@ -51,7 +51,7 @@
                     android:paddingBottom="15dp"
                     android:text="WHAT WENT WRONG ?"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -236,7 +236,7 @@
             android:background="#202F65"
             android:text="DONE"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/back"

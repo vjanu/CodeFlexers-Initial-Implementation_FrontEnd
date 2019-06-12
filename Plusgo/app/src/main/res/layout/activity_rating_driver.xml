@@ -40,7 +40,7 @@
             android:text="PLEASE RATE THE PASSENGER"
             android:textAlignment="center"
             android:textColor="#FCFCFC"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <RatingBar
@@ -67,6 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:layout_margin="5dp"
             android:gravity="center|center_horizontal|center_vertical">
 
@@ -74,12 +76,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="WHAT NEEDS TO BE IMPROVED ?"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textSize="16sp" />
         </LinearLayout>
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="18dp">
 
             <LinearLayout
@@ -91,7 +92,7 @@
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/keywordbtnsfordrivers"
@@ -99,14 +100,14 @@
                     android:drawableTint="@color/colorPrimaryDark"
                     android:padding="10dp"
                     android:text="Professional Behaviour"
-                    android:textSize="18sp"></Button>
+                    android:textSize="16sp"></Button>
 
                 <Button
                     android:id="@+id/keywd2"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/keywordbtnsfordrivers"
@@ -114,14 +115,14 @@
                     android:drawableTint="@color/colorPrimaryDark"
                     android:padding="10dp"
                     android:text="Timeliness"
-                    android:textSize="18sp"></Button>
+                    android:textSize="16sp"></Button>
 
                 <Button
                     android:id="@+id/keywd3"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/keywordbtnsfordrivers"
@@ -129,14 +130,14 @@
                     android:drawableTint="@color/colorPrimaryDark"
                     android:padding="10dp"
                     android:text="Cleanliness"
-                    android:textSize="18sp"></Button>
+                    android:textSize="16sp"></Button>
 
                 <Button
                     android:id="@+id/keywd4"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/keywordbtnsfordrivers"
@@ -144,14 +145,14 @@
                     android:drawableTint="@color/colorPrimaryDark"
                     android:padding="10dp"
                     android:text="Attitude"
-                    android:textSize="18sp"></Button>
+                    android:textSize="16sp"></Button>
 
                 <Button
                     android:id="@+id/keywd5"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/keywordbtnsfordrivers"
@@ -159,14 +160,14 @@
                     android:drawableTint="@color/colorPrimaryDark"
                     android:padding="10dp"
                     android:text="Socialness"
-                    android:textSize="18sp"></Button>
+                    android:textSize="16sp"></Button>
 
                 <Button
                     android:id="@+id/keywd6"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="5dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/keywordbtnsfordrivers"
@@ -174,7 +175,7 @@
                     android:drawableTint="@color/colorPrimaryDark"
                     android:padding="10dp"
                     android:text="Other"
-                    android:textSize="18sp"></Button>
+                    android:textSize="16sp"></Button>
             </LinearLayout>
         </HorizontalScrollView>
     </android.support.v7.widget.CardView>
@@ -193,7 +194,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="20dp"
-            android:gravity="center|center_horizontal"
+            android:gravity="center|center_horizontal|center_vertical"
             android:orientation="vertical"
             android:padding="3dp"
             android:visibility="visible">
@@ -201,7 +202,7 @@
             <android.support.v4.widget.NestedScrollView
                 android:id="@+id/ScrollView01"
                 android:layout_width="wrap_content"
-                android:layout_height="60dip">
+                android:layout_height="120dp">
 
                 <EditText
                     android:layout_width="wrap_content"
@@ -235,7 +236,7 @@
             android:background="#202F65"
             android:text="SUBMIT"
             android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

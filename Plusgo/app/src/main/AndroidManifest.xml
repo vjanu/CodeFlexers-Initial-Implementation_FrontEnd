@@ -18,9 +18,7 @@
         android:roundIcon="@drawable/log10"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".DVPRM.NicUploadElecActivity"></activity>
-        <activity android:name=".DVPRM.LisenceUploadActivity" />
-        <activity android:name=".DVPRM.NicUploadMainActivity" />
+
         <activity android:name=".FC.LiveCalculation" />
         <activity
             android:name=".FC.UserProfile"
@@ -36,7 +34,6 @@
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
-
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
@@ -51,12 +48,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".DVPRM.DocUploadActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".DVPRM.LisenceUpActivity"></activity>
+        <activity android:name=".DVPRM.NicUpActivity" />
+        <activity android:name=".DVPRM.NicUploadMainActivity" />
         <activity android:name=".DVPRM.RatingMainActivity" />
         <activity android:name=".DVPRM.RatingDriverActivity" />
         <activity
             android:name=".DVPRM.RatingPassActivity"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".DVPRM.NicUploadActivity" />
         <activity
             android:name=".DVPRM.CopassengerListActivity"
             android:theme="@style/AppTheme.CustomTheme" />

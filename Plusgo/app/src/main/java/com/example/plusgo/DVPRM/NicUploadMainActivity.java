@@ -26,17 +26,21 @@ public class NicUploadMainActivity extends AppCompatActivity {
 
         btnGeneralNIC =(Button)findViewById(R.id.nic_upload);
         btnElecNIC =(Button)findViewById(R.id.nic_upload_elec);
+
         btnGeneralNIC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent verify = new Intent(NicUploadMainActivity.this, NicUploadActivity.class);
+                Intent verify = new Intent(NicUploadMainActivity.this, NicUpActivity.class);
                 startActivity(verify);
+                finish();
             }
         });
+
         btnElecNIC.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent verify1 = new Intent(NicUploadMainActivity.this, NicUploadElecActivity.class);
+                Intent verify1 = new Intent(NicUploadMainActivity.this, NicUpActivity.class);
                 startActivity(verify1);
+                finish();
             }
         });
     }

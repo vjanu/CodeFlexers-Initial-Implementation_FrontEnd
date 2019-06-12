@@ -32,9 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="137dp"
+        android:layout_marginEnd="114dp"
         android:layout_marginBottom="367dp"
-        android:text="Rate by Driver"
+        android:text="Rate by Passenger"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="201dp" />
 

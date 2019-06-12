@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +19,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.plusgo.BaseContent;
 import com.example.plusgo.app.AppController;
 import com.example.plusgo.R;
 
@@ -35,8 +36,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NicUploadElecActivity extends AppCompatActivity {
+public class DocUploadActivity extends AppCompatActivity {
 
+    BaseContent BASECONTENT = new BaseContent();
     Button buttonChoose;
     FloatingActionButton buttonUpload;
     Toolbar toolbar;
@@ -47,11 +49,10 @@ public class NicUploadElecActivity extends AppCompatActivity {
     int PICK_IMAGE_REQUEST = 1;
     int bitmap_size = 100; // range 1 - 100
 
-    private static final String TAG = NicUploadElecActivity.class.getSimpleName();
+    private static final String TAG = DocUploadActivity.class.getSimpleName();
 
-    /* 10.0.2.2 adalah IP Address localhost Emulator Android Studio. Ganti IP Address tersebut dengan
-    IP Address Laptop jika di RUN di HP/Genymotion. HP/Genymotion dan Laptop harus 1 jaringan! */
-    private String UPLOAD_URL = "http://192.168.1.4:8080/android/upload_image/upload.php";
+//    private String UPLOAD_URL = "http://192.168.1.4:8080/android/upload_image/upload.php";
+    private String UPLOAD_URL = BASECONTENT.phpIP+"/android/upload_image/upload.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -63,11 +64,19 @@ public class NicUploadElecActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nic_upload_elec);
+        setContentView(R.layout.activity_doc_upload);
+
+        DisplayMetrics dm1 = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm1);
+
+        int width = dm1.widthPixels;
+        int height = dm1.heightPixels;
+
+        getWindow().setLayout((int)(width*.80),(int)(height*.50));
 
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (FloatingActionButton) findViewById(R.id.buttonUpload);
@@ -101,7 +110,7 @@ public class NicUploadElecActivity extends AppCompatActivity {
     }
 
     private void uploadImage() {
-            //menampilkan progress dialog
+            //progress dialog
             final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                     new Response.Listener<String>() {
@@ -115,42 +124,40 @@ public class NicUploadElecActivity extends AppCompatActivity {
                                 if (success == 1) {
                                     Log.e("v Add", jObj.toString());
 
-                                    Toast.makeText(NicUploadElecActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(DocUploadActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
                                     kosong();
 
                                 } else {
-                                    Toast.makeText(NicUploadElecActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(DocUploadActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
 
-                            //menghilangkan progress dialog
+                            //progress dialog
                             loading.dismiss();
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            //menghilangkan progress dialog
+                            //progress dialog
                             loading.dismiss();
 
-                            //menampilkan toast
-                            Toast.makeText(NicUploadElecActivity.this, "Phone Incompatibility", Toast.LENGTH_LONG).show();
+                            //toast
+                            Toast.makeText(DocUploadActivity.this, "Phone incompatibility or server error", Toast.LENGTH_LONG).show();
                             Log.e(TAG,"Response error");
                         }
                     }) {
                 @Override
                 protected Map<String, String> getParams() {
-                    //membuat parameters
+                    //parameters
                     Map<String, String> params = new HashMap<String, String>();
 
-                    //menambah parameter yang di kirim ke web servis
                     params.put(KEY_IMAGE, getStringImage(decoded));
                     params.put(KEY_NAME, txt_name.getText().toString().trim());
 
-                    //kembali ke parameters
                     Log.e(TAG, "" + params);
                     return params;
                 }
@@ -174,10 +181,9 @@ public class NicUploadElecActivity extends AppCompatActivity {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri filePath = data.getData();
             try {
-                //mengambil fambar dari Gallery
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                // 512 adalah resolusi tertinggi setelah image di resize, bisa di ganti.
-                setToImageView(getResizedBitmap(bitmap, 512));
+
+                setToImageView(getResizedBitmap(bitmap, 1024));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -187,6 +193,7 @@ public class NicUploadElecActivity extends AppCompatActivity {
     private void kosong() {
         imageView.setImageResource(0);
         txt_name.setText(null);
+        finish();
     }
 
     private void setToImageView(Bitmap bmp) {
@@ -195,11 +202,10 @@ public class NicUploadElecActivity extends AppCompatActivity {
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, bytes);
         decoded = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
 
-        //menampilkan gambar yang dipilih dari camera/gallery ke ImageView
         imageView.setImageBitmap(decoded);
     }
 
-    // fungsi resize image
+    //resize image
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();

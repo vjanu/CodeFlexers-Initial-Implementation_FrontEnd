@@ -12,41 +12,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center|center_horizontal|center_vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".DVPRM.NicUploadMainActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:orientation="vertical">
+        android:layout_gravity="start|top"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp">
 
-        <Button
-            android:id="@+id/nic_upload"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
             android:background="@drawable/keywordbtns"
-            android:drawableTop="@drawable/capture"
-            android:drawableTint="@color/colorPrimaryDark"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:text="I have normal NIC" />
+            android:gravity="start"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/nic_upload_elec"
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center|center_horizontal"
+                android:scaleType="fitCenter"
+                android:layout_margin="5dp"
+                android:src="@drawable/nictemp" />
+
+            <Button
+                android:id="@+id/nic_upload"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_margin="5dp"
+                android:background="@drawable/keywordbtns"
+                android:drawableTop="@drawable/capture"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="I have \n non electronic NIC" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
+            android:gravity="bottom"
             android:background="@drawable/keywordbtns"
-            android:drawableTop="@drawable/cap"
-            android:drawableTint="@color/colorPrimaryDark"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
-            android:text="I have electronic NIC"
-            tools:visibility="visible" />
-    </LinearLayout>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_margin="5dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/nic_ele" />
+
+            <Button
+                android:id="@+id/nic_upload_elec"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_margin="5dp"
+                android:background="@drawable/keywordbtns"
+                android:drawableTop="@drawable/capture"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:text="I have \n electronic NIC"
+                tools:visibility="visible" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>
