@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ /**
+  ~  * Created by Ashane Edirisinghe
+  ~  * Copyright (c) 2019 . All rights reserved.
+  ~  * Last modified 5/18/19 5:52 PM
+  ~  */
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+    <stroke android:width="5dp"
+        android:color="@color/colorPrimaryDark"/>
+    <gradient
+        android:angle="270"
+        android:startColor="#C0C0C0"
+        android:endColor="#D3D3D3"/>
+    <corners
+        android:bottomLeftRadius="250dp"
+        android:bottomRightRadius="250dp"
+        android:topLeftRadius="250dp"
+        android:topRightRadius="250dp" />
+    <padding
+        android:left="5dp"
+        android:right="5dp" />
+</shape>

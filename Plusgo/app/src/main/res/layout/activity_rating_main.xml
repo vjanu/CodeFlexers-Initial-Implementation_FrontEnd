@@ -7,7 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:visibility="visible"
-    tools:context=".dvprm.RatingMainActivity">
+    tools:context=".DVPRM.RatingMainActivity">
 
 
     <LinearLayout
@@ -33,7 +33,7 @@
             android:text="PLEASE RATE YOUR EXPERIENCE"
             android:textAlignment="center"
             android:textColor="#FCFCFC"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <RatingBar
@@ -42,137 +42,261 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:stepSize="1"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:theme="@style/RatingBar"
+            />
     </LinearLayout>
 
-
-    <LinearLayout
-        android:id="@+id/layoutcomplement"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center|center_horizontal"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:visibility="gone">
+        android:layout_margin="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="6dp">
 
-        <TextView
-            android:id="@+id/textView3"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="2"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="WRITE A COMPLEMENT TO THE DRIVER"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:hint="write here (Optional)" />
+            <LinearLayout
+                android:id="@+id/layoutcomplement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:paddingTop="30dp"
+                android:paddingBottom="30dp"
+                android:visibility="gone">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="2"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="WRITE A COMPLEMENT TO THE DRIVER"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/layoutdissatis"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:gravity="center|center_horizontal"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:visibility="gone">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="write here (Optional)"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
+                    android:textAlignment="center" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="2"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="WHICH MADE YOU DISSATISFIED ?"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-        <Button
-            android:id="@+id/selectedVehicle"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="3dp"
-            android:padding="5dp"
-            android:text="THE VEHICLE"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:id="@+id/layoutdissatis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:paddingLeft="5dp"
+                android:paddingTop="3dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="3dp"
+                android:visibility="gone">
 
-        <Button
-            android:id="@+id/selectedDriver"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="3dp"
-            android:padding="5dp"
-            android:text="THE DRIVER"
-            android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_weight="2"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="5dp"
+                    android:text="WHICH MADE YOU DISSATISFIED ?"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/selectedCoPass"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginRight="30dp"
-            android:padding="5dp"
-            android:text=" CO - PASSENGERS"
-            android:textSize="18sp" />
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardBackgroundColor="#D3D5DB"
+                    app:cardElevation="6dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:background="#D3D5DB"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-    </LinearLayout>
+                        <ImageView
+                            android:id="@+id/imgvehi1"
+                            android:layout_width="48dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="#00FFFFFF"
+                            app:srcCompat="@drawable/vehicle" />
 
+                        <Button
+                            android:id="@+id/selectedVehicle"
+                            android:layout_width="180dp"
+                            android:layout_height="60dp"
+                            android:background="@android:color/transparent"
+                            android:padding="3dp"
+                            android:text="THE VEHICLE"
+                            android:textSize="16sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:gravity="center|center_horizontal"
-        android:orientation="vertical"
-        android:padding="1dp">
+                        <ImageView
+                            android:id="@+id/img"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:background="#00FFFFFF"
+                            app:srcCompat="@android:drawable/checkbox_on_background" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
 
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:background="#202F65"
-            android:text="SUBMIT"
-            android:textColor="@android:color/background_light"
-            android:textSize="18sp" />
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardBackgroundColor="#D3D5DB"
+                    app:cardElevation="6dp">
 
-        <Button
-            android:id="@+id/skip"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1"
-            android:background="#00FFFFFF"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:text="skip"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
-    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:background="#D3D5DB"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgvehi2"
+                            android:layout_width="50dp"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="#00FFFFFF"
+                            app:srcCompat="@drawable/driver" />
+
+                        <Button
+                            android:id="@+id/selectedDriver"
+                            android:layout_width="180dp"
+                            android:layout_height="60dp"
+                            android:background="@android:color/transparent"
+                            android:padding="3dp"
+                            android:text="THE DRIVER"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/img1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/add2" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardBackgroundColor="#D3D5DB"
+                    app:cardElevation="6dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:background="#D3D5DB"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgvehi3"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="#00FFFFFF"
+                            app:srcCompat="@drawable/copassenger" />
+
+                        <Button
+                            android:id="@+id/selectedCoPass"
+                            android:layout_width="180dp"
+                            android:layout_height="60dp"
+                            android:background="@android:color/transparent"
+                            android:padding="3dp"
+                            android:text=" CO - PASSENGERS"
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:id="@+id/img2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/add2" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutsubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center|center_horizontal|center_vertical"
+                android:orientation="vertical"
+                android:padding="1dp"
+                android:visibility="gone">
+
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:background="#202F65"
+                    android:text="SUBMIT"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/skip"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="0dp"
+                    android:text="skip"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle.Inverse" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

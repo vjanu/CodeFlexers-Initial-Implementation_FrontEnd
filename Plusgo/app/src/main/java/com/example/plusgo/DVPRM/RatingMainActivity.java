@@ -6,7 +6,7 @@
  *
  */
 
-package com.example.plusgo.dvprm;
+package com.example.plusgo.DVPRM;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +27,8 @@ public class RatingMainActivity extends AppCompatActivity {
     RatingBar ratingbar;
     LinearLayout layoutcomplement;
     LinearLayout layoutdissatis;
-    Button vehiclebtn,driverbtn;
+    LinearLayout layoutsubmit;
+    Button vehiclebtn,driverbtn,copassengerbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class RatingMainActivity extends AppCompatActivity {
         ratingbar = (RatingBar)findViewById(R.id.ratingBar);
         layoutcomplement = (LinearLayout)findViewById(R.id.layoutcomplement);
         layoutdissatis = (LinearLayout)findViewById(R.id.layoutdissatis);
+        layoutsubmit = (LinearLayout)findViewById(R.id.layoutsubmit);
 
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
@@ -46,9 +48,11 @@ public class RatingMainActivity extends AppCompatActivity {
                 if(rating == 5.0){
                     layoutcomplement.setVisibility(View.VISIBLE);
                     layoutdissatis.setVisibility(View.GONE);
+                    layoutsubmit.setVisibility(View.VISIBLE);
                 }else{
                     layoutcomplement.setVisibility(View.GONE);
                     layoutdissatis.setVisibility(View.VISIBLE);
+                    layoutsubmit.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -75,6 +79,18 @@ public class RatingMainActivity extends AppCompatActivity {
                 editor.putString("selectedRateTab", "driver");
                 editor.commit();
                 Intent verify = new Intent(RatingMainActivity.this, RatingPassActivity.class);
+                startActivity(verify);
+            }
+        });
+
+        copassengerbtn=(Button)findViewById(R.id.selectedCoPass);
+        copassengerbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                editor.putString("selectedRateTab", "copassenger");
+                editor.commit();
+                Intent verify = new Intent(RatingMainActivity.this, CopassengerListActivity.class);
                 startActivity(verify);
             }
         });
