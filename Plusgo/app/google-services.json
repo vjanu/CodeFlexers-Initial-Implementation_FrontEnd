@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "252558159711",
+    "firebase_url": "https://plusgo-ce90f.firebaseio.com",
+    "project_id": "plusgo-ce90f",
+    "storage_bucket": "plusgo-ce90f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252558159711:android:1ed2052169138e0a",
+        "android_client_info": {
+          "package_name": "com.example.plusgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252558159711-uvfob80hkhqv4vm0gi323ft2e22e411m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.plusgo",
+            "certificate_hash": "071bcac491ec700f3d767f7f1ea9e55ca9fb38c9"
+          }
+        },
+        {
+          "client_id": "252558159711-p5cnll2sjanfvc6hbuabbppjib79f27e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmjK5-s1OSU6t2jYchdAJYNpFFXn3Jmlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252558159711-p5cnll2sjanfvc6hbuabbppjib79f27e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
