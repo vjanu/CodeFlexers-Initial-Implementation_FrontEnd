@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
 
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="8dp">
         <android.support.design.widget.CoordinatorLayout
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:paddingRight="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -67,7 +67,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp">
 
@@ -90,7 +90,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -115,7 +115,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp">
 
@@ -139,7 +139,7 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="5dp"
             android:spinnerMode="dropdown"
@@ -156,7 +156,57 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="5dp">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.367"
+            app:srcCompat="@drawable/dob" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.868"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.359">
+
+            <EditText
+                android:id="@+id/dob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:hint="Age"
+                android:inputType="number"
+                android:ems="10"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
         android:layout_marginRight="5dp">
 
         <ImageView
@@ -178,7 +228,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -207,7 +257,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -268,7 +318,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:layout_marginRight="5dp">
 
         <ImageView
@@ -290,7 +340,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -316,7 +366,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:layout_marginRight="5dp">
 
         <ImageView
@@ -344,7 +394,7 @@
                 android:layout_width="36dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="27dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -359,7 +409,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="+94"
@@ -407,7 +457,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorButton"
                 android:text="Confirm"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorText" />
 
@@ -417,12 +467,22 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorButton"
                 android:text="Update"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorText" />
 
 
+        <Button
+            android:id="@+id/pi"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorButton"
+            android:text="p"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/colorText" />
 
 
 

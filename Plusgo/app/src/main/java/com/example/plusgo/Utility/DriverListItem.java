@@ -8,8 +8,6 @@
 
 package com.example.plusgo.Utility;
 
-import android.graphics.Bitmap;
-
 public class DriverListItem {
     private String name;
     private String starting;
