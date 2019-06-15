@@ -32,19 +32,19 @@
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+             <!--<intent-filter>-->
+             <!--<action android:name="android.intent.action.MAIN" />-->
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+             <!--<category android:name="android.intent.category.LAUNCHER" />-->
+             <!--</intent-filter>-->
         </activity> <!-- <activity android:name=".Home" /> -->
         <activity android:name=".DVPRM.DummyActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity
@@ -52,7 +52,9 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".DVPRM.LisenceUpActivity"></activity>
         <activity android:name=".DVPRM.NicUpActivity" />
-        <activity android:name=".DVPRM.NicUploadMainActivity" />
+        <activity
+            android:name=".DVPRM.NicUploadMainActivity"
+            android:theme="@style/AppTheme.CustomTheme"/>
         <activity android:name=".DVPRM.RatingMainActivity" />
         <activity android:name=".DVPRM.RatingDriverActivity" />
         <activity

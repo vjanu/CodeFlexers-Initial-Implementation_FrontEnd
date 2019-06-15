@@ -68,18 +68,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="NIC No :"/>
+
         <EditText
             android:id="@+id/extractednic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="12 digit format NIC"
             android:maxLines="1"
-            android:hint="Extracted number"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:inputType="number"
+            android:textAlignment="center" />
+
         <Button
             android:id="@+id/editNICnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"/>
+            android:text="Edit"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout

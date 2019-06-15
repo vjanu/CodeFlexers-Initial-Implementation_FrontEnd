@@ -1,7 +1,9 @@
 package com.example.plusgo.DVPRM;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -51,8 +53,14 @@ public class DocUploadActivity extends AppCompatActivity {
 
     private static final String TAG = DocUploadActivity.class.getSimpleName();
 
+    String NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadnic.php";
+    String ELEC_NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadnic.php";
+    String LISENCE_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadlisence.php";
+
 //    private String UPLOAD_URL = "http://192.168.1.4:8080/android/upload_image/upload.php";
-    private String UPLOAD_URL = BASECONTENT.phpIP+"/android/upload_image/upload.php";
+//    private String UPLOAD_URL = BASECONTENT.phpIP+"/android/upload_image/upload.php";
+//    private String UPLOAD_URL = BASECONTENT.phpIP+"/android/uploadnic.php";
+//    private String UPLOAD_URL = NIC_URL_UPLOAD;
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -73,10 +81,6 @@ public class DocUploadActivity extends AppCompatActivity {
         int height = dm1.heightPixels;
 
         getWindow().setLayout((int)(width*.80),(int)(height*.50));
-
-
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
 
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (FloatingActionButton) findViewById(R.id.buttonUpload);
@@ -110,6 +114,19 @@ public class DocUploadActivity extends AppCompatActivity {
     }
 
     private void uploadImage() {
+
+        String UPLOAD_URL = null;
+        SharedPreferences preferences = getSharedPreferences("dvprm", Context.MODE_PRIVATE);
+        String dv_type = preferences.getString("dv_type", "general");
+
+        if(dv_type.equals("lisence")) {
+            UPLOAD_URL = LISENCE_URL_UPLOAD;
+        }else if(dv_type.equals("electronic")){
+            UPLOAD_URL = ELEC_NIC_URL_UPLOAD;
+        }else{
+            UPLOAD_URL = NIC_URL_UPLOAD;
+        }
+
             //progress dialog
             final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
             StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
