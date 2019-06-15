@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
 
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="8dp">
         <android.support.design.widget.CoordinatorLayout
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="0dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="0dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -209,7 +209,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="0dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -219,7 +219,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -282,7 +282,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="0dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -340,7 +340,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -356,7 +356,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="0dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -367,7 +367,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -423,6 +423,78 @@
             app:layout_constraintVertical_bias="0.359"/>
     </LinearLayout>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginStart="60dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlack"
+            android:text="Like Quietness"/>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.022"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.367"
+            app:srcCompat="@drawable/quiet" />
+
+        <RadioGroup
+            android:id="@+id/rqui"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/qui"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Yes" />
+
+            <RadioButton
+                android:id="@+id/noQui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No" />
+        </RadioGroup>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="307dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.868"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.359"/>
+    </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -450,7 +522,16 @@
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorText" />
 
-
+            <Button
+                android:id="@+id/testingLocation"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorButton"
+                android:text="location"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/colorText" />
 
 
 

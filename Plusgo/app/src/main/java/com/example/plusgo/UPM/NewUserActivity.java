@@ -12,8 +12,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -53,9 +53,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewUserActivity extends AppCompatActivity {
     private Spinner profession;
-    private Button goToPreferences, update;
+    private Button goToPreferences, update,p;
     private static final String KEY_EMPTY = "";
-    private TextView name,email, Rname, Rphone;
+    private TextView name,email, Rname, Rphone, dob;
     private RadioGroup radioGenderGroup;
     private RadioButton radioGenderButton;
     private CircleImageView proPic;
@@ -90,10 +90,12 @@ public class NewUserActivity extends AppCompatActivity {
         Rphone = (TextView)findViewById(R.id.phone);
         radioGenderGroup = (RadioGroup) findViewById(R.id.gender);
         proPic = (CircleImageView)findViewById(R.id.photo);
+        dob = (TextView)findViewById(R.id.dob);
 
         setValuesUser();
 
         goToPreferences = (Button)findViewById(R.id.btnConfirm);
+        p = (Button)findViewById(R.id.pi);
         goToPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +110,14 @@ public class NewUserActivity extends AppCompatActivity {
                 updateUser();
             }
         });
+p.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        finish();
+        startActivity(new Intent(NewUserActivity.this, AddPreferenceActivity.class));
 
+    }
+});
 
     }
     //add relevant user details
@@ -139,7 +148,15 @@ public class NewUserActivity extends AppCompatActivity {
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
+                jsonObject.put("Age", dob.getText());
                 final String mRequestBody = jsonObject.toString();
+
+                SharedPreferences.Editor selfData = getSharedPreferences("self", MODE_PRIVATE).edit();
+                selfData.putString("UID", id);
+                selfData.putString("Profession", profession.getSelectedItem().toString());
+                selfData.putInt("Age", Integer.parseInt(dob.getText().toString()));
+                selfData.putInt("Profession_Category", professionCategory(profession.getSelectedItem().toString()));
+                selfData.apply();
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_ADD_USER, new Response.Listener<String>() {
                     @Override
@@ -194,7 +211,7 @@ public class NewUserActivity extends AppCompatActivity {
     }
 
     //set values to user fields
-    private void setValuesUser() {
+    private void setValuesUser() { //todo
         final byte[] byteArray;
         byteArray = getIntent().getByteArrayExtra("img");
         if ((byteArray != null) == true) {
@@ -280,6 +297,7 @@ public class NewUserActivity extends AppCompatActivity {
                 jsonObject.put("Gender", gender);
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
+                jsonObject.put("Age", Integer.parseInt(dob.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
                 final String mRequestBody = jsonObject.toString();
 
@@ -333,6 +351,97 @@ public class NewUserActivity extends AppCompatActivity {
 
     }
 
+    private int professionCategory(String profession){
+        int category = 0;
+        switch(profession){
+            case "Driver":
+                category = 25;
+                break;
+            case "Body Guard":
+                category = 20;
+                break;
+            case "Security Officer":
+                category = 17;
+                break;
+            case "Clerical Staff":
+                category = 15;
+                break;
+            case "Intern":
+                category = 32;
+                break;
+            case "Administrative Assistant":
+                category = 42;
+                break;
+            case "Associate Engineer":
+                category = 42;
+                break;
+            case "Bank Assistant":
+                category = 38;
+                break;
+            case "IT Support":
+                category = 40;
+                break;
+            case "Cashier":
+                category = 35;
+                break;
+            case "Network Engineer":
+                category = 55;
+                break;
+            case "Software Engineer":
+                category = 55;
+                break;
+            case "Database Administrator":
+                category = 60;
+                break;
+            case "Project Manager":
+                category = 68;
+                break;
+            case "HR":
+                category = 63;
+                break;
+            case "Nurse":
+                category = 80;
+                break;
+            case "Lecturer":
+                category = 80;
+                break;
+            case "Teacher":
+                category = 75;
+                break;
+            case "Doctor":
+                category = 98;
+                break;
+            case "Lawyer":
+                category = 95;
+                break;
+            case "Professor":
+                category = 105;
+                break;
+            case "Senior Lecturer":
+                category = 100;
+                break;
+            case "Senior Lead":
+                category = 97;
+                break;
+            case "Senior Accountant":
+                category = 92;
+                break;
+            case "CEO":
+                category = 105;
+                break;
+            case "CIO":
+                category = 105;
+                break;
+            case "IT Director":
+                category = 95;
+                break;
+            case "Manager":
+                category = 91;
+                break;
+        }
+
+        return category;
+    }
 
     //method to open the camera
     public void openCamera(View v){
@@ -345,6 +454,10 @@ public class NewUserActivity extends AppCompatActivity {
         Intent login = new Intent(NewUserActivity.this, Login.class);
         startActivity(login);
 
+    }
+
+    private int getAge(String dob){
+        return 0;
     }
     @Override
     public void onBackPressed() {
