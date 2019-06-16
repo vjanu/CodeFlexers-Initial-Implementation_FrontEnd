@@ -9,6 +9,7 @@
 package com.example.plusgo.DVPRM;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -53,6 +54,10 @@ public class DummyActivity extends AppCompatActivity {
         UploLice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences("dvprm", MODE_PRIVATE).edit();
+                editor.putString("dv_type", "lisence");
+                editor.apply();
+
                 Intent verify = new Intent(DummyActivity.this, LisenceUpActivity.class);
                 startActivity(verify);
             }

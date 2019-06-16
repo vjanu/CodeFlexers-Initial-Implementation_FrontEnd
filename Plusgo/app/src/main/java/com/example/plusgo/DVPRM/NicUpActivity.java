@@ -4,12 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -37,6 +39,7 @@ public class NicUpActivity extends AppCompatActivity {
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     public String ExtractedNIC,EditedNIC;
+    LinearLayout niclayout;
 
     Button uploadNICbtn,verifyNICbtn,proceedNICbtn,editNIC;
     EditText EditExtractedNIC;
@@ -46,6 +49,9 @@ public class NicUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nic_up);
 
+        niclayout = (LinearLayout) findViewById(R.id.nic_up_layout);
+        niclayout.setVisibility(View.INVISIBLE);
+
         EditExtractedNIC =(EditText)findViewById(R.id.extractednic);
         EditExtractedNIC.setEnabled(false);
 
@@ -54,6 +60,7 @@ public class NicUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 proceedNICbtn.setVisibility(View.INVISIBLE);
+                niclayout.setVisibility(View.INVISIBLE);
                 Intent verify = new Intent(NicUpActivity.this, DocUploadActivity.class);
                 startActivity(verify);
             }
@@ -79,7 +86,9 @@ public class NicUpActivity extends AppCompatActivity {
         verifyNICbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                niclayout.setVisibility(View.VISIBLE);
                jsonrequest();
+
             }
         });
 
@@ -95,6 +104,10 @@ public class NicUpActivity extends AppCompatActivity {
         EditExtractedNIC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    EditExtractedNIC.setTooltipText("This conversion adds born year infront of usual 9 digit NIC number and '0' as the 6th digit ");
+                }
+                Toast.makeText(getBaseContext(), "This conversion adds born year infront of usual 9 digit NIC number and '0' as the 6th digit", Toast.LENGTH_LONG).show();
                 proceedNICbtn.setVisibility(View.INVISIBLE);
                 editNIC.setVisibility(View.VISIBLE);
             }
@@ -140,6 +153,7 @@ public class NicUpActivity extends AppCompatActivity {
                             editor.apply();
                         }
                     }catch (JSONException e){
+                        loading.dismiss();
                         e.printStackTrace();
                         Log.e("JSONREQUEST","ERROR");
                     }

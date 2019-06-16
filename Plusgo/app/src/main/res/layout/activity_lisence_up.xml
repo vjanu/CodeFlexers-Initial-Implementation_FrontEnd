@@ -60,24 +60,29 @@
             android:textColor="@color/colorText"
             tools:visibility="visible" />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/nic_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NIC No :"/>
+            android:text="NIC No :" />
+
         <TextView
             android:id="@+id/extractednic_lis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
             android:hint="Extracted number"
+            android:maxLines="1"
             android:singleLine="true" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/exp_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -104,6 +109,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/edit_exp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit" />
@@ -116,6 +122,7 @@
         android:layout_margin="30dp">
 
         <Button
+            android:id="@+id/proceednic_lis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorButton"
