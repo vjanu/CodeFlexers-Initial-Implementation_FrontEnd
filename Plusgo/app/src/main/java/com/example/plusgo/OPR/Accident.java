@@ -2,7 +2,7 @@
  * *
  *  * Created by Viraj Wickramasinghe
  *  * Copyright (c) 2019 . All rights reserved.
- *  * Last modified 5/9/19 7:12 PM
+ *  * Last modified 5/9/19 12:30 PM
  *
  */
 
@@ -23,8 +23,8 @@ import android.widget.Toast;
 
 import com.example.plusgo.R;
 
-public class Report_traffic_jam extends AppCompatActivity {
-
+public class Accident extends AppCompatActivity {
+/*
     ImageView xImageview;
     Button addimage;
 
@@ -36,9 +36,9 @@ public class Report_traffic_jam extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_report_traffic);
-        xImageview=findViewById(R.id.imageViewaddimg);
-        addimage=findViewById(R.id.add_img_button);
+        setContentView(R.layout.activity_accident);
+        xImageview=findViewById(R.id.imageView);
+        addimage=findViewById(R.id.chose_img_button);
 
         addimage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +96,12 @@ public class Report_traffic_jam extends AppCompatActivity {
         }
     }
 
+*/
 
 
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_accident);
+    }
 }

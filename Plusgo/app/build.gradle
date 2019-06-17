@@ -47,4 +47,8 @@ dependencies {
     implementation "com.google.firebase:firebase-database:$firebase_database_version"
     implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
 
+    implementation 'org.osmdroid:osmdroid-android:6.1.0'
+    implementation 'com.google.android.gms:play-services-location:8.4.0'
+    implementation 'com.pkmmte.view:circularimageview:1.1'
+
 }

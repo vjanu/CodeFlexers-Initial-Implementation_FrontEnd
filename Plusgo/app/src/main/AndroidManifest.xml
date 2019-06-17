@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <application
         android:name=".app.AppController"
         android:allowBackup="true"
@@ -65,17 +65,18 @@
             android:name=".DVPRM.CopassengerListActivity"
             android:theme="@style/AppTheme.CustomTheme" />
         <activity
-            android:name=".OPR.Report_accident"
+            android:name=".OPR.Accident"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".OPR.Report_traffic_jam"
+            android:name=".OPR.TrafficJam"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".OPR.OfferRide"
+            android:name=".OPR.RiderMenu"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".OPR.SetRidePass"
-            android:theme="@style/AppTheme" />
+            android:name=".OPR.MainActivity_OPR"/>
+        <activity
+            android:name=".OPR.UserMain"/>
         <activity android:name=".UPM.CameraActivity"/>
         <activity android:name=".UPM.TempGPSActivity"/>
     </application>

@@ -2,4 +2,13 @@
     <string name="app_name">Plusgo</string>
     <string name="app_name2">+Go</string>
     <string name="title_activity_live_calculation">LiveCalculation</string>
+    <string name="offerride">Offer a Ride</string>
+    <string name="reqride">Request a Ride</string>
+    <string name="submit">Submit</string>
+    <string name="pickup">Pickup</string>
+    <string name="drop">Drop</string>
+    <string name="findmydriver">Find My Driver</string>
+    <string name="upload">Upload</string>
+    <string name="report">Report</string>
+    <string name="later">Later</string>
 </resources>

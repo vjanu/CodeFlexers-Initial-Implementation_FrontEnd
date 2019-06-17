@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#202F65</color>
     <color name="colorAccent">#808080</color>
@@ -14,4 +14,11 @@
     <color name="white">#FFF</color>
     <color name="background">#202f65</color>
     <color name="PopUpbackground">#AE204165</color>
+
+    <color name="gray">#9E9E9E</color>
+    <color name="pickupblue">#2196F3</color>
+    <color name="lightgray" tools:ignore="MissingDefaultResource">#EEEEEE</color>
+    <color name="dropyellow">#FB8C00</color>
+    <color name="light_gray">#E0E0E0</color>
+
 </resources>
