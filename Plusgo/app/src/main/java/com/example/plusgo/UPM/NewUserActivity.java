@@ -243,6 +243,7 @@ p.setOnClickListener(new View.OnClickListener() {
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
                 jsonObject.put("Age", dob.getText());
+                jsonObject.put("Token", token.toString());
                 final String mRequestBody = jsonObject.toString();
 
                 SharedPreferences.Editor selfData = getSharedPreferences("self", MODE_PRIVATE).edit();
