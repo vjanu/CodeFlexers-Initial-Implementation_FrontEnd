@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".OPR.UserMain">
+    tools:context=".OPR.TrafficJam">
 
     <RelativeLayout
         android:id="@+id/header"
@@ -44,8 +44,9 @@
                     android:id="@+id/title_accident"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
+                    android:layout_marginTop="0dp"
                     android:text="Traffic Jam"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="30dp"
@@ -155,8 +156,8 @@
                                 android:layout_marginTop="1dp"
                                 android:layout_weight="1">
 
-                                <CheckBox
-                                    android:id="@+id/checkbox_standstill"
+                                <RadioButton
+                                    android:id="@+id/radio_standstill"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Standstill" />
@@ -176,8 +177,8 @@
                                 android:layout_marginTop="1dp"
                                 android:layout_weight="1">
 
-                                <CheckBox
-                                    android:id="@+id/checkbox_moderate"
+                                <RadioButton
+                                    android:id="@+id/radio_moderate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Moderate" />
@@ -196,8 +197,8 @@
                                 android:layout_marginTop="1dp"
                                 android:layout_weight="1">
 
-                                <CheckBox
-                                    android:id="@+id/checkbox_heavy"
+                                <RadioButton
+                                    android:id="@+id/radio_heavy"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Heavy" />
@@ -223,16 +224,16 @@
 
                         <LinearLayout
                             android:layout_width="fill_parent"
-                            android:layout_height="300dp">
+                            android:layout_height="200dp">
 
                             <ImageView
-                                android:id="@+id/image1"
+                                android:id="@+id/image_view_traffic"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_margin="20dp"
+                                android:adjustViewBounds="true"
                                 android:background="@drawable/address"
-                                android:scaleType="centerCrop"
-                                android:adjustViewBounds="true" />
+                                android:scaleType="centerCrop" />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -251,7 +252,7 @@
 
 
                         <Button
-                            android:id="@+id/btnupload"
+                            android:id="@+id/btn_upload_traffic"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_centerHorizontal="true"
@@ -274,8 +275,10 @@
     <RelativeLayout
         android:id="@+id/footer"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_height="140dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -300,11 +303,10 @@
                         android:layout_weight="1">
 
                         <Button
-                            android:id="@+id/btnoffer"
+                            android:id="@+id/btnreport"
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
                             android:layout_marginTop="-100dp"
                             android:layout_marginBottom="40dp"
                             android:background="@drawable/rectangle_button_drawable"
@@ -359,5 +361,14 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <!--<ImageView-->
+    <!--android:id="@+id/inside_imageview"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="5dip"-->
+    <!--android:layout_marginTop="5dip"-->
+    <!--android:layout_centerVertical="true"-->
+    <!--android:layout_centerHorizontal="true"/>-->
 
 </RelativeLayout>
