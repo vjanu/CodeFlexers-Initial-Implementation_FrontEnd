@@ -25,10 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.plusgo.UPM.DriverListActivity;
 import com.example.plusgo.UPM.NewUserActivity;
-import com.example.plusgo.UPM.VehicleActivity;
-import com.example.plusgo.UPM.VerifyMobilePhoneActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,13 +74,12 @@ public class Login extends AppCompatActivity {
                 username = etUsername.getText().toString().trim();
                 password = etPassword.getText().toString().trim();
 
-                finish();
-                Intent intent = new Intent(Login.this, VerifyMobilePhoneActivity.class);
-                startActivity(intent);
+//                finish();
+//                startActivity(new Intent(Login.this, AddPreferenceActivity.class));
 
-//                if (validateInputs()) {
-//                    login(username, password);
-//                }
+                if (validateInputs()) {
+                    login(username, password);
+                }
 //                else {
 //                    Toast.makeText(getApplicationContext(),
 //                            "Fields Cannot be Empty", Toast.LENGTH_SHORT).show();

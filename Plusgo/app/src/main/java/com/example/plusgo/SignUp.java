@@ -89,11 +89,7 @@ public class SignUp extends AppCompatActivity {
                     Log.e("pwd",passw);
                     // Add new user
                     addNewUser(usrname,passw,fulname);
-                    // Go to Login page at success
-                    finish();
-                    Intent signUp;
-                    signUp = new Intent(SignUp.this, Login.class);
-                    startActivity(signUp);
+
                 }
             }
         });

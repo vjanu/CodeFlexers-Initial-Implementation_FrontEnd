@@ -15,7 +15,6 @@ package com.example.plusgo.UPM;/*
  */
 
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,7 +40,6 @@ import com.example.plusgo.Login;
 import com.example.plusgo.R;
 import com.example.plusgo.Utility.DriverListItem;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,7 +60,7 @@ public class DriverListActivity extends AppCompatActivity {
     private String id;
 //    private ImageView profileImage;
 //    private String JSON_URL = BASECONTENT.IpAddress + "/comments/specific/";
-    private String JSON_URL = "https://gist.githubusercontent.com/vjanu/4720773fad79534af4460be44002789e/raw/cc12cf094f9443f45da550410b9622cfa16821cd/drivers";
+    private String JSON_URL = "https://gist.githubusercontent.com/vjanu/4720773fad79534af4460be44002789e/raw/5673525bfecb35a5f57c9d029591205c845ad965/drivers";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,6 @@ public class DriverListActivity extends AppCompatActivity {
 
 
         btnLogout = (ImageButton) findViewById(R.id.logout1);
-
 
         driverListItems = new ArrayList<>();
         //initiate methods
@@ -115,8 +112,7 @@ public class DriverListActivity extends AppCompatActivity {
                         try{
                             jsonObject = response.getJSONObject(i);
                            DriverListItem item = new DriverListItem(jsonObject.getString("Name"), jsonObject.getString("Start"),
-                                    jsonObject.getString("Dest"), jsonObject.getString("Vehicle"), Double.parseDouble(jsonObject.getString("Rate")),
-                                    jsonObject.getString("Cost"), jsonObject.getString("Time"),
+                                    jsonObject.getString("Dest"), jsonObject.getString("Vehicle"), Double.parseDouble(jsonObject.getString("Rate")), jsonObject.getString("Time"),
                                     jsonObject.getString("img"));
 
                             driverListItems.add(item);
