@@ -9,6 +9,7 @@
 package com.example.plusgo.DVPRM;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,6 +31,9 @@ public class NicUploadMainActivity extends AppCompatActivity {
         btnGeneralNIC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences("dvprm", MODE_PRIVATE).edit();
+                editor.putString("dv_type", "general");
+                editor.apply();
                 Intent verify = new Intent(NicUploadMainActivity.this, NicUpActivity.class);
                 startActivity(verify);
                 finish();
@@ -38,6 +42,9 @@ public class NicUploadMainActivity extends AppCompatActivity {
 
         btnElecNIC.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences("dvprm", MODE_PRIVATE).edit();
+                editor.putString("dv_type", "electronic");
+                editor.apply();
                 Intent verify1 = new Intent(NicUploadMainActivity.this, NicUpActivity.class);
                 startActivity(verify1);
                 finish();
