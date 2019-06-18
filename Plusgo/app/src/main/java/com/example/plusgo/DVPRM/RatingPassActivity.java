@@ -18,8 +18,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,12 +38,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.GRAY;
 
 public class RatingPassActivity extends AppCompatActivity {
-
+    StringRequest stringRequest;
+    RequestQueue requestQueue;
     BaseContent BASECONTENT = new BaseContent();
     SharedPreferences sharedpreferences;
     LinearLayout layoutrew,layoutReport;
@@ -214,14 +218,33 @@ public class RatingPassActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String senti = String.valueOf(writtenSentimnt.getText());
                 setParmsToSend(senti);
+                finish();
             }
         });
     }
 
+//    public boolean lockButtons(){
+//        Date date = new Date();
+//        long timeMilli = date.getTime();
+//        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+//        String done_VID = (sharedpreferences.getString("done_VID", "timeMilli"));
+//        String done_RatedBY = (sharedpreferences.getString("done_RatedBY", "timeMilli"));
+//        String done_UID = (sharedpreferences.getString("done_UID", "timeMilli"));
+//
+//        String UserID = (sharedpreferences.getString("UserID", "U000001"));
+//        String RatedBy = (sharedpreferences.getString("RatedBy", "U0000002"));
+//        String VehicleId = (sharedpreferences.getString("vehicleId", "V1560496428978"));
+//
+//        if((done_VID.equals(VehicleId) && done_RatedBY.equals(RatedBy))||(done_RatedBY.equals(RatedBy)&&done_UID.equals(UserID))){
+//            return false;
+//        }else
+//            return true;
+//    }
+
     //To set correct parameters to enter rating to the DB
     public void setParmsToSend(String Sentiment){
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
-//        final SharedPreferences.Editor editor = sharedpreferences.edit();
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
         String UserType = (sharedpreferences.getString("selectedRateTab", "vehicle"));
         String TripId = (sharedpreferences.getString("TripId", "00001"));
         String UserID = (sharedpreferences.getString("UserID", "U000001"));
@@ -230,12 +253,23 @@ public class RatingPassActivity extends AppCompatActivity {
         String CalRating = (sharedpreferences.getString("CalRating", GivenRating));
         String Dissatis = (sharedpreferences.getString("selectedKey", "none"));
 
-        String VehicleId = (sharedpreferences.getString("vehicleId", "none"));
+        String VehicleId = (sharedpreferences.getString("vehicleId", "V1560496428978"));
 
         if(UserType.equals("vehicle")) {
             ratingvehiclepostrequest(TripId,VehicleId, RatedBy, GivenRating, CalRating, Dissatis, Sentiment);
+            editor.putString("done_ratevehicle", "YES");
+            editor.commit();
         }else{
             ratingpersonalpostrequest(TripId, UserID, UserType, RatedBy, GivenRating, CalRating, Dissatis, Sentiment);
+//            editor.putString("done_UID", UserID);
+//            editor.putString("done_RatedBY", RatedBy);
+            if(UserType.equals("driver")) {
+                editor.putString("done_ratedriver", "YES");
+                editor.commit();
+            }else{
+                editor.putString("done_copassenger", "YES");
+                editor.commit();
+            }
         }
     }
 
@@ -244,17 +278,17 @@ public class RatingPassActivity extends AppCompatActivity {
                                   String GivenRating,String CalRating,String Dissatis,String Sentiment) {
         try {
             String URL = null;
-            RequestQueue requestQueue = Volley.newRequestQueue(this.getApplicationContext());
+            requestQueue = Volley.newRequestQueue(this.getApplicationContext());
             if(UserType.equals("driver")) {
-                URL = BASECONTENT.IpAddress +"/driver-rating";
+                URL = BASECONTENT.IpAddress +"/ratings/driver-rating";
             }else{
-                URL = BASECONTENT.IpAddress+"/copassenger-rating";
+                URL = BASECONTENT.IpAddress+"/ratings/copassenger-rating";
             }
-
+            Log.e("URL", URL);
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("TripId", TripId);
             jsonBody.put("UserID", UserID);
-            jsonBody.put("UserType", UserType);
+//            jsonBody.put("UserType", UserType);
             jsonBody.put("RatedBy", RatedBy);
             jsonBody.put("GivenRating", GivenRating);
             jsonBody.put("CalculatedRating", CalRating);
@@ -262,10 +296,13 @@ public class RatingPassActivity extends AppCompatActivity {
             jsonBody.put("Sentiment", Sentiment);
             final String mRequestBody = jsonBody.toString();
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            Log.e("VOLLEY", TripId+":"+UserID+":"+UserType+":"+RatedBy+":"+GivenRating+":"+CalRating);
+
+            stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.e("LOG_VOLLEY", response);
+                    Toast.makeText(getBaseContext(), "Your rating on person is added", Toast.LENGTH_LONG).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -302,6 +339,9 @@ public class RatingPassActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 
@@ -312,8 +352,8 @@ public class RatingPassActivity extends AppCompatActivity {
             String URL = null;
             RequestQueue requestQueue = Volley.newRequestQueue(this.getApplicationContext());
 
-            URL = BASECONTENT.IpAddress +"/vehicle-rating";
-
+            URL = BASECONTENT.IpAddress +"/ratings/vehicle-rating";
+            Log.e("URL", URL);
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("tripId", tripId);
             jsonBody.put("vehicleId", vehicleId);
@@ -324,10 +364,12 @@ public class RatingPassActivity extends AppCompatActivity {
             jsonBody.put("Sentiment", Sentiment);
             final String mRequestBody = jsonBody.toString();
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            Log.e("VOLLEY", tripId+":"+vehicleId+":"+RatedBy+":"+GivenRating+":"+CalRating);
+            stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     Log.e("LOG_VOLLEY", response);
+                    Toast.makeText(getBaseContext(), "Your rating on vehicle is added", Toast.LENGTH_LONG).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -364,6 +406,8 @@ public class RatingPassActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
-
 }
