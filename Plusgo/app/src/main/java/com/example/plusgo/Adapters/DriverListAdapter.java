@@ -56,7 +56,6 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
         viewHolder.txtStart.setText(driverListItem.getStarting());
         viewHolder.txtDest.setText(driverListItem.getDestination());
         viewHolder.txtRate.setText(String.valueOf(driverListItem.getRate()));
-        viewHolder.txtCost.setText(String.valueOf(driverListItem.getCost()));
         viewHolder.txtTime.setText(driverListItem.getTime());
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
 
@@ -92,7 +91,7 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
         public TextView txtStart;
         public TextView txtDest;
         public TextView txtRate;
-        public TextView txtCost;
+
         public TextView txtTime;
         public CircleImageView profileImage;
         public CardView driverCard;
@@ -102,7 +101,6 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
             txtStart = (TextView)itemView.findViewById(R.id.txtStarting);
             txtDest = (TextView)itemView.findViewById(R.id.txtDestination);
             txtRate = (TextView)itemView.findViewById(R.id.txtRating);
-            txtCost = (TextView)itemView.findViewById(R.id.txtCost);
             txtTime = (TextView)itemView.findViewById(R.id.txtTime);
             profileImage = (CircleImageView)itemView.findViewById(R.id.proImage);
             driverCard = (CardView) itemView.findViewById(R.id.driver_card);
