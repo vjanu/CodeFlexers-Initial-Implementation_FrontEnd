@@ -19,7 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.example.plusgo.R;
+
+import org.json.JSONObject;
 
 public class RatingMainActivity extends AppCompatActivity {
 
@@ -34,6 +38,9 @@ public class RatingMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_main);
+
+        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
 
         ratingbar = (RatingBar)findViewById(R.id.ratingBar);
         layoutcomplement = (LinearLayout)findViewById(R.id.layoutcomplement);
@@ -54,16 +61,17 @@ public class RatingMainActivity extends AppCompatActivity {
                     layoutdissatis.setVisibility(View.VISIBLE);
                     layoutsubmit.setVisibility(View.VISIBLE);
                 }
+                editor.putString("GivenRating", String.valueOf(rating));
+                editor.commit();
             }
         });
-        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedpreferences.edit();
+//        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+//        final SharedPreferences.Editor editor = sharedpreferences.edit();
 
         vehiclebtn=(Button)findViewById(R.id.selectedVehicle);
         vehiclebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 editor.putString("selectedRateTab", "vehicle");
                 editor.commit();
                 Intent verify = new Intent(RatingMainActivity.this, RatingPassActivity.class);
@@ -75,7 +83,6 @@ public class RatingMainActivity extends AppCompatActivity {
         driverbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 editor.putString("selectedRateTab", "driver");
                 editor.commit();
                 Intent verify = new Intent(RatingMainActivity.this, RatingPassActivity.class);
@@ -87,7 +94,6 @@ public class RatingMainActivity extends AppCompatActivity {
         copassengerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 editor.putString("selectedRateTab", "copassenger");
                 editor.commit();
                 Intent verify = new Intent(RatingMainActivity.this, CopassengerListActivity.class);
