@@ -74,6 +74,8 @@ public class Login extends AppCompatActivity {
                 username = etUsername.getText().toString().trim();
                 password = etPassword.getText().toString().trim();
 
+//                finish();
+//                startActivity(new Intent(Login.this, AddPreferenceActivity.class));
 
                 if (validateInputs()) {
                     login(username, password);
