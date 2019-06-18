@@ -28,14 +28,29 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.plusgo.BaseContent;
 import com.example.plusgo.R;
 import com.example.plusgo.Utility.Driver;
+import com.example.plusgo.Utility.FirebaseSuccessListener;
+import com.example.plusgo.Utility.LocationBean;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,8 +63,18 @@ public class TempGPSActivity extends Activity implements LocationListener {
     private boolean exists = false;
     private Handler handler;
     private Runnable runnable;
+    private  List<LocationBean> location;
+    LocationBean locationBean;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
-    List<String> id = new ArrayList<>();
+    List<String> id;
+    List<LocationBean> selectedList;
+    private boolean isWithin1km = true;
+    double pLatitude = 0;
+    double pLongitude = 0;
+    float[] results = new float[1];
+    private BaseContent BASECONTENT = new BaseContent();
+    private String PYTHON_URL_POST_DATA_AVAILABLE = BASECONTENT.pythonIpAddress + "/available";
+    private String PYTHON_URL_GET_DRIVERS = BASECONTENT.pythonIpAddress + "/ridematching/kmeans/";
     /**
      * context of calling class
      */
@@ -105,12 +130,15 @@ public class TempGPSActivity extends Activity implements LocationListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tempgps);
+        location = new ArrayList<>();
+        selectedList = new ArrayList<>();
+        id = new ArrayList<>();
         FirebaseApp.initializeApp(this);
         db = FirebaseDatabase.getInstance().getReference("drivers");
         checkAndAddPermission();
         //Executing the handler
         executeHandler();
-
+        //filterRelevantDrivers();
 
     }
 
@@ -418,7 +446,7 @@ public class TempGPSActivity extends Activity implements LocationListener {
 
                     Driver driver = new Driver(uid, longitude, latitude);
                     String id = db.push().getKey();
-                    db.child(id).setValue(driver);
+                    db.child(uid).setValue(driver);
                     break;
                 }
             }
@@ -471,6 +499,175 @@ public class TempGPSActivity extends Activity implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
+
+    }
+
+    protected void getUserLocations(final FirebaseSuccessListener firebaseSuccessListener) {
+        Log.d("getUserLocations()", "getUserLocations()");
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                location.clear();
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    if (data.child("uid").exists()) {
+
+                        locationBean = new LocationBean();
+                        locationBean.setUid(String.valueOf(data.child("uid").getValue()));
+                        locationBean.setLatitude(Double.parseDouble(String.valueOf(data.child("latitude").getValue())));
+                        locationBean.setLongitude(Double.parseDouble(String.valueOf(data.child("longitude").getValue())));
+                        location.add(locationBean);
+                        Log.d("loc", String.valueOf(locationBean.getUid()));
+                        Log.d("location", String.valueOf(location.size()));
+                    }
+                }
+                firebaseSuccessListener.locationBean(location);
+                Log.d("redda2", String.valueOf(location.size()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+            }
+
+        });
+        Log.d("redda3", String.valueOf(location.size()));
+        //return location;
+    }
+    String c = "U1558711443502";
+    private void filterRelevantDrivers(){
+
+        getUserLocations(new FirebaseSuccessListener() {
+            @Override
+            public void locationBean(List<LocationBean> locations) {
+                if(locations.size() > 0){
+                    Log.d("ccc", String.valueOf(locations.size()));
+                    for(int i=0; i <locations.size(); i++){ //get passenger location
+                        if(locations.get(i).getUid().equals(c)){
+                            pLatitude = locations.get(i).getLatitude();
+                            pLongitude = locations.get(i).getLongitude();
+                            //locations.remove(locations.get(i));
+                            Log.d("size1", String.valueOf(locations.size()));
+                            break;
+                        }
+                    }
+
+                    v(locations);
+
+
+                    //return selectedList;
+                }
+                else{
+                    Log.d("diu", String.valueOf(locations.size()));
+                }
+                //return selectedList;
+            }
+        });
+
+    }
+
+    public void v(List<LocationBean> locations){
+
+        for(int i=0; i <locations.size(); i++) {
+            Log.d("size2", String.valueOf(locations.size()));
+            double dLatitude = locations.get(i).getLatitude();
+            double dLongitude = locations.get(i).getLongitude();
+            Location.distanceBetween(pLatitude, pLongitude, dLatitude, dLongitude, results);
+            float distanceInMeters = results[0];
+//                        Log.d("dist", String.valueOf(distanceInMeters));
+            isWithin1km = distanceInMeters < 1000;
+            if(isWithin1km){
+                Log.d("isWithin1km", String.valueOf(isWithin1km));
+                LocationBean selectedUsers = new LocationBean();
+                selectedUsers.setUid(locations.get(i).getUid());
+//                selectedUsers.setLatitude(locations.get(i).getLatitude());
+//                selectedUsers.setLongitude(locations.get(i).getLongitude());
+                selectedList.add(selectedUsers);
+
+            }
+        }
+//        for(int i=0; i< selectedList.size();i++){
+//            Log.d("qq1", String.valueOf(selectedList.get(1)));
+//            Log.d("qq2", String.valueOf(selectedList.get(i).getLatitude()));
+//            Log.d("qq3", String.valueOf(selectedList.get(i).getLongitude()));
+//        }
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JSONArray jArrayInput=new JSONArray();
+        JSONArray jArrayInput1=new JSONArray();
+        JSONObject jObjectInput=new JSONObject();
+
+        Map<String, String> driverUID = new HashMap<>();
+        List<JSONObject> newList = new ArrayList();
+        for(int i=0; i< selectedList.size();i++) {
+            try {
+                JSONObject jObjectInput1=new JSONObject();
+                jObjectInput1.put("UID",selectedList.get(i).getUid());
+                jArrayInput1.put(jObjectInput1);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        try {
+            jObjectInput.put("uid", jArrayInput1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.d("json", String.valueOf(    jObjectInput    ));
+//        jArrayInput.put(jObjectInput);
+//        Log.d("lol", String.valueOf(    jArrayInput    ));
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, PYTHON_URL_POST_DATA_AVAILABLE, jObjectInput , new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("e1", String.valueOf(response));
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("e2", String.valueOf(error));
+
+
+            }
+        });
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue.add(request);
+        getAvailableDriverList();
+    }
+
+    private void getAvailableDriverList() {
+
+        Log.e("too","started");
+        RequestQueue requestQueue = Volley.newRequestQueue(TempGPSActivity.this);
+        StringRequest request = new StringRequest(PYTHON_URL_GET_DRIVERS+c, new Response.Listener<String>() {
+
+            public void onResponse(String response) {
+                JSONObject jsonObject = null;
+              Log.e("qqq1",String.valueOf(response));
+//                for(int i= 0; i<response.length(); i++){
+////                    Log.e("qqq1",String.valueOf(response));
+//
+//                }
+
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        requestQueue = Volley.newRequestQueue(TempGPSActivity.this);
+        requestQueue.add(request);
 
     }
 }

@@ -8,11 +8,15 @@
 
 package com.example.plusgo.UPM;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -42,6 +46,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
 import com.example.plusgo.R;
+import com.example.plusgo.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,11 +83,40 @@ public class NewUserActivity extends AppCompatActivity {
     private String JSON_URL_GET_USER = BASECONTENT.IpAddress + "/users/specific/";
     private String JSON_URL_UPDATE_USER = BASECONTENT.IpAddress + "/users/update/";
 
+    /*Added by Surath
+     * For the Notification
+     */
+    public static final String CHANNEL_ID = "plus_go";
+    private static final String CHANNEL_NAME = "Plus Go";
+    private static final String CHANNEL_DESC = "Plus Go Notification";
+
+    private FirebaseAuth mAuth; //Firebase Authentication
+    public String token;
+    public String password;
+    String userEmail = "";// Just check
+    public static final String NODE_USERS = "users";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
+
+        /*
+        Added By Surath
+         */
+        mAuth = FirebaseAuth.getInstance();
+        //To Subscription
+        FirebaseMessaging.getInstance().subscribeToTopic("Updates");
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+
+        }
 
         SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
         id = user.getString("UId", null);
@@ -92,6 +136,11 @@ public class NewUserActivity extends AppCompatActivity {
         proPic = (CircleImageView)findViewById(R.id.photo);
         dob = (TextView)findViewById(R.id.dob);
 
+        password = "123456"; // Testing Purpose Added by Surath
+        //userEmail = email.getText().toString().trim();
+        //userEmail = "surathruwan@gmail.com";
+//        userEmail = email.getText().toString();
+        Log.d("emails", userEmail);
         setValuesUser();
 
         goToPreferences = (Button)findViewById(R.id.btnConfirm);
@@ -100,6 +149,8 @@ public class NewUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                addUser();
+
+
             }
         });
 
@@ -130,6 +181,49 @@ p.setOnClickListener(new View.OnClickListener() {
 
             }
             else {
+
+                /*
+                 * Firebase Authentication with Email with Password
+                 * */
+
+                userEmail = email.getText().toString();
+                Log.d("sss" , password );
+                Log.d("sss1" , userEmail);
+                mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //If Firebase Authentication Succeful Redirect to the Profile Activity
+                        if(task.isSuccessful()){
+                            //startProfileActivity();
+                        }else{
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                userLogin(userEmail,password);
+                            }else{
+                                // progressbar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+
+                    }
+                });
+
+
+                FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                if(task.isSuccessful()){
+                                    token = task.getResult().getToken();
+                                    saveToken(token);
+//                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
+//                            textView.setText("Token" + token);
+                                }else{
+//                            textView.setText("Token is Not Generated");
+                                }
+                            }
+                        });
+
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 JSONObject jsonObject = new JSONObject();
 
@@ -237,6 +331,7 @@ p.setOnClickListener(new View.OnClickListener() {
                             email.setText(jsonObject.getString("Email"));
                             Rname.setText(jsonObject.getString("RName"));
                             Rphone.setText(jsonObject.getString("RPhone"));
+                            dob.setText(jsonObject.getString("Age"));
 //                            radioGenderButton.setText(jsonObject.getString("Gender"));
 
                             if ((byteArray == null) == true) {
@@ -462,5 +557,49 @@ p.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onBackPressed() {
         logout();
+    }
+
+
+    /*
+    Added by Surath
+     */
+    private void userLogin(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(NewUserActivity.this,"userLoginffff",Toast.LENGTH_LONG).show();
+                        }else{
+                            // progressbar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
+    }
+
+    private void saveToken(String token)
+    {
+        String email = mAuth.getCurrentUser().getEmail();
+        User user = new User(email,token);
+
+        //Create Firebase References
+
+        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+
+        //get Unique id from get current user
+        dbUsers.child(mAuth.getCurrentUser().getUid())
+                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(NewUserActivity.this,"Token Saved",Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
     }
 }
