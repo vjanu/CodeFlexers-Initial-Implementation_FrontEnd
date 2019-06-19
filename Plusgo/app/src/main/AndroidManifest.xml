@@ -21,11 +21,20 @@
         android:roundIcon="@mipmap/logoplusgo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".UPM.DriverListActivity"></activity>
+        <activity android:name=".UPM.DriverListActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".FC.LiveCalculation"></activity>
 
         <activity
             android:name=".FC.TripSummaryActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".FC.UserProfile"
             android:theme="@style/AppTheme"></activity>
         <activity android:name=".UPM.VehicleActivity" />
         <activity android:name=".UPM.AddPreferenceActivity" />
@@ -43,11 +52,7 @@
              <!--</intent-filter>-->
         </activity> <!-- <activity android:name=".Home" /> -->
         <activity android:name=".DVPRM.DummyActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
