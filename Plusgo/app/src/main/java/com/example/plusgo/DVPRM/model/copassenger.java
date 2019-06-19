@@ -9,6 +9,8 @@
 package com.example.plusgo.DVPRM.model;
 
 public class copassenger {
+
+    private String userId;
     private String name;
     private String Description;
     private String rating;
@@ -17,11 +19,20 @@ public class copassenger {
     public copassenger() {
     }
 
-    public copassenger(String name, String description, String rating, String image_url) {
+    public copassenger(String userId, String name, String description, String rating, String image_url) {
+        this.userId = userId;
         this.name = name;
         Description = description;
         this.rating = rating;
         this.image_url = image_url;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {

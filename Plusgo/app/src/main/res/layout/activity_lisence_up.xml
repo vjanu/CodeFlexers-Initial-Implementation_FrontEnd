@@ -78,32 +78,32 @@
             tools:visibility="visible" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/nic_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NIC No :" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+        <TextView
+            android:id="@+id/extractednic_lis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Extracted number"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="NIC No :" />
-
-                    <TextView
-                        android:id="@+id/extractednic_lis"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Extracted number"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/exp_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -125,11 +125,12 @@
                             android:text="Lisence Expiration Date" />
                     </LinearLayout>
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Edit" />
-                </LinearLayout>
+        <Button
+            android:id="@+id/edit_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit" />
+    </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -137,13 +138,14 @@
                     android:layout_margin="30dp"
                     android:gravity="right|end">
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/colorButton"
-                        android:text="Proceed"
-                        android:textColor="@color/colorText" />
-                </LinearLayout>
+        <Button
+            android:id="@+id/proceednic_lis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorButton"
+            android:text="Proceed"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

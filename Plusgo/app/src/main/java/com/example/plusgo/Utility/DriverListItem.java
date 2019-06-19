@@ -8,15 +8,13 @@
 
 package com.example.plusgo.Utility;
 
-import android.graphics.Bitmap;
-
 public class DriverListItem {
     private String name;
     private String starting;
     private String destination;
     private String vehicle;
     private double rate;
-    private String cost;
+
     private String time;
 
     public String getImage() {
@@ -29,13 +27,13 @@ public class DriverListItem {
 
     private String image;
 
-    public DriverListItem(String name, String starting, String destination, String vehicle, double rate, String cost, String time, String image) {
+    public DriverListItem(String name, String starting, String destination, String vehicle, double rate, String time, String image) {
         this.name = name;
         this.starting = starting;
         this.destination = destination;
         this.vehicle = vehicle;
         this.rate = rate;
-        this.cost = cost;
+
         this.time = time;
         this.image = image;
     }
@@ -80,13 +78,6 @@ public class DriverListItem {
         this.rate = rate;
     }
 
-    public String getCost() {
-        return cost;
-    }
-
-    public void setCost(String cost) {
-        this.cost = cost;
-    }
 
     public String getTime() {
         return time;

@@ -15,7 +15,6 @@ package com.example.plusgo.UPM;/*
  */
 
 
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,7 +39,6 @@ import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
 import com.example.plusgo.R;
 import com.example.plusgo.Utility.DriverListItem;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -116,7 +114,7 @@ public class DriverListActivity extends AppCompatActivity {
                             jsonObject = response.getJSONObject(i);
                            DriverListItem item = new DriverListItem(jsonObject.getString("Name"), jsonObject.getString("Start"),
                                     jsonObject.getString("Dest"), jsonObject.getString("Vehicle"), Double.parseDouble(jsonObject.getString("Rate")),
-                                    jsonObject.getString("Cost"), jsonObject.getString("Time"),
+                                    jsonObject.getString("Time"),
                                     jsonObject.getString("img"));
 
                             driverListItems.add(item);

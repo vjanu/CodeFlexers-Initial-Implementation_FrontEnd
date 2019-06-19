@@ -8,12 +8,16 @@
 
 package com.example.plusgo.UPM;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -42,6 +46,17 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
 import com.example.plusgo.R;
+import com.example.plusgo.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,9 +68,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NewUserActivity extends AppCompatActivity {
     private Spinner profession;
-    private Button goToPreferences, update;
+    private Button goToPreferences, update,p;
     private static final String KEY_EMPTY = "";
-    private TextView name,email, Rname, Rphone;
+    private TextView name,email, Rname, Rphone, dob;
     private RadioGroup radioGenderGroup;
     private RadioButton radioGenderButton;
     private CircleImageView proPic;
@@ -68,11 +83,40 @@ public class NewUserActivity extends AppCompatActivity {
     private String JSON_URL_GET_USER = BASECONTENT.IpAddress + "/users/specific/";
     private String JSON_URL_UPDATE_USER = BASECONTENT.IpAddress + "/users/update/";
 
+    /*Added by Surath
+     * For the Notification
+     */
+    public static final String CHANNEL_ID = "plus_go";
+    private static final String CHANNEL_NAME = "Plus Go";
+    private static final String CHANNEL_DESC = "Plus Go Notification";
+
+    private FirebaseAuth mAuth; //Firebase Authentication
+    public String token;
+    public String password;
+    String userEmail = "";// Just check
+    public static final String NODE_USERS = "users";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
+
+        /*
+        Added By Surath
+         */
+        mAuth = FirebaseAuth.getInstance();
+        //To Subscription
+        FirebaseMessaging.getInstance().subscribeToTopic("Updates");
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+
+        }
 
         SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
         id = user.getString("UId", null);
@@ -90,14 +134,23 @@ public class NewUserActivity extends AppCompatActivity {
         Rphone = (TextView)findViewById(R.id.phone);
         radioGenderGroup = (RadioGroup) findViewById(R.id.gender);
         proPic = (CircleImageView)findViewById(R.id.photo);
+        dob = (TextView)findViewById(R.id.dob);
 
+        password = "123456"; // Testing Purpose Added by Surath
+        //userEmail = email.getText().toString().trim();
+        //userEmail = "surathruwan@gmail.com";
+//        userEmail = email.getText().toString();
+        Log.d("emails", userEmail);
         setValuesUser();
 
         goToPreferences = (Button)findViewById(R.id.btnConfirm);
+        p = (Button)findViewById(R.id.pi);
         goToPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                addUser();
+
+
             }
         });
 
@@ -108,7 +161,14 @@ public class NewUserActivity extends AppCompatActivity {
                 updateUser();
             }
         });
+p.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        finish();
+        startActivity(new Intent(NewUserActivity.this, AddPreferenceActivity.class));
 
+    }
+});
 
     }
     //add relevant user details
@@ -121,6 +181,49 @@ public class NewUserActivity extends AppCompatActivity {
 
             }
             else {
+
+                /*
+                 * Firebase Authentication with Email with Password
+                 * */
+
+                userEmail = email.getText().toString();
+                Log.d("sss" , password );
+                Log.d("sss1" , userEmail);
+                mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        //If Firebase Authentication Succeful Redirect to the Profile Activity
+                        if(task.isSuccessful()){
+                            //startProfileActivity();
+                        }else{
+                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                userLogin(userEmail,password);
+                            }else{
+                                // progressbar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+
+                    }
+                });
+
+
+                FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                if(task.isSuccessful()){
+                                    token = task.getResult().getToken();
+                                    saveToken(token);
+//                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
+//                            textView.setText("Token" + token);
+                                }else{
+//                            textView.setText("Token is Not Generated");
+                                }
+                            }
+                        });
+
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 JSONObject jsonObject = new JSONObject();
 
@@ -139,7 +242,16 @@ public class NewUserActivity extends AppCompatActivity {
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
+                jsonObject.put("Age", dob.getText());
+                jsonObject.put("Token", token.toString());
                 final String mRequestBody = jsonObject.toString();
+
+                SharedPreferences.Editor selfData = getSharedPreferences("self", MODE_PRIVATE).edit();
+                selfData.putString("UID", id);
+                selfData.putString("Profession", profession.getSelectedItem().toString());
+                selfData.putInt("Age", Integer.parseInt(dob.getText().toString()));
+                selfData.putInt("Profession_Category", professionCategory(profession.getSelectedItem().toString()));
+                selfData.apply();
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_ADD_USER, new Response.Listener<String>() {
                     @Override
@@ -194,7 +306,7 @@ public class NewUserActivity extends AppCompatActivity {
     }
 
     //set values to user fields
-    private void setValuesUser() {
+    private void setValuesUser() { //todo
         final byte[] byteArray;
         byteArray = getIntent().getByteArrayExtra("img");
         if ((byteArray != null) == true) {
@@ -220,6 +332,7 @@ public class NewUserActivity extends AppCompatActivity {
                             email.setText(jsonObject.getString("Email"));
                             Rname.setText(jsonObject.getString("RName"));
                             Rphone.setText(jsonObject.getString("RPhone"));
+                            dob.setText(jsonObject.getString("Age"));
 //                            radioGenderButton.setText(jsonObject.getString("Gender"));
 
                             if ((byteArray == null) == true) {
@@ -280,6 +393,7 @@ public class NewUserActivity extends AppCompatActivity {
                 jsonObject.put("Gender", gender);
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
+                jsonObject.put("Age", Integer.parseInt(dob.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
                 final String mRequestBody = jsonObject.toString();
 
@@ -333,6 +447,97 @@ public class NewUserActivity extends AppCompatActivity {
 
     }
 
+    private int professionCategory(String profession){
+        int category = 0;
+        switch(profession){
+            case "Driver":
+                category = 25;
+                break;
+            case "Body Guard":
+                category = 20;
+                break;
+            case "Security Officer":
+                category = 17;
+                break;
+            case "Clerical Staff":
+                category = 15;
+                break;
+            case "Intern":
+                category = 32;
+                break;
+            case "Administrative Assistant":
+                category = 42;
+                break;
+            case "Associate Engineer":
+                category = 42;
+                break;
+            case "Bank Assistant":
+                category = 38;
+                break;
+            case "IT Support":
+                category = 40;
+                break;
+            case "Cashier":
+                category = 35;
+                break;
+            case "Network Engineer":
+                category = 55;
+                break;
+            case "Software Engineer":
+                category = 55;
+                break;
+            case "Database Administrator":
+                category = 60;
+                break;
+            case "Project Manager":
+                category = 68;
+                break;
+            case "HR":
+                category = 63;
+                break;
+            case "Nurse":
+                category = 80;
+                break;
+            case "Lecturer":
+                category = 80;
+                break;
+            case "Teacher":
+                category = 75;
+                break;
+            case "Doctor":
+                category = 98;
+                break;
+            case "Lawyer":
+                category = 95;
+                break;
+            case "Professor":
+                category = 105;
+                break;
+            case "Senior Lecturer":
+                category = 100;
+                break;
+            case "Senior Lead":
+                category = 97;
+                break;
+            case "Senior Accountant":
+                category = 92;
+                break;
+            case "CEO":
+                category = 105;
+                break;
+            case "CIO":
+                category = 105;
+                break;
+            case "IT Director":
+                category = 95;
+                break;
+            case "Manager":
+                category = 91;
+                break;
+        }
+
+        return category;
+    }
 
     //method to open the camera
     public void openCamera(View v){
@@ -346,8 +551,56 @@ public class NewUserActivity extends AppCompatActivity {
         startActivity(login);
 
     }
+
+    private int getAge(String dob){
+        return 0;
+    }
     @Override
     public void onBackPressed() {
         logout();
+    }
+
+
+    /*
+    Added by Surath
+     */
+    private void userLogin(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(NewUserActivity.this,"userLoginffff",Toast.LENGTH_LONG).show();
+                        }else{
+                            // progressbar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
+    }
+
+    private void saveToken(String token)
+    {
+        String email = mAuth.getCurrentUser().getEmail();
+        User user = new User(email,token);
+
+        //Create Firebase References
+
+        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+
+        //get Unique id from get current user
+        dbUsers.child(mAuth.getCurrentUser().getUid())
+                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(NewUserActivity.this,"Token Saved",Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
     }
 }

@@ -208,6 +208,7 @@
             android:layout_height="60dip">
 
             <EditText
+                android:id="@+id/writtenSentimnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -231,6 +232,7 @@
         android:padding="1dp">
 
         <Button
+            android:id="@+id/rating_passDone"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:background="#202F65"

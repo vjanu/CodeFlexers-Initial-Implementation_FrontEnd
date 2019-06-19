@@ -35,7 +35,8 @@ import java.util.List;
 public class CopassengerListActivity extends AppCompatActivity {
 
     BaseContent BASECONTENT = new BaseContent();
-    private final String JSON_URL= "https://gist.githubusercontent.com/AshaneEdiri/3151daee1b96041e6e7e690425e69e3b/raw/4aff7b9d4db212826284949174b6e77856be4f5d/teacherListDummy";
+    //TODO:CHANGE THIS ADDRESS
+    private final String JSON_URL= "https://gist.githubusercontent.com/AshaneEdiri/3151daee1b96041e6e7e690425e69e3b/raw/80c053c4566f06a2aa2ad1e7688df75c0b54541b/teacherListDummy";
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private List<copassenger> lstCopassengers;
@@ -71,21 +72,8 @@ public class CopassengerListActivity extends AppCompatActivity {
                         Log.e("JSONREQUEST","INSIDE JSONEOBJECT");
                         jsonObject = response.getJSONObject(i);
                         copassenger teach = new copassenger();
-//                        teach.setTeacherid(jsonObject.getString("teacherId"));
+                        teach.setUserId(jsonObject.getString("userId"));
                         teach.setName(jsonObject.getString("name"));
-//                        teach.setPosition(jsonObject.getString("Position"));
-//                        teach.setFaculty(jsonObject.getString("Faculty"));
-//                        teach.setSpecialization(jsonObject.getString("Specialization"));
-//                        teach.setDescription(jsonObject.getString("Description"));
-//                        teach.setExperience(jsonObject.getString("Experience"));
-//                        if(jsonObject.getString("Rating").equals("null")){
-//                            teach.setRating("0.0");
-//                        }else if(jsonObject.getString("Rating").length()<=1){
-//                            teach.setRating(jsonObject.getString("Rating")+".0");
-//                        }else{
-//                            teach.setRating(jsonObject.getString("Rating"));
-//                        }
-
                         teach.setImage_url(jsonObject.getString("img"));
 
                         lstCopassengers.add(teach);

@@ -60,23 +60,26 @@
             android:textColor="@color/colorText"
             tools:visibility="visible" />
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/nic_up_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NIC No :"/>
+            android:text="NIC No :" />
 
         <EditText
             android:id="@+id/extractednic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="12 digit format NIC"
+            android:inputType="number"
             android:maxLines="1"
             android:singleLine="true"
-            android:inputType="number"
             android:textAlignment="center" />
 
         <Button
