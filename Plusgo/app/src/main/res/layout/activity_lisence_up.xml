@@ -7,7 +7,24 @@
     android:layout_gravity="center|center_horizontal|center_vertical"
     android:gravity="center"
     android:orientation="vertical"
+    android:scrollbarStyle="outsideInset"
     tools:context=".DVPRM.LisenceUpActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarSize="0dp">
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout01"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:id="@+id/LinearLayout01"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,67 +77,74 @@
             android:textColor="@color/colorText"
             tools:visibility="visible" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="NIC No :"/>
-        <TextView
-            android:id="@+id/extractednic_lis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:hint="Extracted number"
-            android:singleLine="true" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/extracteddate_lis"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Extracted date"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textAlignment="center" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lisence Expiration Date" />
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="NIC No :" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit" />
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/extractednic_lis"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Extracted number"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right|end"
-        android:layout_margin="30dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorButton"
-            android:text="Proceed"
-            android:textColor="@color/colorText" />
-    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
+                        <EditText
+                            android:id="@+id/extracteddate_lis"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Extracted date"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lisence Expiration Date" />
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:gravity="right|end">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorButton"
+                        android:text="Proceed"
+                        android:textColor="@color/colorText" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </LinearLayout>
