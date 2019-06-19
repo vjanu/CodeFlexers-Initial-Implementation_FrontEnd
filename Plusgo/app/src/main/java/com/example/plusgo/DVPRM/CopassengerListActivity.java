@@ -8,12 +8,17 @@
 
 package com.example.plusgo.DVPRM;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,13 +38,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CopassengerListActivity extends AppCompatActivity {
-
+    SharedPreferences sharedpreferences;
     BaseContent BASECONTENT = new BaseContent();
-    private final String JSON_URL= "https://gist.githubusercontent.com/AshaneEdiri/3151daee1b96041e6e7e690425e69e3b/raw/4aff7b9d4db212826284949174b6e77856be4f5d/teacherListDummy";
+    //TODO:CHANGE THIS ADDRESS
+    private final String JSON_URL= "https://gist.githubusercontent.com/AshaneEdiri/3151daee1b96041e6e7e690425e69e3b/raw/80c053c4566f06a2aa2ad1e7688df75c0b54541b/teacherListDummy";
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private List<copassenger> lstCopassengers;
     private RecyclerView recyclerView;
+    Button donebtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +64,21 @@ public class CopassengerListActivity extends AppCompatActivity {
         lstCopassengers = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerviewid);
         this.jsonrequest();
+
+        donebtn =(Button)findViewById(R.id.done_coop_rating);
+        donebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.remove("selectedKey").apply();
     }
 
     private void jsonrequest() {
@@ -71,21 +93,8 @@ public class CopassengerListActivity extends AppCompatActivity {
                         Log.e("JSONREQUEST","INSIDE JSONEOBJECT");
                         jsonObject = response.getJSONObject(i);
                         copassenger teach = new copassenger();
-//                        teach.setTeacherid(jsonObject.getString("teacherId"));
+                        teach.setUserId(jsonObject.getString("userId"));
                         teach.setName(jsonObject.getString("name"));
-//                        teach.setPosition(jsonObject.getString("Position"));
-//                        teach.setFaculty(jsonObject.getString("Faculty"));
-//                        teach.setSpecialization(jsonObject.getString("Specialization"));
-//                        teach.setDescription(jsonObject.getString("Description"));
-//                        teach.setExperience(jsonObject.getString("Experience"));
-//                        if(jsonObject.getString("Rating").equals("null")){
-//                            teach.setRating("0.0");
-//                        }else if(jsonObject.getString("Rating").length()<=1){
-//                            teach.setRating(jsonObject.getString("Rating")+".0");
-//                        }else{
-//                            teach.setRating(jsonObject.getString("Rating"));
-//                        }
-
                         teach.setImage_url(jsonObject.getString("img"));
 
                         lstCopassengers.add(teach);
