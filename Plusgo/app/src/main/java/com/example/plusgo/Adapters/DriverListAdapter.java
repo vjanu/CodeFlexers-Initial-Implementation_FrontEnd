@@ -19,10 +19,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.plusgo.FC.TripSummaryActivity;
 import com.example.plusgo.R;
 import com.example.plusgo.UPM.VerifyCodeActivity;
 import com.example.plusgo.Utility.DriverListItem;
@@ -64,6 +66,10 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
             public void onClick(View v) {
                 //implement onClick
                 Log.d("driverIDL: ",  driverListItem.getName());
+                Toast.makeText(context , "You Clicked on " + driverListItem.getName(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, TripSummaryActivity.class);
+                context.startActivity(intent);
+
             }
         });
 
