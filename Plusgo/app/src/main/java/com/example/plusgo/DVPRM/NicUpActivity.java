@@ -31,10 +31,11 @@ public class NicUpActivity extends AppCompatActivity {
 
     BaseContent BASECONTENT = new BaseContent();
 
-    //Add the relavent IP to retrieve NIC from image
-    String NIC_URL ="http://192.168.1.4/nic/test.png";
-    String ELEC_NIC_URL ="http://192.168.1.4/nic/test.png";
-//    String LISENCE_URL ="http://192.168.1.4/lisence/test.png";
+    // TODO:Add the relavent IP to retrieve NIC from image
+//    String NIC_URL ="http://192.168.1.4/nic/test.png";
+    String NIC_URL = BASECONTENT.BASEIPROUTE +":80/nic/test.png";
+//    String ELEC_NIC_URL ="http://192.168.1.4/nic/test.png";
+    String ELEC_NIC_URL = BASECONTENT.BASEIPROUTE +":80/nic/test.png";
 
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
@@ -88,7 +89,6 @@ public class NicUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 niclayout.setVisibility(View.VISIBLE);
                jsonrequest();
-
             }
         });
 

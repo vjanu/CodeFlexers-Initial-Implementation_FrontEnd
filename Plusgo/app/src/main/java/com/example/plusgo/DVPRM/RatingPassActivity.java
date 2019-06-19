@@ -92,8 +92,6 @@ public class RatingPassActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent verify = new Intent(RatingPassActivity.this, RatingMainActivity.class);
-//                startActivity(verify);
                 finish();
             }
         });
@@ -340,7 +338,6 @@ public class RatingPassActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
-
 
     //insert ratings related to driver or co-passenger into the database
     public void ratingvehiclepostrequest(String tripId,String vehicleId,String RatedBy,

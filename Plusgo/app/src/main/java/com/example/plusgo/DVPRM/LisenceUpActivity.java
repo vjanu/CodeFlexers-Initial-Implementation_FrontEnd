@@ -36,9 +36,8 @@ public class LisenceUpActivity extends AppCompatActivity {
     BaseContent BASECONTENT = new BaseContent();
 
     //Add the relavent IP to retrieve NIC from image
-//    String NIC_URL ="http://192.168.1.4/nic/test.png";
-//    String ELEC_NIC_URL ="http://192.168.1.4/nic/test.png";
-    String LISENCE_URL ="http://192.168.1.4:81/lisence/test.png";
+//    String LISENCE_URL ="http://192.168.1.4:81/lisence/test.png";
+    String LISENCE_URL = BASECONTENT.BASEIPROUTE +":81/lisence/test.png";
 
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
@@ -83,10 +82,7 @@ public class LisenceUpActivity extends AppCompatActivity {
         verifyLISbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent verify = new Intent(LisenceUpActivity.this, DocUploadActivity.class);
-//                startActivity(verify);
                 jsonrequest();
-//                matchnic();
             }
         });
 
@@ -102,7 +98,6 @@ public class LisenceUpActivity extends AppCompatActivity {
                 finish();
             }
         });
-
 
         extracteddate_lis =(EditText) findViewById(R.id.extracteddate_lis);
         extracteddate_lis.setEnabled(false);
@@ -145,13 +140,6 @@ public class LisenceUpActivity extends AppCompatActivity {
                         Log.e("ExtractedNIC_Lis", EXT);
                         Log.e("ExtractedExp_Lis", Expiration);
                         if(jsonObject.getString("ExtractedNIC") != null){
-//                            EditExtractedNIC.setText(EXT);
-//                            EditExtractedNIC.setEnabled(true);
-//                            if(EXT.length() == 12) {
-//                                proceedNICbtn.setVisibility(View.VISIBLE);
-//                            }
-//                            extracteddate_lis.setText(Expiration);
-//                            extracteddate_lis.setEnabled(true);
 
                             SharedPreferences.Editor editor = getSharedPreferences("dvprm", MODE_PRIVATE).edit();
                             editor.putString("nic_identified_lis", EXT);
@@ -208,7 +196,6 @@ public class LisenceUpActivity extends AppCompatActivity {
                     niclayout.setVisibility(View.VISIBLE);
                     exp_layout.setVisibility(View.VISIBLE);
                     proceedLISbtn.setVisibility(View.VISIBLE);
-//                    SharedPreferences preferences1 = getSharedPreferences("dvprm", Context.MODE_PRIVATE);
                     String ExtractEXP = preferences.getString("exp_identified_lis", "00.00.0000");
                     matchdate(ExtractEXP);
                 }
@@ -222,15 +209,11 @@ public class LisenceUpActivity extends AppCompatActivity {
     private void matchdate(String ExtractEXP){
         try {
             String DateOfExp;
-//        SharedPreferences preferences = getSharedPreferences("dvprm", Context.MODE_PRIVATE);
-//        String ExtractEXP = preferences.getString("exp_identified_lis", "00.00.0000");
             int d1 = Integer.parseInt(ExtractEXP.substring(0, 1));
             int d = Integer.parseInt(ExtractEXP.substring(0, 2));
             int m1 = Integer.parseInt(ExtractEXP.substring(3, 4));
             int m2 = Integer.parseInt(ExtractEXP.substring(4, 5));
             int m = Integer.parseInt(ExtractEXP.substring(3, 5));
-//        int y12= Integer.parseInt(ExtractEXP.substring(6,8));
-//        int y34= Integer.parseInt(ExtractEXP.substring(8,10));
             int y = Integer.parseInt(ExtractEXP.substring(6, 10));
 //        Log.e("d1", String.valueOf(d1));
 //        Log.e("m1", String.valueOf(m1));
