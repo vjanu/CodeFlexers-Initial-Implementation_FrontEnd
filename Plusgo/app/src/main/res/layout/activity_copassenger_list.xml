@@ -42,8 +42,24 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="55dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="55dp">
         </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/done_coop_rating"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="#00FFFFFF"
+            android:text="DONE"
+            android:textColor="#202F65"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
 
     </android.support.v7.widget.CardView>
 

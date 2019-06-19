@@ -8,12 +8,17 @@
 
 package com.example.plusgo.DVPRM;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -33,7 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CopassengerListActivity extends AppCompatActivity {
-
+    SharedPreferences sharedpreferences;
     BaseContent BASECONTENT = new BaseContent();
     //TODO:CHANGE THIS ADDRESS
     private final String JSON_URL= "https://gist.githubusercontent.com/AshaneEdiri/3151daee1b96041e6e7e690425e69e3b/raw/80c053c4566f06a2aa2ad1e7688df75c0b54541b/teacherListDummy";
@@ -41,6 +46,7 @@ public class CopassengerListActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private List<copassenger> lstCopassengers;
     private RecyclerView recyclerView;
+    Button donebtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +64,21 @@ public class CopassengerListActivity extends AppCompatActivity {
         lstCopassengers = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerviewid);
         this.jsonrequest();
+
+        donebtn =(Button)findViewById(R.id.done_coop_rating);
+        donebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.remove("selectedKey").apply();
     }
 
     private void jsonrequest() {
