@@ -60,7 +60,7 @@ public class DriverListActivity extends AppCompatActivity {
     private String id;
 //    private ImageView profileImage;
 //    private String JSON_URL = BASECONTENT.IpAddress + "/comments/specific/";
-    private String JSON_URL = "https://gist.githubusercontent.com/vjanu/4720773fad79534af4460be44002789e/raw/cc12cf094f9443f45da550410b9622cfa16821cd/drivers";
+    private String JSON_URL = "https://gist.githubusercontent.com/vjanu/4720773fad79534af4460be44002789e/raw/f9125dfa3f728c91ab62ac5c5b7064e2808de2f5/drivers";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,10 +112,10 @@ public class DriverListActivity extends AppCompatActivity {
                     for(int i= 0; i<response.length(); i++){
                         try{
                             jsonObject = response.getJSONObject(i);
-                           DriverListItem item = new DriverListItem(jsonObject.getString("Name"), jsonObject.getString("Start"),
+                           DriverListItem item = new DriverListItem(jsonObject.getString("TripID"),jsonObject.getString("UserID"),jsonObject.getString("Name"), jsonObject.getString("Start"),
                                     jsonObject.getString("Dest"), jsonObject.getString("Vehicle"), Double.parseDouble(jsonObject.getString("Rate")),
-                                    jsonObject.getString("Time"),
-                                    jsonObject.getString("img"));
+                                    jsonObject.getString("img"),
+                                    jsonObject.getString("Time"));
 
                             driverListItems.add(item);
 
