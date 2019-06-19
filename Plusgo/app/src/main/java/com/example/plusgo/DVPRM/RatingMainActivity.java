@@ -11,6 +11,7 @@ package com.example.plusgo.DVPRM;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -164,6 +165,18 @@ public class RatingMainActivity extends AppCompatActivity {
     public void onResume(){
         super.onResume();
         lockButtons();
+        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.remove("selectedKey").apply();
+        editor.remove("CalRating").apply();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lockButtons();
+            }
+        }, 1000);
+
     }
 
     @Override

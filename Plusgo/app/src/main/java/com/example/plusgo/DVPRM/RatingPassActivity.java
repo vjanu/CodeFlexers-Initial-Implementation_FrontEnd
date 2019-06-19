@@ -8,9 +8,11 @@
 
 package com.example.plusgo.DVPRM;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -30,11 +32,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -57,6 +61,8 @@ public class RatingPassActivity extends AppCompatActivity {
     String vehiclekey[]={"Air Condition","Comfortability","Cleanliness","Noise","Breaks","Vehicle Quality"};
     String driverkey[]={"Bad Navigation","Professionalism","Cleanliness","Service","Music","Reckless Driving"};
     String copassengerkey[]={"Behaviour","Professionalism","Cleanliness","Attitude","Timeliness","Disturbance"};
+
+    private JsonArrayRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,7 +237,16 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String senti = String.valueOf(writtenSentimnt.getText());
-                setParmsToSend(senti);
+                try {
+                    if (!senti.equals("")) {
+                        jsonrequestforsentimentcheck(senti);
+                    } else {
+                        setParmsToSend(senti);
+                    }
+                }catch (Exception e){
+
+                }
+
                 finish();
             }
         });
@@ -239,6 +254,9 @@ public class RatingPassActivity extends AppCompatActivity {
 
     //To set correct parameters to enter rating to the DB
     public void setParmsToSend(String Sentiment){
+//        if(!Sentiment.equals(null)) {
+//            jsonrequestforsentimentcheck(Sentiment);
+//        }
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         String UserType = (sharedpreferences.getString("selectedRateTab", "vehicle"));
@@ -403,5 +421,60 @@ public class RatingPassActivity extends AppCompatActivity {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    }
+
+    //Retrieve sentiment rating
+    private void jsonrequestforsentimentcheck(String sentiment) {
+
+        String JSON_URL = BASECONTENT.BASEIPROUTE +":8090/sentiment/"+sentiment;
+
+        final String senti = sentiment;
+        final String finalJSON_URL = JSON_URL;
+        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+            public void onResponse(JSONArray response) {
+                Log.e("JSON_URL", finalJSON_URL);
+                JSONObject jsonObject = null;
+                if(response.length() > 0){
+                    try{
+                        jsonObject = response.getJSONObject(0);
+
+                        String ResultRating = jsonObject.getString("ResultRating");
+                        String ResultRatingType= jsonObject.getString("Type");
+
+                        SharedPreferences.Editor editor = getSharedPreferences("rating_preference", MODE_PRIVATE).edit();
+                        editor.putString("CalRating", ResultRating);
+                        editor.putString("CalRatingType", ResultRatingType);
+                        editor.commit();
+
+                        Toast.makeText(getBaseContext(), "CalculatedRating:"+ResultRating+"type:"+ResultRatingType, Toast.LENGTH_LONG).show();
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setParmsToSend(senti);
+                            }
+                        }, 100);
+//                        setParmsToSend(senti);
+
+                    }catch (JSONException e){
+
+                        e.printStackTrace();
+                        Log.e("JSONREQUEST","ERROR");
+                    }
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.e("JSONREQUEST_ERROR",error.toString());
+            }
+        });
+        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        requestQueue = Volley.newRequestQueue(RatingPassActivity.this);
+        requestQueue.add(request);
     }
 }
