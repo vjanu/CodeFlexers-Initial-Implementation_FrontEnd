@@ -80,12 +80,13 @@
                     android:layout_weight="2"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="WRITE A COMPLEMENT TO THE DRIVER"
+                    android:text="WRITE A COMPLIMENT TO THE DRIVER"
                     android:textAlignment="center"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/drivercompliment"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginLeft="10dp"
@@ -290,10 +291,10 @@
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:background="#202F65"
-                    android:text="SUBMIT COMPLEMENTS"
+                    android:text="SUBMIT COMPLIMENTS"
                     android:textColor="@android:color/background_light"
                     android:textSize="16sp"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/skip"

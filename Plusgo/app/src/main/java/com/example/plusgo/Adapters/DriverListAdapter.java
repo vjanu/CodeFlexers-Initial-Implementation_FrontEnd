@@ -10,11 +10,9 @@ package com.example.plusgo.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +21,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.plusgo.FC.TripSummaryActivity;
 import com.example.plusgo.R;
-import com.example.plusgo.UPM.VerifyCodeActivity;
 import com.example.plusgo.Utility.DriverListItem;
 
 import java.util.List;
@@ -44,7 +42,7 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
        View v = LayoutInflater.from(viewGroup.getContext())
-               .inflate(R.layout.comments_list, viewGroup, false);
+               .inflate(R.layout.driver_list, viewGroup, false);
        return new ViewHolder(v);
     }
 
@@ -57,13 +55,32 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
         viewHolder.txtDest.setText(driverListItem.getDestination());
         viewHolder.txtRate.setText(String.valueOf(driverListItem.getRate()));
         viewHolder.txtTime.setText(driverListItem.getTime());
+        viewHolder.txtTid.setText(driverListItem.getTid());
+        viewHolder.txtUid.setText(driverListItem.getUid());
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
 
         viewHolder.driverCard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 //implement onClick
-                Log.d("driverIDL: ",  driverListItem.getName());
+                Intent i = new Intent(context, TripSummaryActivity.class);
+
+                //tripid, userid, fullname, source detination
+                TextView tid  =(TextView)view.findViewById(R.id.tripidHidden);
+                TextView uid  =(TextView)view.findViewById(R.id.uidHidden);
+                TextView name  =(TextView)view.findViewById(R.id.txtFullName);
+                TextView source  =(TextView)view.findViewById(R.id.txtStarting);
+                TextView destination  =(TextView)view.findViewById(R.id.txtDestination);
+                CircleImageView profileImage = (CircleImageView)view.findViewById(R.id.proImage);
+
+                i.putExtra("TID", String.valueOf(tid.getText()));
+                i.putExtra("UID", String.valueOf(uid.getText()));
+                i.putExtra("Name", String.valueOf(name.getText()));
+                i.putExtra("Source", String.valueOf(source.getText()));
+                i.putExtra("Destination",String.valueOf(destination.getText()));
+                i.putExtra("img",String.valueOf(profileImage));
+
+                view.getContext().startActivity(i);
             }
         });
 
@@ -91,6 +108,8 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
         public TextView txtStart;
         public TextView txtDest;
         public TextView txtRate;
+        public TextView txtTid;
+        public TextView txtUid;
 
         public TextView txtTime;
         public CircleImageView profileImage;
@@ -102,6 +121,8 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
             txtDest = (TextView)itemView.findViewById(R.id.txtDestination);
             txtRate = (TextView)itemView.findViewById(R.id.txtRating);
             txtTime = (TextView)itemView.findViewById(R.id.txtTime);
+            txtTid = (TextView)itemView.findViewById(R.id.tripidHidden);
+            txtUid = (TextView)itemView.findViewById(R.id.uidHidden);
             profileImage = (CircleImageView)itemView.findViewById(R.id.proImage);
             driverCard = (CardView) itemView.findViewById(R.id.driver_card);
 

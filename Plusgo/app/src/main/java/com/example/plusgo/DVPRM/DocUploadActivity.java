@@ -53,14 +53,10 @@ public class DocUploadActivity extends AppCompatActivity {
 
     private static final String TAG = DocUploadActivity.class.getSimpleName();
 
+    //TODO : path of the phpfile in the server
     String NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadnic.php";
     String ELEC_NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadnic.php";
-    String LISENCE_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadlisence.php";
-
-//    private String UPLOAD_URL = "http://192.168.1.4:8080/android/upload_image/upload.php";
-//    private String UPLOAD_URL = BASECONTENT.phpIP+"/android/upload_image/upload.php";
-//    private String UPLOAD_URL = BASECONTENT.phpIP+"/android/uploadnic.php";
-//    private String UPLOAD_URL = NIC_URL_UPLOAD;
+    String LISENCE_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadlisence.php"; //TODO
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
