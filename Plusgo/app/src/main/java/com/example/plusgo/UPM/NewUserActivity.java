@@ -215,7 +215,10 @@ p.setOnClickListener(new View.OnClickListener() {
                             public void onComplete(@NonNull Task<InstanceIdResult> task) {
                                 if(task.isSuccessful()){
                                     token = task.getResult().getToken();
+                                    Log.d("qw1:", token);
+
                                     saveToken(token);
+                                    Log.d("qw2:", token);
 //                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
 //                            textView.setText("Token" + token);
                                 }else{
@@ -243,7 +246,8 @@ p.setOnClickListener(new View.OnClickListener() {
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
                 jsonObject.put("Age", dob.getText());
-                jsonObject.put("Token", token.toString());
+                Log.d("qw3:", token);
+                jsonObject.put("Token", "12");
                 final String mRequestBody = jsonObject.toString();
 
                 SharedPreferences.Editor selfData = getSharedPreferences("self", MODE_PRIVATE).edit();

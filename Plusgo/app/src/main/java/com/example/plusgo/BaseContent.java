@@ -13,7 +13,7 @@ public class BaseContent {
     public String phpIP = BASEIPROUTE+":8080";
 
 //    public String pythonIpAddress = "http://192.168.1.4:99";
-    public String pythonIpAddress = BASEIPROUTE+":99";
+    public String pythonIpAddress = BASEIPROUTE+":99";//TODO : INSERT WHOS COMPONENT IS RELATED TO THIS PORT
 
 }
 
