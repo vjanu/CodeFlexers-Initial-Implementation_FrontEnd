@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.plusgo.BaseContent;
 import com.example.plusgo.FC.TripSummaryActivity;
 import com.example.plusgo.R;
 import com.example.plusgo.Utility.DriverListItem;
@@ -34,6 +35,7 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
     private Context context;
     private List<DriverListItem> driverListItems;
     DriverListItem driverListItem;
+    BaseContent BASECONTENT = new BaseContent();
     public DriverListAdapter(List<DriverListItem> driverListItems, Context context) {
         this.driverListItems = driverListItems;
         this.context = context;
@@ -86,7 +88,7 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
 
         //To load image using Glide
         Glide.with(context)
-                .load(driverListItem.getImage())
+                .load(BASECONTENT.IpAddress  +driverListItem.getImage())
                 .apply(requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true))
                 .into(viewHolder.profileImage);

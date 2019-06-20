@@ -70,7 +70,7 @@ public class NewUserActivity extends AppCompatActivity {
     private Spinner profession;
     private Button goToPreferences, update,p;
     private static final String KEY_EMPTY = "";
-    private TextView name,email, Rname, Rphone, dob;
+    private TextView name,email, Rname, Rphone, dob,toke;
     private RadioGroup radioGenderGroup;
     private RadioButton radioGenderButton;
     private CircleImageView proPic;
@@ -135,6 +135,7 @@ public class NewUserActivity extends AppCompatActivity {
         radioGenderGroup = (RadioGroup) findViewById(R.id.gender);
         proPic = (CircleImageView)findViewById(R.id.photo);
         dob = (TextView)findViewById(R.id.dob);
+        toke = (TextView)findViewById(R.id.hidden);
 
         password = "123456"; // Testing Purpose Added by Surath
         //userEmail = email.getText().toString().trim();
@@ -215,6 +216,7 @@ p.setOnClickListener(new View.OnClickListener() {
                             public void onComplete(@NonNull Task<InstanceIdResult> task) {
                                 if(task.isSuccessful()){
                                     token = task.getResult().getToken();
+                                    toke.setText(token);
                                     Log.d("qw1:", token);
 
                                     saveToken(token);
@@ -246,8 +248,7 @@ p.setOnClickListener(new View.OnClickListener() {
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
                 jsonObject.put("Age", dob.getText());
-                Log.d("qw3:", token);
-                jsonObject.put("Token", "12");
+                jsonObject.put("Token", toke.getText());
                 final String mRequestBody = jsonObject.toString();
 
                 SharedPreferences.Editor selfData = getSharedPreferences("self", MODE_PRIVATE).edit();
