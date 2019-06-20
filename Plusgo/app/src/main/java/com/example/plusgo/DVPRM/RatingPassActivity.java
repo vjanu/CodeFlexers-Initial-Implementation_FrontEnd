@@ -9,6 +9,7 @@
 package com.example.plusgo.DVPRM;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,6 +56,7 @@ public class RatingPassActivity extends AppCompatActivity {
     Button keyw1,keyw2,keyw3,keyw4,keyw5,keyw6;
     String vehiclekey[]={"Air Condition","Comfortability","Cleanliness","Noise","Breaks","Vehicle Quality"};
     String driverkey[]={"Bad Navigation","Professionalism","Cleanliness","Service","Music","Reckless Driving"};
+    String copassengerkey[]={"Behaviour","Professionalism","Cleanliness","Attitude","Timeliness","Disturbance"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +92,6 @@ public class RatingPassActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent verify = new Intent(RatingPassActivity.this, RatingMainActivity.class);
-//                startActivity(verify);
                 finish();
             }
         });
@@ -123,6 +123,20 @@ public class RatingPassActivity extends AppCompatActivity {
             keyw5.setText(driverkey[4]);
             keyw6.setText(driverkey[5]);
             layoutReport.setVisibility(View.VISIBLE);
+        }else {
+            keyw1.setText(copassengerkey[0]);
+            keyw2.setText(copassengerkey[1]);
+            keyw3.setText(copassengerkey[2]);
+            keyw4.setText(copassengerkey[3]);
+            keyw5.setText(copassengerkey[4]);
+            keyw6.setText(copassengerkey[5]);
+
+            Intent intent = getIntent();
+            String selected_copassenger_id = intent.getStringExtra("selected_copassenger_id");
+            editor.putString("UserID", selected_copassenger_id);
+            editor.apply();
+
+            Toast.makeText(getBaseContext(), "Copassenger ID"+selected_copassenger_id, Toast.LENGTH_LONG).show();
         }
 
         keyw1.setOnClickListener(new View.OnClickListener() {
@@ -223,24 +237,6 @@ public class RatingPassActivity extends AppCompatActivity {
         });
     }
 
-//    public boolean lockButtons(){
-//        Date date = new Date();
-//        long timeMilli = date.getTime();
-//        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
-//        String done_VID = (sharedpreferences.getString("done_VID", "timeMilli"));
-//        String done_RatedBY = (sharedpreferences.getString("done_RatedBY", "timeMilli"));
-//        String done_UID = (sharedpreferences.getString("done_UID", "timeMilli"));
-//
-//        String UserID = (sharedpreferences.getString("UserID", "U000001"));
-//        String RatedBy = (sharedpreferences.getString("RatedBy", "U0000002"));
-//        String VehicleId = (sharedpreferences.getString("vehicleId", "V1560496428978"));
-//
-//        if((done_VID.equals(VehicleId) && done_RatedBY.equals(RatedBy))||(done_RatedBY.equals(RatedBy)&&done_UID.equals(UserID))){
-//            return false;
-//        }else
-//            return true;
-//    }
-
     //To set correct parameters to enter rating to the DB
     public void setParmsToSend(String Sentiment){
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
@@ -261,8 +257,7 @@ public class RatingPassActivity extends AppCompatActivity {
             editor.commit();
         }else{
             ratingpersonalpostrequest(TripId, UserID, UserType, RatedBy, GivenRating, CalRating, Dissatis, Sentiment);
-//            editor.putString("done_UID", UserID);
-//            editor.putString("done_RatedBY", RatedBy);
+
             if(UserType.equals("driver")) {
                 editor.putString("done_ratedriver", "YES");
                 editor.commit();
@@ -343,7 +338,6 @@ public class RatingPassActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
-
 
     //insert ratings related to driver or co-passenger into the database
     public void ratingvehiclepostrequest(String tripId,String vehicleId,String RatedBy,
