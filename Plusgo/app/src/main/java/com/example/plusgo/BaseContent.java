@@ -3,7 +3,7 @@ package com.example.plusgo;
 
 public class BaseContent {
 
-    final public String BASEIPROUTE = "http://192.168.8.102";
+    final public String BASEIPROUTE = "http://192.168.8.100";
 
     //IP ADDRESS OF THE NODEJS BACKEND
     public String IpAddress = BASEIPROUTE+":8083";
@@ -14,6 +14,8 @@ public class BaseContent {
 
 //    public String pythonIpAddress = "http://192.168.1.4:99";
     public String pythonIpAddress = BASEIPROUTE+":99";//TODO : INSERT WHOS COMPONENT IS RELATED TO THIS PORT
+    public String pythonIpAddressGetDistance = BASEIPROUTE+":95";
+    public String pythonIpAddressGetEstimateFuel = BASEIPROUTE+":96";
 
 }
 
