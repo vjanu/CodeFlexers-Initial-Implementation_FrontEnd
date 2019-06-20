@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".OPR.RiderMenu">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp">
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Switch
+                    android:id="@+id/switchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:letterSpacing="-0.02"
+                    android:paddingRight="10dp"
+                    android:text="Offline "
+                    android:textSize="16dp"
+                    android:textStyle="normal"
+                    android:typeface="sans" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/title_offer_ride"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="Offer a Ride"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textSize="30dp"
+                    android:textStyle="normal"
+                    android:typeface="sans" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/form_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header">
+
+        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/form_card_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            card_view:cardCornerRadius="6dp">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/text_source"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="Source"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:typeface="sans" />
+
+                            <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/input_source"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/text_destination"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="Destination"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:typeface="sans" />
+
+                            <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/input_destination"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="10dp" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:id="@+id/text_startdate"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="Start Date"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:typeface="sans" />
+
+                            <EditText
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textIsSelectable="true"
+                                android:id="@+id/start_date"
+                                android:drawableRight="@drawable/baseline_calendar_today_24"
+                                android:layout_marginRight="10dp" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/text_starttime"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="Start Time"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:typeface="sans" />
+
+                            <EditText
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textIsSelectable="true"
+                                android:id="@+id/start_time"
+                                android:drawableRight="@drawable/baseline_alarm_24"
+                                android:layout_marginRight="10dp" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/text_waitingtime"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="Waiting Time"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:textSize="16sp"
+                                android:textStyle="normal"
+                                android:typeface="sans" />
+
+                            <EditText
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:textIsSelectable="true"
+                                android:id="@+id/waiting_time"
+                                android:layout_marginRight="10dp" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/btnoffer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:layout_marginTop="-100dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/rectangle_button_drawable"
+                    android:text="@string/submit"
+                    android:textColor="#FFFFFF"
+                    android:textAllCaps="false" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="az.codeflexers.MainActivity">
+    <item
+        android:id="@+id/action_locate"
+        android:orderInCategory="100"
+        android:title="Settings"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_compass"/>
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="101"
+        android:title="Settings"
+        app:showAsAction="never" />
+</menu>
