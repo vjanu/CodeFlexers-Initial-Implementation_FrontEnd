@@ -27,16 +27,21 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
+import com.example.plusgo.Login;
 import com.example.plusgo.R;
 import com.example.plusgo.Utility.Driver;
 import com.example.plusgo.Utility.FirebaseSuccessListener;
@@ -53,6 +58,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +85,7 @@ public class TempGPSActivity extends Activity implements LocationListener {
      * context of calling class
      */
     private Context mContext;
-
+private Button cllick;
     /**
      * flag for gps status
      */
@@ -126,6 +132,10 @@ public class TempGPSActivity extends Activity implements LocationListener {
      */
     private LocationManager mLocationManager;
     DatabaseReference db;
+
+    public TempGPSActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,8 +148,15 @@ public class TempGPSActivity extends Activity implements LocationListener {
         checkAndAddPermission();
         //Executing the handler
         executeHandler();
-        //filterRelevantDrivers();
-
+        filterRelevantDrivers();
+        cllick = (Button)findViewById(R.id.i);
+        cllick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(TempGPSActivity.this, DriverListActivity.class));
+            }
+        });
     }
 
    // @Override
@@ -403,7 +420,7 @@ public class TempGPSActivity extends Activity implements LocationListener {
     }
 
     private void addDrivers(){
-        Log.i("111", "111");
+//        Log.i("111", "111");
         double latitude = 0.0;
         double longitude = 0.0;
         GpsLocationTracker mGpsLocationTracker = new GpsLocationTracker(TempGPSActivity.this);
@@ -432,7 +449,7 @@ public class TempGPSActivity extends Activity implements LocationListener {
 
         if(Start().size() > 0) {
             for (int j = 0; j < Start().size(); j++) {
-                Log.d("111x", String.valueOf(Start().get(j)));
+//                Log.d("111x", String.valueOf(Start().get(j)));
                 if (Start().get(j).equalsIgnoreCase(uid)) {
                     Log.i("replica", "sssss"); //update
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("drivers").child(uid);
@@ -442,7 +459,7 @@ public class TempGPSActivity extends Activity implements LocationListener {
 //            }
                 }
                 else {
-                    Log.i("added1", "qqqq");
+//                    Log.i("added1", "qqqq");
 
                     Driver driver = new Driver(uid, longitude, latitude);
                     String id = db.push().getKey();
@@ -518,8 +535,8 @@ public class TempGPSActivity extends Activity implements LocationListener {
                         locationBean.setLatitude(Double.parseDouble(String.valueOf(data.child("latitude").getValue())));
                         locationBean.setLongitude(Double.parseDouble(String.valueOf(data.child("longitude").getValue())));
                         location.add(locationBean);
-                        Log.d("loc", String.valueOf(locationBean.getUid()));
-                        Log.d("location", String.valueOf(location.size()));
+//                        Log.d("loc", String.valueOf(locationBean.getUid()));
+//                        Log.d("location", String.valueOf(location.size()));
                     }
                 }
                 firebaseSuccessListener.locationBean(location);
@@ -639,35 +656,86 @@ public class TempGPSActivity extends Activity implements LocationListener {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
-        getAvailableDriverList();
+//        getAvailableDriverList();
     }
-
-    private void getAvailableDriverList() {
-
-        Log.e("too","started");
-        RequestQueue requestQueue = Volley.newRequestQueue(TempGPSActivity.this);
-        StringRequest request = new StringRequest(PYTHON_URL_GET_DRIVERS+c, new Response.Listener<String>() {
-
-            public void onResponse(String response) {
-                JSONObject jsonObject = null;
-              Log.e("qqq1",String.valueOf(response));
-//                for(int i= 0; i<response.length(); i++){
-////                    Log.e("qqq1",String.valueOf(response));
+//    List<String> availableDrivers = new ArrayList<>();
+//    public List<String> getAvailableDriverList() {
 //
+//        Log.e("too","started");
+//        RequestQueue requestQueue = Volley.newRequestQueue(TempGPSActivity.this);
+//        StringRequest request = new StringRequest(PYTHON_URL_GET_DRIVERS+c, new Response.Listener<String>() {
+//
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//                    JSONArray jsonObject = new JSONArray(response);
+//
+//                    Log.d("oo",  String.valueOf(jsonObject.length()));
+//                    Log.d("oo1",  String.valueOf(jsonObject.get(0)));
+//                    Log.d("oo2",  String.valueOf(jsonObject.get(1)));
+//
+//                    for(int i=0; i <jsonObject.length(); i++){
+//                        availableDrivers.add(jsonObject.get(i).toString());
+//
+//                    }
+//                    Log.d("og", jsonObject.get("UID").toString());
+//                    String x  = jsonObject.get("UID").toString();
+//                    x.replace("[", "");
+//                    x.replace("]", "");
+//                    Log.d("y1",  String.valueOf(x));
+//                    String[] words=x.split(",");
+//                    Log.d("oo",  String.valueOf(words.length));
+//                    Log.d("oo1",  String.valueOf(words[0]));
+//                    Log.d("oo2",  String.valueOf(words[1]));
+//
+
+//                    JSONArray jr = new JSONArray(jsonObject  );
+//                    JSONObject jb = (JSONObject)jr.getJSONObject(0);
+//                    JSONArray st = jb.getJSONArray("UID");
+//                    for(int i=0;i<st.length();i++)
+//                    {
+//                        String street = st.getString(i);
+//                        Log.d("zzz",""+ street);
+//                        // loop and add it to array or arraylist
+//                    }
+
+//                    JSONObject jsonObject = new JSONObject(response);
+//                    Log.d("obj1", jsonObject.toString());
+//                    Log.d("obj2", jsonObject.get("UID").toString());
+//                    Log.d("objx", String.valueOf(jsonObject.length()));
+//
+//                    JSONArray j = new JSONArray(Arrays.asList(jsonObject.get("UID")));
+//                    Log.d("objc", String.valueOf(j));
+//                    Log.d("objd", String.valueOf(j.length()));
+//
+//                    Log.e("qqq1", String.valueOf(response));
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//
+//
+////                        jsonObject = response.getJSONObject(i);
+////                        Log.d("ppp", jsonObject.toString());
+////                        user.setUsername(jsonObject.getString("Username"));
+//                    }
 //                }
-
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        requestQueue = Volley.newRequestQueue(TempGPSActivity.this);
-        requestQueue.add(request);
-
-    }
+//                    catch(JSONException e){
+//
+//                        e.printStackTrace();
+//                        Log.d("JSONREQUEST","ERROR");
+//                    }
+//
+//
+//
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+//
+//        requestQueue = Volley.newRequestQueue(TempGPSActivity.this);
+//        requestQueue.add(request);
+//return availableDrivers;
+//    }
 }
