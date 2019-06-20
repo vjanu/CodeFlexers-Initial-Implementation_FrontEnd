@@ -24,6 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".UPM.DriverListActivity">
+
+
         </activity>
         <activity android:name=".FC.LiveCalculation"></activity>
 
@@ -35,7 +37,11 @@
             android:theme="@style/AppTheme"></activity>
         <activity android:name=".UPM.VehicleActivity" />
         <activity android:name=".UPM.AddPreferenceActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".UPM.NewUserActivity" />
         <activity android:name=".UPM.VerifyCodeActivity" />
@@ -43,11 +49,6 @@
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity> 
         <activity android:name=".DVPRM.DummyActivity">
