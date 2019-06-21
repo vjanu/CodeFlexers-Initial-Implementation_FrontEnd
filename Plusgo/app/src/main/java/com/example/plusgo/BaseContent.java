@@ -15,6 +15,8 @@ public class BaseContent {
 
 //    public String pythonIpAddress = "http://192.168.1.4:99";
     public String pythonIpAddress = BASEIPROUTE+":99";//TODO : INSERT WHOS COMPONENT IS RELATED TO THIS PORT
+    public String pythonIpAddressGetDistance = BASEIPROUTE+":95";
+    public String pythonIpAddressGetEstimateFuel = BASEIPROUTE+":96";
 
 }
 

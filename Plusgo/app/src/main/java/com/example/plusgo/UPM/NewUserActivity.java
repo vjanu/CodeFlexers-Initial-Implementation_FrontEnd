@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -70,13 +71,14 @@ public class NewUserActivity extends AppCompatActivity {
     private Spinner profession;
     private Button goToPreferences, update,p;
     private static final String KEY_EMPTY = "";
-    private TextView name,email, Rname, Rphone, dob;
+    private TextView name,email, Rname, Rphone, dob,toke,token1;
     private RadioGroup radioGenderGroup;
     private RadioButton radioGenderButton;
     private CircleImageView proPic;
     private JsonArrayRequest request;
     private String id;
     private RequestQueue requestQueue;
+    public static String NotificationToken;
 
     private BaseContent BASECONTENT = new BaseContent();
     private String JSON_URL_ADD_USER = BASECONTENT.IpAddress + "/users";
@@ -135,6 +137,8 @@ public class NewUserActivity extends AppCompatActivity {
         radioGenderGroup = (RadioGroup) findViewById(R.id.gender);
         proPic = (CircleImageView)findViewById(R.id.photo);
         dob = (TextView)findViewById(R.id.dob);
+        toke = (TextView)findViewById(R.id.hidden);
+
 
         password = "123456"; // Testing Purpose Added by Surath
         //userEmail = email.getText().toString().trim();
@@ -143,12 +147,63 @@ public class NewUserActivity extends AppCompatActivity {
         Log.d("emails", userEmail);
         setValuesUser();
 
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    // code to execute when EditText loses focus
+
+                    /*
+                     * Firebase Authentication with Email with Password
+                     * */
+
+                    userEmail = email.getText().toString();
+                    Log.d("sss" , password );
+                    Log.d("sss1" , userEmail);
+                    mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            //If Firebase Authentication Succeful Redirect to the Profile Activity
+                            if(task.isSuccessful()){
+                                //startProfileActivity();
+                            }else{
+                                if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                    userLogin(userEmail,password);
+                                }else{
+                                    // progressbar.setVisibility(View.INVISIBLE);
+                                    Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+
+                        }
+                    });
+
+                    FirebaseInstanceId.getInstance().getInstanceId()
+                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                    if(task.isSuccessful()){
+                                        NotificationToken = task.getResult().getToken();
+                                        toke.setText(NotificationToken);
+                                        Log.d("qw1:", NotificationToken);
+                                        saveToken(NotificationToken);
+
+                                    }else{
+//                                      textView.setText("Token is Not Generated");
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+
         goToPreferences = (Button)findViewById(R.id.btnConfirm);
         p = (Button)findViewById(R.id.pi);
         goToPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               addUser();
+                addUser();
 
 
             }
@@ -161,14 +216,14 @@ public class NewUserActivity extends AppCompatActivity {
                 updateUser();
             }
         });
-p.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        finish();
-        startActivity(new Intent(NewUserActivity.this, AddPreferenceActivity.class));
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(NewUserActivity.this, AddPreferenceActivity.class));
 
-    }
-});
+            }
+        });
 
     }
     //add relevant user details
@@ -182,50 +237,51 @@ p.setOnClickListener(new View.OnClickListener() {
             }
             else {
 
-                /*
-                 * Firebase Authentication with Email with Password
-                 * */
+//                /*
+//                 * Firebase Authentication with Email with Password
+//                 * */
+//
+//                userEmail = email.getText().toString();
+//                Log.d("sss" , password );
+//                Log.d("sss1" , userEmail);
+//                mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        //If Firebase Authentication Succeful Redirect to the Profile Activity
+//                        if(task.isSuccessful()){
+//                            //startProfileActivity();
+//                        }else{
+//                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+//                                userLogin(userEmail,password);
+//                            }else{
+//                                // progressbar.setVisibility(View.INVISIBLE);
+//                                Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+//                            }
+//
+//                        }
+//
+//                    }
+//                });
 
-                userEmail = email.getText().toString();
-                Log.d("sss" , password );
-                Log.d("sss1" , userEmail);
-                mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //If Firebase Authentication Succeful Redirect to the Profile Activity
-                        if(task.isSuccessful()){
-                            //startProfileActivity();
-                        }else{
-                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                userLogin(userEmail,password);
-                            }else{
-                                // progressbar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                            }
 
-                        }
-
-                    }
-                });
-
-
-                FirebaseInstanceId.getInstance().getInstanceId()
-                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                if(task.isSuccessful()){
-                                    token = task.getResult().getToken();
-                                    Log.d("qw1:", token);
-
-                                    saveToken(token);
-                                    Log.d("qw2:", token);
-//                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
-//                            textView.setText("Token" + token);
-                                }else{
-//                            textView.setText("Token is Not Generated");
-                                }
-                            }
-                        });
+//                FirebaseInstanceId.getInstance().getInstanceId()
+//                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                                if(task.isSuccessful()){
+//                                    String NotificationToken = task.getResult().getToken();
+//                                    token1.setText(NotificationToken);
+//                                    Log.d("qw1:", NotificationToken);
+//
+//                                    saveToken(token);
+//                                    Log.d("qw2:", token);
+////                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
+////                            textView.setText("Token" + token);
+//                                }else{
+////                            textView.setText("Token is Not Generated");
+//                                }
+//                            }
+//                        });
 
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 JSONObject jsonObject = new JSONObject();
@@ -245,9 +301,10 @@ p.setOnClickListener(new View.OnClickListener() {
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
+                Log.d("token",NotificationToken.toString());
                 jsonObject.put("Age", dob.getText());
-                Log.d("qw3:", token);
-                jsonObject.put("Token", "12");
+                jsonObject.put("Token", toke.getText().toString());
+                Log.d("token",NotificationToken.toString());
                 final String mRequestBody = jsonObject.toString();
 
                 SharedPreferences.Editor selfData = getSharedPreferences("self", MODE_PRIVATE).edit();
@@ -588,6 +645,7 @@ p.setOnClickListener(new View.OnClickListener() {
     private void saveToken(String token)
     {
         String email = mAuth.getCurrentUser().getEmail();
+        Log.d("email",email);
         User user = new User(email,token);
 
         //Create Firebase References

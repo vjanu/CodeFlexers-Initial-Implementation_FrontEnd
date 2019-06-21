@@ -9,9 +9,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:name=".app.AppController"
@@ -21,48 +23,42 @@
         android:roundIcon="@mipmap/logoplusgo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".UPM.DriverListActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name=".FC.LiveCalculation"></activity>
-
+        <activity android:name=".Notification.OpenNotification"></activity>
+        <activity android:name=".UPM.DriverListActivity"></activity>
+        <activity android:name=".FC.LiveCalculation" />
         <activity
             android:name=".FC.TripSummaryActivity"
-            android:theme="@style/AppTheme"></activity> 
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".FC.UserProfile"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity android:name=".UPM.VehicleActivity" />
-        <activity android:name=".UPM.AddPreferenceActivity" />
-        <activity android:name=".UPM.NewUserActivity" />
-        <activity android:name=".UPM.VerifyCodeActivity" />
-        <activity android:name=".UPM.VerifyMobilePhoneActivity" />
-        <activity android:name=".Login" />
-        <activity android:name=".SignUp" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".UPM.AddPreferenceActivity">
+
              <!--<intent-filter>-->
              <!--<action android:name="android.intent.action.MAIN" />-->
 
 
              <!--<category android:name="android.intent.category.LAUNCHER" />-->
              <!--</intent-filter>-->
-        </activity> <!-- <activity android:name=".Home" /> -->
-        <activity android:name=".DVPRM.DummyActivity">
+        </activity>
+        <activity android:name=".UPM.NewUserActivity" />
+        <activity android:name=".UPM.VerifyCodeActivity" />
+        <activity android:name=".UPM.VerifyMobilePhoneActivity" />
+        <activity android:name=".Login" />
+        <activity android:name=".SignUp" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".DVPRM.DummyActivity"></activity>
         <activity
             android:name=".DVPRM.DocUploadActivity"
             android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".DVPRM.LisenceUpActivity"></activity>
+        <activity android:name=".DVPRM.LisenceUpActivity" />
         <activity android:name=".DVPRM.NicUpActivity" />
         <activity android:name=".DVPRM.NicUploadMainActivity"/>
         <activity android:name=".DVPRM.RatingMainActivity" />
@@ -73,20 +69,73 @@
         <activity
             android:name=".DVPRM.CopassengerListActivity"
             android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".UPM.CameraActivity" />
+        <activity android:name=".UPM.TempGPSActivity" />
         <activity
-            android:name=".OPR.Report_accident"
-            android:theme="@style/AppTheme" />
+            android:name=".OPR.TrafficJam"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
         <activity
-            android:name=".OPR.Report_traffic_jam"
-            android:theme="@style/AppTheme" />
+            android:name=".OPR.Accident"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
         <activity
-            android:name=".OPR.OfferRide"
-            android:theme="@style/AppTheme" />
+            android:name=".OPR.UserMain"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
         <activity
-            android:name=".OPR.SetRidePass"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".UPM.CameraActivity"/>
-        <activity android:name=".UPM.TempGPSActivity"/>
+            android:name=".OPR.RiderMenu"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".OPR.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
     </application>
 
 </manifest>

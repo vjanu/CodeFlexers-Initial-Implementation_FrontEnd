@@ -51,4 +51,14 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 
+
+    //map
+    implementation 'org.osmdroid:osmdroid-android:6.1.0'
+    implementation 'com.google.android.gms:play-services-location:8.4.0'
+    implementation 'com.pkmmte.view:circularimageview:1.1'
+    implementation 'com.github.ybq:Android-SpinKit:1.2.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.github.MKergall:osmbonuspack:6.6.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.applozic.communication.uiwidget:mobicomkitui:5.8.4'
 }
