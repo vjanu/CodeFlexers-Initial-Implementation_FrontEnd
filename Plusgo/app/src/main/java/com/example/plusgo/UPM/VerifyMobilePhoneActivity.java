@@ -8,9 +8,20 @@
 
 package com.example.plusgo.UPM;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +52,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class VerifyMobilePhoneActivity extends AppCompatActivity {
     private static final String KEY_EMPTY = "";
@@ -51,7 +63,8 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
     private String JSON_URL_CHECK = BASECONTENT.IpAddress + "/telephone/specific/";
     private boolean result = false;
     private RequestQueue requestQueue;
-    List<Telephone> tpN;
+    private final int MY_PERMISSIONS_REQUEST_SEND_SMS =0;
+    List<Integer> tpN;
     static int x;
 //    private Telephone telephone = new Telephone();
     @Override
@@ -71,10 +84,17 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
             public void onClick(View v) {
                 tp = number.getText().toString().trim();
                 if (validateInputs()) {
-                    isExists();
+                    isExists(tp);
+                    Log.d("pooo", String.valueOf(tpN.size()));
+//
+//                    if(tpN.size()== 0){
+//                        addTP();
+//                        sendSMS();
+
+//                    }
 
                     Log.d("ttt", String.valueOf(x));
-                    addTP();
+
                 }
             }
         });
@@ -93,11 +113,6 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
     public void addTP() {
         try {
 
-            if(x > 0){
-                number.setError("Telephone Number already exists");
-                number.requestFocus();
-            }
-            else {
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 JSONObject jsonObject = new JSONObject();
 
@@ -108,7 +123,7 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.i("LOG_VOLLEY", response);
-                        sendSMS();
+//                        sendSMS();
 
                     }
                 }, new Response.ErrorListener() {
@@ -147,22 +162,32 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 requestQueue.add(stringRequest);
-            }
+//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-    private void isExists() {
+    private void isExists(String tp) {
 
         Log.d("www1","qqqqqq");
         JsonArrayRequest request = new JsonArrayRequest(JSON_URL_CHECK+tp, new Response.Listener<JSONArray>() {
 
             public void onResponse(JSONArray response) {
-            x = response.length();
+                x = response.length();
                 Log.d("size1", String.valueOf(x));
-//                JSONObject jsonObject = null;
+
+                if(x == 0){
+                    Log.d("xx","x started");
+                    addTP();
+                    sendSMS();
+                }
+                else{
+                    number.setError("Telephone Number already exists");
+                    number.requestFocus();
+                }
+
 //                for(int i= 0; i<response.length(); i++){
 //                    Log.d("www2",String.valueOf(response.length()));
 //                    try{
@@ -170,7 +195,8 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
 //                        jsonObject = response.getJSONObject(i);
 //                        telephone.setTelephoneNumber(jsonObject.getString("Telephone"));
 //                        Log.d("zzz",jsonObject.getString("Telephone"));
-//                        tpN.add(telephone);
+//                        tpN.add(x);
+//
 //
 //                    }catch (Exception e){
 //
@@ -178,7 +204,7 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
 //                        Log.d("JSONREQUEST","ERROR");
 //                        Toast.makeText(VerifyMobilePhoneActivity.this, "Error Occured", Toast.LENGTH_LONG).show();
 //                    }
-//
+
 //                }
 
             }
@@ -196,8 +222,115 @@ public class VerifyMobilePhoneActivity extends AppCompatActivity {
 
     }
 
-    public void sendSMS(){
-        Toast.makeText(VerifyMobilePhoneActivity.this, "Code Sent!", Toast.LENGTH_LONG).show();
+
+    private void sendSMS() {
+        Log.d("call", "call12");
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.SEND_SMS)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+        }
+        else{
+//            sendTXT();
+            sendSMS1();
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    sendTXT();
+                    sendSMS1();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "SMS can't be sent, please try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
+
+    }
+
+    private void sendSMS1()
+    {
+
+        String SENT = "SMS_SENT";
+        String DELIVERED = "SMS_DELIVERED";
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0,
+                new Intent(SENT), 0);
+
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
+                new Intent(DELIVERED), 0);
+
+        //---when the SMS has been sent---
+        registerReceiver(new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context arg0, Intent arg1) {
+                switch (getResultCode())
+                {
+                    case Activity.RESULT_OK:
+                        Toast.makeText(getBaseContext(), "SMS sent",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                        Toast.makeText(getBaseContext(), "Generic failure",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_NO_SERVICE:
+                        Toast.makeText(getBaseContext(), "No service",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_NULL_PDU:
+                        Toast.makeText(getBaseContext(), "Null PDU",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_RADIO_OFF:
+                        Toast.makeText(getBaseContext(), "Radio off",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        }, new IntentFilter(SENT));
+
+        //---when the SMS has been delivered---
+        registerReceiver(new BroadcastReceiver(){
+            @Override
+            public void onReceive(Context arg0, Intent arg1) {
+                switch (getResultCode())
+                {
+                    case Activity.RESULT_OK:
+                        Toast.makeText(getBaseContext(), "SMS delivered",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        Toast.makeText(getBaseContext(), "SMS not delivered",
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        }, new IntentFilter(DELIVERED));
+
+        Random random = new Random();
+        String id = String.format("%04d", random.nextInt(10000));
+
+        SharedPreferences.Editor phone = getSharedPreferences("Phone", MODE_PRIVATE).edit();
+        phone.putString("Number", number.getText().toString().trim());
+        phone.putString("Code", id);
+        phone.apply();
+
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(number.getText().toString().trim(), null, id, sentPI, deliveredPI);
+
+        Toast.makeText(VerifyMobilePhoneActivity.this, "Code Sent", Toast.LENGTH_SHORT).show();
         finish();
         Intent intent = new Intent(VerifyMobilePhoneActivity.this, VerifyCodeActivity.class);
         startActivity(intent);

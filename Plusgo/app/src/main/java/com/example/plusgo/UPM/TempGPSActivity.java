@@ -78,6 +78,7 @@ public class TempGPSActivity extends Activity implements LocationListener {
     double pLatitude = 0;
     double pLongitude = 0;
     float[] results = new float[1];
+    private String uid;
     private BaseContent BASECONTENT = new BaseContent();
     private String PYTHON_URL_POST_DATA_AVAILABLE = BASECONTENT.pythonIpAddress + "/available";
     private String PYTHON_URL_GET_DRIVERS = BASECONTENT.pythonIpAddress + "/ridematching/kmeans/";
@@ -149,6 +150,10 @@ private Button cllick;
         //Executing the handler
         executeHandler();
         filterRelevantDrivers();
+
+        SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
+        uid = user.getString("UId", null);
+
         cllick = (Button)findViewById(R.id.i);
         cllick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -553,7 +558,7 @@ private Button cllick;
         Log.d("redda3", String.valueOf(location.size()));
         //return location;
     }
-    String c = "U1558711443502";
+//    String c = "U1558711443502";
     private void filterRelevantDrivers(){
 
         getUserLocations(new FirebaseSuccessListener() {
@@ -562,7 +567,7 @@ private Button cllick;
                 if(locations.size() > 0){
                     Log.d("ccc", String.valueOf(locations.size()));
                     for(int i=0; i <locations.size(); i++){ //get passenger location
-                        if(locations.get(i).getUid().equals(c)){
+                        if(locations.get(i).getUid().equals(uid)){
                             pLatitude = locations.get(i).getLatitude();
                             pLongitude = locations.get(i).getLongitude();
                             //locations.remove(locations.get(i));

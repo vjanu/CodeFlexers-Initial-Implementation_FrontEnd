@@ -31,6 +31,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.plusgo.UPM.VerifyMobilePhoneActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +46,7 @@ public class SignUp extends AppCompatActivity {
     private RequestQueue requestQueue;
 
     Button signupbtn;
-    EditText fullname,username,pwd;
+    EditText email,username,pwd;
     private RadioGroup radioRoleGroup;
     private RadioButton radioRoleButton;
     TextView usernameAlert;
@@ -55,7 +56,7 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        fullname = (EditText) findViewById(R.id.signUpFullName);
+        email = (EditText) findViewById(R.id.email);
         username = (EditText) findViewById(R.id.signUpUsername);
         usernameAlert = (TextView) findViewById(R.id.usernameTaken);
         username.setOnFocusChangeListener(new View.OnFocusChangeListener()
@@ -77,23 +78,23 @@ public class SignUp extends AppCompatActivity {
         signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fulname = String.valueOf(fullname.getText());
+                String txtEmail = String.valueOf(email.getText());
                 String usrname = String.valueOf(username.getText());
                 String passw = String.valueOf(pwd.getText());
 
-                if((fulname.equals(""))||(usrname.equals(""))||(passw.equals(""))){
+                if((txtEmail.equals(""))||(usrname.equals(""))||(passw.equals(""))){
                     Toast.makeText(getApplicationContext(),"Please Fill All Fields",Toast.LENGTH_SHORT).show();
                 }else{
-                    Log.e("fname", fulname);
+                    Log.e("email", txtEmail);
                     Log.e("uname",usrname);
                     Log.e("pwd",passw);
                     // Add new user
-                    addNewUser(usrname,passw,fulname);
+                    addNewUser(usrname,passw,txtEmail);
                     // Go to Login page at success
-                    finish();
-                    Intent signUp;
-                    signUp = new Intent(SignUp.this, Login.class);
-                    startActivity(signUp);
+//                    finish();
+//                    Intent signUp;
+//                    signUp = new Intent(SignUp.this, VerifyMobilePhoneActivity.class);
+//                    startActivity(signUp);
                 }
             }
         });
@@ -132,22 +133,22 @@ public class SignUp extends AppCompatActivity {
     }
 
     //insert new user into the database
-    public void addNewUser(String Username,String Password,String Name) {
+    public void addNewUser(String Username,String Password,String Email) {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(SignUp.this);
             String URL = BASECONTENT.IpAddress+"/login";
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("Username", Username);
             jsonBody.put("Password", Password);
-            jsonBody.put("Name", Name);
+            jsonBody.put("Email", Email);
             final String mRequestBody = jsonBody.toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(SignUp.this, "Successfully Registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp.this, "Confirm Your Mobile Number" , Toast.LENGTH_LONG).show();
                     finish();
-                    Intent directToLogin = new Intent(SignUp.this, Login.class);
+                    Intent directToLogin = new Intent(SignUp.this, VerifyMobilePhoneActivity.class);
                     startActivity(directToLogin);
                     Log.i("LOG_VOLLEY", response);
                 }

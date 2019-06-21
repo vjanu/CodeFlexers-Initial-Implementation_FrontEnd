@@ -3,8 +3,11 @@ package com.example.plusgo;
 
 public class BaseContent {
 
+
+    final public String BASEIPROUTE = "http://192.168.43.102";
+
     //TODO : ADD THE IP OF SERVER HERE
-    final public String BASEIPROUTE = "http://10.98.200.109";
+    //final public String BASEIPROUTE = "http://10.98.200.109";
 
     //IP ADDRESS OF THE NODEJS BACKEND
     public String IpAddress = BASEIPROUTE+":8083";
@@ -13,10 +16,13 @@ public class BaseContent {
 //    public String phpIP = "http://192.168.1.4:8080";
     public String phpIP = BASEIPROUTE+":8080";
 
-//    public String pythonIpAddress = "http://192.168.1.4:99";
-    public String pythonIpAddress = BASEIPROUTE+":99";//TODO : INSERT WHOS COMPONENT IS RELATED TO THIS PORT
+
+    //User-Profiling
+    public String pythonIpAddress = BASEIPROUTE+":99";
+
     public String pythonIpAddressGetDistance = BASEIPROUTE+":95";
     public String pythonIpAddressGetEstimateFuel = BASEIPROUTE+":96";
+
 
 }
 

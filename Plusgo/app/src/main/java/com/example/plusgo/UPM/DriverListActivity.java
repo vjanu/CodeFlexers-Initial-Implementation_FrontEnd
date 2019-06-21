@@ -16,7 +16,9 @@ package com.example.plusgo.UPM;/*
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,27 +63,24 @@ public class DriverListActivity extends AppCompatActivity {
     private ImageButton btnLogout;
     BaseContent BASECONTENT = new BaseContent();
     private String id;
-    String c = "U1558711443502";
+    private String uid;
+//    String c = "U1558711443502";
     private TempGPSActivity tempGPSActivity;
     private String URL_AVAILABLE_DRIVERS = BASECONTENT.IpAddress + "/available/driver/";
     private String PYTHON_URL_GET_DRIVERS = BASECONTENT.pythonIpAddress + "/ridematching/kmeans/";
 
     //    private ImageView profileImage;
 //    private String JSON_URL = BASECONTENT.IpAddress + "/comments/specific/";
-    private String JSON_URL = "https://gist.githubusercontent.com/vjanu/4720773fad79534af4460be44002789e/raw/f9125dfa3f728c91ab62ac5c5b7064e2808de2f5/drivers";
+//    private String JSON_URL = "https://gist.githubusercontent.com/vjanu/4720773fad79534af4460be44002789e/raw/f9125dfa3f728c91ab62ac5c5b7064e2808de2f5/drivers";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_list);
         tempGPSActivity = new TempGPSActivity();
-        //set shared preference
-//        SharedPreferences mPrefs = getSharedPreferences("teacherStore",MODE_PRIVATE);
-//        id = mPrefs.getString("TeacherId", null);
-//        String user = mPrefs.getString("TeacherUserName", null);
-//
-//        welcome = findViewById(R.id.welcome1);
-//        welcome.setText("Signed as "+user);
+
+        SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
+        uid = user.getString("UId", null);
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerviewid);
         recyclerView.setHasFixedSize(true);
@@ -111,7 +110,7 @@ public class DriverListActivity extends AppCompatActivity {
 
         Log.e("too","started");
         RequestQueue requestQueue = Volley.newRequestQueue(DriverListActivity.this);
-        StringRequest request = new StringRequest(PYTHON_URL_GET_DRIVERS+c, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(PYTHON_URL_GET_DRIVERS+uid, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -126,7 +125,7 @@ public class DriverListActivity extends AppCompatActivity {
                         availableDrivers.add(jsonObject.get(i).toString());
 
                     }
-                    availableDrivers.remove(c);
+                    availableDrivers.remove(uid);
                     for(int i=0; i<availableDrivers.size();i++){
                         singleQouteAvailableDrivers.add("'"+availableDrivers.get(i)+"'");
                         Log.d("rtt", "'"+availableDrivers.get(i)+"'");
@@ -246,6 +245,14 @@ public class DriverListActivity extends AppCompatActivity {
 
     //destroy the session created
     private void logout(){
+        SharedPreferences sharedPreferences = getSharedPreferences("userStore", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.clear().commit();
+
+        SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
+        boolean uid = user.getBoolean("Islogin", false);
+        Log.d("login2:", String.valueOf(uid));
+
         finish();
         Intent login = new Intent(DriverListActivity.this, Login.class);
         startActivity(login);

@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.plusgo.UPM.AddPreferenceActivity;
 import com.example.plusgo.UPM.NewUserActivity;
 
 import org.json.JSONArray;
@@ -113,7 +114,7 @@ public class Login extends AppCompatActivity {
                         user.setUsername(jsonObject.getString("Username"));
                         user.setPassword(jsonObject.getString("Password"));
                         user.setuID(jsonObject.getString("UserID"));
-                        user.setName(jsonObject.getString("Name"));
+                        user.setName(jsonObject.getString("Email"));
                         users.add(user);
                         finish();
 
@@ -131,8 +132,13 @@ public class Login extends AppCompatActivity {
                         SharedPreferences.Editor userStore = getSharedPreferences("userStore", MODE_PRIVATE).edit();
                         userStore.putString("UId", user.getuID());
                         userStore.putString("Name", user.getUsername());
+                        userStore.putString("Email", user.getEmail());
+                        userStore.putBoolean("Islogin", true);
                         userStore.apply();
 
+                    SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
+                    boolean uid = user.getBoolean("Islogin", false);
+                        Log.d("login1:", String.valueOf(uid));
                         finish();
                         Intent intent = new Intent(Login.this, NewUserActivity.class);
                         startActivity(intent);
