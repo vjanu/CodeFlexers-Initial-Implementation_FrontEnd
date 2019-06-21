@@ -205,6 +205,7 @@
                 android:layout_height="120dp">
 
                 <EditText
+                    android:id="@+id/sentimentByDriver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -231,6 +232,7 @@
         android:visibility="gone">
 
         <Button
+            android:id="@+id/btnsubmitdriver"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:background="#202F65"

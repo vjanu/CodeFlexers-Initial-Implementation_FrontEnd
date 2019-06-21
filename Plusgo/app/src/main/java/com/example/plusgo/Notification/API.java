@@ -13,6 +13,10 @@ public interface API {
     Call<ResponseBody> senNotification(
             @Field("token") String token,
             @Field("title") String title,
-            @Field("body") String body
+            @Field("body") String body,
+            @Field("reqPassenger") String reqPassenger,
+            @Field("reqDriver") String reqDriver,
+            @Field("source") String source,
+            @Field("destination") String destination
     );
 }

@@ -15,10 +15,10 @@
         android:startColor="#C0C0C0"
         android:endColor="#D3D3D3"/>
     <corners
-        android:bottomLeftRadius="250dp"
-        android:bottomRightRadius="250dp"
-        android:topLeftRadius="250dp"
-        android:topRightRadius="250dp" />
+        android:bottomLeftRadius="150dp"
+        android:bottomRightRadius="150dp"
+        android:topLeftRadius="150dp"
+        android:topRightRadius="150dp" />
     <padding
         android:left="5dp"
         android:right="5dp" />

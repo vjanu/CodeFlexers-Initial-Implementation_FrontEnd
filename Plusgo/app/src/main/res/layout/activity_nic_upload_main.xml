@@ -13,6 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:weightSum="2"
     android:orientation="vertical"
     tools:context=".DVPRM.NicUploadMainActivity">
 
@@ -20,15 +21,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="start|top"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp">
 
         <LinearLayout
+            android:id="@+id/nic_upload_ll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/keywordbtns"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/keywordbtns2"
             android:gravity="start"
             android:orientation="horizontal">
 
@@ -36,8 +46,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center|center_horizontal"
+                android:layout_marginLeft="20dp"
                 android:scaleType="fitCenter"
-                android:layout_margin="5dp"
                 android:src="@drawable/nictemp" />
 
             <Button
@@ -45,37 +55,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_gravity="center|center_horizontal"
-                android:layout_margin="5dp"
-                android:background="@drawable/keywordbtns"
-                android:drawableTop="@drawable/capture"
+                android:layout_marginRight="20dp"
+                android:background="@color/colorPrimaryDark"
                 android:drawableTint="@color/colorPrimaryDark"
+                android:fontFamily="serif"
+                android:lineSpacingExtra="8sp"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
-                android:text="I have \n non electronic NIC" />
+                android:text="I have \n non electronic NIC"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="60dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/colorPrimaryDark"
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp">
 
         <LinearLayout
+            android:id="@+id/nic_upload_elec_ll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/keywordbtns2"
             android:gravity="bottom"
-            android:background="@drawable/keywordbtns"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center|center_horizontal"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="20dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/nic_ele" />
 
@@ -84,13 +111,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_gravity="center|center_horizontal"
-                android:layout_margin="5dp"
-                android:background="@drawable/keywordbtns"
-                android:drawableTop="@drawable/capture"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/colorPrimaryDark"
                 android:drawableTint="@color/colorPrimaryDark"
+                android:fontFamily="serif"
+                android:lineSpacingExtra="8sp"
                 android:paddingTop="20dp"
                 android:paddingBottom="20dp"
                 android:text="I have \n electronic NIC"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="normal"
                 tools:visibility="visible" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
