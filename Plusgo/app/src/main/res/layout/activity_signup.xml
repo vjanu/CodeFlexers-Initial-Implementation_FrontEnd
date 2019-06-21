@@ -44,7 +44,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.367"
-            app:srcCompat="@drawable/name" />
+            app:srcCompat="@drawable/email" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="307dp"
@@ -61,11 +61,11 @@
             app:layout_constraintVertical_bias="0.359">
 
             <EditText
-                android:id="@+id/signUpFullName"
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:hint="Full Name"
+                android:hint="Email"
                 android:maxLines="1"
                 android:singleLine="true" />
 

@@ -177,7 +177,7 @@ p.setOnClickListener(new View.OnClickListener() {
         try {
 
             //check whether the fields are empty or not
-            if(KEY_EMPTY.equals(name.getText().toString().trim()) || KEY_EMPTY.equals(email.getText().toString().trim()) || KEY_EMPTY.equals(Rname.getText().toString().trim())|| KEY_EMPTY.equals(Rphone.getText().toString().trim())){
+            if(KEY_EMPTY.equals(name.getText().toString().trim()) || KEY_EMPTY.equals(Rname.getText().toString().trim())|| KEY_EMPTY.equals(Rphone.getText().toString().trim())){
                 Toast.makeText(NewUserActivity.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
 
             }
@@ -187,47 +187,48 @@ p.setOnClickListener(new View.OnClickListener() {
                  * Firebase Authentication with Email with Password
                  * */
 
-                userEmail = email.getText().toString();
-                Log.d("sss" , password );
-                Log.d("sss1" , userEmail);
-                mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //If Firebase Authentication Succeful Redirect to the Profile Activity
-                        if(task.isSuccessful()){
-                            //startProfileActivity();
-                        }else{
-                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                userLogin(userEmail,password);
-                            }else{
-                                // progressbar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                            }
+//                userEmail = email.getText().toString();
+//                userEmail = "teswt";
+////                Log.d("sss" , password );
+////                Log.d("sss1" , userEmail);
+//                mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        //If Firebase Authentication Succeful Redirect to the Profile Activity
+//                        if(task.isSuccessful()){
+//                            //startProfileActivity();
+//                        }else{
+//                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+//                               userLogin(userEmail,password);
+//                            }else{
+//                                // progressbar.setVisibility(View.INVISIBLE);
+//                                Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+//                            }
+//
+//                        }
+//
+//                    }
+//                });
 
-                        }
 
-                    }
-                });
-
-
-                FirebaseInstanceId.getInstance().getInstanceId()
-                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                if(task.isSuccessful()){
-                                    token = task.getResult().getToken();
-                                    toke.setText(token);
-                                    Log.d("qw1:", token);
-
-                                    saveToken(token);
-                                    Log.d("qw2:", token);
-//                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
-//                            textView.setText("Token" + token);
-                                }else{
-//                            textView.setText("Token is Not Generated");
-                                }
-                            }
-                        });
+//                FirebaseInstanceId.getInstance().getInstanceId()
+//                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                                if(task.isSuccessful()){
+//                                    token = task.getResult().getToken();
+////                                    toke.setText(token);
+////                                    Log.d("qw1:", token);
+//
+//                                    saveToken(token);
+////                                    Log.d("qw2:", token);
+////                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
+////                            textView.setText("Token" + token);
+//                                }else{
+////                            textView.setText("Token is Not Generated");
+//                                }
+//                            }
+//                        });
 
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 JSONObject jsonObject = new JSONObject();
@@ -242,7 +243,7 @@ p.setOnClickListener(new View.OnClickListener() {
                 jsonObject.put("UserID", id);
                 jsonObject.put("FullName", name.getText());
                 jsonObject.put("Profession", profession.getSelectedItem().toString());
-                jsonObject.put("Email", email.getText());
+//                jsonObject.put("Email", email.getText());
                 jsonObject.put("Gender", gender);
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
@@ -334,7 +335,7 @@ p.setOnClickListener(new View.OnClickListener() {
 
                             profession.setSelection(((ArrayAdapter<String>) profession.getAdapter()).getPosition(jsonObject.getString("Profession")));
                             name.setText(jsonObject.getString("FullName"));
-                            email.setText(jsonObject.getString("Email"));
+//                            email.setText(jsonObject.getString("Email"));
                             Rname.setText(jsonObject.getString("RName"));
                             Rphone.setText(jsonObject.getString("RPhone"));
                             dob.setText(jsonObject.getString("Age"));
@@ -377,7 +378,7 @@ p.setOnClickListener(new View.OnClickListener() {
     public void updateUser() {
         try {
             //check whether the fields are empty or not
-            if(KEY_EMPTY.equals(name.getText().toString().trim()) || KEY_EMPTY.equals(email.getText().toString().trim()) || KEY_EMPTY.equals(Rname.getText().toString().trim())|| KEY_EMPTY.equals(Rphone.getText().toString().trim())){
+            if(KEY_EMPTY.equals(name.getText().toString().trim()) || KEY_EMPTY.equals(Rname.getText().toString().trim())|| KEY_EMPTY.equals(Rphone.getText().toString().trim())){
                 Toast.makeText(NewUserActivity.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
 
             }
@@ -394,7 +395,7 @@ p.setOnClickListener(new View.OnClickListener() {
                 jsonObject.put("UserID", id);
                 jsonObject.put("FullName", name.getText());
                 jsonObject.put("Profession", profession.getSelectedItem().toString());
-                jsonObject.put("Email", email.getText());
+//                jsonObject.put("Email", email.getText());
                 jsonObject.put("Gender", gender);
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
@@ -569,43 +570,44 @@ p.setOnClickListener(new View.OnClickListener() {
     /*
     Added by Surath
      */
-    private void userLogin(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            Toast.makeText(NewUserActivity.this,"userLoginffff",Toast.LENGTH_LONG).show();
-                        }else{
-                            // progressbar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+//    private void userLogin(String email, String password){
+//        mAuth.signInWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful())
+//                        {
+//                            Toast.makeText(NewUserActivity.this,"userLoginffff",Toast.LENGTH_LONG).show();
+//                        }else{
+//                            // progressbar.setVisibility(View.INVISIBLE);
+//                            Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+//
+//                        }
+//                    }
+//                });
+//    }
 
-                        }
-                    }
-                });
-    }
-
-    private void saveToken(String token)
-    {
-        String email = mAuth.getCurrentUser().getEmail();
-        User user = new User(email,token);
-
-        //Create Firebase References
-
-        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
-
-        //get Unique id from get current user
-        dbUsers.child(mAuth.getCurrentUser().getUid())
-                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
-                    Toast.makeText(NewUserActivity.this,"Token Saved",Toast.LENGTH_LONG).show();
-
-                }
-            }
-        });
-    }
+//    private void saveToken(String token)
+//    {
+////        String email = mAuth.getCurrentUser().getEmail();
+//        String email = "qq.g.c";
+//        User user = new User(email,token);
+//
+//        //Create Firebase References
+//
+//        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+//
+//        //get Unique id from get current user
+//        dbUsers.child(mAuth.getCurrentUser().getUid())
+//                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if(task.isSuccessful())
+//                {
+//                    Toast.makeText(NewUserActivity.this,"Token Saved",Toast.LENGTH_LONG).show();
+//
+//                }
+//            }
+//        });
+//    }
 }
