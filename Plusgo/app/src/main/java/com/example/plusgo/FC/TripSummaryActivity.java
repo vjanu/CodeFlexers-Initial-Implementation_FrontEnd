@@ -8,8 +8,11 @@
 
 package com.example.plusgo.FC;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,16 +24,26 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
+import com.example.plusgo.Notification.API;
 import com.example.plusgo.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class TripSummaryActivity extends AppCompatActivity {
 
@@ -47,10 +60,16 @@ public class TripSummaryActivity extends AppCompatActivity {
     private String date,time,waitingTime;
     public String  brand,model ,manYear,regYear,cylinders,fuel,capacity,kw,mileage;
     RequestQueue requestQueue ;
+    private JsonArrayRequest request;
     private TextView txtUserName;
     public String oid; //Offer Ride ID / Trip ID
     public String userId; //User ID
     public String FCMtoken,image;
+
+    public static final String CHANNEL_ID = "plus_go";
+    private static final String CHANNEL_NAME = "Plus Go";
+    private static final String CHANNEL_DESC = "Plus Go Notification";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +127,21 @@ public class TripSummaryActivity extends AppCompatActivity {
         getDistance();
         GetVehicleDetails();
         GetUserDetails();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+
+        }
+
+        findViewById(R.id.btnJoinRide).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // sendNotification();
+            }
+        });
     }
 
     public void openUserProfile(){
@@ -373,53 +407,81 @@ public class TripSummaryActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    //Fetch Vehicle details
     public void GetUserDetails() {
 
-        //Display Progress Dialog
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
+        //   Log.e("JSON_URL",JSON_URL+username+"/"+password);
+        request = new JsonArrayRequest(JSON_URL_USER_DETAILS+userId, new Response.Listener<JSONArray>() {
 
-        //Get Id from the UserID TextView
+            public void onResponse(JSONArray response) {
 
-        userId = txtUserId.getText().toString();
+                JSONObject jsonObject = null;
+                for(int i= 0; i<response.length(); i++){
+                    progressDialog.dismiss();
+                    try{
+                        jsonObject = response.getJSONObject(i);
+                        txtToken.setText(jsonObject.getString("Token"));
 
-        Log.d("Check Get user ", userId);
-        //Call the Web Service which is implementing node js and it pass to the name parameter to get relevant information of the trip
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_USER_DETAILS+userId,null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
+                    }catch (JSONException e){
 
-                        Log.d("sdss", String.valueOf(response));
-                        progressDialog.dismiss();
-                        try {
-
-                            FCMtoken = response.getString("Token");
-                            image = response.getString("img");
-
-                            txtToken.setText(FCMtoken);
-
-                            Log.d("FCMtoken",FCMtoken);
-
-                        } catch (JSONException e) {
-                            Log.d("expe",e.toString());
-                        }
-
+                        e.printStackTrace();
+                        Log.d("JSONREQUEST","ERROR");
+                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
 
-        requestQueue.add(jsonObjectRequest);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //  pDialog.dismiss();
+                Log.d("xxx", error.toString());
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(request);
+
     }
 
+    private void sendNotification(){
+        String title = "Notification Title";
+        String body = "sesdsdsd";
+        String token = "f71ik2dgMUo:APA91bEaQF1ehEDWUpRjjZpIHWSN12EWmgZ9snEvmBniYPStrLn2OcKle6RAh_hmiRDD7JuzdxgwrElEPNl-uJz9TFta8JwbjSOeu5NhAy78WimkbFxCxegu_zegHFclSGNatdBfNyYH";
+        String reqPassenger = "Surath Gunawardena";
+        String reqDriver = "U1111111-Driver";
+        String source = "Kaduwela";
+        String destination = "Battaramulla";
 
 
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://plusgo-ce90f.firebaseapp.com/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        API api = retrofit.create(API.class);
+        Call<ResponseBody> call = api.senNotification(token,title,body,reqPassenger,reqDriver,source,destination);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                try {
+                    Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
 
 }
