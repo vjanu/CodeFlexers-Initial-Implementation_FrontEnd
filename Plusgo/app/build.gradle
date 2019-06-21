@@ -61,4 +61,6 @@ dependencies {
     implementation 'com.github.MKergall:osmbonuspack:6.6.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
     implementation 'com.applozic.communication.uiwidget:mobicomkitui:5.8.4'
+    implementation 'com.google.android.libraries.places:places:1.1.0'
+    implementation 'com.wang.avi:library:2.1.3'
 }

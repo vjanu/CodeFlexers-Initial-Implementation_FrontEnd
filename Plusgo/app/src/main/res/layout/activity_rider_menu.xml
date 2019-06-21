@@ -61,7 +61,8 @@
                     android:text="Offer a Ride"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="30dp"
-                    android:textStyle="normal"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorButton"
                     android:typeface="sans" />
 
             </RelativeLayout>
