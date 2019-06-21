@@ -446,7 +446,7 @@ public class RatingPassActivity extends AppCompatActivity {
                         editor.putString("CalRatingType", ResultRatingType);
                         editor.commit();
 
-                        Toast.makeText(getBaseContext(), "CalculatedRating:"+ResultRating+"type:"+ResultRatingType, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "CalculatedRating: "+ResultRating+" type: "+ResultRatingType, Toast.LENGTH_LONG).show();
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override

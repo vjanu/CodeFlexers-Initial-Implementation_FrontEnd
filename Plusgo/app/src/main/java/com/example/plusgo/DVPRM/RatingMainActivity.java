@@ -87,7 +87,7 @@ public class RatingMainActivity extends AppCompatActivity {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
 
-                Toast.makeText(getApplicationContext(),"Your Selected Ratings  : " + String.valueOf(rating),Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(),"Your Selected Ratings  : " + String.valueOf(rating),Toast.LENGTH_LONG).show();
                 if(rating == 5.0){
                     layoutcomplement.setVisibility(View.VISIBLE);
                     layoutdissatis.setVisibility(View.GONE);

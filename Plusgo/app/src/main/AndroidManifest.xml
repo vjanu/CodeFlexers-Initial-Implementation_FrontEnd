@@ -64,9 +64,7 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".DVPRM.LisenceUpActivity"></activity>
         <activity android:name=".DVPRM.NicUpActivity" />
-        <activity
-            android:name=".DVPRM.NicUploadMainActivity"
-            android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".DVPRM.NicUploadMainActivity"/>
         <activity android:name=".DVPRM.RatingMainActivity" />
         <activity android:name=".DVPRM.RatingDriverActivity" />
         <activity
