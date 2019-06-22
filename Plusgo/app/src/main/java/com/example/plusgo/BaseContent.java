@@ -22,13 +22,13 @@ public class BaseContent {
     /*
     USER PROFILING
      */
-    final public String UPMBASEIPROUTE ="http://192.168.8.103"; //TODO : UPM CHANGE ACCORDINGLY
+    final public String UPMBASEIPROUTE ="http://192.168.8.100"; //TODO : UPM CHANGE ACCORDINGLY
     public String pythonIpAddress = UPMBASEIPROUTE+":99";
 
     /*
     FARE CALCULATION
      */
-    final public String FCBASEIPROUTE ="http://192.168.8.103"; //TODO : FC CHANGE ACCORDINGLY
+    final public String FCBASEIPROUTE ="http://192.168.8.100"; //TODO : FC CHANGE ACCORDINGLY
     public String pythonIpAddressGetDistance = FCBASEIPROUTE+":95";
     public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":96";
 
