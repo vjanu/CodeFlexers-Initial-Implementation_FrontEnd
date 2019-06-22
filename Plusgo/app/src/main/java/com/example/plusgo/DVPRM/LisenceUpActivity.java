@@ -37,7 +37,7 @@ public class LisenceUpActivity extends AppCompatActivity {
 
     //Add the relavent IP to retrieve NIC from image
 //    String LISENCE_URL ="http://192.168.1.4:81/lisence/test.png";
-    String LISENCE_URL = BASECONTENT.DVPRMBASEIPROUTE +":8088/lisence/test.png";
+    String LISENCE_URL = BASECONTENT.IpAddress +":8088/lisence/test.png";
 
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
