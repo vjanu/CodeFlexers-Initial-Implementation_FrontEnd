@@ -44,6 +44,9 @@ import java.util.Calendar;
 
 public class RiderMenu extends AppCompatActivity implements View.OnClickListener {
 
+
+    StringRequest stringRequest;
+    RequestQueue requestQueue;
     EditText start_date, start_time,source,destination,waitingtime;
     private int mYear, mMonth, mDay, mHour, mMinute, mAmPm;
     private static final String KEY_EMPTY = "";
@@ -59,7 +62,7 @@ public class RiderMenu extends AppCompatActivity implements View.OnClickListener
 
 
         SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
-        id = user.getString("UId", null);
+        id = user.getString("UId", "0000000");
 
         source=findViewById(R.id.input_source);
         destination=findViewById(R.id.input_destination);
@@ -132,15 +135,15 @@ public class RiderMenu extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    public void addOfferRide() {
+    public void addOfferRide1() {
         try {
 
             //check whether the fields are empty or not
-            if(KEY_EMPTY.equals(source.getText().toString().trim()) || KEY_EMPTY.equals(destination.getText().toString().trim()) || KEY_EMPTY.equals(start_date.getText().toString().trim())|| KEY_EMPTY.equals(start_time.getText().toString().trim())||KEY_EMPTY.equals(waitingtime.getText().toString().trim())){
-                Toast.makeText(RiderMenu.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
-
-            }
-            else {
+//            if(KEY_EMPTY.equals(source.getText().toString().trim()) || KEY_EMPTY.equals(destination.getText().toString().trim()) || KEY_EMPTY.equals(start_date.getText().toString().trim())|| KEY_EMPTY.equals(start_time.getText().toString().trim())||KEY_EMPTY.equals(waitingtime.getText().toString().trim())){
+//                Toast.makeText(RiderMenu.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+//
+//            }
+//            else {
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 JSONObject jsonObject = new JSONObject();
 
@@ -152,7 +155,7 @@ public class RiderMenu extends AppCompatActivity implements View.OnClickListener
                 jsonObject.put("WaitingTime", waitingtime.getText());
 
                 final String mRequestBody = jsonObject.toString();
-
+                Log.e("VOLLEY", id+":"+source.getText()+":"+destination.getText()+":"+start_date.getText()+":"+start_time.getText()+":"+waitingtime.getText());
 
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_ADD_OFFER_RIDE, new Response.Listener<String>() {
@@ -195,15 +198,96 @@ public class RiderMenu extends AppCompatActivity implements View.OnClickListener
                     }
                 };
                 stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                        10000,
+                        0,
                         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 requestQueue.add(stringRequest);
-            }
+//            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+    }
+
+    //insert ratings related to driver or co-passenger into the database
+    public void addOfferRide() {
+        try {
+            String URL = null;
+            requestQueue = Volley.newRequestQueue(this.getApplicationContext());
+
+            URL = BASECONTENT.IpAddress +"/addofferride";
+
+            Log.e("URL", URL);
+
+//            jsonObject.put("UserID",id);
+//            jsonObject.put("Source", source.getText());
+//            jsonObject.put("Destination", destination.getText());
+//            jsonObject.put("StartDate", start_date.getText());
+//            jsonObject.put("StartTime", start_time.getText());
+//            jsonObject.put("WaitingTime", waitingtime.getText());
+
+            String aa = String.valueOf(source.getText());
+            String bb = String.valueOf(destination.getText());
+            String cc = String.valueOf(start_date.getText());
+            String dd = String.valueOf(start_time.getText());
+            String ee = String.valueOf(waitingtime.getText());
+
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("UserID", id);
+            jsonBody.put("Source", aa);
+            jsonBody.put("Destination", bb);
+            jsonBody.put("StartDate", cc);
+            jsonBody.put("StartTime", dd);
+            jsonBody.put("WaitingTime", ee);
+
+            final String mRequestBody = jsonBody.toString();
+
+            Log.e("VOLLEY", id+":"+aa+":"+bb+":"+cc+":"+dd+":"+ee);
+
+            stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e("LOG_VOLLEY", response);
+                    Toast.makeText(getBaseContext(), "Your compliment is added", Toast.LENGTH_LONG).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOG_VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
 }

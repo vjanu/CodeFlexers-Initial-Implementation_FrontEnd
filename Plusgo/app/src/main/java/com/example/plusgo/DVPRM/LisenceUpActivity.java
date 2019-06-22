@@ -37,7 +37,7 @@ public class LisenceUpActivity extends AppCompatActivity {
 
     //Add the relavent IP to retrieve NIC from image
 //    String LISENCE_URL ="http://192.168.1.4:81/lisence/test.png";
-    String LISENCE_URL = BASECONTENT.BASEIPROUTE +":81/lisence/test.png";
+    String LISENCE_URL = BASECONTENT.DVPRMBASEIPROUTE +":8088/lisence/test.png";
 
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
@@ -64,6 +64,9 @@ public class LisenceUpActivity extends AppCompatActivity {
         niclayout.setVisibility(View.INVISIBLE);
         exp_layout.setVisibility(View.INVISIBLE);
 
+        proceedLISbtn=(Button) findViewById(R.id.proceednic_lis);
+        proceedLISbtn.setVisibility(View.INVISIBLE);
+
         edit_exp=(Button) findViewById(R.id.edit_exp);
         edit_exp.setVisibility(View.GONE);
 
@@ -73,6 +76,7 @@ public class LisenceUpActivity extends AppCompatActivity {
             public void onClick(View v) {
                 niclayout.setVisibility(View.INVISIBLE);
                 exp_layout.setVisibility(View.INVISIBLE);
+                proceedLISbtn.setVisibility(View.INVISIBLE);
                 Intent verify = new Intent(LisenceUpActivity.this, DocUploadActivity.class);
                 startActivity(verify);
             }
@@ -86,8 +90,7 @@ public class LisenceUpActivity extends AppCompatActivity {
             }
         });
 
-        proceedLISbtn=(Button) findViewById(R.id.proceednic_lis);
-        proceedLISbtn.setVisibility(View.INVISIBLE);
+
         proceedLISbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,7 +166,7 @@ public class LisenceUpActivity extends AppCompatActivity {
                 Log.e("JSONREQUEST_ERROR",error.toString());
             }
         });
-        request.setRetryPolicy(new DefaultRetryPolicy(500000,
+        request.setRetryPolicy(new DefaultRetryPolicy(0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue = Volley.newRequestQueue(LisenceUpActivity.this);
@@ -207,8 +210,14 @@ public class LisenceUpActivity extends AppCompatActivity {
     }
 
     private void matchdate(String ExtractEXP){
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        String formattedDate = df.format(c);
+        Log.e("formattedDate", String.valueOf(formattedDate));
+        int yN = Integer.parseInt(formattedDate.substring(6, 10)) + 8;
+        String DateOfExp;
         try {
-            String DateOfExp;
+//            String DateOfExp;
             int d1 = Integer.parseInt(ExtractEXP.substring(0, 1));
             int d = Integer.parseInt(ExtractEXP.substring(0, 2));
             int m1 = Integer.parseInt(ExtractEXP.substring(3, 4));
@@ -220,11 +229,11 @@ public class LisenceUpActivity extends AppCompatActivity {
 //        Log.e("m2", String.valueOf(m2));
 //        Log.e("y12", String.valueOf(y12));
 
-            Date c = Calendar.getInstance().getTime();
-            SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
-            String formattedDate = df.format(c);
-            Log.e("formattedDate", String.valueOf(formattedDate));
-            int yN = Integer.parseInt(formattedDate.substring(6, 10)) + 8;
+//            Date c = Calendar.getInstance().getTime();
+//            SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+//            String formattedDate = df.format(c);
+//            Log.e("formattedDate", String.valueOf(formattedDate));
+//            int yN = Integer.parseInt(formattedDate.substring(6, 10)) + 8;
 
             if (ExtractEXP.equals("Not Found")) {
                 Toast.makeText(this, "Please Check Date", Toast.LENGTH_SHORT).show();
@@ -257,6 +266,10 @@ public class LisenceUpActivity extends AppCompatActivity {
             extracteddate_lis.setVisibility(View.VISIBLE);
             proceedLISbtn.setVisibility(View.VISIBLE);
         }catch (Exception e){
+            DateOfExp = formattedDate;
+            extracteddate_lis.setText(DateOfExp);
+            extracteddate_lis.setEnabled(true);
+            Log.e("formattedDate Exception", String.valueOf(e));
             Toast.makeText(this, "Error !, Please Enter Correct Details", Toast.LENGTH_SHORT).show();
         }
     }

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -178,6 +179,9 @@ public class DocUploadActivity extends AppCompatActivity {
             Log.e("DDD", stringRequest.toString());
             stringRequest.setShouldCache(false);
             AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     private void showFileChooser() {
