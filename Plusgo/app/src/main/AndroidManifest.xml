@@ -27,7 +27,11 @@
         <activity android:name=".FC.PassengerCurrentTrip"></activity>
         <activity android:name=".Notification.OpenNotification" />
         <activity android:name=".Notification.SendNotification">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".UPM.DriverListActivity"></activity>
         <activity android:name=".FC.LiveCalculation" />
@@ -53,11 +57,7 @@
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".DVPRM.DummyActivity"></activity>
         <activity

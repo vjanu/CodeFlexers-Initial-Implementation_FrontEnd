@@ -43,7 +43,7 @@ public class SendNotification extends AppCompatActivity {
     private void sendNotification(){
         String title = "Ride Request";
         String body = NotiBody.getText().toString().trim();
-        String token = "f71ik2dgMUo:APA91bEaQF1ehEDWUpRjjZpIHWSN12EWmgZ9snEvmBniYPStrLn2OcKle6RAh_hmiRDD7JuzdxgwrElEPNl-uJz9TFta8JwbjSOeu5NhAy78WimkbFxCxegu_zegHFclSGNatdBfNyYH";
+        String token = "dZLuDis_9tY:APA91bGuuAfA4FsmW_YuKRdadP4fKuyDHkBbCjVbqLn_qcrYgjSQfkWKrj-vDUzSIXKznFc6DB10yAIVeuHeHPeeSzXQmNOUXwh_YVCcGf3a1YyZcoVt2NiVRibC7UdZXU7VJVfjbjKt";
         String reqPassenger = "Surath Gunawardena";
         String reqDriver = "U1111111-Driver";
         String source = "Kaduwela";

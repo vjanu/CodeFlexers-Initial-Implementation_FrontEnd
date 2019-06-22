@@ -207,11 +207,14 @@ public class DriverListActivity extends AppCompatActivity {
                     JSONObject jsonObject = null;
                     for(int i= 0; i<response.length(); i++){
                         try{
+
                             jsonObject = response.getJSONObject(i);
                            DriverListItem item = new DriverListItem(jsonObject.getString("OID"),jsonObject.getString("UserID"),jsonObject.getString("FullName"), jsonObject.getString("Source"),
                                     jsonObject.getString("Destination"), jsonObject.getString("Brand"), Double.parseDouble(jsonObject.getString("AverageRating")),
                                     jsonObject.getString("img"),
-                                    jsonObject.getString("StartTime"));
+                                    jsonObject.getString("StartTime"),
+                                    jsonObject.getString("Token")
+                                   );
 
                             driverListItems.add(item);
 

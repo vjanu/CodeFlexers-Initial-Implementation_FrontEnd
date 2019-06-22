@@ -30,6 +30,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Notification.API;
 import com.example.plusgo.R;
+import com.example.plusgo.Utility.VehicleBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,6 +85,9 @@ public class TripSummaryActivity extends AppCompatActivity {
         String FullName = intent.getStringExtra("Name");
         String myVar4 = intent.getStringExtra("Source");
         String myVar5 = intent.getStringExtra("Destination");
+        String Token = intent.getStringExtra("Token");
+
+
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -106,6 +110,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         Log.d("q3:", FullName);
         Log.d("q4:", myVar4);
         Log.d("q5:", myVar5);
+        Log.d("q6:", Token);
 
         //added Viraj------------
 
@@ -121,12 +126,13 @@ public class TripSummaryActivity extends AppCompatActivity {
         txtUserName.setText(FullName);
         txtTripId.setText(TripId);
         txtUserId.setText(UserId);
+        txtToken.setText(Token);
 
         GetTripSummaryDetails();
         GetCurrentPassengers();
         getDistance();
-        GetVehicleDetails();
-        GetUserDetails();
+       // GetVehicleDetails();
+        //GetUserDetails();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
@@ -295,18 +301,28 @@ public class TripSummaryActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
 
-        GetVehicleDetails();
-        Log.d("vehicle1",brand);
-        Log.d("vehicle1",model);
-        Log.d("vehicle1",manYear);
+        //GetVehicleDetails();
+//        Log.d("vehicle1",brand);
+  //      Log.d("vehicle1",model);
+    //    Log.d("vehicle1",manYear);
 
-//        String manYear = "2015";
-//        String regYear = "2015";
-//        String cylinders = "3";
+        String manYear = "2015";
+        String regYear = "2015";
+        String cylinders = "3";
+        String fuel ="2" ;
+        String capacity="658";
+        String kw = "38";
+        String mileage = "48232";
+//        VehicleBean vehiclebean = new VehicleBean();
+//        brand = vehiclebean.getBrand();
+//        model = vehiclebean.getModel();
+//        manYear = vehiclebean.getMYear();
+//        regYear = vehiclebean.getRYear();
+//        capacity = vehiclebean.getEngineCapacity();
+//        mileage = vehiclebean.getMileage();
 //        String fuel ="2" ;
-//        String capacity="658";
-//        String kW = "38";
-//        String mileage = "48232";
+//        kw = "38";
+        //vehiclebean.getFuelType();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, PYTHON_URL_FUEL_ESTIMATE+manYear+"/"+regYear+"/"+cylinders+"/"+fuel+"/"+capacity+"/"+kw+"/"+mileage,null,
                 new Response.Listener<JSONObject>() {
@@ -355,99 +371,164 @@ public class TripSummaryActivity extends AppCompatActivity {
 
 
     //Fetch Vehicle details
-    public void GetVehicleDetails() {
+//    public void GetVehicleDetails() {
+//
+//        //Display Progress Dialog
+//        final ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Loading Data...");
+//        progressDialog.show();
+//
+//        //Get Id from the UserID TextView
+//
+//        userId = txtUserId.getText().toString();
+//
+//        Log.d("Check Get user ", userId);
+//        //Call the Web Service which is implementing node js and it pass to the name parameter to get relevant information of the trip
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_VEHICLE_DETAILS+userId,null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//
+//                        Log.d("sdss", String.valueOf(response));
+//                        progressDialog.dismiss();
+//                        try {
+//
+//                            brand = response.getString("Brand");
+//                            model = response.getString("Model");
+//                            manYear = response.getString("MYear");
+//                            regYear = response.getString("RYear");
+//                            cylinders = "3";
+//                            fuel = response.getString("FuelType");
+//                            capacity = response.getString("EngineCapacity");
+//                            kw = "38";
+//                            mileage = response.getString("Mileage");
+//
+//                            txtVehicle.setText(brand + " "+model);
+//
+//                            //Log.d("testSetDate", String.valueOf(date));
+//
+//                        } catch (JSONException e) {
+//                            Log.d("expe",e.toString());
+//                        }
+//
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//
+//        requestQueue.add(jsonObjectRequest);
+//    }
 
-        //Display Progress Dialog
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading Data...");
-        progressDialog.show();
+//    public void GetUserDetails() {
+//
+//        final ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Loading Data...");
+//        progressDialog.show();
+//        //   Log.e("JSON_URL",JSON_URL+username+"/"+password);
+//        request = new JsonArrayRequest(JSON_URL_USER_DETAILS+userId, new Response.Listener<JSONArray>() {
+//
+//            public void onResponse(JSONArray response) {
+//
+//                JSONObject jsonObject = null;
+//                for(int i= 0; i<response.length(); i++){
+//                    progressDialog.dismiss();
+//                    try{
+//                        jsonObject = response.getJSONObject(i);
+//                        txtToken.setText(jsonObject.getString("Token"));
+//
+//                    }catch (JSONException e){
+//
+//                        e.printStackTrace();
+//                        Log.d("JSONREQUEST","ERROR");
+//                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                //  pDialog.dismiss();
+//                Log.d("xxx", error.toString());
+//                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//
+//        requestQueue = Volley.newRequestQueue(getApplicationContext());
+//        requestQueue.add(request);
+//
+//    }
 
-        //Get Id from the UserID TextView
 
-        userId = txtUserId.getText().toString();
-
-        Log.d("Check Get user ", userId);
-        //Call the Web Service which is implementing node js and it pass to the name parameter to get relevant information of the trip
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_VEHICLE_DETAILS+userId,null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        Log.d("sdss", String.valueOf(response));
-                        progressDialog.dismiss();
-                        try {
-
-                            brand = response.getString("Brand");
-                            model = response.getString("Model");
-                            manYear = response.getString("MYear");
-                            regYear = response.getString("RYear");
-                            cylinders = "3";
-                            fuel = response.getString("FuelType");
-                            capacity = response.getString("EngineCapacity");
-                            kw = "38";
-                            mileage = response.getString("Mileage");
-
-                            txtVehicle.setText(brand + " "+model);
-
-                            //Log.d("testSetDate", String.valueOf(date));
-
-                        } catch (JSONException e) {
-                            Log.d("expe",e.toString());
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                });
-
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    public void GetUserDetails() {
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading Data...");
-        progressDialog.show();
-        //   Log.e("JSON_URL",JSON_URL+username+"/"+password);
-        request = new JsonArrayRequest(JSON_URL_USER_DETAILS+userId, new Response.Listener<JSONArray>() {
-
-            public void onResponse(JSONArray response) {
-
-                JSONObject jsonObject = null;
-                for(int i= 0; i<response.length(); i++){
-                    progressDialog.dismiss();
-                    try{
-                        jsonObject = response.getJSONObject(i);
-                        txtToken.setText(jsonObject.getString("Token"));
-
-                    }catch (JSONException e){
-
-                        e.printStackTrace();
-                        Log.d("JSONREQUEST","ERROR");
-                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //  pDialog.dismiss();
-                Log.d("xxx", error.toString());
-                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(request);
-
-    }
+    //GetVehicle Details JSON Array
+//    public void GetVehicleDetails() {
+//
+//        final ProgressDialog progressDialog = new ProgressDialog(this);
+//        progressDialog.setMessage("Loading Data...");
+//        progressDialog.show();
+//        //   Log.e("JSON_URL",JSON_URL+username+"/"+password);
+//        request = new JsonArrayRequest(JSON_URL_VEHICLE_DETAILS+userId, new Response.Listener<JSONArray>() {
+//
+//            public void onResponse(JSONArray response) {
+//
+//                JSONObject jsonObject = null;
+//                if(response.length() > 0){
+//                    progressDialog.dismiss();
+//                    try{
+//                        jsonObject = response.getJSONObject(0);
+//                        VehicleBean vehiclebean = new VehicleBean();
+//
+//                        brand = jsonObject.getString("Brand");
+//                        Log.d("brand",brand);
+//                        model = jsonObject.getString("Model");
+//                        manYear = jsonObject.getString("MYear");
+//                        regYear = jsonObject.getString("RYear");
+//                        cylinders = "3";
+//                        fuel = jsonObject.getString("FuelType");
+//                        capacity = jsonObject.getString("EngineCapacity");
+//                        kw = "38";
+//                        mileage = jsonObject.getString("Mileage");
+//
+//                        vehiclebean.setBrand(brand);
+//                        vehiclebean.setModel(model);
+//                        vehiclebean.setMYear(manYear);
+//                        vehiclebean.setRYear(regYear);
+//                        vehiclebean.setEngineCapacity(capacity);
+//                        vehiclebean.setMileage(mileage);
+//                        vehiclebean.setFuelType(fuel);
+//
+//                        txtVehicle.setText(brand + " "+model);
+//
+//                    }catch (JSONException e){
+//
+//                        e.printStackTrace();
+//                        Log.d("JSONREQUEST","ERROR");
+//                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
+//                    }
+//
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                //  pDialog.dismiss();
+//                Log.d("xxx", error.toString());
+//                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+//
+//            }
+//        });
+//
+//        requestQueue = Volley.newRequestQueue(getApplicationContext());
+//        requestQueue.add(request);
+//
+//    }
 
     private void sendNotification(){
         String title = "Notification Title";

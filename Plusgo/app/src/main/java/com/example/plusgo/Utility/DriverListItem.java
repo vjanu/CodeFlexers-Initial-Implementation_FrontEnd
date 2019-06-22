@@ -18,6 +18,17 @@ public class DriverListItem {
     private double rate;
     private String image;
     private String time;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+
 
     public String getTid() {
         return tid;
@@ -91,7 +102,7 @@ public class DriverListItem {
         this.time = time;
     }
 
-    public DriverListItem(String tid, String uid, String name, String starting, String destination, String vehicle, double rate, String image, String time) {
+    public DriverListItem(String tid, String uid, String name, String starting, String destination, String vehicle, double rate, String image, String time, String token) {
         this.tid = tid;
         this.uid = uid;
         this.name = name;
@@ -101,5 +112,6 @@ public class DriverListItem {
         this.rate = rate;
         this.image = image;
         this.time = time;
+        this.token = token;
     }
 }
