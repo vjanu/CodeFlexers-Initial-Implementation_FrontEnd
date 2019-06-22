@@ -10,13 +10,28 @@ public interface API {
 
     @FormUrlEncoded
     @POST("send")
-    Call<ResponseBody> senNotification(
+    Call<ResponseBody> sendNotification(
             @Field("token") String token,
             @Field("title") String title,
             @Field("body") String body,
             @Field("reqPassenger") String reqPassenger,
             @Field("reqDriver") String reqDriver,
             @Field("source") String source,
-            @Field("destination") String destination
+            @Field("destination") String destination,
+            @Field("passengerToken") String passengerToken
+    );
+
+
+    @FormUrlEncoded
+    @POST("send")
+    Call<ResponseBody> AcceptNotification(
+            @Field("token") String token,
+            @Field("title") String title,
+            @Field("body") String body
+//            @Field("reqPassenger") String reqPassenger,
+//            @Field("reqDriver") String reqDriver,
+//            @Field("source") String source,
+//            @Field("destination") String destination,
+//            @Field("passengerToken") String passengerToken
     );
 }

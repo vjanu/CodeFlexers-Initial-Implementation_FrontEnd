@@ -4,7 +4,7 @@ package com.example.plusgo;
 public class BaseContent {
 
 
-    final public String BASEIPROUTE = "http://192.168.43.102";
+    final public String BASEIPROUTE = "http://192.168.8.101";
 
     //TODO : ADD THE IP OF SERVER HERE
     //final public String BASEIPROUTE = "http://10.98.200.109";
