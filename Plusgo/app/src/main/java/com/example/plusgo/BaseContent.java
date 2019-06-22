@@ -4,7 +4,7 @@ package com.example.plusgo;
 public class BaseContent {
 
     //TODO : ADD THE IP OF SERVER HERE
-    final public String BASEIPROUTE = "http://192.168.43.189";
+    final public String BASEIPROUTE = "http://192.168.8.103";
 
     //IP ADDRESS OF THE NODEJS BACKEND
     public String IpAddress = BASEIPROUTE+":8083";
