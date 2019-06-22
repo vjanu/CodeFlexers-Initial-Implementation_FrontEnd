@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Notification.API;
+import com.example.plusgo.Notification.SendNotification;
 import com.example.plusgo.R;
 
 
@@ -49,10 +50,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TripSummaryActivity extends AppCompatActivity {
 
     private BaseContent BASECONTENT = new BaseContent();
-    private String JSON_URL_TRIP_SUMMARY = BASECONTENT.FCBASEIPROUTE + "/tripsummary/";
-    private String JSON_URL_CURRENT_PASSENGER_COUNT = BASECONTENT.FCBASEIPROUTE + "/tripsummary/currentPassenger/";
-    private String JSON_URL_VEHICLE_DETAILS = BASECONTENT.FCBASEIPROUTE + "/vehicle/specific/";
-    private String JSON_URL_USER_DETAILS = BASECONTENT.FCBASEIPROUTE + "/users/specific/";
+    private String JSON_URL_TRIP_SUMMARY = BASECONTENT.IpAddress + "/tripsummary/";
+    private String JSON_URL_CURRENT_PASSENGER_COUNT = BASECONTENT.IpAddress + "/tripsummary/currentPassenger/";
+    private String JSON_URL_VEHICLE_DETAILS = BASECONTENT.IpAddress + "/vehicle/specific/";
+    private String JSON_URL_USER_DETAILS = BASECONTENT.IpAddress + "/users/specific/";
     private String PYTHON_URL_GET_DISTANCE = BASECONTENT.pythonIpAddressGetDistance + "/map/";
     private String PYTHON_URL_FUEL_ESTIMATE = BASECONTENT.pythonIpAddressGetEstimateFuel + "/fuel/";
 
@@ -79,13 +80,13 @@ public class TripSummaryActivity extends AppCompatActivity {
 
         //added Viraj------------
         Intent intent = getIntent();
-
-        String TripId = intent.getStringExtra("TID");
-        String UserId = intent.getStringExtra("UID");
-        String FullName = intent.getStringExtra("Name");
-        String myVar4 = intent.getStringExtra("Source");
-        String myVar5 = intent.getStringExtra("Destination");
-        String Token = intent.getStringExtra("Token");
+        //comment for Testing
+//        String TripId = intent.getStringExtra("TID");
+//        String UserId = intent.getStringExtra("UID");
+//        String FullName = intent.getStringExtra("Name");
+//        String myVar4 = intent.getStringExtra("Source");
+//        String myVar5 = intent.getStringExtra("Destination");
+//        String Token = intent.getStringExtra("Token");
 
 
 
@@ -105,12 +106,13 @@ public class TripSummaryActivity extends AppCompatActivity {
         txtVehicle = (TextView)findViewById(R.id.VehicleName);
         txtToken = (TextView)findViewById(R.id.FCMToken);
 
-        Log.d("q1:", TripId);
-        Log.d("q2:", UserId);
-        Log.d("q3:", FullName);
-        Log.d("q4:", myVar4);
-        Log.d("q5:", myVar5);
-        Log.d("q6:", Token);
+        //comment for Testing
+//        Log.d("q1:", TripId);
+//        Log.d("q2:", UserId);
+//        Log.d("q3:", FullName);
+//        Log.d("q4:", myVar4);
+//        Log.d("q5:", myVar5);
+//        Log.d("q6:", Token);
 
         //added Viraj------------
 
@@ -123,10 +125,10 @@ public class TripSummaryActivity extends AppCompatActivity {
         });
 
         //added Viraj
-        txtUserName.setText(FullName);
-        txtTripId.setText(TripId);
-        txtUserId.setText(UserId);
-        txtToken.setText(Token);
+//        txtUserName.setText(FullName);
+//        txtTripId.setText(TripId);
+//        txtUserId.setText(UserId);
+//        txtToken.setText(Token);
 
         GetTripSummaryDetails();
         GetCurrentPassengers();
@@ -145,7 +147,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         findViewById(R.id.btnJoinRide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // sendNotification();
+                sendNotification();
             }
         });
     }
@@ -301,10 +303,6 @@ public class TripSummaryActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
 
-        //GetVehicleDetails();
-//        Log.d("vehicle1",brand);
-  //      Log.d("vehicle1",model);
-    //    Log.d("vehicle1",manYear);
 
         String manYear = "2015";
         String regYear = "2015";
@@ -530,15 +528,17 @@ public class TripSummaryActivity extends AppCompatActivity {
 //
 //    }
 
+
+
     private void sendNotification(){
-        String title = "Notification Title";
-        String body = "sesdsdsd";
-        String token = "f71ik2dgMUo:APA91bEaQF1ehEDWUpRjjZpIHWSN12EWmgZ9snEvmBniYPStrLn2OcKle6RAh_hmiRDD7JuzdxgwrElEPNl-uJz9TFta8JwbjSOeu5NhAy78WimkbFxCxegu_zegHFclSGNatdBfNyYH";
+        String title = "Ride Request";
+        String body = "Hi";
+        String token = "dZLuDis_9tY:APA91bGuuAfA4FsmW_YuKRdadP4fKuyDHkBbCjVbqLn_qcrYgjSQfkWKrj-vDUzSIXKznFc6DB10yAIVeuHeHPeeSzXQmNOUXwh_YVCcGf3a1YyZcoVt2NiVRibC7UdZXU7VJVfjbjKt";
         String reqPassenger = "Surath Gunawardena";
         String reqDriver = "U1111111-Driver";
         String source = "Kaduwela";
         String destination = "Battaramulla";
-        String passengerToken = "Battaramulla";
+        String passengerToken = "eQ1tTDeDAk8:APA91bHDVmf-2pd5qlEUxwFoR_ENMeTYEBENoyG7infabGxNXo51Mqkg1UkbWddVih29qS44UpIed8_qrKSUwijvDVpj3iBogsrOsOImMAjT60ikts4Fu0K3Ez-RVuycWkEoJJo6Uq3m";
 
 
 
@@ -547,7 +547,7 @@ public class TripSummaryActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         API api = retrofit.create(API.class);
-        Call<ResponseBody> call = api.sendNotification(token,title,body,reqPassenger,reqDriver,source,destination, passengerToken);
+        Call<ResponseBody> call = api.sendNotification(token,title,body,reqPassenger,reqDriver,source,destination,passengerToken);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override

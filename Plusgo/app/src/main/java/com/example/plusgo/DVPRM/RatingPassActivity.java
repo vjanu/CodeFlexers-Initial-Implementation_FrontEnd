@@ -426,7 +426,7 @@ public class RatingPassActivity extends AppCompatActivity {
     //Retrieve sentiment rating
     private void jsonrequestforsentimentcheck(String sentiment) {
 
-        String JSON_URL = BASECONTENT.DVPRMBASEIPROUTE +":8090/sentiment/"+sentiment;
+        String JSON_URL = BASECONTENT.IpAddress +":8090/sentiment/"+sentiment;
 
         final String senti = sentiment;
         final String finalJSON_URL = JSON_URL;

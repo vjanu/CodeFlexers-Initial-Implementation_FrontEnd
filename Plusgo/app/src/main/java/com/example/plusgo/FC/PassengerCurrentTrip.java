@@ -1,5 +1,6 @@
 package com.example.plusgo.FC;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -11,5 +12,9 @@ public class PassengerCurrentTrip extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_current_trip);
+
+
     }
+
+
 }
