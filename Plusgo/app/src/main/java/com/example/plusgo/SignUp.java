@@ -43,6 +43,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -293,12 +294,20 @@ public class SignUp extends AppCompatActivity {
 
     private void saveToken(String token)
     {
+        //Create Firebase References
+        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+
+        FirebaseUser mCurrentUser = mAuth.getCurrentUser();
+        if (mCurrentUser != null) {
+            dbUsers=FirebaseDatabase.getInstance().getReference().child(NODE_USERS)
+                    .child(mCurrentUser.getUid());
+        }
+
 
        String email = mAuth.getCurrentUser().getEmail();
        User user = new User(email,token);
 
-        //Create Firebase References
-        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+
 
         //get Unique id from get current user
         dbUsers.child(mAuth.getCurrentUser().getUid())

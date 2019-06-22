@@ -72,17 +72,16 @@
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="362dp"
+                android:layout_height="299dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profile_image"
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:layout_centerInParent="true"
                     android:elevation="20dp"
                     android:src="@drawable/role"
-                    app:civ_border_color="@color/gray"
                     app:civ_border_width="2dp" />
 
             </RelativeLayout>
@@ -105,7 +104,7 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="-20dp"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -118,7 +117,7 @@
                         android:layout_height="42dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginTop="-100dp"
+                        android:layout_marginTop="100dp"
                         android:layout_marginBottom="40dp"
                         android:background="@drawable/ovel_drawable"
                         android:text="@string/offerride"
@@ -146,7 +145,7 @@
                         android:layout_height="42dp"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginTop="-100dp"
+                        android:layout_marginTop="200dp"
                         android:layout_marginBottom="40dp"
                         android:background="@drawable/ovel_drawable"
                         android:text="@string/reqride"

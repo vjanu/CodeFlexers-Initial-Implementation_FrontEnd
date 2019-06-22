@@ -59,6 +59,8 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
         viewHolder.txtTime.setText(driverListItem.getTime());
         viewHolder.txtTid.setText(driverListItem.getTid());
         viewHolder.txtUid.setText(driverListItem.getUid());
+        viewHolder.txtToken.setText(driverListItem.getToken());
+
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
 
         viewHolder.driverCard.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +76,7 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
                 TextView source  =(TextView)view.findViewById(R.id.txtStarting);
                 TextView destination  =(TextView)view.findViewById(R.id.txtDestination);
                 CircleImageView profileImage = (CircleImageView)view.findViewById(R.id.proImage);
+                TextView txtToken = (TextView) view.findViewById(R.id.txtTokenHidden);
 
                 i.putExtra("TID", String.valueOf(tid.getText()));
                 i.putExtra("UID", String.valueOf(uid.getText()));
@@ -81,6 +84,8 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
                 i.putExtra("Source", String.valueOf(source.getText()));
                 i.putExtra("Destination",String.valueOf(destination.getText()));
                 i.putExtra("img",String.valueOf(profileImage));
+                i.putExtra("Token",String.valueOf(txtToken.getText()));
+
 
                 view.getContext().startActivity(i);
             }
@@ -112,6 +117,7 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
         public TextView txtRate;
         public TextView txtTid;
         public TextView txtUid;
+        public TextView txtToken;
 
         public TextView txtTime;
         public CircleImageView profileImage;
@@ -127,6 +133,7 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
             txtUid = (TextView)itemView.findViewById(R.id.uidHidden);
             profileImage = (CircleImageView)itemView.findViewById(R.id.proImage);
             driverCard = (CardView) itemView.findViewById(R.id.driver_card);
+            txtToken = (TextView) itemView.findViewById(R.id.txtTokenHidden);
 
         }
     }
