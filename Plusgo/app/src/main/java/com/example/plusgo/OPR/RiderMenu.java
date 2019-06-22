@@ -217,6 +217,7 @@ public class RiderMenu extends AppCompatActivity implements View.OnClickListener
 
             URL = BASECONTENT.IpAddress +"/addofferride";
 
+
             Log.e("URL", URL);
 
 //            jsonObject.put("UserID",id);
