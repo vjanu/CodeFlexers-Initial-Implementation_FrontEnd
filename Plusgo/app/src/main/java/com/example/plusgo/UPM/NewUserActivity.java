@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -71,14 +70,13 @@ public class NewUserActivity extends AppCompatActivity {
     private Spinner profession;
     private Button goToPreferences, update,p;
     private static final String KEY_EMPTY = "";
-    private TextView name,email, Rname, Rphone, dob,toke,token1;
+    private TextView name,email, Rname, Rphone, dob;
     private RadioGroup radioGenderGroup;
     private RadioButton radioGenderButton;
     private CircleImageView proPic;
     private JsonArrayRequest request;
-    private String id;
+    private String id, newToken;
     private RequestQueue requestQueue;
-    public static String NotificationToken;
 
     private BaseContent BASECONTENT = new BaseContent();
     private String JSON_URL_ADD_USER = BASECONTENT.IpAddress + "/users";
@@ -97,7 +95,7 @@ public class NewUserActivity extends AppCompatActivity {
     public String password;
     String userEmail = "";// Just check
     public static final String NODE_USERS = "users";
-
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
 
 
     @Override
@@ -123,6 +121,10 @@ public class NewUserActivity extends AppCompatActivity {
         SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
         id = user.getString("UId", null);
 
+        SharedPreferences token = getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
+        newToken = token.getString("fcmtoken", null);
+
+        //Log.d("tokk", newToken);
         profession = findViewById(R.id.profession);
         String[] prof = new String[]{"Driver", "Body Guard", "Security Officer","Clerical Staff", "Clerk", "Intern", "Administrative Assistant","Associate Engineer","Bank Assistant","IT Support",
                 "Cashier","Network Engineer","Software Engineer","Database Administrator", "Project Manager","HR","Nurse","Lecturer","Teacher",
@@ -137,8 +139,6 @@ public class NewUserActivity extends AppCompatActivity {
         radioGenderGroup = (RadioGroup) findViewById(R.id.gender);
         proPic = (CircleImageView)findViewById(R.id.photo);
         dob = (TextView)findViewById(R.id.dob);
-        toke = (TextView)findViewById(R.id.hidden);
-
 
         password = "123456"; // Testing Purpose Added by Surath
         //userEmail = email.getText().toString().trim();
@@ -147,63 +147,15 @@ public class NewUserActivity extends AppCompatActivity {
         Log.d("emails", userEmail);
         setValuesUser();
 
-        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    // code to execute when EditText loses focus
-
-                    /*
-                     * Firebase Authentication with Email with Password
-                     * */
-
-                    userEmail = email.getText().toString();
-                    Log.d("sss" , password );
-                    Log.d("sss1" , userEmail);
-                    mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            //If Firebase Authentication Succeful Redirect to the Profile Activity
-                            if(task.isSuccessful()){
-                                //startProfileActivity();
-                            }else{
-                                if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                    userLogin(userEmail,password);
-                                }else{
-                                    // progressbar.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-
-                        }
-                    });
-
-                    FirebaseInstanceId.getInstance().getInstanceId()
-                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                                    if(task.isSuccessful()){
-                                        NotificationToken = task.getResult().getToken();
-                                        toke.setText(NotificationToken);
-                                        Log.d("qw1:", NotificationToken);
-                                        saveToken(NotificationToken);
-
-                                    }else{
-//                                      textView.setText("Token is Not Generated");
-                                    }
-                                }
-                            });
-                }
-            }
-        });
-
+        if(!KEY_EMPTY.equals(name.getText().toString().trim())){
+            goToPreferences.setEnabled(false);
+        }
         goToPreferences = (Button)findViewById(R.id.btnConfirm);
         p = (Button)findViewById(R.id.pi);
         goToPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addUser();
+               addUser();
 
 
             }
@@ -216,14 +168,14 @@ public class NewUserActivity extends AppCompatActivity {
                 updateUser();
             }
         });
-        p.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                startActivity(new Intent(NewUserActivity.this, AddPreferenceActivity.class));
+p.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        finish();
+        startActivity(new Intent(NewUserActivity.this, AddPreferenceActivity.class));
 
-            }
-        });
+    }
+});
 
     }
     //add relevant user details
@@ -231,19 +183,20 @@ public class NewUserActivity extends AppCompatActivity {
         try {
 
             //check whether the fields are empty or not
-            if(KEY_EMPTY.equals(name.getText().toString().trim()) || KEY_EMPTY.equals(email.getText().toString().trim()) || KEY_EMPTY.equals(Rname.getText().toString().trim())|| KEY_EMPTY.equals(Rphone.getText().toString().trim())){
+            if(KEY_EMPTY.equals(name.getText().toString().trim()) || KEY_EMPTY.equals(Rname.getText().toString().trim())|| KEY_EMPTY.equals(Rphone.getText().toString().trim())){
                 Toast.makeText(NewUserActivity.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
 
             }
             else {
 
-//                /*
-//                 * Firebase Authentication with Email with Password
-//                 * */
-//
+                /*
+                 * Firebase Authentication with Email with Password
+                 * */
+
 //                userEmail = email.getText().toString();
-//                Log.d("sss" , password );
-//                Log.d("sss1" , userEmail);
+//                userEmail = "teswt";
+////                Log.d("sss" , password );
+////                Log.d("sss1" , userEmail);
 //                mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
 //                    @Override
 //                    public void onComplete(@NonNull Task<AuthResult> task) {
@@ -252,7 +205,7 @@ public class NewUserActivity extends AppCompatActivity {
 //                            //startProfileActivity();
 //                        }else{
 //                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
-//                                userLogin(userEmail,password);
+//                               userLogin(userEmail,password);
 //                            }else{
 //                                // progressbar.setVisibility(View.INVISIBLE);
 //                                Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
@@ -269,12 +222,12 @@ public class NewUserActivity extends AppCompatActivity {
 //                            @Override
 //                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
 //                                if(task.isSuccessful()){
-//                                    String NotificationToken = task.getResult().getToken();
-//                                    token1.setText(NotificationToken);
-//                                    Log.d("qw1:", NotificationToken);
+//                                    token = task.getResult().getToken();
+////                                    toke.setText(token);
+////                                    Log.d("qw1:", token);
 //
 //                                    saveToken(token);
-//                                    Log.d("qw2:", token);
+////                                    Log.d("qw2:", token);
 ////                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
 ////                            textView.setText("Token" + token);
 //                                }else{
@@ -296,15 +249,13 @@ public class NewUserActivity extends AppCompatActivity {
                 jsonObject.put("UserID", id);
                 jsonObject.put("FullName", name.getText());
                 jsonObject.put("Profession", profession.getSelectedItem().toString());
-                jsonObject.put("Email", email.getText());
+//                jsonObject.put("Email", email.getText());
                 jsonObject.put("Gender", gender);
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
                 jsonObject.put("img", "/images/"+imageURL);
-                Log.d("token",NotificationToken.toString());
                 jsonObject.put("Age", dob.getText());
-                jsonObject.put("Token", toke.getText().toString());
-                Log.d("token",NotificationToken.toString());
+                jsonObject.put("Token", newToken);
                 final String mRequestBody = jsonObject.toString();
 
                 SharedPreferences.Editor selfData = getSharedPreferences("self", MODE_PRIVATE).edit();
@@ -390,7 +341,7 @@ public class NewUserActivity extends AppCompatActivity {
 
                             profession.setSelection(((ArrayAdapter<String>) profession.getAdapter()).getPosition(jsonObject.getString("Profession")));
                             name.setText(jsonObject.getString("FullName"));
-                            email.setText(jsonObject.getString("Email"));
+//                            email.setText(jsonObject.getString("Email"));
                             Rname.setText(jsonObject.getString("RName"));
                             Rphone.setText(jsonObject.getString("RPhone"));
                             dob.setText(jsonObject.getString("Age"));
@@ -433,7 +384,7 @@ public class NewUserActivity extends AppCompatActivity {
     public void updateUser() {
         try {
             //check whether the fields are empty or not
-            if(KEY_EMPTY.equals(name.getText().toString().trim()) || KEY_EMPTY.equals(email.getText().toString().trim()) || KEY_EMPTY.equals(Rname.getText().toString().trim())|| KEY_EMPTY.equals(Rphone.getText().toString().trim())){
+            if(KEY_EMPTY.equals(name.getText().toString().trim()) || KEY_EMPTY.equals(Rname.getText().toString().trim())|| KEY_EMPTY.equals(Rphone.getText().toString().trim())){
                 Toast.makeText(NewUserActivity.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
 
             }
@@ -450,7 +401,7 @@ public class NewUserActivity extends AppCompatActivity {
                 jsonObject.put("UserID", id);
                 jsonObject.put("FullName", name.getText());
                 jsonObject.put("Profession", profession.getSelectedItem().toString());
-                jsonObject.put("Email", email.getText());
+//                jsonObject.put("Email", email.getText());
                 jsonObject.put("Gender", gender);
                 jsonObject.put("RName", Rname.getText());
                 jsonObject.put("RPhone", Long.parseLong(Rphone.getText().toString()));
@@ -625,44 +576,44 @@ public class NewUserActivity extends AppCompatActivity {
     /*
     Added by Surath
      */
-    private void userLogin(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            Toast.makeText(NewUserActivity.this,"userLoginffff",Toast.LENGTH_LONG).show();
-                        }else{
-                            // progressbar.setVisibility(View.INVISIBLE);
-                            Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+//    private void userLogin(String email, String password){
+//        mAuth.signInWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if(task.isSuccessful())
+//                        {
+//                            Toast.makeText(NewUserActivity.this,"userLoginffff",Toast.LENGTH_LONG).show();
+//                        }else{
+//                            // progressbar.setVisibility(View.INVISIBLE);
+//                            Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+//
+//                        }
+//                    }
+//                });
+//    }
 
-                        }
-                    }
-                });
-    }
-
-    private void saveToken(String token)
-    {
-        String email = mAuth.getCurrentUser().getEmail();
-        Log.d("email",email);
-        User user = new User(email,token);
-
-        //Create Firebase References
-
-        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
-
-        //get Unique id from get current user
-        dbUsers.child(mAuth.getCurrentUser().getUid())
-                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
-                    Toast.makeText(NewUserActivity.this,"Token Saved",Toast.LENGTH_LONG).show();
-
-                }
-            }
-        });
-    }
+//    private void saveToken(String token)
+//    {
+////        String email = mAuth.getCurrentUser().getEmail();
+//        String email = "qq.g.c";
+//        User user = new User(email,token);
+//
+//        //Create Firebase References
+//
+//        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+//
+//        //get Unique id from get current user
+//        dbUsers.child(mAuth.getCurrentUser().getUid())
+//                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if(task.isSuccessful())
+//                {
+//                    Toast.makeText(NewUserActivity.this,"Token Saved",Toast.LENGTH_LONG).show();
+//
+//                }
+//            }
+//        });
+//    }
 }

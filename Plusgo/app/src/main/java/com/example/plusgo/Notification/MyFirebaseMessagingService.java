@@ -33,14 +33,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         if(remoteMessage.getNotification() !=null){
+
+
             title = remoteMessage.getNotification().getTitle();
             body = remoteMessage.getNotification().getBody();
             setBody(body.toString());
             setTitle(title.toString());
 
             NotificationBodyCatcher = getBody().toString();
-
             NotificationHelper.displayNotification(getApplicationContext(),title,body);
+            //NotificationHelper.displayAcceptNotification(getApplicationContext(),title,body);
             Log.d("Notification " , body);
 
         }

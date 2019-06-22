@@ -49,7 +49,8 @@
                     android:text="Traffic Jam"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:textSize="30dp"
-                    android:textStyle="normal"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorButton"
                     android:typeface="sans" />
 
             </RelativeLayout>
@@ -223,16 +224,16 @@
 
                         <LinearLayout
                             android:layout_width="fill_parent"
-                            android:layout_height="300dp">
+                            android:layout_height="200dp">
 
                             <ImageView
                                 android:id="@+id/image_view_traffic"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_margin="20dp"
+                                android:adjustViewBounds="true"
                                 android:background="@drawable/address"
-                                android:scaleType="centerCrop"
-                                android:adjustViewBounds="true" />
+                                android:scaleType="centerCrop" />
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -309,6 +310,7 @@
                             android:layout_marginBottom="40dp"
                             android:background="@drawable/rectangle_button_drawable"
                             android:text="@string/report"
+                            android:textColor="@color/white"
                             android:textAllCaps="false"
                             android:textSize="16sp" />
                     </RelativeLayout>
@@ -329,6 +331,7 @@
                             android:layout_marginBottom="40dp"
                             android:background="@drawable/rectangle_button_drawable"
                             android:text="@string/later"
+                            android:textColor="@color/white"
                             android:textAllCaps="false"
                             android:textSize="16sp" />
 

@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 
     <application
         android:name=".app.AppController"
@@ -23,7 +24,11 @@
         android:roundIcon="@mipmap/logoplusgo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Notification.OpenNotification"></activity>
+        <activity android:name=".FC.PassengerCurrentTrip"></activity>
+        <activity android:name=".Notification.OpenNotification" />
+        <activity android:name=".Notification.SendNotification">
+
+        </activity>
         <activity android:name=".UPM.DriverListActivity"></activity>
         <activity android:name=".FC.LiveCalculation" />
         <activity
@@ -142,6 +147,11 @@
             </intent-filter>
             -->
         </activity>
+        <service android:name=".Notification.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -8,8 +8,14 @@
 
 package com.example.plusgo;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +37,17 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.plusgo.UPM.VerifyMobilePhoneActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,19 +60,32 @@ public class SignUp extends AppCompatActivity {
     BaseContent BASECONTENT = new BaseContent();
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
-
+    public static String NotificationBodyCatcher;
     Button signupbtn;
-    EditText fullname,username,pwd;
+    EditText email,username,pwd;
     private RadioGroup radioRoleGroup;
     private RadioButton radioRoleButton;
     TextView usernameAlert;
+    private FirebaseAuth mAuth;
+    public static final String NODE_USERS = "users";
+    /*Added by Surath
+     * For the Notification
+     */
+    public static final String CHANNEL_ID = "plus_go";
+    private static final String CHANNEL_NAME = "Plus Go";
+    private static final String CHANNEL_DESC = "Plus Go Notification";
+    // MY_PREFS_NAME - a static String variable like:
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        fullname = (EditText) findViewById(R.id.signUpFullName);
+        mAuth = FirebaseAuth.getInstance();
+
+        email = (EditText) findViewById(R.id.email);
         username = (EditText) findViewById(R.id.signUpUsername);
         usernameAlert = (TextView) findViewById(R.id.usernameTaken);
         username.setOnFocusChangeListener(new View.OnFocusChangeListener()
@@ -71,29 +101,84 @@ public class SignUp extends AppCompatActivity {
             }
         });
 
+        //To Subscription
+        FirebaseMessaging.getInstance().subscribeToTopic("Updates");
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID,CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+
+        }
+
         pwd = (EditText) findViewById(R.id.signUpPassword);
 
         signupbtn = (Button) findViewById(R.id.btnSignUp);
         signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fulname = String.valueOf(fullname.getText());
+                String txtEmail = String.valueOf(email.getText());
                 String usrname = String.valueOf(username.getText());
                 String passw = String.valueOf(pwd.getText());
 
-                if((fulname.equals(""))||(usrname.equals(""))||(passw.equals(""))){
+                if((txtEmail.equals(""))||(usrname.equals(""))||(passw.equals(""))){
                     Toast.makeText(getApplicationContext(),"Please Fill All Fields",Toast.LENGTH_SHORT).show();
                 }else{
-                    Log.e("fname", fulname);
+
+                    mAuth.createUserWithEmailAndPassword(txtEmail,passw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            //If Firebase Authentication Succeful Redirect to the Profile Activity
+                            if(task.isSuccessful()){
+                                //startProfileActivity();
+                            }else{
+                                if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                    String Aemail = String.valueOf(email.getText());
+                                    String Apass = String.valueOf(pwd.getText());
+                                   userLogin(Aemail,Apass);
+                                }else{
+                                   // progressbar.setVisibility(View.INVISIBLE);
+                                    Toast.makeText(SignUp.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                }
+
+                            }
+
+                        }
+                    });
+
+                    FirebaseInstanceId.getInstance().getInstanceId()
+                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                if(task.isSuccessful()){
+                                    String token = task.getResult().getToken();
+
+                                    SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                    editor.putString("fcmtoken", token);
+                                    editor.apply();
+//                                    toke.setText(token);
+//                                    Log.d("qw1:", token);
+
+                                    saveToken(token);
+
+//                                    Log.d("qw2:", token);
+//                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
+//                            textView.setText("Token" + token);
+                                }else{
+//                            textView.setText("Token is Not Generated");
+                                }
+                            }
+                        });
+                    Log.e("email", txtEmail);
                     Log.e("uname",usrname);
                     Log.e("pwd",passw);
                     // Add new user
-                    addNewUser(usrname,passw,fulname);
+                    addNewUser(usrname,passw,txtEmail);
                     // Go to Login page at success
-                    finish();
-                    Intent signUp;
-                    signUp = new Intent(SignUp.this, Login.class);
-                    startActivity(signUp);
+//                    finish();
+//                    Intent signUp;
+//                    signUp = new Intent(SignUp.this, VerifyMobilePhoneActivity.class);
+//                    startActivity(signUp);
                 }
             }
         });
@@ -132,22 +217,22 @@ public class SignUp extends AppCompatActivity {
     }
 
     //insert new user into the database
-    public void addNewUser(String Username,String Password,String Name) {
+    public void addNewUser(String Username,String Password,String Email) {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(SignUp.this);
             String URL = BASECONTENT.IpAddress+"/login";
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("Username", Username);
             jsonBody.put("Password", Password);
-            jsonBody.put("Name", Name);
+            jsonBody.put("Email", Email);
             final String mRequestBody = jsonBody.toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Toast.makeText(SignUp.this, "Successfully Registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SignUp.this, "Confirm Your Mobile Number" , Toast.LENGTH_LONG).show();
                     finish();
-                    Intent directToLogin = new Intent(SignUp.this, Login.class);
+                    Intent directToLogin = new Intent(SignUp.this, VerifyMobilePhoneActivity.class);
                     startActivity(directToLogin);
                     Log.i("LOG_VOLLEY", response);
                 }
@@ -187,4 +272,47 @@ public class SignUp extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void userLogin(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(SignUp.this,"userLoginffff",Toast.LENGTH_LONG).show();
+                        }else{
+                            // progressbar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(SignUp.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
+    }
+
+
+    private void saveToken(String token)
+    {
+
+       String email = mAuth.getCurrentUser().getEmail();
+       User user = new User(email,token);
+
+        //Create Firebase References
+        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+
+        //get Unique id from get current user
+        dbUsers.child(mAuth.getCurrentUser().getUid())
+                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(SignUp.this,"Token Saved",Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+    }
+
+
 }
