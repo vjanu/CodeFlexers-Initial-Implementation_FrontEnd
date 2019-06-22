@@ -30,7 +30,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Notification.API;
 import com.example.plusgo.R;
-import com.example.plusgo.Utility.VehicleBean;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,10 +49,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TripSummaryActivity extends AppCompatActivity {
 
     private BaseContent BASECONTENT = new BaseContent();
-    private String JSON_URL_TRIP_SUMMARY = BASECONTENT.IpAddress + "/tripsummary/";
-    private String JSON_URL_CURRENT_PASSENGER_COUNT = BASECONTENT.IpAddress + "/tripsummary/currentPassenger/";
-    private String JSON_URL_VEHICLE_DETAILS = BASECONTENT.IpAddress + "/vehicle/specific/";
-    private String JSON_URL_USER_DETAILS = BASECONTENT.IpAddress + "/users/specific/";
+    private String JSON_URL_TRIP_SUMMARY = BASECONTENT.FCBASEIPROUTE + "/tripsummary/";
+    private String JSON_URL_CURRENT_PASSENGER_COUNT = BASECONTENT.FCBASEIPROUTE + "/tripsummary/currentPassenger/";
+    private String JSON_URL_VEHICLE_DETAILS = BASECONTENT.FCBASEIPROUTE + "/vehicle/specific/";
+    private String JSON_URL_USER_DETAILS = BASECONTENT.FCBASEIPROUTE + "/users/specific/";
     private String PYTHON_URL_GET_DISTANCE = BASECONTENT.pythonIpAddressGetDistance + "/map/";
     private String PYTHON_URL_FUEL_ESTIMATE = BASECONTENT.pythonIpAddressGetEstimateFuel + "/fuel/";
 

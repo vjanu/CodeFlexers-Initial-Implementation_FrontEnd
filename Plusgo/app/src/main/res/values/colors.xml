@@ -14,6 +14,8 @@
     <color name="white">#FFFFFF</color>
     <color name="background">#202f65</color>
     <color name="PopUpbackground">#AE204165</color>
+    <color name="tabTextColour">#fff</color>
+    <color name="tabIndicateColour">#2d2d2d</color>
 
 
     <color name="gray">#9E9E9E</color>
