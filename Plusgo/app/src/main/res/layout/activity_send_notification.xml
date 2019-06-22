@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="Notification.SendNotification">
+
+    <TextView
+        android:id="@+id/txttitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="title"
+        android:padding="16dp"
+        android:text="Hii "/>
+
+    <TextView
+        android:id="@+id/txtbody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:hint="Body"
+        android:text="TEst Notifi"/>
+
+    <TextView
+        android:id="@+id/txttoken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:hint="Token"
+        android:text="cNZM2m2fDkQ:APA91bFY7VSDhUkXVh8GDDkvGjmprj9M8205g5Y4wK3wrZ-xlITPq9QKOJPA6bN5AtNiFbMb7tGubQE8QqH9JjooAUXWITO3AOk9WscaAeQaFE3Fbdn6bPN4TlNYcWKQemsbuC-vfUyz"
+        />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send"/>
+
+
+</LinearLayout>

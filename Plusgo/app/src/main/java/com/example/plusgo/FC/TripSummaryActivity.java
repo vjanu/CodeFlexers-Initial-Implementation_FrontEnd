@@ -457,6 +457,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         String reqDriver = "U1111111-Driver";
         String source = "Kaduwela";
         String destination = "Battaramulla";
+        String passengerToken = "Battaramulla";
 
 
 
@@ -465,7 +466,7 @@ public class TripSummaryActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         API api = retrofit.create(API.class);
-        Call<ResponseBody> call = api.senNotification(token,title,body,reqPassenger,reqDriver,source,destination);
+        Call<ResponseBody> call = api.sendNotification(token,title,body,reqPassenger,reqDriver,source,destination, passengerToken);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
