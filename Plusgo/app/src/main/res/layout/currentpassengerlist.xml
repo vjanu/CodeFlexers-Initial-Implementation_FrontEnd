@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_margin="@dimen/activity_horizontal_margin1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:padding="@dimen/activity_horizontal_padding"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtName"
+                android:text="Name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/txtHiddenToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Token"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/txtHiddenPassengerId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Passenger Id "
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/txtHiddenTripId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trip Id"
+                android:visibility="gone"
+
+                />
+
+            <TextView
+                android:id="@+id/txtHiddenuserImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="userImage"
+                android:visibility="gone"
+
+                />
+            <TextView
+                android:id="@+id/txtSource"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Source"
+                />
+
+            <TextView
+                android:id="@+id/txtDestination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Source"
+                />
+
+            <TextView
+                android:id="@+id/txtTripStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
