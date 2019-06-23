@@ -8,7 +8,7 @@ public class BaseContent {
     */
 
     //TODO : ADD THE IP OF SERVER WITH NODE JS HERE
-    final public String BASEIPROUTE = "http://192.168.8.103";
+    final public String BASEIPROUTE = "http://192.168.43.102";
     public String IpAddress = BASEIPROUTE+":8083";
 
     /*
@@ -22,7 +22,7 @@ public class BaseContent {
     /*
     USER PROFILING
      */
-    final public String UPMBASEIPROUTE ="http://192.168.8.100"; //TODO : UPM CHANGE ACCORDINGLY
+    final public String UPMBASEIPROUTE ="http://192.168.43.102"; //TODO : UPM CHANGE ACCORDINGLY
     public String pythonIpAddress = UPMBASEIPROUTE+":99";
 
     /*

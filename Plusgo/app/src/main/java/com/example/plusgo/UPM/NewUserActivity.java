@@ -45,6 +45,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
+import com.example.plusgo.OPR.UserMain;
 import com.example.plusgo.R;
 import com.example.plusgo.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -147,16 +148,23 @@ public class NewUserActivity extends AppCompatActivity {
         Log.d("emails", userEmail);
         setValuesUser();
 
-        if(!KEY_EMPTY.equals(name.getText().toString().trim())){
-            goToPreferences.setEnabled(false);
+        goToPreferences.setEnabled(false);
+        update.setEnabled(false);
+        p.setEnabled(false);
+
+        if(KEY_EMPTY.equals(name.getText().toString().trim())){
+            goToPreferences.setEnabled(true);
+        }
+        else{
+            update.setEnabled(true);
+            p.setEnabled(true);
         }
         goToPreferences = (Button)findViewById(R.id.btnConfirm);
-        p = (Button)findViewById(R.id.pi);
+        p = (Button)findViewById(R.id.usermenu);
         goToPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                addUser();
-
 
             }
         });
@@ -168,14 +176,14 @@ public class NewUserActivity extends AppCompatActivity {
                 updateUser();
             }
         });
-p.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        finish();
-        startActivity(new Intent(NewUserActivity.this, AddPreferenceActivity.class));
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    finish();
+                    startActivity(new Intent(NewUserActivity.this, UserMain.class));
 
-    }
-});
+                }
+        });
 
     }
     //add relevant user details

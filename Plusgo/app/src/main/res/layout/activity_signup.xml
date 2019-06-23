@@ -216,6 +216,7 @@
         android:text="Get Started"
         android:backgroundTint="@color/colorButton"
         android:textColor="@color/colorText"
+        android:background="@drawable/ovel_drawable"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
