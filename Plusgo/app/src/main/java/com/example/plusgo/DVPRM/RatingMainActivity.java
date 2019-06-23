@@ -54,6 +54,7 @@ public class RatingMainActivity extends AppCompatActivity {
     StringRequest stringRequest;
     RequestQueue requestQueue;
     SharedPreferences sharedpreferences;
+    SharedPreferences sharedpreferences2;
     RatingBar ratingbar;
     LinearLayout layoutcomplement;
     LinearLayout layoutdissatis;
@@ -67,8 +68,16 @@ public class RatingMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_main);
 
+        //Retrieve UID and setting into another share preference
+        sharedpreferences2 = getSharedPreferences("userstore", Context.MODE_PRIVATE);
+//        final SharedPreferences.Editor editor2 = sharedpreferences.edit();
+        String tempRatedBy = sharedpreferences2.getString("UId", "U0000000020");
+
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
+        //Setting passenger ID
+        editor.putString("RatedBy", tempRatedBy);
+        editor.commit();
 
         submit_rating=(Button)findViewById(R.id.submit_rating);
         submit_complement=(Button)findViewById(R.id.submit_complement);
@@ -110,6 +119,7 @@ public class RatingMainActivity extends AppCompatActivity {
         vehiclebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO : INSERT vehicleID as vehicleId into a shared preference
                 editor.putString("selectedRateTab", "vehicle");
                 editor.commit();
                 Intent verify = new Intent(RatingMainActivity.this, RatingPassActivity.class);
@@ -175,7 +185,7 @@ public class RatingMainActivity extends AppCompatActivity {
             public void run() {
                 lockButtons();
             }
-        }, 1000);
+        }, 2000);
 
     }
 

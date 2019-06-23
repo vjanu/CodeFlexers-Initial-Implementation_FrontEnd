@@ -49,6 +49,7 @@ public class RatingDriverActivity extends AppCompatActivity {
     RequestQueue requestQueue;
     BaseContent BASECONTENT = new BaseContent();
     SharedPreferences sharedpreferences;
+    SharedPreferences sharedpreferences2;
     RatingBar ratingbarD;
     CardView cardview,cardview2;
     LinearLayout layoutSubmitD;
@@ -63,8 +64,14 @@ public class RatingDriverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_driver);
 
+        sharedpreferences2 = getSharedPreferences("userstore", Context.MODE_PRIVATE);
+        String tempRatedBy = sharedpreferences2.getString("UId", "U0000000030");
+
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
+        //Setting driver ID
+        editor.putString("RatedBy", tempRatedBy);
+        editor.commit();
 
         ratingbarD = (RatingBar)findViewById(R.id.ratingBarD);
         cardview =(CardView)findViewById(R.id.cardViewForDriver);
