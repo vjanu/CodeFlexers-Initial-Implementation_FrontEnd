@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="5dp"
                 android:orientation="vertical">
 
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="0dp"
                     android:layout_weight="0.5"
                     android:text="Vehicle Brand"
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:orientation="vertical">
 
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="0dp"
                     android:text="Vehicle Model"
                     android:textColor="@color/colorBlack"
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
                     android:layout_weight="0.5">
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="5dp"
 
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp">
@@ -184,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -192,7 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="0dp"
                     android:text="Manufactured Year"
                     android:layout_weight="0.5"
@@ -224,7 +224,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="0dp"
                     android:layout_weight="0.5"
                     android:text="Registered Year"
@@ -255,7 +255,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -263,7 +263,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="0dp"
                     android:layout_weight="0.5"
                     android:text="Fuel Type"
@@ -287,7 +287,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -295,7 +295,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginRight="0dp"
                     android:layout_weight="0.5"
                     android:text="Transmission Type"
@@ -321,7 +321,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical">
 
             <TextView
@@ -329,7 +329,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginLeft="0dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="0dp"
                 android:text="Engine Capacity"
                 android:textColor="@color/colorBlack"
@@ -382,6 +382,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorButton"
             android:text="Confirm"
+            android:background="@drawable/ovel_drawable"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="20dp"

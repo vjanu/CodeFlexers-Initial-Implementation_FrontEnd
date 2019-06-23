@@ -80,6 +80,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorButton"
             android:text="Verify"
+            android:background="@drawable/ovel_drawable"
             android:layout_gravity="center"
             android:layout_marginTop="35dp"
             android:textColor="@color/colorText" />

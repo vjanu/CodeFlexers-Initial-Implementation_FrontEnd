@@ -177,8 +177,9 @@
                             android:layout_centerVertical="true"
                             android:layout_marginTop="-100dp"
                             android:layout_marginBottom="40dp"
+                            android:text="Find My Driver"
+
                             android:background="@drawable/rectangle_button_drawable"
-                            android:text="@string/findmydriver"
                             android:textColor="@color/white"
                             android:textAllCaps="false"
                             android:textSize="16sp" />
