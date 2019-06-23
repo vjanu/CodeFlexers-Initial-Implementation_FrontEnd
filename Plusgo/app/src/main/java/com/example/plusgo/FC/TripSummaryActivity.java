@@ -80,13 +80,13 @@ public class TripSummaryActivity extends AppCompatActivity {
 
         //added Viraj------------
         Intent intent = getIntent();
-        //comment for Testing
-//        String TripId = intent.getStringExtra("TID");
-//        String UserId = intent.getStringExtra("UID");
-//        String FullName = intent.getStringExtra("Name");
-//        String myVar4 = intent.getStringExtra("Source");
-//        String myVar5 = intent.getStringExtra("Destination");
-//        String Token = intent.getStringExtra("Token");
+
+        String TripId = intent.getStringExtra("TID");
+        String UserId = intent.getStringExtra("UID");
+        String FullName = intent.getStringExtra("Name");
+        String myVar4 = intent.getStringExtra("Source");
+        String myVar5 = intent.getStringExtra("Destination");
+        String Token = intent.getStringExtra("Token");
 
 
 
