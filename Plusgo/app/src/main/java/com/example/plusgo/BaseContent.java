@@ -8,14 +8,14 @@ public class BaseContent {
     */
 
     //TODO : ADD THE IP OF SERVER WITH NODE JS HERE
-    final public String BASEIPROUTE = "http://192.168.43.102";
+    final public String BASEIPROUTE = "http://192.168.8.101";
     public String IpAddress = BASEIPROUTE+":8083";
 
     /*
     DOCUMENT VALIDATION AND PROFILE RATING MAINTAINANCE
      */
     //PORTS 8088,8089,8090 - USED IN DVPRM
-    final public String DVPRMBASEIPROUTE ="http://192.168.8.103"; //TODO : DVPRM CHANGE ACCORDINGLY
+    final public String DVPRMBASEIPROUTE ="http://192.168.8.101"; //TODO : DVPRM CHANGE ACCORDINGLY
     //image upload service written in php
     public String phpIP = DVPRMBASEIPROUTE+":80";
 
