@@ -147,7 +147,9 @@ public class NewUserActivity extends AppCompatActivity {
 //        userEmail = email.getText().toString();
         Log.d("emails", userEmail);
         setValuesUser();
-
+        goToPreferences = (Button)findViewById(R.id.btnConfirm);
+        p = (Button)findViewById(R.id.usermenu);
+        update = (Button)findViewById(R.id.btnUpdateDetails);
         goToPreferences.setEnabled(false);
         update.setEnabled(false);
         p.setEnabled(false);
@@ -159,8 +161,7 @@ public class NewUserActivity extends AppCompatActivity {
             update.setEnabled(true);
             p.setEnabled(true);
         }
-        goToPreferences = (Button)findViewById(R.id.btnConfirm);
-        p = (Button)findViewById(R.id.usermenu);
+
         goToPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +170,7 @@ public class NewUserActivity extends AppCompatActivity {
             }
         });
 
-        update = (Button)findViewById(R.id.btnUpdateDetails);
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
