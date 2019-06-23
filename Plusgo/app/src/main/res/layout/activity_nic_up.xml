@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
-            android:background="@color/colorButton"
+            android:background="@drawable/ovel_drawable"
             android:drawableTint="@color/colorPrimaryDark"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
@@ -100,7 +100,7 @@
             android:id="@+id/proceednic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorButton"
+            android:background="@drawable/ovel_drawable"
             android:text="Proceed"
             android:textColor="@color/colorText" />
     </LinearLayout>

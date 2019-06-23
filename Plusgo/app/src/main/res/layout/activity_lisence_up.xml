@@ -69,10 +69,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="5dp"
-            android:background="@color/colorButton"
             android:drawableTint="@color/colorPrimaryDark"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
+            android:background="@drawable/ovel_drawable"
             android:text="Verify"
             android:textColor="@color/colorText"
             tools:visibility="visible" />
@@ -142,7 +142,7 @@
             android:id="@+id/proceednic_lis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorButton"
+            android:background="@drawable/ovel_drawable"
             android:text="Proceed"
             android:textColor="@color/colorText" />
     </LinearLayout>
