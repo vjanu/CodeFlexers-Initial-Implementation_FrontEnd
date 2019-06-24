@@ -150,17 +150,15 @@ public class NewUserActivity extends AppCompatActivity {
         goToPreferences = (Button)findViewById(R.id.btnConfirm);
         p = (Button)findViewById(R.id.usermenu);
         update = (Button)findViewById(R.id.btnUpdateDetails);
-        goToPreferences.setEnabled(false);
-        update.setEnabled(false);
-        p.setEnabled(false);
 
-        if(KEY_EMPTY.equals(name.getText().toString().trim())){
-            goToPreferences.setEnabled(true);
-        }
-        else{
-            update.setEnabled(true);
-            p.setEnabled(true);
-        }
+//        Log.d("sss", String.valueOf(KEY_EMPTY.equals(name.getText().toString().trim())));
+//        if(KEY_EMPTY.equals(name.getText().toString().trim())){
+//            update.setEnabled(false);
+//            p.setEnabled(false);
+//        }
+//        else{
+//            goToPreferences.setEnabled(false);
+//        }
 
         goToPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -347,6 +345,7 @@ public class NewUserActivity extends AppCompatActivity {
                         jsonObject = response.getJSONObject(i);
                         if(jsonObject.length()!=0) {
                             goToPreferences.setEnabled(false);
+                            p.setEnabled(true);
 
                             profession.setSelection(((ArrayAdapter<String>) profession.getAdapter()).getPosition(jsonObject.getString("Profession")));
                             name.setText(jsonObject.getString("FullName"));
@@ -368,6 +367,8 @@ public class NewUserActivity extends AppCompatActivity {
                         }
                         else{
                             goToPreferences.setEnabled(true);
+                            p.setEnabled(false);
+                            update.setEnabled(false);
                         }
                     }catch (JSONException e){
                         e.printStackTrace();
