@@ -168,7 +168,51 @@
 
                     />
 
+                <TextView
+                android:id="@+id/txtHiddenCurrentMileage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:text="Mileage"
+                android:textSize="15dp"
+
+                />
+
+                <TextView
+                    android:id="@+id/txtHiddenStartMileage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Mileage"
+                    android:textSize="15dp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/txtHiddenCurrentPassengers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:textSize="15dp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/txtHiddenPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:textSize="15dp"
+
+                    />
             </RelativeLayout>
 
 
@@ -219,13 +263,15 @@
                     android:id="@+id/txtHiddenToken"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:text="Token"
                     android:textSize="15dp"
 
                     />
+
+
+
 
             </RelativeLayout>
 

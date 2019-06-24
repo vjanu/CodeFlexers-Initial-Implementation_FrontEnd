@@ -1,5 +1,7 @@
 package com.example.plusgo;
 
+package com.example.plusgo;
+
 public class BaseContent {
 
     /*

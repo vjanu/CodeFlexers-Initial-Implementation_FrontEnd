@@ -33,7 +33,7 @@ import java.util.List;
 public class FragmentCurrentPassenger extends Fragment {
 
     BaseContent BASECONTENT = new BaseContent();
-    private final String JSON_GET_CURRENT_PASSENGER = BASECONTENT.FCBASEIPROUTE+":8083/trip/";
+    private final String JSON_GET_CURRENT_PASSENGER = BASECONTENT.FCBASEIPROUTE+"/trip/";
     private RecyclerView recyclerView;
     private RecyclerView.Adapter CPassengeradapter;
     private List<Current_Passenger> currentPassenger;
