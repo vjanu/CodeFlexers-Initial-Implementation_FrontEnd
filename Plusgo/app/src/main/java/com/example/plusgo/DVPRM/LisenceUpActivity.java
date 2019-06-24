@@ -74,6 +74,8 @@ public class LisenceUpActivity extends AppCompatActivity {
         uploadLISbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = getSharedPreferences("dvprm", MODE_PRIVATE).edit();
+                editor.remove("exp_identified_lis").apply();
                 niclayout.setVisibility(View.INVISIBLE);
                 exp_layout.setVisibility(View.INVISIBLE);
                 proceedLISbtn.setVisibility(View.INVISIBLE);
@@ -140,13 +142,14 @@ public class LisenceUpActivity extends AppCompatActivity {
                         ExtractedNIC = jsonObject.getString("ExtractedNIC");
                         Expiration = jsonObject.getString("Expiration");
                         String EXT= ExtractedNIC.replaceAll("\\[", "").replaceAll("\\]","").replaceAll("\"", "").replaceAll(",","");
+                        String EXP= Expiration.replaceAll(" ","");
                         Log.e("ExtractedNIC_Lis", EXT);
                         Log.e("ExtractedExp_Lis", Expiration);
                         if(jsonObject.getString("ExtractedNIC") != null){
 
                             SharedPreferences.Editor editor = getSharedPreferences("dvprm", MODE_PRIVATE).edit();
                             editor.putString("nic_identified_lis", EXT);
-                            editor.putString("exp_identified_lis", Expiration);
+                            editor.putString("exp_identified_lis", EXP);
                             editor.apply();
 
                             matchnic();
