@@ -14,7 +14,7 @@ public class DriverListItem {
     private String name;
     private String starting;
     private String destination;
-    private String vehicle;
+    private String model;
     private double rate;
     private String image;
     private String time;
@@ -78,12 +78,12 @@ public class DriverListItem {
         this.destination = destination;
     }
 
-    public String getVehicle() {
-        return vehicle;
+    public String getModel() {
+        return model;
     }
 
-    public void setVehicle(String vehicle) {
-        this.vehicle = vehicle;
+    public void setModel(String model) {
+        this.model = model;
     }
 
     public double getRate() {
@@ -102,13 +102,13 @@ public class DriverListItem {
         this.time = time;
     }
 
-    public DriverListItem(String tid, String uid, String name, String starting, String destination, String vehicle, double rate, String image, String time, String token) {
+    public DriverListItem(String tid, String uid, String name, String starting, String destination, String model, double rate, String image, String time, String token) {
         this.tid = tid;
         this.uid = uid;
         this.name = name;
         this.starting = starting;
         this.destination = destination;
-        this.vehicle = vehicle;
+        this.model = model;
         this.rate = rate;
         this.image = image;
         this.time = time;
