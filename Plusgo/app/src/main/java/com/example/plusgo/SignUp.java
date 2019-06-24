@@ -157,10 +157,11 @@ public class SignUp extends AppCompatActivity {
                                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                     editor.putString("fcmtoken", token);
                                     editor.apply();
-//                                    toke.setText(token);
-//                                    Log.d("qw1:", token);
+                                    try {
+                                        saveToken(token);
+                                    }catch(Exception e){
 
-                                    saveToken(token);
+                                    }
 
 //                                    Log.d("qw2:", token);
 //                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
