@@ -40,7 +40,7 @@ import java.util.List;
 public class CopassengerListActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     BaseContent BASECONTENT = new BaseContent();
-    //TODO:CHANGE THIS ADDRESS
+    //TODO:CHANGE THIS ADDRESS TO RETRIEVE DATA FROM VIEW
     private final String JSON_URL= "https://gist.githubusercontent.com/AshaneEdiri/3151daee1b96041e6e7e690425e69e3b/raw/80c053c4566f06a2aa2ad1e7688df75c0b54541b/teacherListDummy";
     private JsonArrayRequest request;
     private RequestQueue requestQueue;

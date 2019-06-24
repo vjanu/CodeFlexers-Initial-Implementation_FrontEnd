@@ -43,7 +43,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
@@ -60,14 +60,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -82,7 +82,7 @@
             android:id="@+id/gPref"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -140,14 +140,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -162,7 +162,7 @@
             android:id="@+id/lang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -193,7 +193,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -209,7 +209,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -219,14 +219,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -241,7 +241,7 @@
             android:id="@+id/smo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -266,7 +266,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -282,7 +282,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -293,14 +293,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -315,7 +315,7 @@
             android:id="@+id/musi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -340,7 +340,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -356,7 +356,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:layout_marginStart="60dp"
         android:textStyle="bold"
         android:textColor="@color/colorBlack"
@@ -367,14 +367,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -389,7 +389,7 @@
             android:id="@+id/sic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -412,7 +412,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -428,7 +428,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginStart="60dp"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
@@ -439,14 +439,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="36dp"
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -461,7 +461,7 @@
             android:id="@+id/rqui"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -484,7 +484,7 @@
             android:layout_width="307dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -499,40 +499,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="5dp"
             android:gravity="center">
 
             <Button
                 android:id="@+id/btnConfirm"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:backgroundTint="@color/colorButton"
                 android:text="Confirm"
-                android:layout_marginTop="0dp"
+                android:background="@drawable/ovel_drawable"
+                android:layout_marginTop="12dp"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorText" />
 
             <Button
                 android:id="@+id/btnUpdatePreferences"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:backgroundTint="@color/colorButton"
                 android:text="Update"
-                android:layout_marginTop="0dp"
+                android:background="@drawable/ovel_drawable"
+                android:layout_marginTop="12dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorText" />
 
-            <Button
-                android:id="@+id/testingLocation"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorButton"
-                android:text="location"
-                android:layout_marginTop="0dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginBottom="20dp"
-                android:textColor="@color/colorText" />
+
 
 
 

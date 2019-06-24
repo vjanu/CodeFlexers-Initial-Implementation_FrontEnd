@@ -81,12 +81,11 @@ public class TempGPSActivity extends Activity implements LocationListener {
     private String uid;
     private BaseContent BASECONTENT = new BaseContent();
     private String PYTHON_URL_POST_DATA_AVAILABLE = BASECONTENT.pythonIpAddress + "/available";
-    private String PYTHON_URL_GET_DRIVERS = BASECONTENT.pythonIpAddress + "/ridematching/kmeans/";
     /**
      * context of calling class
      */
     private Context mContext;
-private Button cllick;
+    private Button cllick;
     /**
      * flag for gps status
      */
@@ -402,7 +401,7 @@ private Button cllick;
         return mLocation;
     }
 
-    private void executeHandler(){
+    public void executeHandler(){
         //If the handler and runnable are null we create it the first time.
         if(handler == null && runnable == null){
             handler = new Handler();
@@ -559,7 +558,7 @@ private Button cllick;
         //return location;
     }
 //    String c = "U1558711443502";
-    private void filterRelevantDrivers(){
+    public void filterRelevantDrivers(){
 
         getUserLocations(new FirebaseSuccessListener() {
             @Override
@@ -661,86 +660,7 @@ private Button cllick;
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
-//        getAvailableDriverList();
+
     }
-//    List<String> availableDrivers = new ArrayList<>();
-//    public List<String> getAvailableDriverList() {
 //
-//        Log.e("too","started");
-//        RequestQueue requestQueue = Volley.newRequestQueue(TempGPSActivity.this);
-//        StringRequest request = new StringRequest(PYTHON_URL_GET_DRIVERS+c, new Response.Listener<String>() {
-//
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                    JSONArray jsonObject = new JSONArray(response);
-//
-//                    Log.d("oo",  String.valueOf(jsonObject.length()));
-//                    Log.d("oo1",  String.valueOf(jsonObject.get(0)));
-//                    Log.d("oo2",  String.valueOf(jsonObject.get(1)));
-//
-//                    for(int i=0; i <jsonObject.length(); i++){
-//                        availableDrivers.add(jsonObject.get(i).toString());
-//
-//                    }
-//                    Log.d("og", jsonObject.get("UID").toString());
-//                    String x  = jsonObject.get("UID").toString();
-//                    x.replace("[", "");
-//                    x.replace("]", "");
-//                    Log.d("y1",  String.valueOf(x));
-//                    String[] words=x.split(",");
-//                    Log.d("oo",  String.valueOf(words.length));
-//                    Log.d("oo1",  String.valueOf(words[0]));
-//                    Log.d("oo2",  String.valueOf(words[1]));
-//
-
-//                    JSONArray jr = new JSONArray(jsonObject  );
-//                    JSONObject jb = (JSONObject)jr.getJSONObject(0);
-//                    JSONArray st = jb.getJSONArray("UID");
-//                    for(int i=0;i<st.length();i++)
-//                    {
-//                        String street = st.getString(i);
-//                        Log.d("zzz",""+ street);
-//                        // loop and add it to array or arraylist
-//                    }
-
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    Log.d("obj1", jsonObject.toString());
-//                    Log.d("obj2", jsonObject.get("UID").toString());
-//                    Log.d("objx", String.valueOf(jsonObject.length()));
-//
-//                    JSONArray j = new JSONArray(Arrays.asList(jsonObject.get("UID")));
-//                    Log.d("objc", String.valueOf(j));
-//                    Log.d("objd", String.valueOf(j.length()));
-//
-//                    Log.e("qqq1", String.valueOf(response));
-//                    for (int i = 0; i < jsonArray.length(); i++) {
-//
-//
-////                        jsonObject = response.getJSONObject(i);
-////                        Log.d("ppp", jsonObject.toString());
-////                        user.setUsername(jsonObject.getString("Username"));
-//                    }
-//                }
-//                    catch(JSONException e){
-//
-//                        e.printStackTrace();
-//                        Log.d("JSONREQUEST","ERROR");
-//                    }
-//
-//
-//
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//
-//        requestQueue = Volley.newRequestQueue(TempGPSActivity.this);
-//        requestQueue.add(request);
-//return availableDrivers;
-//    }
 }

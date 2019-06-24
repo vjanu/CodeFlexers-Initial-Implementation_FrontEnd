@@ -75,7 +75,7 @@ public class AddPreferenceActivity extends AppCompatActivity {
 
         btnConfirm = (Button)findViewById(R.id.btnConfirm);
         btnUpdate = (Button)findViewById(R.id.btnUpdatePreferences);
-        test = (Button)findViewById(R.id.testingLocation);
+
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,13 +91,7 @@ public class AddPreferenceActivity extends AppCompatActivity {
             }
         });
 
-        test.setOnClickListener(new View.OnClickListener() { //todo remove
-            @Override
-            public void onClick(View v) {
-                finish();
-                startActivity(new Intent(AddPreferenceActivity.this, TempGPSActivity.class));
-            }
-        });
+
     }
 
     //add relevant user Preference

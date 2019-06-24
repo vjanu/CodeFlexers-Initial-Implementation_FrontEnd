@@ -82,6 +82,7 @@ public class DriverListActivity extends AppCompatActivity {
         SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
         uid = user.getString("UId", null);
 
+
         recyclerView = (RecyclerView)findViewById(R.id.recyclerviewid);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -117,9 +118,9 @@ public class DriverListActivity extends AppCompatActivity {
                 try {
                     JSONArray jsonObject = new JSONArray(response);
 
-                    Log.d("oo",  String.valueOf(jsonObject.length()));
-                    Log.d("oo1",  String.valueOf(jsonObject.get(0)));
-                    Log.d("oo2",  String.valueOf(jsonObject.get(1)));
+//                    Log.d("oo",  String.valueOf(jsonObject.length()));
+//                    Log.d("oo1",  String.valueOf(jsonObject.get(0)));
+//                    Log.d("oo2",  String.valueOf(jsonObject.get(1)));
 
                     for(int i=0; i <jsonObject.length(); i++){
                         availableDrivers.add(jsonObject.get(i).toString());
@@ -213,7 +214,7 @@ public class DriverListActivity extends AppCompatActivity {
                                     jsonObject.getString("Destination"), jsonObject.getString("Brand"), Double.parseDouble(jsonObject.getString("AverageRating")),
                                     jsonObject.getString("img"),
                                     jsonObject.getString("StartTime"),
-                                    jsonObject.getString("Token")
+                                    "sss" //todo
                                    );
 
                             driverListItems.add(item);

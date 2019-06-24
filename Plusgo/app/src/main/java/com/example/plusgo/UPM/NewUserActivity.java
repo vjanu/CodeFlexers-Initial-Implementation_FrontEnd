@@ -45,6 +45,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
+import com.example.plusgo.OPR.UserMain;
 import com.example.plusgo.R;
 import com.example.plusgo.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -146,36 +147,42 @@ public class NewUserActivity extends AppCompatActivity {
 //        userEmail = email.getText().toString();
         Log.d("emails", userEmail);
         setValuesUser();
-
-        if(!KEY_EMPTY.equals(name.getText().toString().trim())){
-            goToPreferences.setEnabled(false);
-        }
         goToPreferences = (Button)findViewById(R.id.btnConfirm);
-        p = (Button)findViewById(R.id.pi);
+        p = (Button)findViewById(R.id.usermenu);
+        update = (Button)findViewById(R.id.btnUpdateDetails);
+
+//        Log.d("sss", String.valueOf(KEY_EMPTY.equals(name.getText().toString().trim())));
+//        if(KEY_EMPTY.equals(name.getText().toString().trim())){
+//            update.setEnabled(false);
+//            p.setEnabled(false);
+//        }
+//        else{
+//            goToPreferences.setEnabled(false);
+//        }
+
         goToPreferences.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                addUser();
 
-
             }
         });
 
-        update = (Button)findViewById(R.id.btnUpdateDetails);
+
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateUser();
             }
         });
-p.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        finish();
-        startActivity(new Intent(NewUserActivity.this, AddPreferenceActivity.class));
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    finish();
+                    startActivity(new Intent(NewUserActivity.this, UserMain.class));
 
-    }
-});
+                }
+        });
 
     }
     //add relevant user details
@@ -338,6 +345,7 @@ p.setOnClickListener(new View.OnClickListener() {
                         jsonObject = response.getJSONObject(i);
                         if(jsonObject.length()!=0) {
                             goToPreferences.setEnabled(false);
+                            p.setEnabled(true);
 
                             profession.setSelection(((ArrayAdapter<String>) profession.getAdapter()).getPosition(jsonObject.getString("Profession")));
                             name.setText(jsonObject.getString("FullName"));
@@ -359,6 +367,8 @@ p.setOnClickListener(new View.OnClickListener() {
                         }
                         else{
                             goToPreferences.setEnabled(true);
+                            p.setEnabled(false);
+                            update.setEnabled(false);
                         }
                     }catch (JSONException e){
                         e.printStackTrace();
