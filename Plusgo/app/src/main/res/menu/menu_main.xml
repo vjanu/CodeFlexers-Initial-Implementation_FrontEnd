@@ -11,6 +11,13 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="101"
-        android:title="Settings"
+        android:title="Traffic Jam"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings2"
+        android:orderInCategory="101"
+        android:title="Accident"
+        app:showAsAction="never" />
+
+
 </menu>

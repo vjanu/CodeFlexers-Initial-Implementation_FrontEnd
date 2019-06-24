@@ -99,8 +99,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     private static final int MULTIPLE_PERMISSION_REQUEST_CODE = 4;
     int AUTOCOMPLETE_REQUEST_CODE = 1;
     RequestQueue rQueue;
-  //  String URL = "http://192.168.8.102:8083/map";
-    String URL = "http://192.168.1.4:8083/map";
+  //  String URL = "http://192.168.1.4:8083/map";
     private Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
     private MapView mapView;
@@ -125,6 +124,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     float[] results = new float[1];
     private String uid;
     private BaseContent BASECONTENT = new BaseContent();
+    private String JSON_URL_ACCEPT_ROUTE = BASECONTENT.OPRBASEIPROUTE + ":8083/map";
     private String PYTHON_URL_POST_DATA_AVAILABLE = BASECONTENT.pythonIpAddress + "/available";
     /**
      * context of calling class
@@ -266,6 +266,8 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             }
         });
 
+        checkPermissionsState();
+
 
         find_my_driver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,6 +279,8 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 startActivity(new Intent(MainActivity.this, DriverListActivity.class));
             }
         });
+
+
     }
 
     private void drawAutocompleteIntent() {
@@ -559,11 +563,12 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
         dialog.show();
 
-        StringRequest sr = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, JSON_URL_ACCEPT_ROUTE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 rQueue.getCache().clear();
                 dialog.cancel();
+                Toast.makeText(getApplicationContext(), "Your route is added", Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override

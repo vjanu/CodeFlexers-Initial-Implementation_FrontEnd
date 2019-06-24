@@ -177,9 +177,9 @@
                             android:layout_centerVertical="true"
                             android:layout_marginTop="-100dp"
                             android:layout_marginBottom="40dp"
-                            android:text="Find My Driver"
-
-                            android:background="@drawable/rectangle_button_drawable"
+                            android:text="FIND MY DRIVER"
+                            android:textStyle="bold"
+                            android:background="@drawable/ovel_drawable"
                             android:textColor="@color/white"
                             android:textAllCaps="false"
                             android:textSize="16sp" />
@@ -199,8 +199,9 @@
                             android:layout_centerVertical="true"
                             android:layout_marginTop="-100dp"
                             android:layout_marginBottom="40dp"
-                            android:background="@drawable/rectangle_button_drawable"
-                            android:text="Accept Route"
+                            android:background="@drawable/ovel_drawable"
+                            android:text="ACCEPT ROUTE"
+                            android:textStyle="bold"
                             android:textColor="@color/white"
                             android:textAllCaps="false"
                             android:textSize="16sp" />

@@ -14,7 +14,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp">
 
 
         <LinearLayout
@@ -60,9 +61,9 @@
                     android:layout_centerVertical="true"
                     android:text="Offer a Ride"
                     android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/colorButton"
                     android:textSize="30dp"
                     android:textStyle="bold"
-                    android:textColor="@color/colorButton"
                     android:typeface="sans" />
 
             </RelativeLayout>
@@ -75,7 +76,9 @@
         android:id="@+id/form_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header">
+        android:layout_below="@id/header"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp">
 
         <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/form_card_view"
@@ -83,10 +86,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             card_view:cardCornerRadius="6dp">
+
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -141,6 +145,7 @@
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/text_destination"
                                 android:layout_width="120dp"
@@ -177,6 +182,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
+
                             <TextView
                                 android:id="@+id/text_startdate"
                                 android:layout_width="120dp"
@@ -189,12 +195,12 @@
                                 android:typeface="sans" />
 
                             <EditText
+                                android:id="@+id/start_date"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:textIsSelectable="true"
-                                android:id="@+id/start_date"
+                                android:layout_marginRight="10dp"
                                 android:drawableRight="@drawable/baseline_calendar_today_24"
-                                android:layout_marginRight="10dp" />
+                                android:textIsSelectable="true" />
 
                         </LinearLayout>
 
@@ -214,6 +220,7 @@
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/text_starttime"
                                 android:layout_width="120dp"
@@ -226,12 +233,12 @@
                                 android:typeface="sans" />
 
                             <EditText
+                                android:id="@+id/start_time"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:textIsSelectable="true"
-                                android:id="@+id/start_time"
+                                android:layout_marginRight="10dp"
                                 android:drawableRight="@drawable/baseline_alarm_24"
-                                android:layout_marginRight="10dp" />
+                                android:textIsSelectable="true" />
 
                         </LinearLayout>
 
@@ -251,6 +258,7 @@
                         <LinearLayout
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/text_waitingtime"
                                 android:layout_width="120dp"
@@ -263,11 +271,11 @@
                                 android:typeface="sans" />
 
                             <EditText
+                                android:id="@+id/waiting_time"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:textIsSelectable="true"
-                                android:id="@+id/waiting_time"
-                                android:layout_marginRight="10dp" />
+                                android:layout_marginRight="10dp"
+                                android:textIsSelectable="true" />
 
                         </LinearLayout>
 
@@ -305,8 +313,9 @@
                     android:textSize="16sp"
                     android:layout_marginTop="-100dp"
                     android:layout_marginBottom="40dp"
-                    android:background="@drawable/rectangle_button_drawable"
-                    android:text="@string/submit"
+                    android:background="@drawable/ovel_drawable"
+                    android:text="SUBMIT"
+                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:textAllCaps="false" />
 
@@ -316,4 +325,14 @@
 
     </RelativeLayout>
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorButton"
+        android:minHeight="?attr/actionBarSize"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"/>
 </RelativeLayout>
