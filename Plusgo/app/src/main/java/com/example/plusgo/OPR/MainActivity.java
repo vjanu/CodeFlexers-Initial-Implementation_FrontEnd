@@ -896,6 +896,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         super.onResume();
         //execute the handler again.
         executeHandler();
+        filterRelevantDrivers();
     }
 
     @Override
