@@ -505,7 +505,7 @@
             <Button
                 android:id="@+id/btnConfirm"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:backgroundTint="@color/colorButton"
                 android:text="Confirm"
                 android:background="@drawable/ovel_drawable"
@@ -516,7 +516,7 @@
             <Button
                 android:id="@+id/btnUpdatePreferences"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:backgroundTint="@color/colorButton"
                 android:text="Update"
                 android:background="@drawable/ovel_drawable"

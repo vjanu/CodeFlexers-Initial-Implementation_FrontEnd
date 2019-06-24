@@ -379,7 +379,7 @@
         <Button
             android:id="@+id/btnAddVehicle"
             android:layout_width="374dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:backgroundTint="@color/colorButton"
             android:text="Confirm"
             android:background="@drawable/ovel_drawable"

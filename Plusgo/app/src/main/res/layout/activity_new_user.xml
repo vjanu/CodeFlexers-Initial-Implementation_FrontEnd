@@ -411,22 +411,22 @@
             <Button
                 android:id="@+id/btnConfirm"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:backgroundTint="@color/colorButton"
                 android:text="Confirm"
                 android:background="@drawable/ovel_drawable"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorText" />
 
             <Button
                 android:id="@+id/btnUpdateDetails"
                 android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:backgroundTint="@color/colorButton"
                 android:text="Update"
                 android:background="@drawable/ovel_drawable"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="25dp"
                 android:layout_marginBottom="20dp"
                 android:textColor="@color/colorText" />
@@ -439,18 +439,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center" >
+        >
+
         <Button
             android:id="@+id/usermenu"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ovel_drawable"
             android:backgroundTint="@color/colorBlack"
             android:text="User Menu"
-           android:layout_weight="1"
-            android:background="@drawable/ovel_drawable"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginBottom="20dp"
             android:textColor="@color/colorText" />
     </LinearLayout>
 </LinearLayout>
