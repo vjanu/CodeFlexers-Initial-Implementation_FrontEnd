@@ -8,7 +8,7 @@ public class BaseContent {
     */
 
     //TODO : ADD THE IP OF SERVER WITH NODE JS HERE
-    final public String BASEIPROUTE = "http://192.168.8.103";
+    final public String BASEIPROUTE = "http://192.168.8.100";
     public String IpAddress = BASEIPROUTE+":8083";
 
     /*
@@ -28,7 +28,7 @@ public class BaseContent {
     /*
     FARE CALCULATION
      */
-    final public String FCBASEIPROUTE ="http://192.168.8.100"; //TODO : FC CHANGE ACCORDINGLY
+    final public String FCBASEIPROUTE ="http://192.168.8.100:8083"; //TODO : FC CHANGE ACCORDINGLY
     public String pythonIpAddressGetDistance = FCBASEIPROUTE+":95";
     public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":96";
 
