@@ -21,6 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
+import com.example.plusgo.Login;
 import com.example.plusgo.R;
 
 import org.json.JSONArray;
@@ -101,6 +102,8 @@ public class LisenceUpActivity extends AppCompatActivity {
                 editor.putString("expDateValidated", exptempdate);
                 editor.apply();
                 finish();
+                Intent verify = new Intent(LisenceUpActivity.this, Login.class);
+                startActivity(verify);
             }
         });
 
