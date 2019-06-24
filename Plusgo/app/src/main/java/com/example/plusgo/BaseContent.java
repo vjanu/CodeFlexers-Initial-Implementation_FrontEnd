@@ -35,6 +35,6 @@ public class BaseContent {
     /*
     OPTIMUM PATH RECOGNITION
      */
-    final public String OPRBASEIPROUTE ="http://192.168.8.103"; //TODO : OPR CHANGE ACCORDINGLY
+    final public String OPRBASEIPROUTE ="http://192.168.1.4"; //TODO : OPR CHANGE ACCORDINGLY
 
 }

@@ -39,6 +39,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.plusgo.BaseContent;
 import com.example.plusgo.R;
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.FoldingCube;
@@ -139,8 +140,9 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
     RadioButton radio_standstill;
     RadioButton radio_moderate;
     RadioButton radio_heavy;
-    //String URL = "http://192.168.8.100:8085/roadcause/";
-    String URL="http://192.168.43.88:8083/roadcause/";
+    //String URL = "http://192.168.8.100:8083/roadcause/";
+    private BaseContent BASECONTENT = new BaseContent();
+    private String JSON_URL_TRAFFIC_DATA = BASECONTENT.OPRBASEIPROUTE + ":8083/roadcause/";
     RequestQueue rQueue;
     private String STATUS_ACTIVE = "ACTIVE", STATUS_INACTIVE = "INACTIVE", TYPE = "TRAFIC", SITUATION; // 1-> standstill, 2-> moderate, 3-> heavy
     private Bitmap bitmap;
@@ -324,9 +326,9 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
 
         // set the custom dialog components - text, image and button
 
-        ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.Circle);
-        Sprite animation = new FoldingCube();
-        progressBar.setIndeterminateDrawable(animation);
+      //  ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.Circle);
+    //    Sprite animation = new FoldingCube();
+      //  progressBar.setIndeterminateDrawable(animation);
 
         dialog.show();
 
@@ -334,11 +336,12 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
         final String encoded_image = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
 
-        StringRequest sr = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, JSON_URL_TRAFFIC_DATA, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 rQueue.getCache().clear();
                 dialog.cancel();
+                Toast.makeText(getApplicationContext(), "Your report is added", Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -354,7 +357,7 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("type", TYPE);
-                params.put("username", "aaarrrrrrraa");
+                params.put("username", "U0100");
                 params.put("destination", input_location.getText().toString());
                 params.put("situation", SITUATION);
                 params.put("latitude", "34343");

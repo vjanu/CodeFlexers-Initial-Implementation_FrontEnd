@@ -277,8 +277,9 @@
                             android:layout_centerVertical="true"
                             android:layout_marginTop="-100dp"
                             android:layout_marginBottom="40dp"
-                            android:background="@drawable/rectangle_button_drawable"
-                            android:text="@string/report"
+                            android:background="@drawable/ovel_drawable"
+                            android:text="REPORT"
+                            android:textStyle="bold"
                             android:textColor="@color/white"
                             android:textAllCaps="false"
                             android:textSize="16sp" />
@@ -298,8 +299,9 @@
                             android:layout_centerVertical="true"
                             android:layout_marginTop="-100dp"
                             android:layout_marginBottom="40dp"
-                            android:background="@drawable/rectangle_button_drawable"
-                            android:text="@string/later"
+                            android:background="@drawable/ovel_drawable"
+                            android:text="LATER"
+                            android:textStyle="bold"
                             android:textColor="@color/white"
                             android:textAllCaps="false"
                             android:textSize="16sp" />
