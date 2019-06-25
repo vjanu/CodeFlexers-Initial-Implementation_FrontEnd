@@ -91,32 +91,32 @@ public class VehicleActivity extends Activity {
         id = user.getString("UId", null);
 
         brand = findViewById(R.id.brand);
-        String[] brandV = new String[]{"Alto", "Suzuki"};
+        String[] brandV = new String[]{"Alto", "Suzuki","Toyota"};
         ArrayAdapter<String> adapterBrand = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, brandV);
         brand.setAdapter(adapterBrand);
 
         manYear = findViewById(R.id.mYear);
-        String[] manYearV = new String[]{"1980"};
+        String[] manYearV = new String[]{"1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001"};
         ArrayAdapter<String> adapterManYear = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, manYearV);
         manYear.setAdapter(adapterManYear);
 
         regYear = findViewById(R.id.rYear);
-        String[] regYearV = new String[]{"1980"};
+        String[] regYearV = new String[]{"1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001"};
         ArrayAdapter<String> adapterRegYear = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, regYearV);
         regYear.setAdapter(adapterRegYear);
 
         fuelType = findViewById(R.id.fuel);
-        String[] fuelTypeV = new String[]{"Petrol"};
+        String[] fuelTypeV = new String[]{"Petrol", "Diesel", "Hybrid", "Electric"};
         ArrayAdapter<String> adapterFuelTypeV = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, fuelTypeV);
         fuelType.setAdapter(adapterFuelTypeV);
 
         tType = findViewById(R.id.transmission);
-        String[] tTypeV = new String[]{"Auto"};
+        String[] tTypeV = new String[]{"Auto", "Manual"};
         ArrayAdapter<String> adapterTTypeV = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, tTypeV);
         tType.setAdapter(adapterTTypeV);
 
         capacity = findViewById(R.id.engine);
-        String[] capacityV = new String[]{"1000cc"};
+        String[] capacityV = new String[]{"900cc","1000cc", "1100cc", "1200cc", "1300cc"};
         ArrayAdapter<String> adapterCapacity = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, capacityV);
         capacity.setAdapter(adapterCapacity);
 
@@ -210,15 +210,22 @@ public class VehicleActivity extends Activity {
         {
             case 0:
                 model = findViewById(R.id.model);
-                String[] modelV = new String[]{"Maruti Alto 800"};
+                String[] modelV = new String[]{"Maruti Alto 800","Dzire", "Ertiga", "Vitara"};
                 ArrayAdapter<String> adapterModel = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modelV);
                 model.setAdapter(adapterModel);
                 break;
             case 1:
                 model = findViewById(R.id.model);
-                String[] modelV1 = new String[]{"Suzuki Boom", "Suzuki Goop"};
+                String[] modelV1 = new String[]{"Suzuki Swift", "Suzuki Baleno","Wagon R","Celerio"};
                 ArrayAdapter<String> adapterModel1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modelV1);
                 model.setAdapter(adapterModel1);
+                break;
+
+            case 2:
+                model = findViewById(R.id.model);
+                String[] modelToyota = new String[]{"Avalon", "Corolla", "Land Cruiser","Camry"};
+                ArrayAdapter<String> adapterModelToyota = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, modelToyota);
+                model.setAdapter(adapterModelToyota);
                 break;
         }
 
