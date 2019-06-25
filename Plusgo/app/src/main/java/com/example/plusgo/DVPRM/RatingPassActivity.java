@@ -55,7 +55,7 @@ public class RatingPassActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     LinearLayout layoutrew,layoutReport;
     EditText writtenSentimnt;
-    Button btnother;
+    Button btnother,btnRpt;
     Button back,rating_passDone;
     Button keyw1,keyw2,keyw3,keyw4,keyw5,keyw6;
     String vehiclekey[]={"Air Condition","Comfortability","Cleanliness","Noise","Breaks","Vehicle Quality"};
@@ -79,6 +79,18 @@ public class RatingPassActivity extends AppCompatActivity {
 
         layoutrew = (LinearLayout)findViewById(R.id.layoutownrew);
         layoutReport= (LinearLayout)findViewById(R.id.layoutrep);
+        btnRpt =(Button)findViewById(R.id.btnRpt);
+        btnRpt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+
+                String UserID = (sharedpreferences.getString("UserID", "U00000111"));
+                String RatedBy = (sharedpreferences.getString("RatedBy", "U00000050"));
+                blockdriver(RatedBy,UserID);
+                finish();
+            }
+        });
         btnother =(Button)findViewById(R.id.btnother);
         btnother.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,6 +296,68 @@ public class RatingPassActivity extends AppCompatActivity {
                 editor.commit();
             }
         }
+    }
+
+    //Block drivers
+    public void blockdriver(String PUID,String DUID) {
+        try {
+            String URL = null;
+            requestQueue = Volley.newRequestQueue(this.getApplicationContext());
+                URL = BASECONTENT.IpAddress +"/ratings/reportDrivers";
+
+            Log.e("URL", URL);
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("PUID", PUID);
+            jsonBody.put("DUID", DUID);
+
+            final String mRequestBody = jsonBody.toString();
+
+            Log.e("VOLLEY", PUID+":"+DUID);
+
+            stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e("LOG_VOLLEY", response);
+                    Toast.makeText(getBaseContext(), "Driver is added to block list", Toast.LENGTH_LONG).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOG_VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
     //insert ratings related to driver or co-passenger into the database
