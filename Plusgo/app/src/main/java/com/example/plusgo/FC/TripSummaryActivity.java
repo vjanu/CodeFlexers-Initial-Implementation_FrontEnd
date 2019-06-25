@@ -12,6 +12,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,7 +30,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Notification.API;
-import com.example.plusgo.Notification.SendNotification;
 import com.example.plusgo.R;
 
 
@@ -50,7 +50,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TripSummaryActivity extends AppCompatActivity {
 
     private BaseContent BASECONTENT = new BaseContent();
-    private String JSON_URL_TRIP_SUMMARY = BASECONTENT.IpAddress + "/tripsummary/";
+    private String JSON_URL_TRIP_SUMMARY = BASECONTENT.IpAddress + "/tripsummary/get/";
     private String JSON_URL_CURRENT_PASSENGER_COUNT = BASECONTENT.IpAddress + "/tripsummary/currentPassenger/";
     private String JSON_URL_VEHICLE_DETAILS = BASECONTENT.IpAddress + "/vehicle/specific/";
     private String JSON_URL_USER_DETAILS = BASECONTENT.IpAddress + "/users/specific/";
@@ -64,9 +64,10 @@ public class TripSummaryActivity extends AppCompatActivity {
     RequestQueue requestQueue ;
     private JsonArrayRequest request;
     private TextView txtUserName;
-    public String oid; //Offer Ride ID / Trip ID
+    public String tripId; //Offer Ride ID / Trip ID
     public String userId; //User ID
     public String FCMtoken,image;
+
 
     public static final String CHANNEL_ID = "plus_go";
     private static final String CHANNEL_NAME = "Plus Go";
@@ -107,12 +108,12 @@ public class TripSummaryActivity extends AppCompatActivity {
         txtToken = (TextView)findViewById(R.id.FCMToken);
 
         //comment for Testing
-//        Log.d("q1:", TripId);
-//        Log.d("q2:", UserId);
-//        Log.d("q3:", FullName);
-//        Log.d("q4:", myVar4);
-//        Log.d("q5:", myVar5);
-//        Log.d("q6:", Token);
+        Log.d("@q1:", TripId);
+        Log.d("@q2:", UserId);
+        Log.d("@q3:", FullName);
+        Log.d("@@q4:", myVar4);
+        Log.d("@@q5:", myVar5);
+        Log.d("@@q6:", Token);
 
         //added Viraj------------
 
@@ -124,16 +125,24 @@ public class TripSummaryActivity extends AppCompatActivity {
             }
         });
 
-        //added Viraj
-//        txtUserName.setText(FullName);
-//        txtTripId.setText(TripId);
-//        txtUserId.setText(UserId);
-//        txtToken.setText(Token);
+        findViewById(R.id.btnJoinRide).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendNotification();
+            }
+        });
 
+        //added Viraj
+        txtUserName.setText(FullName);
+        txtTripId.setText(TripId);
+        txtUserId.setText(UserId);
+        txtToken.setText(Token);
+
+        //GetToken();
         GetTripSummaryDetails();
         GetCurrentPassengers();
         getDistance();
-       // GetVehicleDetails();
+        GetVehicleDetails();
         //GetUserDetails();
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -162,16 +171,17 @@ public class TripSummaryActivity extends AppCompatActivity {
 
         //Display Progress Dialog
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading Data...");
+        progressDialog.setMessage("Loading Trip Data...");
         progressDialog.show();
 
         //Get Id from the UserID TextView
 
-        oid = txtTripId.getText().toString();
+        tripId = txtTripId.getText().toString();
+        Log.d("tripId",tripId);
 
-        Log.d("Check Get user ", oid);
+        Log.d("Check Get user ", tripId);
         //Call the Web Service which is implementing node js and it pass to the name parameter to get relevant information of the trip
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_TRIP_SUMMARY+oid,null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_TRIP_SUMMARY+tripId,null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -215,10 +225,10 @@ public class TripSummaryActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
 
-        oid = txtTripId.getText().toString();
-        Log.d("Check Get passen", oid);
+        tripId = txtTripId.getText().toString();
+        Log.d("Check Get passen", tripId);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_CURRENT_PASSENGER_COUNT+oid,null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_CURRENT_PASSENGER_COUNT+tripId,null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -283,7 +293,7 @@ public class TripSummaryActivity extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
-                            Log.d("expe",e.toString());
+                            Log.d("@@@expe",e.toString());
                         }
 
                     }
@@ -303,14 +313,26 @@ public class TripSummaryActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
 
+        //GetVehicleDetails();
 
-        String manYear = "2015";
-        String regYear = "2015";
-        String cylinders = "3";
-        String fuel ="2" ;
-        String capacity="658";
-        String kw = "38";
-        String mileage = "48232";
+        SharedPreferences getVehicleDetails = getSharedPreferences("VehicleStore",MODE_PRIVATE);
+        brand = getVehicleDetails.getString("Brand", null);
+        model = getVehicleDetails.getString("Model", null);
+        manYear = getVehicleDetails.getString("MYear", null);
+        regYear = getVehicleDetails.getString("RYear", null);
+        cylinders = getVehicleDetails.getString("cylinders", null);
+        fuel = getVehicleDetails.getString("fuel", null);
+        capacity = getVehicleDetails.getString("EngineCapacity", null);
+        kw = getVehicleDetails.getString("kw", null);
+        mileage = getVehicleDetails.getString("mileage", null);
+
+//        String manYear = "2015";
+//        String regYear = "2015";
+//        String cylinders = "3";
+//        String fuel ="2" ;
+//        String capacity="658";
+//        String kw = "38";
+//        String mileage = "48232";
 //        VehicleBean vehiclebean = new VehicleBean();
 //        brand = vehiclebean.getBrand();
 //        model = vehiclebean.getModel();
@@ -369,99 +391,115 @@ public class TripSummaryActivity extends AppCompatActivity {
 
 
     //Fetch Vehicle details
-//    public void GetVehicleDetails() {
-//
-//        //Display Progress Dialog
-//        final ProgressDialog progressDialog = new ProgressDialog(this);
-//        progressDialog.setMessage("Loading Data...");
-//        progressDialog.show();
-//
-//        //Get Id from the UserID TextView
-//
-//        userId = txtUserId.getText().toString();
-//
-//        Log.d("Check Get user ", userId);
-//        //Call the Web Service which is implementing node js and it pass to the name parameter to get relevant information of the trip
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_VEHICLE_DETAILS+userId,null,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//
-//                        Log.d("sdss", String.valueOf(response));
-//                        progressDialog.dismiss();
-//                        try {
-//
-//                            brand = response.getString("Brand");
-//                            model = response.getString("Model");
-//                            manYear = response.getString("MYear");
-//                            regYear = response.getString("RYear");
-//                            cylinders = "3";
-//                            fuel = response.getString("FuelType");
-//                            capacity = response.getString("EngineCapacity");
-//                            kw = "38";
-//                            mileage = response.getString("Mileage");
-//
-//                            txtVehicle.setText(brand + " "+model);
-//
-//                            //Log.d("testSetDate", String.valueOf(date));
-//
-//                        } catch (JSONException e) {
-//                            Log.d("expe",e.toString());
-//                        }
-//
-//                    }
-//                },
-//                new Response.ErrorListener() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//
-//        requestQueue.add(jsonObjectRequest);
-//    }
+    public void GetVehicleDetails() {
 
-//    public void GetUserDetails() {
-//
-//        final ProgressDialog progressDialog = new ProgressDialog(this);
-//        progressDialog.setMessage("Loading Data...");
-//        progressDialog.show();
-//        //   Log.e("JSON_URL",JSON_URL+username+"/"+password);
-//        request = new JsonArrayRequest(JSON_URL_USER_DETAILS+userId, new Response.Listener<JSONArray>() {
-//
-//            public void onResponse(JSONArray response) {
-//
-//                JSONObject jsonObject = null;
-//                for(int i= 0; i<response.length(); i++){
-//                    progressDialog.dismiss();
-//                    try{
-//                        jsonObject = response.getJSONObject(i);
-//                        txtToken.setText(jsonObject.getString("Token"));
-//
-//                    }catch (JSONException e){
-//
-//                        e.printStackTrace();
-//                        Log.d("JSONREQUEST","ERROR");
-//                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
-//                    }
-//
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                //  pDialog.dismiss();
-//                Log.d("xxx", error.toString());
-//                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-//
-//            }
-//        });
-//
-//        requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        requestQueue.add(request);
-//
-//    }
+        //Display Progress Dialog
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading Data...");
+        progressDialog.show();
+
+        //Get Id from the UserID TextView
+
+        userId = txtUserId.getText().toString();
+
+        Log.d("Check Get user ", userId);
+        //Call the Web Service which is implementing node js and it pass to the name parameter to get relevant information of the trip
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_VEHICLE_DETAILS+userId,null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("sdss", String.valueOf(response));
+                        progressDialog.dismiss();
+                        try {
+
+                            brand = response.getString("Brand");
+                            model = response.getString("Model");
+                            manYear = response.getString("MYear");
+                            regYear = response.getString("RYear");
+                            cylinders = "3";
+                            fuel = response.getString("FuelType");
+                            capacity = response.getString("EngineCapacity");
+                            kw = "38";
+                            mileage = response.getString("Mileage");
+
+                            SharedPreferences.Editor vehicleStore = getSharedPreferences("VehicleStore", MODE_PRIVATE).edit();
+                            vehicleStore.putString("Brand", response.getString("Brand"));
+                            vehicleStore.putString("Model", response.getString("Model"));
+                            vehicleStore.putString("MYear", response.getString("MYear"));
+                            vehicleStore.putString("RYear", response.getString("RYear"));
+                            vehicleStore.putString("fuel", response.getString("1"));
+                            vehicleStore.putString("cylinders", "3");
+                            vehicleStore.putString("EngineCapacity", response.getString("EngineCapacity"));
+                            vehicleStore.putString("kw", "38");
+                            vehicleStore.putString("mileage", response.getString("Mileage"));
+                            //vehicleStore.clear();
+                            vehicleStore.commit();
+
+                            txtVehicle.setText(brand + " "+model);
+
+
+
+                            //Log.d("testSetDate", String.valueOf(date));
+
+                        } catch (JSONException e) {
+                            Log.d("expe",e.toString());
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                });
+
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void GetToken() {
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading Data...");
+        progressDialog.show();
+        //   Log.e("JSON_URL",JSON_URL+username+"/"+password);
+        request = new JsonArrayRequest(JSON_URL_USER_DETAILS+userId, new Response.Listener<JSONArray>() {
+
+            public void onResponse(JSONArray response) {
+
+                JSONObject jsonObject = null;
+                for(int i= 0; i<response.length(); i++){
+                    progressDialog.dismiss();
+                    try{
+                        jsonObject = response.getJSONObject(i);
+                        Log.d("PassengeToken",jsonObject.getString("Token"));
+                        txtToken.setText(jsonObject.getString("Token"));
+
+                    }catch (JSONException e){
+
+                        e.printStackTrace();
+                        Log.d("JSONREQUEST","ERROR");
+                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //  pDialog.dismiss();
+                Log.d("xxx", error.toString());
+                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(request);
+
+    }
 
 
     //GetVehicle Details JSON Array
@@ -531,10 +569,17 @@ public class TripSummaryActivity extends AppCompatActivity {
 
 
     private void sendNotification(){
+
+        SharedPreferences userStore = getSharedPreferences("userStore",MODE_PRIVATE);
+
+        String UID = userStore.getString("UId", null);
+        String Name = userStore.getString("Name", null);
+
         String title = "Ride Request";
-        String body = "Hi";
-        String token = "dZLuDis_9tY:APA91bGuuAfA4FsmW_YuKRdadP4fKuyDHkBbCjVbqLn_qcrYgjSQfkWKrj-vDUzSIXKznFc6DB10yAIVeuHeHPeeSzXQmNOUXwh_YVCcGf3a1YyZcoVt2NiVRibC7UdZXU7VJVfjbjKt";
-        String reqPassenger = "Surath Gunawardena";
+        String body = "You have been requested to the pickup";
+        String token = "dZmEhIH0hLg:APA91bG_zg0q2rWW9TGbiB8XE2tob5HUUZaX3S_NKyXa8m4G6SrP1ydGliWNRR682w4jpXe9HnnXCw_egk4kCB8Iv62hAqP7mRd933GWqkX8p9252_4Px4eIH87npZlUidQ74StzDUpR";
+        String reqPassenger = Name;
+        String reqPassengerId = UID;
         String reqDriver = "U1111111-Driver";
         String source = "Kaduwela";
         String destination = "Battaramulla";
@@ -547,7 +592,7 @@ public class TripSummaryActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         API api = retrofit.create(API.class);
-        Call<ResponseBody> call = api.sendNotification(token,title,body,reqPassenger,reqDriver,source,destination,passengerToken);
+        Call<ResponseBody> call = api.sendNotification(token,title,body,reqPassenger,reqDriver,source,destination,passengerToken,reqPassengerId);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
