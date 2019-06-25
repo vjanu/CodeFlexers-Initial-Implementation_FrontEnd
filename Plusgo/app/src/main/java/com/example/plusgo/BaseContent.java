@@ -16,7 +16,7 @@ public class BaseContent {
     DOCUMENT VALIDATION AND PROFILE RATING MAINTAINANCE
      */
     //PORTS 8088,8089,8090 - USED IN DVPRM
-    final public String DVPRMBASEIPROUTE ="http://10.98.200.109"; //TODO : DVPRM CHANGE ACCORDINGLY
+    final public String DVPRMBASEIPROUTE ="http://192.168.8.100"; //TODO : DVPRM CHANGE ACCORDINGLY
     //image upload service written in php
     public String phpIP = DVPRMBASEIPROUTE+":80";
 
@@ -30,7 +30,7 @@ public class BaseContent {
     FARE CALCULATION
      */
     final public String FCBASEIPROUTE ="http://192.168.8.100"; //TODO : FC CHANGE ACCORDINGLY
-    public String pythonIpAddressGetDistance = FCBASEIPROUTE+":95";
+    public String pythonIpAddressGetDistance = FCBASEIPROUTE+":97";
     public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":96";
 
     /*
