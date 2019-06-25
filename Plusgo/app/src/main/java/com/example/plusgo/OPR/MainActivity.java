@@ -814,7 +814,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 @Override
                 public void run() {
                     //Updating firebase store
-                    addDrivers();
+                   // addDrivers();
 
                     //And we execute it again
                     handler.postDelayed(this, EVERY_FIVE_SECOND);
@@ -896,6 +896,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         super.onResume();
         //execute the handler again.
         executeHandler();
+        filterRelevantDrivers();
     }
 
     @Override

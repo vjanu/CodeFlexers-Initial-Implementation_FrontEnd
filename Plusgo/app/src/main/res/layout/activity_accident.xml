@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="0dp"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".OPR.Accident">
@@ -14,7 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="2dp">
 
 
         <LinearLayout
@@ -261,7 +261,8 @@
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                     <RelativeLayout
                         android:layout_width="fill_parent"
@@ -283,35 +284,42 @@
                             android:textColor="@color/white"
                             android:textAllCaps="false"
                             android:textSize="16sp" />
-                    </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="1dp"
-                        android:layout_weight="1">
 
-                        <Button
-                            android:id="@+id/btnlater"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginTop="-100dp"
-                            android:layout_marginBottom="40dp"
-                            android:background="@drawable/ovel_drawable"
-                            android:text="LATER"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:textAllCaps="false"
-                            android:textSize="16sp" />
 
-                    </RelativeLayout>
-                </LinearLayout>
+
+
+
+
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_weight="1">
 
-            <!--<RelativeLayout-->
+                <Button
+                    android:id="@+id/btnlater"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="-100dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/ovel_drawable"
+                    android:text="LATER"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textAllCaps="false"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <!--<RelativeLayout-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="match_parent">-->
 
