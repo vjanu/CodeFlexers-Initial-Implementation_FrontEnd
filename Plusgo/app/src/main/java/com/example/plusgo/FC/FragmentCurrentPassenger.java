@@ -2,6 +2,7 @@ package com.example.plusgo.FC;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,12 +34,12 @@ import java.util.List;
 public class FragmentCurrentPassenger extends Fragment {
 
     BaseContent BASECONTENT = new BaseContent();
-    private final String JSON_GET_CURRENT_PASSENGER = BASECONTENT.FCBASEIPROUTE+"/trip/";
+    private final String JSON_GET_CURRENT_PASSENGER = BASECONTENT.IpAddress+"/trip/";
     private RecyclerView recyclerView;
     private RecyclerView.Adapter CPassengeradapter;
     private List<Current_Passenger> currentPassenger;
     View view;
-
+    private boolean reloadNeed = true;
     public FragmentCurrentPassenger() {
         Log.d("j","1Call FragmentCurrentPassenger");
     }
@@ -47,7 +48,7 @@ public class FragmentCurrentPassenger extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         currentPassenger = new ArrayList<>();
-        loadCurrentPassengerData();
+    loadCurrentPassengerData();
     }
 
     @Nullable
@@ -61,13 +62,16 @@ public class FragmentCurrentPassenger extends Fragment {
 
 
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadCurrentPassengerData();
+    }
 
     private void loadCurrentPassengerData() {
-        Log.d("sdwssss","Call sssMethod");
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
-        Log.d("wswww","wswww");
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_CURRENT_PASSENGER,
                 new Response.Listener<String>() {
@@ -77,16 +81,9 @@ public class FragmentCurrentPassenger extends Fragment {
                         Log.d("sdss",response);
                         progressDialog.dismiss();
                         try {
-                            Log.d("222","2222");
-
                             JSONObject jsonObject = new JSONObject(response);
-                            Log.d("333","333");
-
                             JSONArray array =jsonObject.getJSONArray("currentUsers");
-//
-                            Log.d("444",array.toString());
-
-
+                            Log.d("array.length()", String.valueOf(array.length()));
                             for(int i=0;i<array.length();i++){
                                 Log.d("444","bxxxx");
                                 JSONObject o = array.getJSONObject(i);
@@ -97,8 +94,8 @@ public class FragmentCurrentPassenger extends Fragment {
                                         o.getString("source"),
                                         o.getString("destination"),
                                         o.getString("description"),
-                                        o.getString("Token"),
-                                        o.getString("img")
+                                        o.getString("Token")
+                                        //o.getString("img")
 
                                 );
                                 Log.d("for",o.getString("description"));
@@ -125,7 +122,10 @@ public class FragmentCurrentPassenger extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
-
+        
 
     }
+
+
+
 }

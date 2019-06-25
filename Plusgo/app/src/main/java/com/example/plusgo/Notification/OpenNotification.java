@@ -20,8 +20,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OpenNotification extends AppCompatActivity {
-    private TextView txtFullName,txtSource,txtDestination;
+    private TextView txtFullName,txtSource,txtDestination,txtHiddenPassengerToken,txtHiddenPassengerid;
     private Button btnAccept,btnDecline;
+
+    public OpenNotification() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,8 @@ public class OpenNotification extends AppCompatActivity {
         txtFullName = (findViewById(R.id.txtFullName));
         txtSource = (findViewById(R.id.txtSource));
         txtDestination = (findViewById(R.id.txtDestination));
+        txtHiddenPassengerToken = (findViewById(R.id.txtHiddenPassengerToken));
+        txtHiddenPassengerid = (findViewById(R.id.txtHiddenPassengerid));
         btnAccept = (findViewById(R.id.btnAccept));
         btnDecline = (findViewById(R.id.btnDecline));
 
@@ -45,6 +51,14 @@ public class OpenNotification extends AppCompatActivity {
 
         String Destination = notificationBody.split("\n")[4];
         txtDestination.setText(Destination);
+
+        String passengerToken = notificationBody.split("\n")[5];
+        txtHiddenPassengerToken.setText(passengerToken);
+
+        String reqPassengerId = notificationBody.split("\n")[6];
+        txtHiddenPassengerid.setText(reqPassengerId);
+
+
 
 
         findViewById(R.id.btnAccept).setOnClickListener(new View.OnClickListener() {

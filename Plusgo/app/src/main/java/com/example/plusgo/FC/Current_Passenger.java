@@ -74,7 +74,7 @@ public class Current_Passenger {
         Status = status;
     }
 
-    public Current_Passenger(String name, String userId, String tripId, String source, String destination, String status,String token,String userImage) {
+    public Current_Passenger(String name, String userId, String tripId, String source, String destination, String status,String token) {
         Name = name;
         UserId = userId;
         TripId = tripId;
@@ -82,6 +82,6 @@ public class Current_Passenger {
         Destination = destination;
         Status = status;
         Token = token;
-        UserImage = userImage;
+       // UserImage = userImage;
     }
 }

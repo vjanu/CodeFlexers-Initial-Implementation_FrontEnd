@@ -8,14 +8,13 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
+import com.example.plusgo.FC.MapCurrentPassengerActivity;
+import com.example.plusgo.FC.PassengerCurrentTrip;
 import com.example.plusgo.R;
 import com.example.plusgo.SignUp;
 
-import java.net.URISyntaxException;
-
-public class NotificationHelper  extends AppCompatActivity {
+public class NotificationHelperAcceptRequest   extends AppCompatActivity {
 
 
 
@@ -23,13 +22,13 @@ public class NotificationHelper  extends AppCompatActivity {
     public static void displayNotification(Context context, String title, String body){
 
 
-            Intent intent = new Intent(context,OpenNotification.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(
-                    context,
-                    100,
-                    intent,
-                    PendingIntent.FLAG_CANCEL_CURRENT
-            );
+        Intent intent = new Intent(context, MapCurrentPassengerActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context,
+                100,
+                intent,
+                PendingIntent.FLAG_CANCEL_CURRENT
+        );
 
 
 

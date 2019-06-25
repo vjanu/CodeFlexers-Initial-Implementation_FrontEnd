@@ -298,11 +298,11 @@ public class SignUp extends AppCompatActivity {
         //Create Firebase References
         DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
 
-        FirebaseUser mCurrentUser = mAuth.getCurrentUser();
-        if (mCurrentUser != null) {
-            dbUsers=FirebaseDatabase.getInstance().getReference().child(NODE_USERS)
-                    .child(mCurrentUser.getUid());
-        }
+        //FirebaseUser mCurrentUser = mAuth.getCurrentUser();
+//        if (mCurrentUser != null) {
+//            dbUsers=FirebaseDatabase.getInstance().getReference().child(NODE_USERS)
+//                    .child(mCurrentUser.getUid());
+//        }
 
 
        String email = mAuth.getCurrentUser().getEmail();
