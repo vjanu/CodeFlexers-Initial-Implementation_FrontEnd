@@ -152,6 +152,18 @@
 
                 />
 
+            <TextView
+                android:id="@+id/txtHiddendriverid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="360dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:textSize="26dp"
+                android:textFontWeight="bold"
+
+                />
+
             <Button
                 android:id="@+id/btnDecline"
                 android:layout_marginTop="400dp"

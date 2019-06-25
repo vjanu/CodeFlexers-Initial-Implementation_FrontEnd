@@ -46,6 +46,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
     private String JSON_URL_CURRENT_PASSENGER_COUNT = BASECONTENT.IpAddress + "/tripsummary/currentPassenger/";
     private String JSON_URL_GET_TRIP_STARTED_USERS = BASECONTENT.IpAddress + "/trip/getDetails/";
     private String JSON_URL_GET_DROPOFF_USER_DETAILS = BASECONTENT.IpAddress + "/trip/update/fare/dropoff/";
+    private String JSON_URL_POST_NEW_REQUEST = BASECONTENT.IpAddress + "/trip/newRequest";
     private TextView txtPassengerName,txtStartPoint,txtEndPoint,txtHiddenTripId,txtHiddenPassengerId,txtHiddenToken,txtTripStatus,
             txtHiddenCurrentMileage,txtHiddenCurrentPassengers,txtHiddenStartMileage,txtHiddenPrice;
     public Button btnEndTrip,btnStartTrip;
@@ -644,5 +645,8 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         requestQueue.add(request);
 
     }
+
+
+
 
 }
