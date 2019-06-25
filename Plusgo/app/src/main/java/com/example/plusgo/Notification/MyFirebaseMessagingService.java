@@ -12,6 +12,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public String title;
     public String body;
 
+
+
+
+
     public String getTitle() {
         return title;
     }
@@ -34,15 +38,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if(remoteMessage.getNotification() !=null){
 
-
             title = remoteMessage.getNotification().getTitle();
             body = remoteMessage.getNotification().getBody();
+
+
             setBody(body.toString());
             setTitle(title.toString());
 
+            if(title.endsWith("Ride Request")){
+                NotificationHelper.displayNotification(getApplicationContext(),title,body);
+            }else{
+                //Ride Confirmation
+                NotificationHelperAcceptRequest.displayNotification(getApplicationContext(),title,body);
+            }
+
             NotificationBodyCatcher = getBody().toString();
-            NotificationHelper.displayNotification(getApplicationContext(),title,body);
-            //NotificationHelper.displayAcceptNotification(getApplicationContext(),title,body);
+
+
             Log.d("Notification " , body);
 
         }

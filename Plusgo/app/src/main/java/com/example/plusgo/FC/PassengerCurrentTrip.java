@@ -38,14 +38,15 @@ import java.io.UnsupportedEncodingException;
 public class PassengerCurrentTrip extends AppCompatActivity {
 
     BaseContent BASECONTENT = new BaseContent();
-    private final String JSON_GET_STRAT_MILEAGE = BASECONTENT.FCBASEIPROUTE+"/trip/specific/";
-    private final String JSON_PUT_UPDATE_START_TRIP = BASECONTENT.FCBASEIPROUTE+"/trip/update/startRide/";
-    private final String JSON_PUT_UPDATE_END_TRIP = BASECONTENT.FCBASEIPROUTE+"/trip/update/endRide/";
-    private final String JSON_PUT_UPDATE_FARE_CALCULATION = BASECONTENT.FCBASEIPROUTE+"/trip/update/fare/";
-    private final String JSON_PUT_UPDATE_DROP_USER_DETAILS = BASECONTENT.FCBASEIPROUTE+"/trip/update/fare/dropoff/";
-    private String JSON_URL_CURRENT_PASSENGER_COUNT = BASECONTENT.FCBASEIPROUTE + "/tripsummary/currentPassenger/";
-    private String JSON_URL_GET_TRIP_STARTED_USERS = BASECONTENT.FCBASEIPROUTE + "/trip/getDetails/";
-    private String JSON_URL_GET_DROPOFF_USER_DETAILS = BASECONTENT.FCBASEIPROUTE + "/trip/update/fare/dropoff/";
+    private final String JSON_GET_STRAT_MILEAGE = BASECONTENT.IpAddress+"/trip/specific/";
+    private final String JSON_PUT_UPDATE_START_TRIP = BASECONTENT.IpAddress+"/trip/update/startRide/";
+    private final String JSON_PUT_UPDATE_END_TRIP = BASECONTENT.IpAddress+"/trip/update/endRide/";
+    private final String JSON_PUT_UPDATE_FARE_CALCULATION = BASECONTENT.IpAddress+"/trip/update/fare/";
+    private final String JSON_PUT_UPDATE_DROP_USER_DETAILS = BASECONTENT.IpAddress+"/trip/update/fare/dropoff/";
+    private String JSON_URL_CURRENT_PASSENGER_COUNT = BASECONTENT.IpAddress + "/tripsummary/currentPassenger/";
+    private String JSON_URL_GET_TRIP_STARTED_USERS = BASECONTENT.IpAddress + "/trip/getDetails/";
+    private String JSON_URL_GET_DROPOFF_USER_DETAILS = BASECONTENT.IpAddress + "/trip/update/fare/dropoff/";
+    private String JSON_URL_POST_NEW_REQUEST = BASECONTENT.IpAddress + "/trip/newRequest";
     private TextView txtPassengerName,txtStartPoint,txtEndPoint,txtHiddenTripId,txtHiddenPassengerId,txtHiddenToken,txtTripStatus,
             txtHiddenCurrentMileage,txtHiddenCurrentPassengers,txtHiddenStartMileage,txtHiddenPrice;
     public Button btnEndTrip,btnStartTrip;
@@ -138,6 +139,9 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                 UpdateFareCalculation();
                 //calculatePrice();
                 UpdateStatusWhenTripStart();
+                btnStartTrip.setVisibility(View.GONE);
+                btnEndTrip.setVisibility(View.VISIBLE);
+                txtTripStatus.setText("Trip Started");
                 Log.d("Click BtnStart","execute");
             }
         });
@@ -152,6 +156,10 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                 UpdateStatusWhenTripEnd();
                 UpdateFareCalculation();
                 UpdateFareForGetOffUser();
+
+                btnEndTrip.setVisibility(View.GONE);
+                btnStartTrip.setVisibility(View.GONE);
+                txtTripStatus.setText("Trip Ended");
                 Log.d("Click BtnStart","execute");
             }
         });
@@ -637,5 +645,8 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         requestQueue.add(request);
 
     }
+
+
+
 
 }

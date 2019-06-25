@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"></string>
+    <string name="app_name">PlusGo</string>
     <string name="app_name2">+Go</string>
     <string name="title_activity_live_calculation">LiveCalculation</string>
     <string name="offerride">Offer a Ride</string>

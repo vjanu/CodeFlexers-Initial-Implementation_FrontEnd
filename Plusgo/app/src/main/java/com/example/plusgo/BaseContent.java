@@ -1,7 +1,6 @@
 package com.example.plusgo;
 
 
-
 public class BaseContent {
 
     /*
@@ -31,7 +30,7 @@ public class BaseContent {
     FARE CALCULATION
      */
     final public String FCBASEIPROUTE ="http://192.168.8.100"; //TODO : FC CHANGE ACCORDINGLY
-    public String pythonIpAddressGetDistance = FCBASEIPROUTE+":95";
+    public String pythonIpAddressGetDistance = FCBASEIPROUTE+":97";
     public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":96";
 
     /*

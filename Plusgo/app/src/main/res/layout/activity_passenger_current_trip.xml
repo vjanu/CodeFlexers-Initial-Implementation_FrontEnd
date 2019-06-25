@@ -177,6 +177,7 @@
                 android:layout_marginTop="0dp"
                 android:text="Mileage"
                 android:textSize="15dp"
+                android:visibility="invisible"
 
                 />
 
@@ -189,6 +190,7 @@
                     android:layout_marginTop="0dp"
                     android:text="Mileage"
                     android:textSize="15dp"
+                    android:visibility="invisible"
 
                     />
 
@@ -200,6 +202,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
                     android:textSize="15dp"
+                    android:visibility="invisible"
 
                     />
 
@@ -211,6 +214,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
                     android:textSize="15dp"
+                    android:visibility="invisible"
 
                     />
             </RelativeLayout>
