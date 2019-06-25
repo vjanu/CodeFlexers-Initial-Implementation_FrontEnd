@@ -26,6 +26,7 @@ public class UserMain extends AppCompatActivity {
         request.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent i=new Intent(UserMain.this,MainActivity.class);
                 startActivity(i);
             }
@@ -35,6 +36,8 @@ public class UserMain extends AppCompatActivity {
         offer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+
                 Intent i=new Intent(UserMain.this,RiderMenu.class);
                 startActivity(i);
             }

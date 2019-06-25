@@ -85,7 +85,7 @@ public class DriverListAdapter extends RecyclerView.Adapter<DriverListAdapter.Vi
                 i.putExtra("Name", String.valueOf(name.getText()));
                 i.putExtra("Source", String.valueOf(source.getText()));
                 i.putExtra("Destination",String.valueOf(destination.getText()));
-                i.putExtra("img",String.valueOf(profileImage));
+                i.putExtra("img",String.valueOf(driverListItem.getImage()));
                 i.putExtra("Token",String.valueOf(txtToken.getText()));
                 i.putExtra("Model",String.valueOf(txtVehicle.getText()));
 

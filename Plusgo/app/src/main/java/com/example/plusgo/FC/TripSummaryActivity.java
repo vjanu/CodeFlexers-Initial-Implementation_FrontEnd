@@ -34,6 +34,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Notification.API;
 import com.example.plusgo.R;
@@ -48,6 +51,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,6 +79,7 @@ public class TripSummaryActivity extends AppCompatActivity {
     public String tripId; //Offer Ride ID / Trip ID
     public String userId; //User ID
     public String FCMtoken,image;
+    public CircleImageView profile_image;
 
 
     public static final String CHANNEL_ID = "plus_go";
@@ -96,6 +101,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         String myVar4 = intent.getStringExtra("Source");
         String myVar5 = intent.getStringExtra("Destination");
         String Token = intent.getStringExtra("Token");
+        String img = intent.getStringExtra("img");
 
 
 
@@ -114,6 +120,16 @@ public class TripSummaryActivity extends AppCompatActivity {
         txtDistance = (TextView)findViewById(R.id.txtDistance);
         txtVehicle = (TextView)findViewById(R.id.VehicleName);
         txtToken = (TextView)findViewById(R.id.FCMToken);
+        profile_image = (CircleImageView)findViewById(R.id.profile_image);
+
+        RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
+
+        //To load image using Glide
+        Glide.with(this)
+                .load(BASECONTENT.IpAddress  +img)
+                .apply(requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
+                .into(profile_image);
 
         //comment for Testing
         Log.d("@q1:", TripId);
