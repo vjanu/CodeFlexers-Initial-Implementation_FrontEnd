@@ -29,15 +29,28 @@
         android:paddingTop="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="16dp">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="2">
         <Button
             android:id="@+id/buttonChoose"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_weight="1"
             android:drawableRight="@android:drawable/ic_menu_gallery"
             android:text="Choose Image" />
-
+    <Button
+        android:id="@+id/buttonCapture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:drawableRight="@android:drawable/ic_menu_gallery"
+        android:text="Capture Image" />
+</LinearLayout>
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
