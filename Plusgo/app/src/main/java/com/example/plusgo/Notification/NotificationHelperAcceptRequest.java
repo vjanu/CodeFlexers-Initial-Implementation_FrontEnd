@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.plusgo.FC.MapCurrentPassengerActivity;
 import com.example.plusgo.FC.PassengerCurrentTrip;
+import com.example.plusgo.OPR.MainActivity;
 import com.example.plusgo.R;
 import com.example.plusgo.SignUp;
 
@@ -22,7 +23,7 @@ public class NotificationHelperAcceptRequest   extends AppCompatActivity {
     public static void displayNotification(Context context, String title, String body){
 
 
-        Intent intent = new Intent(context, MapCurrentPassengerActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 context,
                 100,

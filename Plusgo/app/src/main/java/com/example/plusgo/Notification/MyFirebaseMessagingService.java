@@ -47,9 +47,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             if(title.endsWith("Ride Request")){
                 NotificationHelper.displayNotification(getApplicationContext(),title,body);
-            }else{
+            }if(title.endsWith("Ride Confirmation")){
                 //Ride Confirmation
                 NotificationHelperAcceptRequest.displayNotification(getApplicationContext(),title,body);
+            }
+            if(title.endsWith("Fare")){
+
+                EndTripNotification.displayNotification(getApplicationContext(),title,body);
             }
 
             NotificationBodyCatcher = getBody().toString();
