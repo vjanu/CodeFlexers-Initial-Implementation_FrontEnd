@@ -408,11 +408,14 @@
 
         <Button
             android:id="@+id/btnJoinRide"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="374dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/colorButton"
             android:text="Join a Ride"
-            android:padding="10dp"
-            />
+            android:background="@drawable/ovel_drawable"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            android:textColor="@color/colorText" />
     </LinearLayout>
 
 

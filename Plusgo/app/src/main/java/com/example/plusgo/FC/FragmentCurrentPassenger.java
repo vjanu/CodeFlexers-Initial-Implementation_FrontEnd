@@ -1,6 +1,8 @@
 package com.example.plusgo.FC;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -31,6 +33,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class FragmentCurrentPassenger extends Fragment {
 
     BaseContent BASECONTENT = new BaseContent();
@@ -39,16 +43,26 @@ public class FragmentCurrentPassenger extends Fragment {
     private RecyclerView.Adapter CPassengeradapter;
     private List<Current_Passenger> currentPassenger;
     View view;
+    String TripId = "";
     private boolean reloadNeed = true;
     public FragmentCurrentPassenger() {
+
         Log.d("j","1Call FragmentCurrentPassenger");
+    }
+
+    @SuppressLint("ValidFragment")
+    public FragmentCurrentPassenger(String tripId) {
+
+        this.TripId = tripId;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         currentPassenger = new ArrayList<>();
-    loadCurrentPassengerData();
+        Log.d("SharedTripId" ,TripId );
+
+        loadCurrentPassengerData();
     }
 
     @Nullable
@@ -65,15 +79,24 @@ public class FragmentCurrentPassenger extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadCurrentPassengerData();
+        //loadCurrentPassengerData();
+//        currentPassenger.clear();
+        //loadCurrentPassengerData();
+        //currentPassenger.add("your array list items");
+//        (adapter);
+//        adapter.notifyDataSetChanged();
     }
 
-    private void loadCurrentPassengerData() {
+
+
+    public void loadCurrentPassengerData() {
+
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_CURRENT_PASSENGER,
+        Log.d("TripIDD",TripId);
+       StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_CURRENT_PASSENGER+TripId,
+        //StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_CURRENT_PASSENGER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -93,20 +116,22 @@ public class FragmentCurrentPassenger extends Fragment {
                                         o.getString("tripId"),
                                         o.getString("source"),
                                         o.getString("destination"),
-                                        o.getString("description"),
+                                        o.getString("trip_status"),
                                         o.getString("Token")
                                         //o.getString("img")
 
                                 );
-                                Log.d("for",o.getString("description"));
+                                Log.d("for",o.getString("trip_status"));
                                 currentPassenger.add(items);
                                 Log.d("for888",items.toString());
                             }
                             CPassengeradapter = new CurrentPassengerAdapter(currentPassenger,getContext());
                             recyclerView.setAdapter(CPassengeradapter);
 
+
+
                         } catch (JSONException e) {
-                            Log.d("expe",e.toString());
+                            Log.d("kachal",e.toString());
                         }
 
                     }
@@ -122,7 +147,7 @@ public class FragmentCurrentPassenger extends Fragment {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
-        
+
 
     }
 

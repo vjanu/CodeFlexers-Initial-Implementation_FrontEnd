@@ -32,6 +32,25 @@ public interface API {
             @Field("token") String token,
             @Field("title") String title,
             @Field("body") String body
+//            @Field("TripId") String TripId,
+//            @Field("passengerId") String passengerId,
+//            @Field("driverId") String driverId
+//            @Field("reqPassenger") String reqPassenger,
+//            @Field("reqDriver") String reqDriver,
+//            @Field("source") String source,
+//            @Field("destination") String destination,
+//            @Field("passengerToken") String passengerToken
+    );
+
+
+    @FormUrlEncoded
+    @POST("send")
+    Call<ResponseBody> PriceNotification(
+            @Field("token") String token,
+            @Field("title") String title,
+            @Field("body") String body
+//            @Field("passengerId") String passengerId,
+//            @Field("vehicleId") String vehicleId
 //            @Field("reqPassenger") String reqPassenger,
 //            @Field("reqDriver") String reqDriver,
 //            @Field("source") String source,

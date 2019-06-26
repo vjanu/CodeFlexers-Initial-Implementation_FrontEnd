@@ -1,5 +1,7 @@
 package com.example.plusgo.Notification;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +21,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
+import com.example.plusgo.FC.MapCurrentPassengerActivity;
 import com.example.plusgo.FC.PassengerCurrentTrip;
 import com.example.plusgo.R;
 
@@ -60,7 +63,7 @@ public class OpenNotification extends AppCompatActivity {
         btnDecline = (findViewById(R.id.btnDecline));
 
         String notificationBody = MyFirebaseMessagingService.NotificationBodyCatcher;
-        Log.d("Check" , notificationBody);
+        Log.d("Check333" , notificationBody);
 //        textView.setText(notificationBody);
 
         //Set Variables to Text Views
@@ -80,10 +83,16 @@ public class OpenNotification extends AppCompatActivity {
         txtHiddenPassengerid.setText(reqPassengerId);
 
         String driverId = notificationBody.split("\n")[7];
-        txtHiddendriverid.setText(reqPassengerId);
+        txtHiddendriverid.setText(driverId);
 
         String tripId = notificationBody.split("\n")[8];
-        txtHiddenTripId.setText(reqPassengerId);
+        txtHiddenTripId.setText(tripId);
+
+        Log.d("ssstxtHiddenTripId",txtHiddenTripId.getText().toString());
+
+        SharedPreferences.Editor tripStore = getSharedPreferences("tripStore", MODE_PRIVATE).edit();
+        tripStore.putString("TripId", txtHiddenTripId.getText().toString());
+        tripStore.apply();
 
 
 
@@ -93,6 +102,8 @@ public class OpenNotification extends AppCompatActivity {
             public void onClick(View view) {
                 updateDriverAccept();
                 AcceptRideNotification();
+                finish();
+                startActivity(new Intent(OpenNotification.this, MapCurrentPassengerActivity.class));
             }
         });
     }
@@ -103,9 +114,14 @@ public class OpenNotification extends AppCompatActivity {
     //Accept Message
     private void AcceptRideNotification(){
         String title = "Ride Confirmation";
-        String body = "Driver will arriving soon";
-        String passengerToken = "eQ1tTDeDAk8:APA91bHDVmf-2pd5qlEUxwFoR_ENMeTYEBENoyG7infabGxNXo51Mqkg1UkbWddVih29qS44UpIed8_qrKSUwijvDVpj3iBogsrOsOImMAjT60ikts4Fu0K3Ez-RVuycWkEoJJo6Uq3m";
+        String body = "Driver will arriving soon. Please Wait until knocks at your place";
+        String passengerToken = "eSB2w-2RIB8:APA91bEdyhV30dCo5ZM_kfmjvUc02_yLPy4jkfE6mk-aODNUlkTpuUicRqV90YG1oMPGE2YBHtFXafwUvRdZl3c9UCZUyGeOuBBVqzqn3rNEMeSs6sWORM2cre71ngTh321gh5jZm9fc";
 
+        //String passengerToken = "eoeP6RYSmVI:APA91bGHuI_4sJiju40TKFSscnO7EebMZJb6dwpIZoGtzudb7lIq3FbJjrlO8pxVkc-1SubX9-bnkiWmZr9qFU00bFibV6zE423cK-h9vhdFbDwLzJcMJsT4p_J-vYrEoTzSSB_knjPb";
+        //String passengerToken = "dZmEhIH0hLg:APA91bG_zg0q2rWW9TGbiB8XE2tob5HUUZaX3S_NKyXa8m4G6SrP1ydGliWNRR682w4jpXe9HnnXCw_egk4kCB8Iv62hAqP7mRd933GWqkX8p9252_4Px4eIH87npZlUidQ74StzDUpR";
+        String TripId = txtHiddenTripId.getText().toString();
+        String PassengerId = txtHiddenPassengerid.getText().toString();
+        String driverId = txtHiddendriverid.getText().toString();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://plusgo-ce90f.firebaseapp.com/api/")
@@ -118,8 +134,8 @@ public class OpenNotification extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    Toast.makeText(OpenNotification.this,response.body().string(),Toast.LENGTH_LONG).show();
-                } catch (IOException e) {
+                    //  Toast.makeText(OpenNotification.this,response.body().string(),Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -136,9 +152,11 @@ public class OpenNotification extends AppCompatActivity {
 
 
             String tripId = txtHiddenTripId.getText().toString();
+
             String passengerId = txtHiddenPassengerid.getText().toString();
             // price = Double.parseDouble(txtHiddenPrice.getText().toString());
             String driverId =  txtHiddendriverid.getText().toString();
+
 
 
             Log.d("@@@@tripId",tripId);
@@ -148,8 +166,7 @@ public class OpenNotification extends AppCompatActivity {
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("trip_status", 0);
-//            jsonObject.put("startMileage", txtHiddenCurrentMileage.getText().toString());
-            //jsonObject.put("price", price);
+//
             final String mRequestBody = jsonObject.toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, JSON_URL_PUT_ACCEPT_RIDE+tripId+"/"+passengerId+"/"+driverId, new com.android.volley.Response.Listener<String>() {
