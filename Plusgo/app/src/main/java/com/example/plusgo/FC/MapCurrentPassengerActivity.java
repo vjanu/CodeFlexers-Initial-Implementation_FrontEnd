@@ -1,5 +1,6 @@
 package com.example.plusgo.FC;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
@@ -23,8 +24,11 @@ public class MapCurrentPassengerActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         //Adding Fragment
         // adapter.AddFrgment(new FragmentPassenger(),"Passenger");
+        SharedPreferences tripStore = getSharedPreferences("tripStore",MODE_PRIVATE);
+        String TripId = tripStore.getString("TripId", null);
+
+        adapter.AddFrgment(new FragmentCurrentPassenger(TripId),"Current Passenger");
         adapter.AddFrgment(new FragmentMap(),"Map");
-        adapter.AddFrgment(new FragmentCurrentPassenger(),"Current Passenger");
 
 
         //adapter Setup

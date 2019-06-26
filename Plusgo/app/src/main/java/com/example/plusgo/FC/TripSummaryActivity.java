@@ -34,6 +34,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Notification.API;
 import com.example.plusgo.R;
@@ -48,6 +51,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,6 +79,7 @@ public class TripSummaryActivity extends AppCompatActivity {
     public String tripId; //Offer Ride ID / Trip ID
     public String userId; //User ID
     public String FCMtoken,image;
+    public CircleImageView profile_image;
 
 
     public static final String CHANNEL_ID = "plus_go";
@@ -96,6 +101,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         String myVar4 = intent.getStringExtra("Source");
         String myVar5 = intent.getStringExtra("Destination");
         String Token = intent.getStringExtra("Token");
+        String img = intent.getStringExtra("img");
 
 
 
@@ -114,6 +120,16 @@ public class TripSummaryActivity extends AppCompatActivity {
         txtDistance = (TextView)findViewById(R.id.txtDistance);
         txtVehicle = (TextView)findViewById(R.id.VehicleName);
         txtToken = (TextView)findViewById(R.id.FCMToken);
+        profile_image = (CircleImageView)findViewById(R.id.profile_image);
+
+        RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
+
+        //To load image using Glide
+        Glide.with(this)
+                .load(BASECONTENT.IpAddress  +img)
+                .apply(requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
+                .into(profile_image);
 
         //comment for Testing
         Log.d("@q1:", TripId);
@@ -511,16 +527,20 @@ public class TripSummaryActivity extends AppCompatActivity {
         String Name = userStore.getString("Name", null);
 
         String tripId = txtTripId.getText().toString();
+        Log.d("tripId2222",tripId);
         String title = "Ride Request";
+        //emulator
         String body = "You have been requested to the pickup";
-        String token = "dZmEhIH0hLg:APA91bG_zg0q2rWW9TGbiB8XE2tob5HUUZaX3S_NKyXa8m4G6SrP1ydGliWNRR682w4jpXe9HnnXCw_egk4kCB8Iv62hAqP7mRd933GWqkX8p9252_4Px4eIH87npZlUidQ74StzDUpR";
+        //String token = "eSB2w-2RIB8:APA91bEdyhV30dCo5ZM_kfmjvUc02_yLPy4jkfE6mk-aODNUlkTpuUicRqV90YG1oMPGE2YBHtFXafwUvRdZl3c9UCZUyGeOuBBVqzqn3rNEMeSs6sWORM2cre71ngTh321gh5jZm9fc";
+        //real device
+        String token = "fQKGpl798hw:APA91bEM46mvzu3YfVk7VsxvFBKNSBQfm3RYsNCeKsc0n9REYao66urTAMV_D2KKskMFO7u0dbcvJQ1hEDB8eerVwgIgn4LEIayc5DyNIBMPEKogxvrTtG1uy7g_5OcyejA1p-g_I3NS";
         String reqPassenger = Name;
         String reqPassengerId = UID;
         String driverId  = txtUserId.getText().toString();
-        String reqDriver = "U1111111-Driver";
+        String reqDriver = "DriverName";
         String source = "Kaduwela";
         String destination = "Battaramulla";
-        String passengerToken = "eQ1tTDeDAk8:APA91bHDVmf-2pd5qlEUxwFoR_ENMeTYEBENoyG7infabGxNXo51Mqkg1UkbWddVih29qS44UpIed8_qrKSUwijvDVpj3iBogsrOsOImMAjT60ikts4Fu0K3Ez-RVuycWkEoJJo6Uq3m";
+        String passengerToken = "cmB3lUxGv9g:APA91bFxfzwdMtChpUU2Qj8IOoDoIauhuCwN735ZpSmDFIoJAVTOWOf1z8WymlRauZfxKkrE8GHp8gT2xaKT8giyVofNGlhHNLS9i72g8T13wxE4TRH_NK4ljKcS8jHGsueZjZ_eBGzZ";
 
 
 
@@ -535,8 +555,8 @@ public class TripSummaryActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 try {
-                    Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
-                } catch (IOException e) {
+//                    Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -578,7 +598,7 @@ public class TripSummaryActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     Log.i("LOG_VOLLEY", response);
-                    Toast.makeText(TripSummaryActivity.this, "Trip Started", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TripSummaryActivity.this, "Send Request", Toast.LENGTH_SHORT).show();
                 }
             }, new Response.ErrorListener() {
                 @Override

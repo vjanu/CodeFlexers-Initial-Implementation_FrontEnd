@@ -17,6 +17,20 @@ public class Current_Passenger {
     private String Status;
     private String Token;
     private String UserImage;
+    private String mileage;
+
+    public String getMileage() {
+        return mileage;
+    }
+
+    public Current_Passenger(String mileage) {
+        this.mileage = mileage;
+    }
+
+    public void setMileage(String mileage) {
+        this.mileage = mileage;
+    }
+
 
     public String getUserImage() {
         return UserImage;

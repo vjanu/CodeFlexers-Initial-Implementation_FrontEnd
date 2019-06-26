@@ -228,6 +228,11 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         source_location = findViewById(R.id.source_location);
         source_destination = findViewById(R.id.source_destination);
 
+        SharedPreferences.Editor location = getSharedPreferences("LOCATION", MODE_PRIVATE).edit();
+        location.putString("source", source_location.toString());
+        location.putString("destination", source_destination.toString());
+        location.apply();
+
         source_location.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -582,11 +587,13 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("userid", "nathasha");
+                params.put("UserID", uid);
                 params.put("source_long", String.valueOf(source_long));
                 params.put("source_lat", String.valueOf(source_lat));
                 params.put("destination_long", String.valueOf(destination_long));
                 params.put("destination_lat", String.valueOf(destination_lat));
+
+
                 return params;
             }
         };
