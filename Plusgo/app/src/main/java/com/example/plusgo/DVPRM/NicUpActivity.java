@@ -35,7 +35,7 @@ public class NicUpActivity extends AppCompatActivity {
 //    String NIC_URL ="http://192.168.1.4/nic/test.png";
     String NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8089/nic/test.png";
 //    String ELEC_NIC_URL ="http://192.168.1.4/nic/test.png";
-    String ELEC_NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8089/nic/test.png";
+    String ELEC_NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8087/enic/test.png";
 
     private JsonArrayRequest request;
     private RequestQueue requestQueue;

@@ -74,7 +74,7 @@ public class DocUploadActivity extends AppCompatActivity {
 
     //TODO : path of the phpfile in the server
     String NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadnic.php";
-    String ELEC_NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadnic.php";
+    String ELEC_NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadelecnic.php";
     String LISENCE_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadlisence.php"; //TODO
 
     private static final String TAG_SUCCESS = "success";
@@ -246,6 +246,8 @@ public class DocUploadActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e("error", error.toString());
+
                         //progress dialog
                         loading.dismiss();
 
