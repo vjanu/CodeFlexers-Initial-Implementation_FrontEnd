@@ -74,7 +74,7 @@ public class DocUploadActivity extends AppCompatActivity {
 
     //TODO : path of the phpfile in the server
     String NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadnic.php";
-    String ELEC_NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadnic.php";
+    String ELEC_NIC_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadelecnic.php";
     String LISENCE_URL_UPLOAD = BASECONTENT.phpIP+"/android/uploadlisence.php"; //TODO
 
     private static final String TAG_SUCCESS = "success";
@@ -95,7 +95,7 @@ public class DocUploadActivity extends AppCompatActivity {
         int width = dm1.widthPixels;
         int height = dm1.heightPixels;
 
-        getWindow().setLayout((int)(width*.80),(int)(height*.50));
+        getWindow().setLayout((int)(width*.80),(int)(height*.60));
 
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (FloatingActionButton) findViewById(R.id.buttonUpload);
@@ -125,45 +125,43 @@ public class DocUploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                }
-                else
-                {
-                    captureFromCamera();
+                try{
+                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                    {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                    }
+                    else
+                    {
+                        captureFromCamera();
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
             }
         });
-
-
     }
 
     private File createImageFile() throws IOException {
         try {
+            // Create an image file name
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            String imageFileName = "JPEG_" + timeStamp + "_";
 
-
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-
-        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
-
-        //This is the directory in which the file will be created. This is the default location of Camera photos
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_DCIM), "Camera");
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for using again
-        cameraFilePath = "file://" + image.getAbsolutePath();
-        return image;
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+            //This is the directory in which the file will be created. This is the default location of Camera photos
+            File storageDir = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DCIM), "Camera");
+            File image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+            // Save a file: path for using again
+            cameraFilePath = "file://" + image.getAbsolutePath();
+            return image;
         }catch(Exception e){
             e.printStackTrace();
             return null;
@@ -194,8 +192,6 @@ public class DocUploadActivity extends AppCompatActivity {
         }
     }
 
-
-
     public String getStringImage(Bitmap bmp) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, bitmap_size, baos);
@@ -218,62 +214,64 @@ public class DocUploadActivity extends AppCompatActivity {
             UPLOAD_URL = NIC_URL_UPLOAD;
         }
 
-            //progress dialog
-            final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.e(TAG, "Response: " + response.toString());
-                            try {
-                                JSONObject jObj = new JSONObject(response);
-                                success = jObj.getInt(TAG_SUCCESS);
+        //progress dialog
+        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e(TAG, "Response: " + response.toString());
+                        try {
+                            JSONObject jObj = new JSONObject(response);
+                            success = jObj.getInt(TAG_SUCCESS);
 
-                                if (success == 1) {
-                                    Log.e("v Add", jObj.toString());
+                            if (success == 1) {
+                                Log.e("v Add", jObj.toString());
 
-                                    Toast.makeText(DocUploadActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
+                                Toast.makeText(DocUploadActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
 
-                                    kosong();
+                                kosong();
 
-                                } else {
-                                    Toast.makeText(DocUploadActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            } else {
+                                Toast.makeText(DocUploadActivity.this, jObj.getString(TAG_MESSAGE), Toast.LENGTH_LONG).show();
                             }
-
-                            //progress dialog
-                            loading.dismiss();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //progress dialog
-                            loading.dismiss();
 
-                            //toast
-                            Toast.makeText(DocUploadActivity.this, "Phone incompatibility or server error", Toast.LENGTH_LONG).show();
-                            Log.e(TAG,"Response error");
-                        }
-                    }) {
-                @Override
-                protected Map<String, String> getParams() {
-                    //parameters
-                    Map<String, String> params = new HashMap<String, String>();
+                        //progress dialog
+                        loading.dismiss();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("error", error.toString());
 
-                    params.put(KEY_IMAGE, getStringImage(decoded));
-                    params.put(KEY_NAME, txt_name.getText().toString().trim());
+                        //progress dialog
+                        loading.dismiss();
 
-                    Log.e(TAG, "" + params);
-                    return params;
-                }
-            };
-            Log.e("DDD", stringRequest.toString());
-            stringRequest.setShouldCache(false);
-            AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                        //toast
+                        Toast.makeText(DocUploadActivity.this, "Phone incompatibility or server error", Toast.LENGTH_LONG).show();
+                        Log.e(TAG,"Response error");
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                //parameters
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put(KEY_IMAGE, getStringImage(decoded));
+                params.put(KEY_NAME, txt_name.getText().toString().trim());
+
+                Log.e(TAG, "" + params);
+                return params;
+            }
+        };
+        Log.e("DDD", stringRequest.toString());
+        stringRequest.setShouldCache(false);
+        AppController.getInstance().addToRequestQueue(stringRequest, tag_json_obj);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
