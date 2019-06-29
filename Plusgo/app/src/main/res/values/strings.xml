@@ -11,4 +11,7 @@
     <string name="upload">Upload</string>
     <string name="report">Report</string>
     <string name="later">Later</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+
 </resources>

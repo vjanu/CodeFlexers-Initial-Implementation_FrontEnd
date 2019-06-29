@@ -2,7 +2,6 @@ package com.example.plusgo.OPR;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -19,11 +18,16 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,20 +35,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.BuildConfig;
+import com.example.plusgo.Login;
 import com.example.plusgo.R;
+import com.example.plusgo.UPM.AddPreferenceActivity;
 import com.example.plusgo.UPM.DriverListActivity;
 import com.example.plusgo.UPM.GpsLocationTracker;
+import com.example.plusgo.UPM.NewUserActivity;
+import com.example.plusgo.UPM.PaymentActivity;
 import com.example.plusgo.UPM.TempGPSActivity;
+import com.example.plusgo.UPM.VehicleActivity;
 import com.example.plusgo.Utility.Driver;
 import com.example.plusgo.Utility.FirebaseSuccessListener;
 import com.example.plusgo.Utility.LocationBean;
@@ -85,6 +98,7 @@ import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -94,12 +108,15 @@ import java.util.Random;
 
 //import com.google.android.gms.location.places.Place;
 
-public class MainActivity extends Activity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
+    DrawerLayout drawer;
+    NavigationView navigationView;
+    Toolbar toolbar = null;
     private static final int MULTIPLE_PERMISSION_REQUEST_CODE = 4;
     int AUTOCOMPLETE_REQUEST_CODE = 1;
     RequestQueue rQueue;
-  //  String URL = "http://192.168.1.4:8083/map";
+    //  String URL = "http://192.168.1.4:8083/map";
     private Location mLastLocation;
     private GoogleApiClient mGoogleApiClient;
     private MapView mapView;
@@ -113,7 +130,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     private boolean exists = false;
     private Handler handler;
     private Runnable runnable;
-    private  List<LocationBean> location;
+    private List<LocationBean> location;
     LocationBean locationBean;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
     List<String> id;
@@ -183,6 +200,20 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_map);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
         location = new ArrayList<>();
         selectedList = new ArrayList<>();
         id = new ArrayList<>();
@@ -191,11 +222,10 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         checkPermissionsState();
 //        checkAndAddPermission();
         //Executing the handler
-        SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
+        SharedPreferences user = getSharedPreferences("userStore", MODE_PRIVATE);
         uid = user.getString("UId", null);
         executeHandler();
         filterRelevantDrivers();
-
 
 
 //        cllick = (Button)findViewById(R.id.i);
@@ -376,11 +406,11 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -560,52 +590,70 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setCancelable(false);
 
-        // set the custom dialog components - text, image and button
-
-      //  ProgressBar progressBar = dialog.findViewById(R.id.Circle);
-        //Sprite animation = new Circle();
-        //progressBar.setIndeterminateDrawable(animation);
-
         dialog.show();
 
-        StringRequest sr = new StringRequest(Request.Method.POST, JSON_URL_ACCEPT_ROUTE, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                rQueue.getCache().clear();
-                dialog.cancel();
-                Toast.makeText(getApplicationContext(), "Your route is added", Toast.LENGTH_LONG).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                dialog.cancel();
-                rQueue.getCache().clear();
-                Log.e("error", error.toString());
-                Toast.makeText(getApplicationContext(), "Task Failed", Toast.LENGTH_LONG).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("UserID", uid);
-                params.put("source_long", String.valueOf(source_long));
-                params.put("source_lat", String.valueOf(source_lat));
-                params.put("destination_long", String.valueOf(destination_long));
-                params.put("destination_lat", String.valueOf(destination_lat));
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject.put("UserID", uid);
+            jsonObject.put("StartingLat", source_lat);
+            jsonObject.put("StartingLong", source_long);
+            jsonObject.put("DestinationLat", destination_lat);
+            jsonObject.put("DestinationLong", destination_long);
+
+            final String mRequestBody = jsonObject.toString();
 
 
-                return params;
-            }
-        };
-        sr.setRetryPolicy(new DefaultRetryPolicy(
-                0,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_ACCEPT_ROUTE, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    dialog.cancel();
+                    Log.i("LOG_VOLLEY", response);
+                    Toast.makeText(MainActivity.this, "Route Saved", Toast.LENGTH_LONG).show();
 
-        rQueue = Volley.newRequestQueue(MainActivity.this);
-        rQueue.add(sr);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOG_VOLLEY", error.toString());
+                    Toast.makeText(MainActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
 
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    10000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
+
 
     protected List<String> Start() {
 
@@ -615,7 +663,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 id.clear();
-                for(DataSnapshot data: dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     if (data.child("uid").exists()) {
                         id.add(String.valueOf(data.child("uid").getValue()));
 
@@ -670,7 +718,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
     /**
      * @return longitude
-     *         function to get longitude
+     * function to get longitude
      */
     public double getLongitude() {
 
@@ -724,7 +772,6 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         final AlertDialog mcreateDialog = mAlertDialog.create();
         mcreateDialog.show();
     }
-
 
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -802,19 +849,18 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             }
 
 
-        }catch (Exception e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
 
 
-
         return mLocation;
     }
 
-    public void executeHandler(){
+    public void executeHandler() {
         //If the handler and runnable are null we create it the first time.
-        if(handler == null && runnable == null){
+        if (handler == null && runnable == null) {
             handler = new Handler();
 
             runnable = new Runnable() {
@@ -829,12 +875,12 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             };
         }
         //If the handler and runnable are not null, we execute it again when the app is resumed.
-        else{
+        else {
             handler.postDelayed(runnable, EVERY_FIVE_SECOND);
         }
     }
 
-    private void addDrivers(){
+    private void addDrivers() {
 //        Log.i("111", "111");
         double latitude = 0.0;
         double longitude = 0.0;
@@ -843,26 +889,22 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
         /**
          * Set GPS Location fetched address
          */
-        if (mGpsLocationTracker.canGetLocation())
-        {
+        if (mGpsLocationTracker.canGetLocation()) {
             latitude = mGpsLocationTracker.getLatitude();
             longitude = mGpsLocationTracker.getLongitude();
 
-        }
-        else
-        {
+        } else {
             mGpsLocationTracker.showSettingsAlert();
         }
-
 
 
         Random random = new Random();
         Log.i("size ", String.valueOf(Start().size()));
 
-        SharedPreferences selfStore = getSharedPreferences("userStore",MODE_PRIVATE);
+        SharedPreferences selfStore = getSharedPreferences("userStore", MODE_PRIVATE);
         String uid = selfStore.getString("UId", null);
 
-        if(Start().size() > 0) {
+        if (Start().size() > 0) {
             for (int j = 0; j < Start().size(); j++) {
 //                Log.d("111x", String.valueOf(Start().get(j)));
                 if (Start().get(j).equalsIgnoreCase(uid)) {
@@ -872,8 +914,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                     databaseReference.setValue(driver);
                     break;
 //            }
-                }
-                else {
+                } else {
 //                    Log.i("added1", "qqqq");
 
                     Driver driver = new Driver(uid, longitude, latitude);
@@ -884,15 +925,13 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             }
         }
 //
-        else{
+        else {
             Log.i("added2", "aaaaa");
             Driver driver = new Driver(uid, longitude, latitude);
             String id = db.push().getKey();
             db.child(uid).setValue(driver);
         }
     }
-
-
 
 
 //    }
@@ -923,7 +962,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 location.clear();
-                for(DataSnapshot data: dataSnapshot.getChildren()){
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
                     if (data.child("uid").exists()) {
 
                         locationBean = new LocationBean();
@@ -936,7 +975,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                     }
                 }
                 firebaseSuccessListener.locationBean(location);
-                Log.d("redda2", String.valueOf(location.size()));
+                Log.d("loc1", String.valueOf(location.size()));
             }
 
             @Override
@@ -946,21 +985,24 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             }
 
         });
-        Log.d("redda3", String.valueOf(location.size()));
+        Log.d("loc", String.valueOf(location.size()));
         //return location;
     }
+
     //    String c = "U1558711443502";
-    public void filterRelevantDrivers(){
+    public void filterRelevantDrivers() {
 
         getUserLocations(new FirebaseSuccessListener() {
             @Override
             public void locationBean(List<LocationBean> locations) {
-                if(locations.size() > 0){
+                if (locations.size() > 0) {
                     Log.d("ccc", String.valueOf(locations.size()));
-                    for(int i=0; i <locations.size(); i++){ //get passenger location
-                        if(locations.get(i).getUid().equals(uid)){
-                            pLatitude = locations.get(i).getLatitude();
-                            pLongitude = locations.get(i).getLongitude();
+                    for (int i = 0; i < locations.size(); i++) { //get passenger location //todo get it from search
+                        if (locations.get(i).getUid().equals(uid)) {
+                            pLatitude = source_lat;
+//                            pLatitude = locations.get(i).getLatitude();
+                            pLongitude = source_long;
+//                            pLongitude = locations.get(i).getLongitude();
                             //locations.remove(locations.get(i));
                             Log.d("size1", String.valueOf(locations.size()));
                             break;
@@ -971,8 +1013,7 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
 
                     //return selectedList;
-                }
-                else{
+                } else {
                     Log.d("diu", String.valueOf(locations.size()));
                 }
                 //return selectedList;
@@ -981,17 +1022,17 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 
     }
 
-    public void v(List<LocationBean> locations){
+    public void v(List<LocationBean> locations) {
 
-        for(int i=0; i <locations.size(); i++) {
+        for (int i = 0; i < locations.size(); i++) {
             Log.d("size2", String.valueOf(locations.size()));
             double dLatitude = locations.get(i).getLatitude();
             double dLongitude = locations.get(i).getLongitude();
             Location.distanceBetween(pLatitude, pLongitude, dLatitude, dLongitude, results);
             float distanceInMeters = results[0];
 //                        Log.d("dist", String.valueOf(distanceInMeters));
-            isWithin1km = distanceInMeters < 1000;
-            if(isWithin1km){
+            isWithin1km = distanceInMeters < 2000; //todo 5km added
+            if (isWithin1km) {
                 Log.d("isWithin1km", String.valueOf(isWithin1km));
                 LocationBean selectedUsers = new LocationBean();
                 selectedUsers.setUid(locations.get(i).getUid());
@@ -1007,16 +1048,16 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
 //            Log.d("qq3", String.valueOf(selectedList.get(i).getLongitude()));
 //        }
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JSONArray jArrayInput=new JSONArray();
-        JSONArray jArrayInput1=new JSONArray();
-        JSONObject jObjectInput=new JSONObject();
+        JSONArray jArrayInput = new JSONArray();
+        JSONArray jArrayInput1 = new JSONArray();
+        JSONObject jObjectInput = new JSONObject();
 
         Map<String, String> driverUID = new HashMap<>();
         List<JSONObject> newList = new ArrayList();
-        for(int i=0; i< selectedList.size();i++) {
+        for (int i = 0; i < selectedList.size(); i++) {
             try {
-                JSONObject jObjectInput1=new JSONObject();
-                jObjectInput1.put("UID",selectedList.get(i).getUid());
+                JSONObject jObjectInput1 = new JSONObject();
+                jObjectInput1.put("UID", selectedList.get(i).getUid());
                 jArrayInput1.put(jObjectInput1);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -1030,10 +1071,10 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
             e.printStackTrace();
         }
 
-        Log.d("json", String.valueOf(    jObjectInput    ));
+        Log.d("json", String.valueOf(jObjectInput));
 //        jArrayInput.put(jObjectInput);
 //        Log.d("lol", String.valueOf(    jArrayInput    ));
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, PYTHON_URL_POST_DATA_AVAILABLE, jObjectInput , new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, PYTHON_URL_POST_DATA_AVAILABLE, jObjectInput, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("e1", String.valueOf(response));
@@ -1053,5 +1094,71 @@ public class MainActivity extends Activity implements GoogleApiClient.Connection
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(request);
 
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        //here is the main place where we need to work on.
+        int id = item.getItemId();
+        switch (id) {
+
+            case R.id.nav_person:
+                navigationView.setCheckedItem(R.id.nav_person);
+                finish();
+                Intent h = new Intent(MainActivity.this, NewUserActivity.class);
+                startActivity(h);
+                break;
+            case R.id.nav_preferences:
+                navigationView.setCheckedItem(R.id.nav_preferences);
+                finish();
+                Intent i = new Intent(MainActivity.this, AddPreferenceActivity.class);
+                startActivity(i);
+                break;
+            case R.id.nav_vehicle:
+                finish();
+                navigationView.setCheckedItem(R.id.nav_vehicle);
+                Intent g = new Intent(MainActivity.this, VehicleActivity.class);
+                startActivity(g);
+                break;
+            case R.id.nav_payment:
+                navigationView.setCheckedItem(R.id.nav_payment);
+                finish();
+                Intent s = new Intent(MainActivity.this, PaymentActivity.class);
+                startActivity(s);
+                break;
+            case R.id.nav_trips:
+                navigationView.setCheckedItem(R.id.nav_trips);
+//                finish();
+//                Intent q = new Intent(MainActivity.this, MapCurrentPassengerActivity.class);
+//                startActivity(q);
+                break;
+
+            case R.id.signout:
+                navigationView.setCheckedItem(R.id.signout);
+                finish();
+                Intent t = new Intent(MainActivity.this, Login.class);
+                startActivity(t);
+                break;
+
+        }
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            finish();
+            Intent map = new Intent(MainActivity.this, UserMain.class);
+            startActivity(map);
+        }
     }
 }
