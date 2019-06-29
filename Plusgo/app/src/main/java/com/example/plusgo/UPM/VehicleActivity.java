@@ -49,6 +49,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
+import com.example.plusgo.OPR.MainActivity;
 import com.example.plusgo.R;
 
 import org.json.JSONArray;
@@ -83,12 +84,12 @@ public class VehicleActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle);
 
+        SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
+        id = user.getString("UId", null);
+
         setValuesVehicle();
 
         frontView = (ImageButton) findViewById(R.id.btnFront);
-
-        SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
-        id = user.getString("UId", null);
 
         brand = findViewById(R.id.brand);
         String[] brandV = new String[]{"Alto", "Suzuki","Toyota"};
@@ -96,12 +97,12 @@ public class VehicleActivity extends Activity {
         brand.setAdapter(adapterBrand);
 
         manYear = findViewById(R.id.mYear);
-        String[] manYearV = new String[]{"1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001"};
+        String[] manYearV = new String[]{"1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"};
         ArrayAdapter<String> adapterManYear = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, manYearV);
         manYear.setAdapter(adapterManYear);
 
         regYear = findViewById(R.id.rYear);
-        String[] regYearV = new String[]{"1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001"};
+        String[] regYearV = new String[]{"1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012"};
         ArrayAdapter<String> adapterRegYear = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, regYearV);
         regYear.setAdapter(adapterRegYear);
 
@@ -116,7 +117,7 @@ public class VehicleActivity extends Activity {
         tType.setAdapter(adapterTTypeV);
 
         capacity = findViewById(R.id.engine);
-        String[] capacityV = new String[]{"900cc","1000cc", "1100cc", "1200cc", "1300cc"};
+        String[] capacityV = new String[]{"900","1000", "1100", "1200", "1300"};
         ArrayAdapter<String> adapterCapacity = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, capacityV);
         capacity.setAdapter(adapterCapacity);
 
@@ -423,15 +424,7 @@ public class VehicleActivity extends Activity {
                         jsonObject = response.getJSONObject(i);
                         if(jsonObject.length()!=0) {
 
-                            jsonObject.put("Brand", brand.getSelectedItem().toString());
-                            jsonObject.put("Model", model.getSelectedItem().toString());
-                            jsonObject.put("VNumber", vNo.getText());
-                            jsonObject.put("Mileage", mileage.getText());
-                            jsonObject.put("MYear", manYear.getSelectedItem().toString());
-                            jsonObject.put("RYear", regYear.getSelectedItem().toString());
-                            jsonObject.put("FuelType", fuelType.getSelectedItem().toString());
-                            jsonObject.put("TType", tType.getSelectedItem().toString());
-                            jsonObject.put("EngineCapacity", capacity.getSelectedItem().toString());
+                            Log.d("qqq", jsonObject.getString("VNumber").toString());
 
                             brand.setSelection(((ArrayAdapter<String>) brand.getAdapter()).getPosition(jsonObject.getString("Brand")));
                             model.setSelection(((ArrayAdapter<String>) model.getAdapter()).getPosition(jsonObject.getString("Model")));
@@ -472,5 +465,12 @@ public class VehicleActivity extends Activity {
         requestQueue = Volley.newRequestQueue(VehicleActivity.this);
         requestQueue.add(request);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent map = new Intent(VehicleActivity.this, MainActivity.class);
+        startActivity(map);
     }
 }

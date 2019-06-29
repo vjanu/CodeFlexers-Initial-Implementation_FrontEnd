@@ -1,5 +1,6 @@
 package com.example.plusgo.FC;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -7,7 +8,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.plusgo.OPR.MainActivity;
 import com.example.plusgo.R;
+import com.example.plusgo.UPM.PaymentActivity;
 
 public class MapCurrentPassengerActivity extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -34,5 +37,12 @@ public class MapCurrentPassengerActivity extends AppCompatActivity {
         //adapter Setup
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent map = new Intent(MapCurrentPassengerActivity.this, MainActivity.class);
+        startActivity(map);
     }
 }

@@ -15,7 +15,8 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-feature android:name="android.hardware.camera"/>
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:name=".app.AppController"
@@ -26,50 +27,40 @@
         android:roundIcon="@mipmap/logoplusgo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
+        <activity android:name=".UPM.PaymentActivity"></activity>
         <activity android:name=".FC.MapCurrentPassengerActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".FC.PassengerCurrentTrip" />
-        <activity android:name=".Notification.OpenNotification" >
-            <intent-filter>
-                <action android:name="com.example.plusgo_TARGET_NOTIFICATION"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
-            </intent-filter>
+        <activity android:name=".Notification.OpenNotification">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="com.example.plusgo_TARGET_NOTIFICATION"></action> -->
+            <!-- <category android:name="android.intent.category.DEFAULT"></category> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".UPM.DriverListActivity" />
         <activity android:name=".FC.LiveCalculation" />
         <activity
             android:name=".FC.TripSummaryActivity"
-            android:theme="@style/AppTheme" >
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".FC.UserProfile"
             android:theme="@style/AppTheme" />
         <activity android:name=".UPM.VehicleActivity" />
-        <activity android:name=".UPM.AddPreferenceActivity">
-
-        </activity>
+        <activity android:name=".UPM.AddPreferenceActivity"></activity>
         <activity android:name=".UPM.NewUserActivity" />
         <activity android:name=".UPM.VerifyCodeActivity" />
         <activity android:name=".UPM.VerifyMobilePhoneActivity" />
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
-        <activity android:name=".MainActivity" >
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name=".DVPRM.DummyActivity">
+        <activity android:name=".MainActivity">
 
              <intent-filter>
              <action android:name="android.intent.action.MAIN" />
@@ -77,6 +68,8 @@
 
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
+        </activity>
+        <activity android:name=".DVPRM.DummyActivity">
         </activity>
         <activity
             android:name=".DVPRM.DocUploadActivity"
@@ -94,8 +87,7 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".UPM.CameraActivity" />
         <activity android:name=".UPM.TempGPSActivity" />
-        <activity
-            android:name=".OPR.TrafficJam">
+        <activity android:name=".OPR.TrafficJam">
 
             <!--
             <intent-filter>
@@ -105,9 +97,7 @@
             </intent-filter>
             -->
         </activity>
-        <activity
-            android:name=".OPR.Accident"
-            >
+        <activity android:name=".OPR.Accident">
 
             <!--
             <intent-filter>
@@ -117,19 +107,14 @@
             </intent-filter>
             -->
         </activity>
-        <activity
-            android:name=".OPR.UserMain">
+        <activity android:name=".OPR.UserMain">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
-        <activity
-            android:name=".OPR.RiderMenu">
+        <activity android:name=".OPR.RiderMenu">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -139,16 +124,15 @@
             <!-- </intent-filter> -->
 
         </activity>
-        <activity
-            android:name=".OPR.MainActivity">
+        <activity android:name=".OPR.MainActivity" android:theme="@style/AppTheme.NoActionBar">
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
         </activity>
 
         <service android:name=".Notification.MyFirebaseMessagingService">
@@ -157,7 +141,6 @@
             </intent-filter>
         </service>
 
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -165,11 +148,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths">
-            </meta-data>
+                android:resource="@xml/file_paths"></meta-data>
         </provider>
-
-
     </application>
 
 </manifest>

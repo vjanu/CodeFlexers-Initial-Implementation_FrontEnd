@@ -10,7 +10,7 @@ public class BaseContent {
 
     //TODO : ADD THE IP OF SERVER WITH NODE JS HERE
 
-    final public String BASEIPROUTE = "http://192.168.43.189";
+    final public String BASEIPROUTE = "http://192.168.43.102";
 
     public String IpAddress = BASEIPROUTE+":8083";
 
@@ -25,19 +25,19 @@ public class BaseContent {
     /*
     USER PROFILING
      */
-    final public String UPMBASEIPROUTE ="http://192.168.8.100"; //TODO : UPM CHANGE ACCORDINGLY
+    final public String UPMBASEIPROUTE ="http://192.168.43.102"; //TODO : UPM CHANGE ACCORDINGLY
     public String pythonIpAddress = UPMBASEIPROUTE+":99";
 
     /*
     FARE CALCULATION
      */
-    final public String FCBASEIPROUTE ="http://192.168.8.100"; //TODO : FC CHANGE ACCORDINGLY
+    final public String FCBASEIPROUTE ="http://192.168.43.102"; //TODO : FC CHANGE ACCORDINGLY
     public String pythonIpAddressGetDistance = FCBASEIPROUTE+":97";
     public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":96";
 
     /*
     OPTIMUM PATH RECOGNITION
      */
-    final public String OPRBASEIPROUTE ="http://192.168.8.100"; //TODO : OPR CHANGE ACCORDINGLY
+    final public String OPRBASEIPROUTE ="http://192.168.43.102"; //TODO : OPR CHANGE ACCORDINGLY
 
 }

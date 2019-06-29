@@ -45,6 +45,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
+import com.example.plusgo.OPR.MainActivity;
 import com.example.plusgo.OPR.UserMain;
 import com.example.plusgo.R;
 import com.example.plusgo.User;
@@ -579,7 +580,9 @@ public class NewUserActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        logout();
+        finish();
+        Intent map = new Intent(NewUserActivity.this, MainActivity.class);
+        startActivity(map);
     }
 
 
