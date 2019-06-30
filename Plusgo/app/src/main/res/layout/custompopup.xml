@@ -4,8 +4,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="350dp"
-    android:layout_height="370dp"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content"
     android:background="@color/background"
     android:padding="5dp"
     android:layout_gravity="center">
@@ -27,18 +27,19 @@
 
     <android.support.v7.widget.CardView
 
-        android:layout_width="312dp"
-        android:layout_height="170dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_rowWeight="2"
         android:layout_columnWeight="2"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="@color/PopUpbackground"
         >
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
@@ -51,11 +52,13 @@
                 android:layout_marginBottom="3dp"
                 android:text="Compliments"
                 android:textColor="@color/white"
-                android:textSize="30dp" />
+                android:textSize="30dp"
+                android:textStyle="bold"
+                />
 
             <!--Compliment 1-->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
 
@@ -67,7 +70,7 @@
 
             <!--Compliment 2-->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
 
@@ -79,7 +82,7 @@
 
             <!--Comliment 3-->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginLeft="30dp"
@@ -90,7 +93,7 @@
 
             <!--Compliment 4-->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
 
@@ -103,7 +106,7 @@
 
             <!--Compliment 5-->
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
 
@@ -119,18 +122,19 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/ProgressCard"
-        android:layout_width="312dp"
+        android:layout_width="match_parent"
         android:layout_height="140dp"
         android:layout_rowWeight="2"
         android:layout_columnWeight="2"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="@color/PopUpbackground"
         >
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
@@ -143,7 +147,7 @@
                 style="?android:progressBarStyleHorizontal"
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="45dp"
                 android:layout_marginTop="10dp"
                 android:progress="78"
                 android:progressDrawable="@drawable/progresscircle"
@@ -152,10 +156,11 @@
                 />
 
             <TextView
+                android:id="@+id/txtNavigation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/progressBarNavigation"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="45dp"
                 android:text="Navigation"
                 android:textColor="@color/white"
                 android:textSize="10dp" />
@@ -175,11 +180,12 @@
                 />
 
             <TextView
+                android:id="@+id/txtBehaviour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/progressBarBehaviour"
-                android:layout_marginLeft="113dp"
-
+                android:layout_marginLeft="33dp"
+                android:layout_toRightOf="@id/txtNavigation"
                 android:text="Behaviour"
                 android:textColor="@color/white"
                 android:textSize="10dp" />
@@ -200,14 +206,17 @@
                 />
 
             <TextView
+                android:id="@+id/txtDriving"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/progressBarDriving"
-                android:layout_marginLeft="200dp"
-
+                android:layout_marginLeft="45dp"
+                android:layout_toRightOf="@id/txtBehaviour"
                 android:text="Driving"
                 android:textColor="@color/white"
-                android:textSize="10dp" />
+                android:textSize="10dp"
+
+                />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

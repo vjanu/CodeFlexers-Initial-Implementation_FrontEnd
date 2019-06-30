@@ -152,6 +152,17 @@
                     android:visibility="invisible"
                     android:text="Price"
                     android:textSize="15dp"  />
+                <TextView
+                    android:id="@+id/txtHiddenCurrentPassengers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:textSize="40dp"
+                    android:visibility="visible"
+
+                    />
 
                 <TextView
                     android:id="@+id/txtPrice"
@@ -256,17 +267,17 @@
 
                     />
 
-                <TextView
-                    android:id="@+id/txtHiddenCurrentPassengers"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <!--<TextView-->
+                    <!--android:id="@+id/txtHiddenCurrentPassengers"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
 
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
-                    android:textSize="40dp"
-                    android:visibility="gone"
+                    <!--android:layout_marginLeft="0dp"-->
+                    <!--android:layout_marginTop="0dp"-->
+                    <!--android:textSize="40dp"-->
+                    <!--android:visibility="gone"-->
 
-                    />
+                    <!--/>-->
 
                 <TextView
                     android:id="@+id/txtHiddenTripId"

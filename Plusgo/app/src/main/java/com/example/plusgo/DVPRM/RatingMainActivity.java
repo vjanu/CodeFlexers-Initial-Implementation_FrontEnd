@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -35,6 +36,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
+import com.example.plusgo.Notification.MyFirebaseMessagingService;
 import com.example.plusgo.R;
 
 import org.json.JSONException;
@@ -62,6 +64,8 @@ public class RatingMainActivity extends AppCompatActivity {
     Button vehiclebtn,driverbtn,copassengerbtn,submit_rating,submit_complement;
     EditText drivercompliment;
     ImageView vehi,dri,coop;
+    //Added by Surath
+    TextView txtHiddendriverid,txtHiddenTripId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,9 @@ public class RatingMainActivity extends AppCompatActivity {
         vehi = (ImageView)findViewById(R.id.img);
         dri = (ImageView)findViewById(R.id.img1);
         coop = (ImageView)findViewById(R.id.img2);
+
+        txtHiddenTripId = findViewById(R.id.txtHiddenTripId);
+        txtHiddendriverid = findViewById(R.id.txtHiddendriverid);
 
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
@@ -169,6 +176,20 @@ public class RatingMainActivity extends AppCompatActivity {
             }
         });
         lockButtons();
+
+
+        String notificationBody = MyFirebaseMessagingService.NotificationBodyCatcher;
+        Log.d("Check333" , notificationBody);
+//        textView.setText(notificationBody);
+
+        //Set Variables to Text Views
+        String Full_Name = notificationBody.split("\n")[1];
+
+        String driverId = notificationBody.split("\n")[7];
+        txtHiddendriverid.setText(driverId);
+
+        String tripId = notificationBody.split("\n")[8];
+        txtHiddenTripId.setText(tripId);
 
     }
     @Override
@@ -302,4 +323,8 @@ public class RatingMainActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
+
+
+
+
 }

@@ -40,8 +40,16 @@
 
             <!--Vehicle -->
             <TextView
-                android:id="@+id/VehicleName"
-                android:layout_below="@+id/txtTripId"
+            android:id="@+id/VehicleName"
+            android:layout_below="@+id/txtTripId"
+            android:textSize="18sp"
+            android:textColor="#52BAFF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/VehicleId"
+                android:layout_below="@+id/VehicleName"
                 android:textSize="18sp"
                 android:textColor="#52BAFF"
                 android:layout_width="wrap_content"
@@ -415,7 +423,9 @@
             android:background="@drawable/ovel_drawable"
             android:layout_gravity="center"
             android:layout_marginTop="35dp"
-            android:textColor="@color/colorText" />
+            android:textColor="@color/colorText"
+            android:onClick="btn_showConfirmation"
+            />
     </LinearLayout>
 
 

@@ -115,6 +115,7 @@ public class OpenNotification extends AppCompatActivity {
     private void AcceptRideNotification(){
         String title = "Ride Confirmation";
         String body = "Driver will arriving soon. Please Wait until knocks at your place";
+        //Emulator
         String passengerToken = "eSB2w-2RIB8:APA91bEdyhV30dCo5ZM_kfmjvUc02_yLPy4jkfE6mk-aODNUlkTpuUicRqV90YG1oMPGE2YBHtFXafwUvRdZl3c9UCZUyGeOuBBVqzqn3rNEMeSs6sWORM2cre71ngTh321gh5jZm9fc";
 
         //String passengerToken = "eoeP6RYSmVI:APA91bGHuI_4sJiju40TKFSscnO7EebMZJb6dwpIZoGtzudb7lIq3FbJjrlO8pxVkc-1SubX9-bnkiWmZr9qFU00bFibV6zE423cK-h9vhdFbDwLzJcMJsT4p_J-vYrEoTzSSB_knjPb";
@@ -155,13 +156,16 @@ public class OpenNotification extends AppCompatActivity {
 
             String passengerId = txtHiddenPassengerid.getText().toString();
             // price = Double.parseDouble(txtHiddenPrice.getText().toString());
-            String driverId =  txtHiddendriverid.getText().toString();
+            String driverId =  "U1558711443513";
 
 
 
             Log.d("@@@@tripId",tripId);
             Log.d("@@@passengerId",passengerId);
             Log.d("@@@driverId",driverId);
+
+
+
 
             RequestQueue requestQueue = Volley.newRequestQueue(this);
             JSONObject jsonObject = new JSONObject();

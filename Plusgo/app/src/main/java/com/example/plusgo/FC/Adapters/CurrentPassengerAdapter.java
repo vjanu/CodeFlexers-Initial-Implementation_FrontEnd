@@ -14,6 +14,7 @@ import com.example.plusgo.FC.Current_Passenger;
 import com.example.plusgo.FC.PassengerCurrentTrip;
 import com.example.plusgo.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassengerAdapter.ViewHolder> {
@@ -26,6 +27,14 @@ public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassen
     //Create List item to the store details
     private List<Current_Passenger> currentPassengerLists;
     private Context context;
+
+//    public void update(ArrayList<Current_Passenger> datas){
+//        currentPassengerLists.clear();
+//        currentPassengerLists.addAll(datas);
+//        notifyDataSetChanged();
+//    }
+
+
 
     @NonNull
     @Override
@@ -41,6 +50,7 @@ public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassen
         Read the listItem Iteratively using int i
         Create an object of ListItem as listitem
         */
+
         final Current_Passenger current_passenger = currentPassengerLists.get(i);
         /*txtHead textview set the value from the getters in ListItem.java file*/
         viewHolder.txtName.setText(current_passenger.getName());

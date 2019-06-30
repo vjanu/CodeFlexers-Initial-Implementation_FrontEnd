@@ -40,11 +40,15 @@ public class FragmentCurrentPassenger extends Fragment {
     BaseContent BASECONTENT = new BaseContent();
     private final String JSON_GET_CURRENT_PASSENGER = BASECONTENT.IpAddress+"/trip/";
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter CPassengeradapter;
+    public RecyclerView.Adapter CPassengeradapter;
     private List<Current_Passenger> currentPassenger;
     View view;
     String TripId = "";
     private boolean reloadNeed = true;
+    private Handler handler;
+
+    Handler mHandler;
+
     public FragmentCurrentPassenger() {
 
         Log.d("j","1Call FragmentCurrentPassenger");
@@ -56,14 +60,61 @@ public class FragmentCurrentPassenger extends Fragment {
         this.TripId = tripId;
     }
 
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mHandler = new Handler();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        try {
+            mHandler.post(runnableCode);
+
+
+        } catch (Exception e) {
+
+            //ErrorMessage
+        }
+    }
+
+
+
+    private Runnable runnableCode = new Runnable() {
+        @Override
+        public void run() {
+
+            try {
+
+                loadCurrentPassengerData();
+                currentPassenger.clear();
+                mHandler.postDelayed(runnableCode, 10000);
+
+            } catch (Exception e) {
+                //ErrorMessage
+            }
+        }
+    };
+
+
+
+
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         currentPassenger = new ArrayList<>();
         Log.d("SharedTripId" ,TripId );
-
-        loadCurrentPassengerData();
+//        currentPassenger.clear();
+//        loadCurrentPassengerData();
     }
+
 
     @Nullable
     @Override
@@ -79,12 +130,8 @@ public class FragmentCurrentPassenger extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //loadCurrentPassengerData();
-//        currentPassenger.clear();
-        //loadCurrentPassengerData();
-        //currentPassenger.add("your array list items");
-//        (adapter);
-//        adapter.notifyDataSetChanged();
+
+//     adapter.notifyDataSetChanged();
     }
 
 
@@ -95,8 +142,8 @@ public class FragmentCurrentPassenger extends Fragment {
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
         Log.d("TripIDD",TripId);
-       StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_CURRENT_PASSENGER+TripId,
-        //StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_CURRENT_PASSENGER,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_CURRENT_PASSENGER+TripId,
+                //StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_CURRENT_PASSENGER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -127,6 +174,7 @@ public class FragmentCurrentPassenger extends Fragment {
                             }
                             CPassengeradapter = new CurrentPassengerAdapter(currentPassenger,getContext());
                             recyclerView.setAdapter(CPassengeradapter);
+                            //CPassengeradapter.notifyDataSetChanged();
 
 
 
