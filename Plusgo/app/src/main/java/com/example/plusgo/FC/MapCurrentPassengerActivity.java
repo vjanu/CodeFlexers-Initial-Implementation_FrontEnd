@@ -39,10 +39,4 @@ public class MapCurrentPassengerActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-        Intent map = new Intent(MapCurrentPassengerActivity.this, MainActivity.class);
-        startActivity(map);
-    }
 }

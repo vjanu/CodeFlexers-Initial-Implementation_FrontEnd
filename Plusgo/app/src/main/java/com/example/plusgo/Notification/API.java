@@ -48,7 +48,9 @@ public interface API {
     Call<ResponseBody> PriceNotification(
             @Field("token") String token,
             @Field("title") String title,
-            @Field("body") String body
+            @Field("body") String body,
+            @Field("driverId") String driverId,
+            @Field("tripId") String tripId
 //            @Field("passengerId") String passengerId,
 //            @Field("vehicleId") String vehicleId
 //            @Field("reqPassenger") String reqPassenger,

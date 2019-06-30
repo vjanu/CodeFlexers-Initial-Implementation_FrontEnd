@@ -14,10 +14,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,9 +72,9 @@ public class TripSummaryActivity extends AppCompatActivity {
     private String JSON_URL_POST_NEW_REQUEST = BASECONTENT.IpAddress + "/trip/newRequest";
 
     //Define Variables in Globally
-    private TextView txtDate,txtTime,txtCurrentPassenger,txtEstimateCost,txtWaitingTime,txtDistance,txtViewProfile,txtTripId,txtUserId,txtVehicle,txtToken;
+    private TextView txtDate,txtTime,txtCurrentPassenger,txtEstimateCost,txtWaitingTime,txtDistance,txtViewProfile,txtTripId,txtUserId,txtVehicle,txtToken,VehicleId;
     private String date,time,waitingTime;
-    public String  brand,model ,manYear,regYear,cylinders,fuel,capacity,kw,mileage;
+    public String  vehicleId,brand,model ,manYear,regYear,cylinders,fuel,capacity,kw,mileage;
     RequestQueue requestQueue ;
     private JsonArrayRequest request;
     private TextView txtUserName;
@@ -119,6 +121,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         txtEstimateCost = (TextView)findViewById(R.id.txtEstimateCost);
         txtDistance = (TextView)findViewById(R.id.txtDistance);
         txtVehicle = (TextView)findViewById(R.id.VehicleName);
+        VehicleId = (TextView)findViewById(R.id.VehicleId);
         txtToken = (TextView)findViewById(R.id.FCMToken);
         profile_image = (CircleImageView)findViewById(R.id.profile_image);
 
@@ -140,34 +143,50 @@ public class TripSummaryActivity extends AppCompatActivity {
         Log.d("@@q6:", Token);
 
         //added Viraj------------
-
-
-        txtViewProfile = (TextView)findViewById(R.id.txtviewprofile);
-        txtViewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) { openUserProfile();
-            }
-        });
-
-        findViewById(R.id.btnJoinRide).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddNewRequest();
-                sendNotification();
-            }
-        });
-
-        //added Viraj
         txtUserName.setText(FullName);
         txtTripId.setText(TripId);
         txtUserId.setText(UserId);
         txtToken.setText(Token);
 
-        //GetToken();
         GetVehicleDetails();
         GetTripSummaryDetails();
         GetCurrentPassengers();
         getDistance();
+
+
+        //Send Values to the User Profile Intent
+        txtViewProfile = (TextView)findViewById(R.id.txtviewprofile);
+        txtViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //implement onClick
+                Intent i = new Intent(TripSummaryActivity.this, UserProfile.class);
+
+                i.putExtra("driverName",txtUserName.getText().toString());
+                i.putExtra("vehicleId", VehicleId.getText().toString());
+                i.putExtra("txtVehicle", txtVehicle.getText().toString());
+
+                Log.d("driver Name",txtUserName.getText().toString());
+                Log.d("vehicleId",VehicleId.getText().toString());
+                Log.d("txtVehicle",txtVehicle.getText().toString());
+                view.getContext().startActivity(i);
+
+            }
+        });
+
+//        findViewById(R.id.btnJoinRide).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                AddNewRequest();
+//                sendNotification();
+//            }
+//        });
+
+
+
+
+        //GetToken();
+
 
         //GetUserDetails();
 
@@ -179,19 +198,49 @@ public class TripSummaryActivity extends AppCompatActivity {
 
         }
 
-        findViewById(R.id.btnJoinRide).setOnClickListener(new View.OnClickListener() {
+//        findViewById(R.id.btnJoinRide).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                btn_showConfirmation();
+//                AddNewRequest();
+//                sendNotification();
+//            }
+//        });
+    }
+
+    //Confirmation Message Box
+    public void btn_showConfirmation(View view){
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(TripSummaryActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.join_a_ride_dialog,null);
+
+        Button btnNo = (Button)mView.findViewById(R.id.btnNo);
+        Button btnYes = (Button)mView.findViewById(R.id.btnYes);
+
+        alert.setView(mView);
+
+        final  AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AddNewRequest();
                 sendNotification();
+                alertDialog.dismiss();
             }
         });
+        alertDialog.show();
     }
 
-    public void openUserProfile(){
-        Intent intent = new Intent(this,UserProfile.class);
-        startActivity(intent);
-    }
+
 
     //Fetch details from the MySQL database using Node WebService
     public void GetTripSummaryDetails() {
@@ -297,8 +346,8 @@ public class TripSummaryActivity extends AppCompatActivity {
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
 
-        String source = "Malabe";
-        String destination = "SLIIT";
+        String source = "Kiribathgoda";
+        String destination = "Kadawatha";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, PYTHON_URL_GET_DISTANCE+source+"/"+destination,null,
                 new Response.Listener<JSONObject>() {
@@ -425,7 +474,7 @@ public class TripSummaryActivity extends AppCompatActivity {
                         Log.d("zzzz", String.valueOf(response));
                         progressDialog.dismiss();
                         try {
-
+                            vehicleId = response.getString("VehicleID");
                             brand = response.getString("Brand");
                             model = response.getString("Model");
                             manYear = response.getString("MYear");
@@ -453,6 +502,7 @@ public class TripSummaryActivity extends AppCompatActivity {
                             vehicleStore.apply();
 
                             txtVehicle.setText(brand + " "+model);
+                            VehicleId.setText(vehicleId);
 
 
 
@@ -525,7 +575,6 @@ public class TripSummaryActivity extends AppCompatActivity {
 
         String UID = userStore.getString("UId", null);
         String Name = userStore.getString("Name", null);
-
         String tripId = txtTripId.getText().toString();
         Log.d("tripId2222",tripId);
         String title = "Ride Request";
@@ -533,13 +582,13 @@ public class TripSummaryActivity extends AppCompatActivity {
         String body = "You have been requested to the pickup";
         //String token = "eSB2w-2RIB8:APA91bEdyhV30dCo5ZM_kfmjvUc02_yLPy4jkfE6mk-aODNUlkTpuUicRqV90YG1oMPGE2YBHtFXafwUvRdZl3c9UCZUyGeOuBBVqzqn3rNEMeSs6sWORM2cre71ngTh321gh5jZm9fc";
         //real device
-        String token = "fQKGpl798hw:APA91bEM46mvzu3YfVk7VsxvFBKNSBQfm3RYsNCeKsc0n9REYao66urTAMV_D2KKskMFO7u0dbcvJQ1hEDB8eerVwgIgn4LEIayc5DyNIBMPEKogxvrTtG1uy7g_5OcyejA1p-g_I3NS";
+        String token = "dVSo2gf80cs:APA91bFJ9eYm3Yf38bhnXrav_e8ERK61bO5AyNFs8zdaAcTx37rlEdDBGvjcTwIcY1bVas0i8FXlH5OhHUm1-uzpA3nCCjhV2MR7A7yVYKPG_GSJ9w1kVXlbnbyvXvTlxdCi2AM53TFG";
         String reqPassenger = Name;
         String reqPassengerId = UID;
         String driverId  = txtUserId.getText().toString();
         String reqDriver = "DriverName";
-        String source = "Kaduwela";
-        String destination = "Battaramulla";
+        String source = "Kiribathgoda";
+        String destination = "Kadawatha";
         String passengerToken = "cmB3lUxGv9g:APA91bFxfzwdMtChpUU2Qj8IOoDoIauhuCwN735ZpSmDFIoJAVTOWOf1z8WymlRauZfxKkrE8GHp8gT2xaKT8giyVofNGlhHNLS9i72g8T13wxE4TRH_NK4ljKcS8jHGsueZjZ_eBGzZ";
 
 
@@ -555,7 +604,7 @@ public class TripSummaryActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 try {
-//                    Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
+                 Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -572,11 +621,8 @@ public class TripSummaryActivity extends AppCompatActivity {
     public void AddNewRequest() {
         try {
 
-//            String tripId = txtHiddenTripId.getText().toString();
-//            String passengerId = txtHiddenPassengerId.getText().toString();
-           // String driverId = "U003";
-            String source = "Malabe";
-            String destination = "kollupitiya";
+            String source = "Kiribathgoda";
+            String destination = "Kadawatha";
             SharedPreferences userStore = getSharedPreferences("userStore",MODE_PRIVATE);
 
             String UID = userStore.getString("UId", null);

@@ -877,7 +877,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 @Override
                 public void run() {
                     //Updating firebase store
-                    addDrivers();
+                  //  addDrivers();
 
                     //And we execute it again
                     handler.postDelayed(this, EVERY_FIVE_SECOND);

@@ -58,21 +58,6 @@ public class NotificationHelperAcceptRequest   extends AppCompatActivity {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         mbuilder.setSound(alarmSound);
 
-//        mbuilder.addAction(R.drawable.ic_accept,"Accept",YesPendingIntent);
-//        mbuilder.addAction(R.drawable.ic_decline,"Decline",NoPendingIntent);
-
-        //Set Expandable Notification
-        /*Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.car);
-        mbuilder.setLargeIcon(bitmap);
-        mbuilder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null));*/
-
-        //Assign BigText style notification
-//        NotificationCompat.BigTextStyle bigText = new NotificationCompat.BigTextStyle();
-//        bigText.bigText(MyFirebaseMessagingService.NotificationBodyCatcher.toString());
-//        bigText.setSummaryText(MyFirebaseMessagingService.NotificationBodyCatcher.toString());
-//        mbuilder.setStyle(new NotificationCompat.BigTextStyle().bigText(null));
-
-
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(1,mbuilder.build());

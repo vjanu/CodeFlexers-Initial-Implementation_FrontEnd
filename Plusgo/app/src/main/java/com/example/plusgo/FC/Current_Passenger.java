@@ -1,6 +1,8 @@
 package com.example.plusgo.FC;
 
 public class Current_Passenger {
+
+
     public String getName() {
         return Name;
     }
@@ -10,7 +12,17 @@ public class Current_Passenger {
     }
 
     private String Name;
-    private String UserId;
+    private String UserId; //passenger Id
+
+    public Current_Passenger(String name, String source, String destination, String status, String mileage , Double price) {
+        Name = name;
+        Source = source;
+        Destination = destination;
+        Status = status;
+        this.mileage = mileage;
+        this.price = price;
+    }
+
     private String TripId;
     private String Source;
     private String Destination;
@@ -18,6 +30,7 @@ public class Current_Passenger {
     private String Token;
     private String UserImage;
     private String mileage;
+    private Double price;
 
     public String getMileage() {
         return mileage;

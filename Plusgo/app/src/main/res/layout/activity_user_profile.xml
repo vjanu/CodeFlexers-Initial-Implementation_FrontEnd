@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,30 +8,31 @@
     android:background="@drawable/background"
     tools:context=".FC.UserProfile">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <!--User Image and User name and Vehicle Name-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp">
+            android:orientation="vertical"
+            android:id="@+id/userProfileCard"
+            >
 
             <!--User Image-->
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/profile_image"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/pp"
                 app:civ_border_color="#FF000000"
                 app:civ_border_width="2dp" />
 
-            <!--User Name-->
+
             <TextView
 
                 android:id="@+id/txtuserName"
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/profile_image"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:text="Sunil Perera"
                 android:textColor="#FFFFFF"
@@ -51,10 +53,37 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtuserName"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:text=""
+                android:textColor="#52BAFF"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/txtVehicleid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtuserName"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
                 android:text="Suzuki Wagon R"
                 android:textColor="#52BAFF"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/TripCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/userProfileCard"
+            >
 
             <!--Trip Count -->
             <android.support.v7.widget.CardView
@@ -63,8 +92,10 @@
                 android:layout_height="140dp"
                 android:layout_rowWeight="2"
                 android:layout_columnWeight="2"
+
                 android:layout_below="@id/txtVehicleName"
                 android:layout_margin="12dp"
+
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
 
@@ -78,7 +109,7 @@
                     android:paddingTop="10dp"
 
 
-                    android:paddingRight="30dp"
+                    android:paddingRight="35dp"
                     android:paddingBottom="10dp">
 
                     <!--Total Number of Ride-->
@@ -89,6 +120,8 @@
                         android:layout_alignParentLeft="true"
                         android:text="26"
                         android:textColor="#52BAFF"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="15dp"
                         android:textSize="60sp" />
 
                     <!--Text Driver-->
@@ -96,7 +129,7 @@
                         android:id="@+id/txtDriver"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginLeft="30dp"
 
                         android:layout_marginTop="13dp"
                         android:layout_toRightOf="@+id/totalRideCount"
@@ -121,7 +154,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/txtDriver"
-                        android:layout_marginLeft="35dp"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="2dp"
                         android:layout_toRightOf="@+id/totalRideCount"
                         android:text="Passenger "
@@ -152,224 +185,263 @@
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
+        </LinearLayout>
 
-            <!--Rating Card -->
+        <LinearLayout
+            android:id="@+id/cardRating_interest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/TripCard"
+            >
+
             <android.support.v7.widget.CardView
-                android:id="@+id/RatingCard"
-                android:layout_width="150dp"
-                android:layout_height="130dp"
+                android:id="@+id/tripRating"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
                 android:layout_rowWeight="2"
                 android:layout_columnWeight="2"
-                android:layout_below="@id/TripCardView"
                 android:layout_margin="12dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
-
                 >
 
-                <RelativeLayout
+                <GridLayout
+                    android:columnCount="2"
+                    android:rowCount="1"
+                    android:alignmentMode="alignMargins"
+                    android:columnOrderPreserved="false"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp">
+                    android:layout_height="match_parent">
 
 
-                    <!--User Rating Bar-->
-                    <RatingBar
-                        android:id="@+id/userRatingBar"
-                        style="@android:style/Widget.Holo.RatingBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center_horizontal"
-                        android:gravity="center_horizontal"
-                        android:isIndicator="true"
-                        android:numStars="1"
-                        android:rating="0.94"
-                        android:stepSize="0.05"
-                        android:transformPivotX="0dp"
-                        android:transformPivotY="0dp" />
+                    <RelativeLayout
+                        android:id="@+id/ratingLayout"
+                        android:layout_width="180dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        android:background="@drawable/layout_boader"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        >
 
-                    <!--Text of User Rating-->
-                    <TextView
-                        android:id="@+id/txtUserRate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/userRatingBar"
-                        android:layout_alignParentLeft="true"
-                        android:text="User Rating"
-                        android:textColor="#52BAFF"
-                        android:textSize="10dp" />
+                        <RatingBar
+                            android:id="@+id/userRatingBar"
+                            style="@android:style/Widget.Holo.RatingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center_horizontal"
+                            android:isIndicator="true"
+                            android:numStars="1"
+                            android:rating="0.94"
+                            android:stepSize="0.05"
+                            android:transformPivotX="0dp"
+                            android:transformPivotY="0dp"
+                            android:layout_marginLeft="25dp"
+                            />
 
-                    <!--Value of user rating out of 5.0-->
-                    <TextView
-                        android:id="@+id/txtUserRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtUserRate"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="5dp"
-                        android:text="4.7 / 5.0"
-                        android:textColor="#52BAFF"
-                        android:textSize="10dp" />
+                        <!--Text of User Rating-->
+                        <TextView
+                            android:id="@+id/txtUserRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/userRatingBar"
+                            android:layout_alignParentLeft="true"
+                            android:text="User Rating"
+                            android:textColor="#52BAFF"
+                            android:textSize="10dp"
+                            android:layout_marginLeft="20dp"
+                            />
 
-                    <!--Vehicle Rting Bar-->
-                    <RatingBar
-                        android:id="@+id/vehicleRatingBar"
-                        style="@android:style/Widget.Holo.RatingBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="45dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginLeft="25dp"
-                        android:layout_toRightOf="@+id/userRatingBar"
-                        android:gravity="center_horizontal"
-                        android:isIndicator="true"
-                        android:numStars="1"
-                        android:rating="0.76"
-                        android:stepSize="0.05"
-                        android:transformPivotX="0dp"
-                        android:transformPivotY="0dp" />
+                        <!--Value of user rating out of 5.0-->
+                        <TextView
+                            android:id="@+id/txtUserRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtUserRate"
+                            android:layout_alignParentLeft="true"
 
-                    <!--Text of Vehicle Rating-->
-                    <TextView
-                        android:id="@+id/txtVehicleRate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/vehicleRatingBar"
-                        android:layout_alignParentRight="true"
+                            android:text="4.7 / 5.0"
+                            android:textColor="#52BAFF"
+                            android:textSize="10dp"
+                            android:layout_marginLeft="25dp"
+                            />
+
+                        <!--Vehicle Rting Bar-->
+                        <RatingBar
+                            android:id="@+id/vehicleRatingBar"
+                            style="@android:style/Widget.Holo.RatingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="45dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginLeft="25dp"
+                            android:layout_toRightOf="@+id/userRatingBar"
+                            android:gravity="center_horizontal"
+                            android:isIndicator="true"
+                            android:numStars="1"
+                            android:rating="0.76"
+                            android:stepSize="0.05"
+                            android:transformPivotX="0dp"
+                            android:transformPivotY="0dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            />
+
+                        <!--Text of Vehicle Rating-->
+                        <TextView
+                            android:id="@+id/txtVehicleRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/vehicleRatingBar"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="18dp"
+                            android:layout_toRightOf="@+id/userRatingBar"
+                            android:text="Vehicle Rating"
+                            android:textColor="#52BAFF"
+                            android:textSize="10dp"
+
+                            />
+
+                        <!--Value of vehicle rating out of 5.0-->
+                        <TextView
+                            android:id="@+id/txtVehicleRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtVehicleRate"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_toRightOf="@+id/userRatingBar"
+                            android:text="3.8 / 5.0"
+                            android:textColor="#52BAFF"
+                            android:textSize="10dp" />
+
+                        <TextView
+                            android:id="@+id/txtViewReview"
+                            android:onClick="ShowPopUp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtUserRating"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="5dp"
+                            android:text="View More"
+                            android:textColor="#52BAFF"
+                            android:textSize="20dp"
+
+                            />
+
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/InterestLayout"
+                        android:layout_width="175dp"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="18dp"
-                        android:layout_toRightOf="@+id/userRatingBar"
-                        android:text="Vehicle Rating"
-                        android:textColor="#52BAFF"
-                        android:textSize="10dp"
-
-                        />
-
-                    <!--Value of vehicle rating out of 5.0-->
-                    <TextView
-                        android:id="@+id/txtVehicleRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtVehicleRate"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="30dp"
-                        android:layout_toRightOf="@+id/userRatingBar"
-                        android:text="3.8 / 5.0"
-                        android:textColor="#52BAFF"
-                        android:textSize="10dp" />
-
-                    <TextView
-                        android:id="@+id/txtViewReview"
-                        android:onClick="ShowPopUp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtUserRating"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="5dp"
-                        android:text="View More"
-                        android:textColor="#52BAFF"
-                        android:textSize="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/layout_boader"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="2dp">
 
-                        />
+                        <!--Text Of interest-->
+                        <TextView
+                            android:id="@+id/txtInterest"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginBottom="0dp"
+                            android:gravity="center_horizontal"
+                            android:text="Interests"
+                            android:textColor="#52BAFF"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                </RelativeLayout>
+                        <!--Text Of Unterest-->
+                        <TextView
+                            android:id="@+id/txtSmoke"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtInterest"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="3dp"
+                            android:text=""
+                            android:textColor="#52BAFF"
+                            android:textSize="16sp" />
 
+                        <TextView
+                            android:id="@+id/txtMusicLover"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtSmoke"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="3dp"
+                            android:text=""
+                            android:textColor="#52BAFF"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtMotionSickness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtMusicLover"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="3dp"
+                            android:text=""
+                            android:textColor="#52BAFF"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/txtQuite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/txtMotionSickness"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginTop="3dp"
+                            android:text=""
+                            android:textColor="#52BAFF"
+                            android:textSize="16sp" />
+
+                    </RelativeLayout>
+
+                </GridLayout>
             </android.support.v7.widget.CardView>
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/card_language"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_below="@id/cardRating_interest"
+            >
 
-            <!--Interest Card -->
             <android.support.v7.widget.CardView
-                android:layout_width="150dp"
-                android:layout_height="130dp"
+                android:id="@+id/language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_rowWeight="2"
                 android:layout_columnWeight="2"
-                android:layout_below="@id/TripCardView"
                 android:layout_margin="12dp"
-                android:layout_toRightOf="@id/RatingCard"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="6dp"
-
                 >
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp">
-
-                    <!--Text Of Unterest-->
-                    <TextView
-                        android:id="@+id/txtInterest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="3dp"
-                        android:text="Interests"
-                        android:textColor="#52BAFF"
-                        android:textSize="18sp" />
-
-                    <!--Text Of Unterest-->
-                    <TextView
-                        android:id="@+id/txtSmoke"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtInterest"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="5dp"
-                        android:text="Smoke"
-                        android:textColor="#52BAFF"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtMusicLover"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtSmoke"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="5dp"
-                        android:text="Music Lover"
-                        android:textColor="#52BAFF"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/txtMotionSickness"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/txtMusicLover"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginTop="5dp"
-                        android:text="Motion Sickness"
-                        android:textColor="#52BAFF"
-                        android:textSize="16sp" />
-
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <!--Language Card -->
-            <android.support.v7.widget.CardView
-                android:layout_width="325dp"
-
-                android:layout_height="50dp"
-                android:layout_rowWeight="2"
-                android:layout_columnWeight="2"
-                android:layout_below="@id/RatingCard"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="10dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="6dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingLeft="10dp"
                     android:paddingTop="0dp"
@@ -387,7 +459,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/Languages"
+                        android:id="@+id/txtLanguages"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/txtLanguage"
@@ -395,15 +467,26 @@
                         android:text="Sinhala / English"
                         android:textColor="#52BAFF"
                         android:textSize="16sp" />
-
-
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
 
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnJoinRide"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/colorButton"
+            android:text="Join a Ride"
+            android:background="@drawable/ovel_drawable"
+            android:layout_gravity="center"
+            android:layout_marginTop="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="12dp"
+            android:layout_below="@id/card_language"
+            android:textColor="@color/colorText" />
+    </RelativeLayout>
 
-        </RelativeLayout>
-    </LinearLayout>
 
 
-</ScrollView>
+</RelativeLayout>
