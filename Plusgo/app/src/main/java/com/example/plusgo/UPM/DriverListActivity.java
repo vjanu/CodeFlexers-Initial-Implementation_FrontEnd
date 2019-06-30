@@ -60,7 +60,7 @@ public class DriverListActivity extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private List<DriverListItem> driverListItems;
     private List<String> drivers;
-    private TextView rate, count, welcome;
+    private TextView rate, count, welcome, noDrivers;
     private ImageButton btnLogout;
     BaseContent BASECONTENT = new BaseContent();
     private String id;
@@ -89,6 +89,7 @@ public class DriverListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
+        noDrivers = (TextView)findViewById(R.id.noDrivers);
         btnLogout = (ImageButton) findViewById(R.id.logout1);
 
 
@@ -232,8 +233,9 @@ public class DriverListActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     progressDialog.dismiss();
-                    Log.d("qqq", error.toString());
-                    Toast.makeText(DriverListActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+//                    noDrivers.setEnabled(true);
+                    noDrivers.setVisibility(View.VISIBLE);
+//                    Toast.makeText(DriverListActivity.this, "No Drivers Available", Toast.LENGTH_SHORT).show();
                 }
             });
 
