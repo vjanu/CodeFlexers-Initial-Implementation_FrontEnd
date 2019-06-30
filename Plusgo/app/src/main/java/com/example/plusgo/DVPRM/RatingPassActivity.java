@@ -266,9 +266,7 @@ public class RatingPassActivity extends AppCompatActivity {
 
     //To set correct parameters to enter rating to the DB
     public void setParmsToSend(String Sentiment){
-//        if(!Sentiment.equals(null)) {
-//            jsonrequestforsentimentcheck(Sentiment);
-//        }
+
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         String UserType = (sharedpreferences.getString("selectedRateTab", "vehicle"));
@@ -279,7 +277,7 @@ public class RatingPassActivity extends AppCompatActivity {
         String CalRating = (sharedpreferences.getString("CalRating", GivenRating));
         String Dissatis = (sharedpreferences.getString("selectedKey", "none"));
 
-        String VehicleId = (sharedpreferences.getString("vehicleId", "V1560496428978"));
+        String VehicleId = (sharedpreferences.getString("vehicleId", "V0000000045"));
 
         if(UserType.equals("vehicle")) {
             ratingvehiclepostrequest(TripId,VehicleId, RatedBy, GivenRating, CalRating, Dissatis, Sentiment);

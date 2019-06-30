@@ -63,40 +63,46 @@
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+             <!--<intent-filter>-->
+             <!--<action android:name="android.intent.action.MAIN" />-->
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+             <!--<category android:name="android.intent.category.LAUNCHER" />-->
+             <!--</intent-filter>-->
         </activity>
         <activity android:name=".DVPRM.DummyActivity">
-        </activity>
-        <activity
-            android:name=".DVPRM.DocUploadActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".DVPRM.LisenceUpActivity" />
-        <activity android:name=".DVPRM.NicUpActivity" />
-        <activity android:name=".DVPRM.NicUploadMainActivity" />
-        <activity android:name=".DVPRM.RatingMainActivity" />
-        <activity android:name=".DVPRM.RatingDriverActivity" />
-        <activity
-            android:name=".DVPRM.RatingPassActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity
-            android:name=".DVPRM.CopassengerListActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".UPM.CameraActivity" />
-        <activity android:name=".UPM.TempGPSActivity" />
-        <activity android:name=".OPR.TrafficJam">
-
-            <!--
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
+       </activity>
+       <activity
+           android:name=".DVPRM.DocUploadActivity"
+           android:theme="@style/AppTheme.CustomTheme" />
+       <activity android:name=".DVPRM.LisenceUpActivity" />
+       <activity android:name=".DVPRM.NicUpActivity" />
+       <activity android:name=".DVPRM.NicUploadMainActivity" />
+       <activity android:name=".DVPRM.RatingMainActivity" />
+       <activity android:name=".DVPRM.RatingDriverActivity" />
+       <activity
+           android:name=".DVPRM.RatingPassActivity"
+           android:theme="@style/AppTheme.CustomTheme" />
+       <activity
+           android:name=".DVPRM.CopassengerListActivity"
+           android:theme="@style/AppTheme.CustomTheme" />
+       <activity android:name=".UPM.CameraActivity" />
+       <activity android:name=".UPM.TempGPSActivity" />
+       <activity android:name=".OPR.TrafficJam">
+
+           <!--
+           <intent-filter>
+               <action android:name="android.intent.action.MAIN" />
+
+               <category android:name="android.intent.category.LAUNCHER" />
+           </intent-filter>
+           -->
         </activity>
         <activity android:name=".OPR.Accident">
 

@@ -50,6 +50,7 @@ public class RatingDriverActivity extends AppCompatActivity {
     BaseContent BASECONTENT = new BaseContent();
     SharedPreferences sharedpreferences;
     SharedPreferences sharedpreferences2;
+    SharedPreferences sharedpreferences3;
     RatingBar ratingbarD;
     CardView cardview,cardview2;
     LinearLayout layoutSubmitD;
@@ -67,10 +68,16 @@ public class RatingDriverActivity extends AppCompatActivity {
         sharedpreferences2 = getSharedPreferences("userstore", Context.MODE_PRIVATE);
         String tempRatedBy = sharedpreferences2.getString("UId", "U0000000030");
 
+        sharedpreferences3 = getSharedPreferences("ratingStore", Context.MODE_PRIVATE);
+        String tempPassengerID = sharedpreferences2.getString("passengerId", "U0000000050");
+        String tempTripID = sharedpreferences2.getString("tripId", "T0000000050");
+
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         //Setting driver ID
         editor.putString("RatedBy", tempRatedBy);
+        editor.putString("UserID", tempPassengerID);
+        editor.putString("TripId", tempTripID);
         editor.commit();
 
         ratingbarD = (RatingBar)findViewById(R.id.ratingBarD);
@@ -200,8 +207,8 @@ public class RatingDriverActivity extends AppCompatActivity {
 
         String UserType = (sharedpreferences.getString("selectedRateTab", "passenger"));
         String TripId = (sharedpreferences.getString("TripId", "00001"));
-        String UserID = (sharedpreferences.getString("UserID", "U000001"));//TODO:ADD PASSENGER ID
-        String RatedBy = (sharedpreferences.getString("RatedBy", "U0000002"));//TODO:ADD DRIVER ID
+        String UserID = (sharedpreferences.getString("UserID", "U000001"));//PASSENGER ID
+        String RatedBy = (sharedpreferences.getString("RatedBy", "U0000002"));//DRIVER ID
 //        String GivenRating = (sharedpreferences.getString("GivenRating", "5"));
         String GivenRating = String.valueOf(ratingbarD.getRating());
         String CalRating = (sharedpreferences.getString("CalRating", GivenRating));
