@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
@@ -31,6 +33,7 @@ import android.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,9 +47,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.BuildConfig;
 import com.example.plusgo.Login;
@@ -142,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private String uid;
     private BaseContent BASECONTENT = new BaseContent();
     private String JSON_URL_ACCEPT_ROUTE = BASECONTENT.OPRBASEIPROUTE + ":8083/map";
+    private String JSON_URL_REPORTED_DRIVERS = BASECONTENT.IpAddress + "/ratings/reportDrivers/";
     private String PYTHON_URL_POST_DATA_AVAILABLE = BASECONTENT.pythonIpAddress + "/available";
     /**
      * context of calling class
@@ -225,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         SharedPreferences user = getSharedPreferences("userStore", MODE_PRIVATE);
         uid = user.getString("UId", null);
         executeHandler();
-        filterRelevantDrivers();
+
 
 
 //        cllick = (Button)findViewById(R.id.i);
@@ -341,6 +349,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     source_lat = latLng.latitude;
                     source_long = latLng.longitude;
                     source_location.setText(place.getName());
+
                 }
 
                 if (place != null && destination) {
@@ -348,6 +357,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     destination_lat = latLng.latitude;
                     destination_long = latLng.longitude;
                     source_destination.setText(place.getName());
+                    filterRelevantDrivers();
                     drawMap();
                 }
 
@@ -942,7 +952,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         super.onResume();
         //execute the handler again.
         executeHandler();
-        filterRelevantDrivers();
+//        filterRelevantDrivers();
     }
 
     @Override
@@ -991,7 +1001,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     //    String c = "U1558711443502";
     public void filterRelevantDrivers() {
-
+    Log.d("filterRelevantDrivers", "filterRelevantDrivers");
         getUserLocations(new FirebaseSuccessListener() {
             @Override
             public void locationBean(List<LocationBean> locations) {
@@ -1031,7 +1041,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             Location.distanceBetween(pLatitude, pLongitude, dLatitude, dLongitude, results);
             float distanceInMeters = results[0];
 //                        Log.d("dist", String.valueOf(distanceInMeters));
-            isWithin1km = distanceInMeters < 2000; //todo 5km added
+            isWithin1km = distanceInMeters < 5000; //todo 5km added
             if (isWithin1km) {
                 Log.d("isWithin1km", String.valueOf(isWithin1km));
                 LocationBean selectedUsers = new LocationBean();
@@ -1042,6 +1052,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             }
         }
+        LocationBean selectedUsers1 = new LocationBean();
+        selectedUsers1.setUid(uid);
+        selectedList.add(selectedUsers1);
 //        for(int i=0; i< selectedList.size();i++){
 //            Log.d("qq1", String.valueOf(selectedList.get(1)));
 //            Log.d("qq2", String.valueOf(selectedList.get(i).getLatitude()));
@@ -1149,6 +1162,43 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+//    private void getReportedDrivers() {
+//        JsonArrayRequest request = new JsonArrayRequest(JSON_URL_REPORTED_DRIVERS+uid, new Response.Listener<JSONArray>() {
+//
+//            public void onResponse(JSONArray response) {
+//                JSONObject jsonObject = null;
+//
+//                for(int i= 0; i<response.length(); i++){
+//                    try{
+//                        jsonObject = response.getJSONObject(i);
+//                        if(jsonObject.length()!=0) {
+//
+//
+//                        }
+//                        else{
+//
+//                        }
+//                    }catch (JSONException e){
+//                        e.printStackTrace();
+//                    }
+//                }
+//
+//
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
+//
+//        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+//        requestQueue.add(request);
+//
+//    }
 
     @Override
     public void onBackPressed() {
