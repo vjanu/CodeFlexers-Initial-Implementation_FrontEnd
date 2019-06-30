@@ -76,7 +76,7 @@
                 android:layout_marginBottom="8dp"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:hint="0712345678"
+                android:hint="712345678"
                 android:ems="10"
                 android:inputType="number" />
 

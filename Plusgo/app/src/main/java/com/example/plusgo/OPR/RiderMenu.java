@@ -39,6 +39,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.R;
+import com.example.plusgo.UPM.AddPreferenceActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -325,4 +326,10 @@ public class RiderMenu extends AppCompatActivity implements View.OnClickListener
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent map = new Intent(RiderMenu.this, MainActivity.class);
+        startActivity(map);
+    }
 }

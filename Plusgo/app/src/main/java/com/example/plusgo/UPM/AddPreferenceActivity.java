@@ -32,6 +32,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
+import com.example.plusgo.OPR.MainActivity;
 import com.example.plusgo.R;
 
 import org.json.JSONArray;
@@ -404,5 +405,12 @@ public class AddPreferenceActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent map = new Intent(AddPreferenceActivity.this, MainActivity.class);
+        startActivity(map);
     }
 }

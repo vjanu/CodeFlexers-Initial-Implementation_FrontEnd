@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_person"
+            android:icon="@drawable/ic_person"
+            android:title="Personal Details" />
+        <item
+            android:id="@+id/nav_preferences"
+            android:icon="@drawable/ic_mood"
+            android:title="Your Preferences" />
+        <item
+            android:id="@+id/nav_vehicle"
+            android:icon="@drawable/ic_car"
+            android:title="Your Vehicle" />
+        <item
+            android:id="@+id/nav_payment"
+            android:icon="@drawable/ic_credit_card"
+            android:title="Payment Details" />
+        <item
+            android:id="@+id/nav_trips"
+            android:icon="@drawable/ic_trips"
+            android:title="Your Trips" />
+
+    </group>
+
+
+
+        <item
+        android:id="@+id/signout"
+        android:icon="@drawable/logout"
+        android:title="Signout"/>
+
+
+
+
+</menu>
