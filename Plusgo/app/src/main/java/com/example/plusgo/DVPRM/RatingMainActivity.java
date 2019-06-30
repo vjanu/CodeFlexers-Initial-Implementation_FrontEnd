@@ -8,6 +8,7 @@
 
 package com.example.plusgo.DVPRM;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,12 +34,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Notification.MyFirebaseMessagingService;
 import com.example.plusgo.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,7 +55,9 @@ import static android.graphics.Color.RED;
 
 public class RatingMainActivity extends AppCompatActivity {
 
+
     BaseContent BASECONTENT = new BaseContent();
+    String VEHICLERETRIEVE_URL = BASECONTENT.IpAddress +"/vehicle/specificVID/";
     StringRequest stringRequest;
     RequestQueue requestQueue;
     SharedPreferences sharedpreferences;
@@ -64,23 +69,41 @@ public class RatingMainActivity extends AppCompatActivity {
     Button vehiclebtn,driverbtn,copassengerbtn,submit_rating,submit_complement;
     EditText drivercompliment;
     ImageView vehi,dri,coop;
-    //Added by Surath
-    TextView txtHiddendriverid,txtHiddenTripId;
-
+    JsonArrayRequest vehiclerequest;
+    RequestQueue vehiclerequestQueue;
+    String notificationBody;
+    String driverId;
+    String tripId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_main);
 
+
+
+        try{
+            notificationBody = MyFirebaseMessagingService.NotificationBodyCatcher;
+            Log.d("Check333" , notificationBody);
+            driverId = notificationBody.split("\n")[7];
+            tripId = notificationBody.split("\n")[8];
+        }catch(Exception e){
+            notificationBody = "4545465465465465456464645645645645646565";//TODO:comment
+            Log.d("Check333" , notificationBody);
+            driverId = "U1558711443507";//TODO:comment
+            tripId = "T111111111111";//TODO:comment
+        }
+        vehiclejsonrequest(driverId);
+
         //Retrieve UID and setting into another share preference
         sharedpreferences2 = getSharedPreferences("userstore", Context.MODE_PRIVATE);
-//        final SharedPreferences.Editor editor2 = sharedpreferences.edit();
         String tempRatedBy = sharedpreferences2.getString("UId", "U0000000020");
 
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         //Setting passenger ID
         editor.putString("RatedBy", tempRatedBy);
+        editor.putString("TripId", tripId);
+        editor.putString("UserID", driverId);
         editor.commit();
 
         submit_rating=(Button)findViewById(R.id.submit_rating);
@@ -95,9 +118,6 @@ public class RatingMainActivity extends AppCompatActivity {
         vehi = (ImageView)findViewById(R.id.img);
         dri = (ImageView)findViewById(R.id.img1);
         coop = (ImageView)findViewById(R.id.img2);
-
-        txtHiddenTripId = findViewById(R.id.txtHiddenTripId);
-        txtHiddendriverid = findViewById(R.id.txtHiddendriverid);
 
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
@@ -126,7 +146,6 @@ public class RatingMainActivity extends AppCompatActivity {
         vehiclebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : INSERT vehicleID as vehicleId into a shared preference
                 editor.putString("selectedRateTab", "vehicle");
                 editor.commit();
                 Intent verify = new Intent(RatingMainActivity.this, RatingPassActivity.class);
@@ -138,7 +157,7 @@ public class RatingMainActivity extends AppCompatActivity {
         driverbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : INSERT driverId as userId into a shared preference
+                editor.putString("UserID", driverId);
                 editor.putString("selectedRateTab", "driver");
                 editor.commit();
                 Intent verify = new Intent(RatingMainActivity.this, RatingPassActivity.class);
@@ -176,20 +195,6 @@ public class RatingMainActivity extends AppCompatActivity {
             }
         });
         lockButtons();
-
-
-        String notificationBody = MyFirebaseMessagingService.NotificationBodyCatcher;
-        Log.d("Check333" , notificationBody);
-//        textView.setText(notificationBody);
-
-        //Set Variables to Text Views
-        String Full_Name = notificationBody.split("\n")[1];
-
-        String driverId = notificationBody.split("\n")[7];
-        txtHiddendriverid.setText(driverId);
-
-        String tripId = notificationBody.split("\n")[8];
-        txtHiddenTripId.setText(tripId);
 
     }
     @Override
@@ -324,7 +329,47 @@ public class RatingMainActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
     }
 
+    //Retrieve vehicleID
+    private void vehiclejsonrequest(String UserID) {
+        String JSON_URL = VEHICLERETRIEVE_URL + UserID;
 
+        Log.e("JSONREQUEST","started");
+        Log.e("JSON_URL_FIRST",JSON_URL);
+        final String finalJSON_URL = JSON_URL;
+        vehiclerequest = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+            public void onResponse(JSONArray response) {
+                Log.e("JSON_URL", finalJSON_URL);
+                JSONObject jsonObject = null;
+                Log.e("VehicleID11111111111", String.valueOf(response));
+                if(response.length() > 0){
+                    try{
+                        jsonObject = response.getJSONObject(0);
 
+                        String vehicleID = jsonObject.getString("VehicleID");
+                        Log.e("VehicleID",vehicleID);
 
+                        if(jsonObject.getString("VehicleID") != null){
+
+                            SharedPreferences.Editor editor = getSharedPreferences("rating_preference", MODE_PRIVATE).edit();
+                            editor.putString("vehicleId", vehicleID);
+                            editor.apply();
+                        }
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                        Log.e("JSONREQUEST","ERROR");
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("JSONREQUEST_ERROR",error.toString());
+            }
+        });
+        vehiclerequest.setRetryPolicy(new DefaultRetryPolicy(0,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        vehiclerequestQueue = Volley.newRequestQueue(RatingMainActivity.this);
+        vehiclerequestQueue.add(vehiclerequest);
+    }
 }
