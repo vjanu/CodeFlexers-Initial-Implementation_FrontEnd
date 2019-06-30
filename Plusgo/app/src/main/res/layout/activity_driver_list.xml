@@ -59,5 +59,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"></android.support.v7.widget.RecyclerView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|right"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="No Drivers Available at this moment"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Material.Widget.ActionBar.Title"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
     </LinearLayout>
+
 </ScrollView>

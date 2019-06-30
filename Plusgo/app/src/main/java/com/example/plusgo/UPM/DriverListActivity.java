@@ -40,6 +40,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.Adapters.DriverListAdapter;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
+import com.example.plusgo.OPR.MainActivity;
 import com.example.plusgo.R;
 import com.example.plusgo.Utility.DriverListItem;
 
@@ -264,6 +265,10 @@ public class DriverListActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        logout();
+        finish();
+        Intent map = new Intent(DriverListActivity.this, MainActivity.class);
+        startActivity(map);
+
+
     }
 }
