@@ -16,7 +16,7 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="10dp"
 
         >
 
@@ -61,44 +61,21 @@
                 android:gravity="center"
                 android:textSize="26dp"
                 android:text="Surath Gunawardena"
+                android:textColor="@color/colorPrimary"
                 android:textFontWeight="bold"
                 />
 
-            <!--<TextView-->
-                <!--android:id="@+id/txtProffession"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@id/tripRequestText"-->
-                <!--android:layout_marginTop="260dp"-->
-                <!--android:layout_marginBottom="5dp"-->
-                <!--android:gravity="center"-->
-                <!--android:textSize="16dp"-->
-                <!--android:textFontWeight="bold"-->
-                <!--android:text="Web Developer"-->
-                <!--/>-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/txtRating"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@id/tripRequestText"-->
-                <!--android:layout_marginTop="280dp"-->
-                <!--android:layout_marginBottom="5dp"-->
-                <!--android:gravity="center"-->
-                <!--android:textSize="16dp"-->
-                <!--android:textFontWeight="bold"-->
-                <!--android:text="4.94"-->
-                <!--/>-->
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="280dp"
+                android:layout_marginTop="285dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:textSize="15dp"
                 android:text="Pickup Point"
+                android:textStyle="bold"
                 />
 
             <TextView
@@ -106,33 +83,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtFullName"
-                android:layout_marginTop="300dp"
+                android:layout_marginTop="305dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:textSize="26dp"
                 android:textFontWeight="bold"
                 android:text="Kaduwela"
+                android:textColor="@color/colorPrimaryDark"
                 />
 
             <TextView
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="340dp"
+                android:layout_marginTop="365dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:textSize="15dp"
                 android:text="Drop Off Point"
+                android:textStyle="bold"
                 />
             <TextView
                 android:id="@+id/txtDestination"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="360dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="385dp"
+                android:layout_marginBottom="60dp"
                 android:gravity="center"
                 android:textSize="26dp"
                 android:textFontWeight="bold"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="Kollupitiya"
 
                 />
@@ -198,7 +178,7 @@
     >
             <Button
                 android:id="@+id/btnDecline"
-                android:layout_marginTop="400dp"
+                android:layout_marginTop="500dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Decline"
@@ -207,14 +187,14 @@
                 android:backgroundTint="@color/colorButton"
                 android:background="@drawable/ovel_drawable"
                 android:textColor="@color/colorText"
-                android:layout_marginBottom="10dp"
+
                 />
 
 
             <Button
                 android:id="@+id/btnAccept"
                 android:layout_toRightOf="@+id/btnDecline"
-                android:layout_marginTop="400dp"
+                android:layout_marginTop="500dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Accept"
@@ -224,7 +204,8 @@
                 android:backgroundTint="@color/colorButton"
                 android:background="@drawable/ovel_drawable"
                 android:textColor="@color/colorText"
-                android:layout_marginBottom="10dp"
+                android:onClick="btnAccept_showConfirmation"
+
                 />
 </LinearLayout>
 

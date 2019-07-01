@@ -38,6 +38,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".FC.TripHistoryView" ></activity>
         <activity android:name=".FC.PassengerCurrentTrip" />
         <activity android:name=".Notification.OpenNotification">
 

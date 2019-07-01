@@ -59,4 +59,13 @@ public interface API {
 //            @Field("destination") String destination,
 //            @Field("passengerToken") String passengerToken
     );
+
+    @FormUrlEncoded
+    @POST("send")
+    Call<ResponseBody> StartNotification(
+            @Field("token") String token,
+            @Field("title") String title,
+            @Field("body") String body
+
+    );
 }

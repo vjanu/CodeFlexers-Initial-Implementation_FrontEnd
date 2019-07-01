@@ -160,7 +160,19 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
                     android:textSize="40dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
+
+                    />
+
+                <TextView
+                    android:id="@+id/txtHiddenCurrentAcceptPassengers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:textSize="60dp"
+                    android:visibility="gone"
 
                     />
 
@@ -177,6 +189,26 @@
                     android:textSize="15dp"
 
                     />
+
+                <Button
+                    android:id="@+id/btnRating"
+                    android:layout_below="@id/lblPrice"
+                    android:gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="Rate your Passenger"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorText"
+                    android:background="@drawable/ovel_drawable"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_gravity="center"
+
+
+
+                    />
                 <Button
                     android:id="@+id/btnStartTrip"
                     android:layout_below="@id/lblPrice"
@@ -184,7 +216,7 @@
                     android:backgroundTint="@color/colorButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/activity_horizontal_padding"
+                    android:padding="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:text="Start Trip"
@@ -192,6 +224,7 @@
                     android:textColor="@color/colorText"
                     android:background="@drawable/ovel_drawable"
                     android:layout_gravity="center"
+                    android:onClick="btn_StartConfirmation"
 
                     />
                 <Button
@@ -200,7 +233,7 @@
                     android:gravity="center_horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/activity_horizontal_padding"
+                    android:padding="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="20dp"
                     android:text="End Trip"
@@ -209,37 +242,11 @@
                     android:background="@drawable/ovel_drawable"
                     android:backgroundTint="@color/colorButton"
                     android:layout_gravity="center"
+                    android:onClick="btn_EndConfirmation"
 
                     />
 
-                <!--<Button-->
-                    <!--android:id="@+id/btnRating"-->
-                    <!--android:layout_below="@id/txtPrice"-->
-                    <!--android:gravity="center_horizontal"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:padding="@dimen/activity_horizontal_padding"-->
-                    <!--android:layout_marginTop="10dp"-->
-                    <!--android:layout_marginLeft="20dp"-->
-                    <!--android:text="Rating"-->
-                    <!--android:textSize="20dp"-->
-                    <!--android:textColor="@color/colorText"-->
-                    <!--android:background="@drawable/ovel_drawable"-->
-                    <!--android:backgroundTint="@color/colorButton"-->
-                    <!--android:layout_gravity="center"-->
 
-                    <!--/>-->
-
-                <!--<Button-->
-                    <!--android:id="@+id/btnVerify"-->
-                    <!--android:layout_width="374dp"-->
-                    <!--android:layout_height="40dp"-->
-                    <!--android:backgroundTint="@color/colorButton"-->
-                    <!--android:text="Verify"-->
-                    <!--android:background="@drawable/ovel_drawable"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginTop="35dp"-->
-                    <!--android:textColor="@color/colorText" />-->
 
                 <TextView
                 android:id="@+id/txtHiddenCurrentMileage"
@@ -267,17 +274,7 @@
 
                     />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/txtHiddenCurrentPassengers"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
 
-                    <!--android:layout_marginLeft="0dp"-->
-                    <!--android:layout_marginTop="0dp"-->
-                    <!--android:textSize="40dp"-->
-                    <!--android:visibility="gone"-->
-
-                    <!--/>-->
 
                 <TextView
                     android:id="@+id/txtHiddenTripId"

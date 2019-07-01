@@ -56,6 +56,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.BuildConfig;
+import com.example.plusgo.FC.TripHistoryView;
 import com.example.plusgo.Login;
 import com.example.plusgo.R;
 import com.example.plusgo.UPM.AddPreferenceActivity;
@@ -266,10 +267,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         source_location = findViewById(R.id.source_location);
         source_destination = findViewById(R.id.source_destination);
 
-        SharedPreferences.Editor location = getSharedPreferences("LOCATION", MODE_PRIVATE).edit();
-        location.putString("source", source_location.toString());
-        location.putString("destination", source_destination.toString());
-        location.apply();
+        Log.d("Source" , source_location.getText().toString());
+
+//        SharedPreferences.Editor location = getSharedPreferences("LOCATION", MODE_PRIVATE).edit();
+//        location.putString("source", source_location.getText().toString());
+//        location.putString("destination", source_destination.getText().toString());
+//        location.apply();
 
         source_location.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -359,6 +362,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     source_destination.setText(place.getName());
                     filterRelevantDrivers();
                     drawMap();
+
+                    SharedPreferences.Editor location = getSharedPreferences("LOCATION", MODE_PRIVATE).edit();
+                    location.putString("source", source_location.getText().toString());
+                    location.putString("destination", source_destination.getText().toString());
+                    location.apply();
                 }
 
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
@@ -1143,9 +1151,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 break;
             case R.id.nav_trips:
                 navigationView.setCheckedItem(R.id.nav_trips);
-//                finish();
-//                Intent q = new Intent(MainActivity.this, MapCurrentPassengerActivity.class);
-//                startActivity(q);
+                finish();
+                Intent q = new Intent(MainActivity.this, TripHistoryView.class);
+                startActivity(q);
                 break;
 
             case R.id.signout:
