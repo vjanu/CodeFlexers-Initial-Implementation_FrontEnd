@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.plusgo.BaseContent;
 import com.example.plusgo.BuildConfig;
 import com.example.plusgo.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -70,6 +71,9 @@ public class FragmentMap extends Fragment implements GoogleApiClient.ConnectionC
     private GoogleApiClient mGoogleApiClient;
     private MapView mapView;
     private String TAG = "DriverFragment";
+    private BaseContent BASECONTENT = new BaseContent();
+    private String JSON_URL_ADD_USER = BASECONTENT.OPRBASEIPROUTE + ":8083/map/passenger/";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -254,13 +258,13 @@ public class FragmentMap extends Fragment implements GoogleApiClient.ConnectionC
             Toast.makeText(getActivity().getApplicationContext(), "Getting current location", Toast.LENGTH_SHORT).show();
         }
     }
-
+    String uid = "U1558711443502";
     private void getPassengerLocationData() {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest("http://192.168.1.4:8083/map/passenger/U1558711443502", new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(JSON_URL_ADD_USER+uid, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
 
-                ArrayList<GeoPoint> waypoints = new ArrayList<>();
+       //         ArrayList<GeoPoint> waypoints = new ArrayList<>();
                 for (int i = 0; i < response.length(); i++) {
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
@@ -270,7 +274,7 @@ public class FragmentMap extends Fragment implements GoogleApiClient.ConnectionC
                         Marker marker = new Marker(mapView);
                         marker.setPosition(geoPoint);
                         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                        marker.setIcon(getResources().getDrawable(R.drawable.passenger));
+                        marker.setIcon(getResources().getDrawable(R.drawable.passengerr));
                         mapView.getOverlays().add(marker);
                     } catch (JSONException e) {
                         e.printStackTrace();
