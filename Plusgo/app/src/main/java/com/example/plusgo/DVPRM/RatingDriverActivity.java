@@ -143,7 +143,6 @@ public class RatingDriverActivity extends AppCompatActivity {
 
                 } finally {
                     editor.clear().commit();
-//                    finish();
                 }
             }
         });
@@ -209,6 +208,7 @@ public class RatingDriverActivity extends AppCompatActivity {
 
     //To set correct parameters to enter rating to the DB
     public void setParmsToSend(String Sentiment) {
+        resetSharePrefs();
 
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -356,6 +356,23 @@ public class RatingDriverActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue = Volley.newRequestQueue(RatingDriverActivity.this);
         requestQueue.add(request);
+    }
+
+    void resetSharePrefs(){
+        sharedpreferences2 = getSharedPreferences("userstore", Context.MODE_PRIVATE);
+        String tempRatedBy = sharedpreferences2.getString("UId", "U0000000030");
+
+        sharedpreferences3 = getSharedPreferences("ratingStore", Context.MODE_PRIVATE);
+        String tempPassengerID = sharedpreferences2.getString("passengerId", "U0000000050");
+        String tempTripID = sharedpreferences2.getString("tripId", "T0000000050");
+
+        sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
+        //Setting driver ID
+        editor.putString("RatedBy", tempRatedBy);
+        editor.putString("UserID", tempPassengerID);
+        editor.putString("TripId", tempTripID);
+        editor.commit();
     }
 
     void initVolleyCallback() {
