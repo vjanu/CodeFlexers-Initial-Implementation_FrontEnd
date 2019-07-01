@@ -11,7 +11,6 @@ public class BaseContent {
     //TODO : ADD THE IP OF SERVER WITH NODE JS HERE
 
     final public String BASEIPROUTE = "http://192.168.8.100";
-
     public String IpAddress = BASEIPROUTE+":8083";
 
     /*

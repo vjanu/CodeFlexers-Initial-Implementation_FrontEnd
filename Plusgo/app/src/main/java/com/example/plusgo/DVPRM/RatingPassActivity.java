@@ -49,18 +49,24 @@ import static android.graphics.Color.BLACK;
 import static android.graphics.Color.GRAY;
 
 public class RatingPassActivity extends AppCompatActivity {
+
+    //Service to write average rating to CSV
+    private String TAG = "RatingPassActivity";
+    IResult mResultCallback = null;
+    VolleyServiceForCSV mVolleyService;
+
     StringRequest stringRequest;
     RequestQueue requestQueue;
     BaseContent BASECONTENT = new BaseContent();
     SharedPreferences sharedpreferences;
-    LinearLayout layoutrew,layoutReport;
+    LinearLayout layoutrew, layoutReport;
     EditText writtenSentimnt;
-    Button btnother,btnRpt;
-    Button back,rating_passDone;
-    Button keyw1,keyw2,keyw3,keyw4,keyw5,keyw6;
-    String vehiclekey[]={"Air Condition","Comfortability","Cleanliness","Noise","Breaks","Vehicle Quality"};
-    String driverkey[]={"Bad Navigation","Professionalism","Cleanliness","Service","Music","Reckless Driving"};
-    String copassengerkey[]={"Behaviour","Professionalism","Cleanliness","Attitude","Timeliness","Disturbance"};
+    Button btnother, btnRpt;
+    Button back, rating_passDone;
+    Button keyw1, keyw2, keyw3, keyw4, keyw5, keyw6;
+    String vehiclekey[] = {"Air Condition", "Comfortability", "Cleanliness", "Noise", "Breaks", "Vehicle Quality"};
+    String driverkey[] = {"Bad Navigation", "Professionalism", "Cleanliness", "Service", "Music", "Reckless Driving"};
+    String copassengerkey[] = {"Behaviour", "Professionalism", "Cleanliness", "Attitude", "Timeliness", "Disturbance"};
 
     private JsonArrayRequest request;
 
@@ -75,11 +81,14 @@ public class RatingPassActivity extends AppCompatActivity {
         int width = dm1.widthPixels;
         int height = dm1.heightPixels;
 
-        getWindow().setLayout((int)(width*.95),(int)(height*.70));
+        getWindow().setLayout((int) (width * .95), (int) (height * .70));
 
-        layoutrew = (LinearLayout)findViewById(R.id.layoutownrew);
-        layoutReport= (LinearLayout)findViewById(R.id.layoutrep);
-        btnRpt =(Button)findViewById(R.id.btnRpt);
+        initVolleyCallback();
+        mVolleyService = new VolleyServiceForCSV(mResultCallback, this);
+
+        layoutrew = (LinearLayout) findViewById(R.id.layoutownrew);
+        layoutReport = (LinearLayout) findViewById(R.id.layoutrep);
+        btnRpt = (Button) findViewById(R.id.btnRpt);
         btnRpt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,11 +96,11 @@ public class RatingPassActivity extends AppCompatActivity {
 
                 String UserID = (sharedpreferences.getString("UserID", "U00000111"));
                 String RatedBy = (sharedpreferences.getString("RatedBy", "U00000050"));
-                blockdriver(RatedBy,UserID);
+                blockdriver(RatedBy, UserID);
                 finish();
             }
         });
-        btnother =(Button)findViewById(R.id.btnother);
+        btnother = (Button) findViewById(R.id.btnother);
         btnother.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,7 +115,7 @@ public class RatingPassActivity extends AppCompatActivity {
             }
         });
 
-        back =(Button)findViewById(R.id.back);
+        back = (Button) findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,18 +123,18 @@ public class RatingPassActivity extends AppCompatActivity {
             }
         });
 
-        keyw1 =(Button)findViewById(R.id.keyw1);
-        keyw2 =(Button)findViewById(R.id.keyw2);
-        keyw3 =(Button)findViewById(R.id.keyw3);
-        keyw4 =(Button)findViewById(R.id.keyw4);
-        keyw5 =(Button)findViewById(R.id.keyw5);
-        keyw6 =(Button)findViewById(R.id.keyw6);
+        keyw1 = (Button) findViewById(R.id.keyw1);
+        keyw2 = (Button) findViewById(R.id.keyw2);
+        keyw3 = (Button) findViewById(R.id.keyw3);
+        keyw4 = (Button) findViewById(R.id.keyw4);
+        keyw5 = (Button) findViewById(R.id.keyw5);
+        keyw6 = (Button) findViewById(R.id.keyw6);
 
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         String selectedTab = (sharedpreferences.getString("selectedRateTab", "vehicle"));
 
-        if(selectedTab.equals("vehicle")) {
+        if (selectedTab.equals("vehicle")) {
             keyw1.setText(vehiclekey[0]);
             keyw2.setText(vehiclekey[1]);
             keyw3.setText(vehiclekey[2]);
@@ -133,7 +142,7 @@ public class RatingPassActivity extends AppCompatActivity {
             keyw5.setText(vehiclekey[4]);
             keyw6.setText(vehiclekey[5]);
 
-        }else if(selectedTab.equals("driver")){
+        } else if (selectedTab.equals("driver")) {
             keyw1.setText(driverkey[0]);
             keyw2.setText(driverkey[1]);
             keyw3.setText(driverkey[2]);
@@ -141,7 +150,7 @@ public class RatingPassActivity extends AppCompatActivity {
             keyw5.setText(driverkey[4]);
             keyw6.setText(driverkey[5]);
             layoutReport.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             keyw1.setText(copassengerkey[0]);
             keyw2.setText(copassengerkey[1]);
             keyw3.setText(copassengerkey[2]);
@@ -161,7 +170,7 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 layoutrew.setVisibility(View.GONE);
-                ((Button)v).setTextColor(GRAY);
+                ((Button) v).setTextColor(GRAY);
                 keyw2.setTextColor(BLACK);
                 keyw3.setTextColor(BLACK);
                 keyw4.setTextColor(BLACK);
@@ -176,7 +185,7 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 layoutrew.setVisibility(View.GONE);
-                ((Button)v).setTextColor(GRAY);
+                ((Button) v).setTextColor(GRAY);
                 keyw1.setTextColor(BLACK);
                 keyw3.setTextColor(BLACK);
                 keyw4.setTextColor(BLACK);
@@ -190,7 +199,7 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 layoutrew.setVisibility(View.GONE);
-                ((Button)v).setTextColor(GRAY);
+                ((Button) v).setTextColor(GRAY);
                 keyw1.setTextColor(BLACK);
                 keyw2.setTextColor(BLACK);
                 keyw4.setTextColor(BLACK);
@@ -204,7 +213,7 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 layoutrew.setVisibility(View.GONE);
-                ((Button)v).setTextColor(GRAY);
+                ((Button) v).setTextColor(GRAY);
                 keyw1.setTextColor(BLACK);
                 keyw2.setTextColor(BLACK);
                 keyw3.setTextColor(BLACK);
@@ -218,7 +227,7 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 layoutrew.setVisibility(View.GONE);
-                ((Button)v).setTextColor(GRAY);
+                ((Button) v).setTextColor(GRAY);
                 keyw1.setTextColor(BLACK);
                 keyw2.setTextColor(BLACK);
                 keyw3.setTextColor(BLACK);
@@ -232,7 +241,7 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 layoutrew.setVisibility(View.GONE);
-                ((Button)v).setTextColor(GRAY);
+                ((Button) v).setTextColor(GRAY);
                 keyw1.setTextColor(BLACK);
                 keyw2.setTextColor(BLACK);
                 keyw3.setTextColor(BLACK);
@@ -242,9 +251,9 @@ public class RatingPassActivity extends AppCompatActivity {
                 editor.commit();
             }
         });
-        writtenSentimnt=(EditText) findViewById(R.id.writtenSentimnt);
+        writtenSentimnt = (EditText) findViewById(R.id.writtenSentimnt);
 
-        rating_passDone =(Button)findViewById(R.id.rating_passDone);
+        rating_passDone = (Button) findViewById(R.id.rating_passDone);
         rating_passDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -255,7 +264,7 @@ public class RatingPassActivity extends AppCompatActivity {
                     } else {
                         setParmsToSend(senti);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
 
@@ -265,10 +274,8 @@ public class RatingPassActivity extends AppCompatActivity {
     }
 
     //To set correct parameters to enter rating to the DB
-    public void setParmsToSend(String Sentiment){
-//        if(!Sentiment.equals(null)) {
-//            jsonrequestforsentimentcheck(Sentiment);
-//        }
+    public void setParmsToSend(String Sentiment) {
+
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         String UserType = (sharedpreferences.getString("selectedRateTab", "vehicle"));
@@ -279,19 +286,28 @@ public class RatingPassActivity extends AppCompatActivity {
         String CalRating = (sharedpreferences.getString("CalRating", GivenRating));
         String Dissatis = (sharedpreferences.getString("selectedKey", "none"));
 
-        String VehicleId = (sharedpreferences.getString("vehicleId", "V1560496428978"));
+        String VehicleId = (sharedpreferences.getString("vehicleId", "V0000000045"));
 
-        if(UserType.equals("vehicle")) {
-            ratingvehiclepostrequest(TripId,VehicleId, RatedBy, GivenRating, CalRating, Dissatis, Sentiment);
+        if (UserType.equals("vehicle")) {
+            ratingvehiclepostrequest(TripId, VehicleId, RatedBy, GivenRating, CalRating, Dissatis, Sentiment);
             editor.putString("done_ratevehicle", "YES");
             editor.commit();
-        }else{
+        } else {
             ratingpersonalpostrequest(TripId, UserID, UserType, RatedBy, GivenRating, CalRating, Dissatis, Sentiment);
+            final Handler handler = new Handler();
+            final String Userid = UserID;
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mVolleyService.jsonrequestforRating(Userid);
+                }
+            }, 100);
+//        mVolleyService.jsonrequestforRating(UserID);
 
-            if(UserType.equals("driver")) {
+            if (UserType.equals("driver")) {
                 editor.putString("done_ratedriver", "YES");
                 editor.commit();
-            }else{
+            } else {
                 editor.putString("done_copassenger", "YES");
                 editor.commit();
             }
@@ -299,11 +315,11 @@ public class RatingPassActivity extends AppCompatActivity {
     }
 
     //Block drivers
-    public void blockdriver(String PUID,String DUID) {
+    public void blockdriver(String PUID, String DUID) {
         try {
             String URL = null;
             requestQueue = Volley.newRequestQueue(this.getApplicationContext());
-                URL = BASECONTENT.IpAddress +"/ratings/reportDrivers";
+            URL = BASECONTENT.IpAddress + "/ratings/reportDrivers";
 
             Log.e("URL", URL);
             JSONObject jsonBody = new JSONObject();
@@ -312,7 +328,7 @@ public class RatingPassActivity extends AppCompatActivity {
 
             final String mRequestBody = jsonBody.toString();
 
-            Log.e("VOLLEY", PUID+":"+DUID);
+            Log.e("VOLLEY", PUID + ":" + DUID);
 
             stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
@@ -361,15 +377,15 @@ public class RatingPassActivity extends AppCompatActivity {
     }
 
     //insert ratings related to driver or co-passenger into the database
-    public void ratingpersonalpostrequest(String TripId,String UserID,String UserType,String RatedBy,
-                                  String GivenRating,String CalRating,String Dissatis,String Sentiment) {
+    public void ratingpersonalpostrequest(String TripId, String UserID, String UserType, String RatedBy,
+                                          String GivenRating, String CalRating, String Dissatis, String Sentiment) {
         try {
             String URL = null;
             requestQueue = Volley.newRequestQueue(this.getApplicationContext());
-            if(UserType.equals("driver")) {
-                URL = BASECONTENT.IpAddress +"/ratings/driver-rating";
-            }else{
-                URL = BASECONTENT.IpAddress+"/ratings/copassenger-rating";
+            if (UserType.equals("driver")) {
+                URL = BASECONTENT.IpAddress + "/ratings/driver-rating";
+            } else {
+                URL = BASECONTENT.IpAddress + "/ratings/copassenger-rating";
             }
             Log.e("URL", URL);
             JSONObject jsonBody = new JSONObject();
@@ -383,7 +399,7 @@ public class RatingPassActivity extends AppCompatActivity {
             jsonBody.put("Sentiment", Sentiment);
             final String mRequestBody = jsonBody.toString();
 
-            Log.e("VOLLEY", TripId+":"+UserID+":"+UserType+":"+RatedBy+":"+GivenRating+":"+CalRating);
+            Log.e("VOLLEY", TripId + ":" + UserID + ":" + UserType + ":" + RatedBy + ":" + GivenRating + ":" + CalRating);
 
             stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
@@ -432,13 +448,13 @@ public class RatingPassActivity extends AppCompatActivity {
     }
 
     //insert ratings related to driver or co-passenger into the database
-    public void ratingvehiclepostrequest(String tripId,String vehicleId,String RatedBy,
-                                          String GivenRating,String CalRating,String Dissatis,String Sentiment) {
+    public void ratingvehiclepostrequest(String tripId, String vehicleId, String RatedBy,
+                                         String GivenRating, String CalRating, String Dissatis, String Sentiment) {
         try {
             String URL = null;
             RequestQueue requestQueue = Volley.newRequestQueue(this.getApplicationContext());
 
-            URL = BASECONTENT.IpAddress +"/ratings/vehicle-rating";
+            URL = BASECONTENT.IpAddress + "/ratings/vehicle-rating";
             Log.e("URL", URL);
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("tripId", tripId);
@@ -450,7 +466,7 @@ public class RatingPassActivity extends AppCompatActivity {
             jsonBody.put("Sentiment", Sentiment);
             final String mRequestBody = jsonBody.toString();
 
-            Log.e("VOLLEY", tripId+":"+vehicleId+":"+RatedBy+":"+GivenRating+":"+CalRating);
+            Log.e("VOLLEY", tripId + ":" + vehicleId + ":" + RatedBy + ":" + GivenRating + ":" + CalRating);
             stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -500,7 +516,7 @@ public class RatingPassActivity extends AppCompatActivity {
     //Retrieve sentiment rating
     private void jsonrequestforsentimentcheck(String sentiment) {
 
-        String JSON_URL = BASECONTENT.DVPRMBASEIPROUTE +":8090/sentiment/"+sentiment;
+        String JSON_URL = BASECONTENT.DVPRMBASEIPROUTE + ":8090/sentiment/" + sentiment;
 
         final String senti = sentiment;
         final String finalJSON_URL = JSON_URL;
@@ -508,19 +524,19 @@ public class RatingPassActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 Log.e("JSON_URL", finalJSON_URL);
                 JSONObject jsonObject = null;
-                if(response.length() > 0){
-                    try{
+                if (response.length() > 0) {
+                    try {
                         jsonObject = response.getJSONObject(0);
 
                         String ResultRating = jsonObject.getString("ResultRating");
-                        String ResultRatingType= jsonObject.getString("Type");
+                        String ResultRatingType = jsonObject.getString("Type");
 
                         SharedPreferences.Editor editor = getSharedPreferences("rating_preference", MODE_PRIVATE).edit();
                         editor.putString("CalRating", ResultRating);
                         editor.putString("CalRatingType", ResultRatingType);
                         editor.commit();
 
-                        Toast.makeText(getBaseContext(), "CalculatedRating: "+ResultRating+" type: "+ResultRatingType, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "CalculatedRating: " + ResultRating + " type: " + ResultRatingType, Toast.LENGTH_LONG).show();
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -530,10 +546,10 @@ public class RatingPassActivity extends AppCompatActivity {
                         }, 100);
 //                        setParmsToSend(senti);
 
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
 
                         e.printStackTrace();
-                        Log.e("JSONREQUEST","ERROR");
+                        Log.e("JSONREQUEST", "ERROR");
                     }
                 }
 
@@ -542,7 +558,7 @@ public class RatingPassActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Log.e("JSONREQUEST_ERROR",error.toString());
+                Log.e("JSONREQUEST_ERROR", error.toString());
             }
         });
         request.setRetryPolicy(new DefaultRetryPolicy(500000,
@@ -550,5 +566,21 @@ public class RatingPassActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue = Volley.newRequestQueue(RatingPassActivity.this);
         requestQueue.add(request);
+    }
+
+    void initVolleyCallback() {
+        mResultCallback = new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.d(TAG, "Volley requester " + requestType);
+                Log.d(TAG, "Volley JSON post" + response);
+            }
+
+            @Override
+            public void notifyError(String requestType, VolleyError error) {
+                Log.d(TAG, "Volley requester " + requestType);
+                Log.d(TAG, "Volley JSON post" + "That didn't work!");
+            }
+        };
     }
 }
