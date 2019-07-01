@@ -52,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         viewHolder.view_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                viewHolder.view_container.setVisibility(View.GONE);
                 Intent i = new Intent(mContext, RatingPassActivity.class);
                 i.putExtra("selected_copassenger_id", mData.get(viewHolder.getAdapterPosition()).getUserId());
                 i.putExtra("selected_copassenger_name", mData.get(viewHolder.getAdapterPosition()).getName());

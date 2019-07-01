@@ -41,12 +41,15 @@ public class CopassengerListActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences;
     BaseContent BASECONTENT = new BaseContent();
     //TODO:CHANGE THIS ADDRESS TO RETRIEVE DATA FROM VIEW
-    private final String JSON_URL= "https://gist.githubusercontent.com/AshaneEdiri/3151daee1b96041e6e7e690425e69e3b/raw/80c053c4566f06a2aa2ad1e7688df75c0b54541b/teacherListDummy";
+//    private final String JSON_URL= "https://gist.githubusercontent.com/AshaneEdiri/3151daee1b96041e6e7e690425e69e3b/raw/80c053c4566f06a2aa2ad1e7688df75c0b54541b/teacherListDummy";
+    private final String JSON_URL= BASECONTENT.IpAddress+"/ratings/copassengerslist/";
+    private String COOP_JSON_URL;
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
     private List<copassenger> lstCopassengers;
     private RecyclerView recyclerView;
     Button donebtn;
+    SharedPreferences sharedpreferences2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,11 +85,16 @@ public class CopassengerListActivity extends AppCompatActivity {
     }
 
     private void jsonrequest() {
+
+        sharedpreferences2 = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
+        String tempTripID = sharedpreferences2.getString("TripId", "O1558711443513");
+
+        COOP_JSON_URL = JSON_URL + tempTripID;
         Log.e("JSONREQUEST","started");
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+        request = new JsonArrayRequest(COOP_JSON_URL, new Response.Listener<JSONArray>() {
 
             public void onResponse(JSONArray response) {
-                Log.e("JSON_URL",JSON_URL);
+                Log.e("JSON_URL",COOP_JSON_URL);
                 JSONObject jsonObject = null;
                 for(int i= 0; i<response.length(); i++){
                     try{
@@ -95,7 +103,8 @@ public class CopassengerListActivity extends AppCompatActivity {
                         copassenger teach = new copassenger();
                         teach.setUserId(jsonObject.getString("userId"));
                         teach.setName(jsonObject.getString("name"));
-                        teach.setImage_url(jsonObject.getString("img"));
+//                        teach.setImage_url(jsonObject.getString("img"));
+                        teach.setImage_url(BASECONTENT.IpAddress+jsonObject.getString("img"));
 
                         lstCopassengers.add(teach);
 
