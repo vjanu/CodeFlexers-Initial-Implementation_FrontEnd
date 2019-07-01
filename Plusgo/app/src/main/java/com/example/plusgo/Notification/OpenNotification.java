@@ -2,6 +2,7 @@ package com.example.plusgo.Notification;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.FC.MapCurrentPassengerActivity;
 import com.example.plusgo.FC.PassengerCurrentTrip;
+import com.example.plusgo.FC.TripSummaryActivity;
 import com.example.plusgo.R;
 
 import org.json.JSONException;
@@ -97,15 +99,12 @@ public class OpenNotification extends AppCompatActivity {
 
 
 
-        findViewById(R.id.btnAccept).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateDriverAccept();
-                AcceptRideNotification();
-                finish();
-                startActivity(new Intent(OpenNotification.this, MapCurrentPassengerActivity.class));
-            }
-        });
+//        findViewById(R.id.btnAccept).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
     }
 
 
@@ -116,7 +115,7 @@ public class OpenNotification extends AppCompatActivity {
         String title = "Ride Confirmation";
         String body = "Driver will arriving soon. Please Wait until knocks at your place";
         //Emulator
-        String passengerToken = "eSB2w-2RIB8:APA91bEdyhV30dCo5ZM_kfmjvUc02_yLPy4jkfE6mk-aODNUlkTpuUicRqV90YG1oMPGE2YBHtFXafwUvRdZl3c9UCZUyGeOuBBVqzqn3rNEMeSs6sWORM2cre71ngTh321gh5jZm9fc";
+        String passengerToken = "c3OpPkFkbvI:APA91bFgtVj-0GaKmGSLXb38NkmJgQk35TotbEP1XhrMWnrM3wJ7NzOmfYtMmHstxu_FINB3vSi8l8h5JpTncxqA_RUc53QHH1SgnS3skpsiNLhHXzH2YnxatXl6jFlFJCDEdtPYooae";
 
         //String passengerToken = "eoeP6RYSmVI:APA91bGHuI_4sJiju40TKFSscnO7EebMZJb6dwpIZoGtzudb7lIq3FbJjrlO8pxVkc-1SubX9-bnkiWmZr9qFU00bFibV6zE423cK-h9vhdFbDwLzJcMJsT4p_J-vYrEoTzSSB_knjPb";
         //String passengerToken = "dZmEhIH0hLg:APA91bG_zg0q2rWW9TGbiB8XE2tob5HUUZaX3S_NKyXa8m4G6SrP1ydGliWNRR682w4jpXe9HnnXCw_egk4kCB8Iv62hAqP7mRd933GWqkX8p9252_4Px4eIH87npZlUidQ74StzDUpR";
@@ -156,7 +155,7 @@ public class OpenNotification extends AppCompatActivity {
 
             String passengerId = txtHiddenPassengerid.getText().toString();
             // price = Double.parseDouble(txtHiddenPrice.getText().toString());
-            String driverId =  "U1558711443513";
+            String driverId =  txtHiddendriverid.getText().toString();
 
 
 
@@ -222,5 +221,74 @@ public class OpenNotification extends AppCompatActivity {
         }
 
     }
+
+    //Accept Trip Message Box
+    public void btnAccept_showConfirmation(View view){
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(OpenNotification.this);
+        View mView = getLayoutInflater().inflate(R.layout.accept_a_request,null);
+
+        Button btnNo = (Button)mView.findViewById(R.id.btnNo);
+        Button btnYes = (Button)mView.findViewById(R.id.btnYes);
+
+        alert.setView(mView);
+
+        final  AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateDriverAccept();
+                AcceptRideNotification();
+                finish();
+                startActivity(new Intent(OpenNotification.this, MapCurrentPassengerActivity.class));
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+    //Accept Trip Message Box
+    public void btnDecline_showConfirmation(View view){
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(OpenNotification.this);
+        View mView = getLayoutInflater().inflate(R.layout.accept_a_request,null);
+
+        Button btnNo = (Button)mView.findViewById(R.id.btnNo);
+        Button btnYes = (Button)mView.findViewById(R.id.btnYes);
+
+        alert.setView(mView);
+
+        final  AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateDriverAccept();
+                AcceptRideNotification();
+                finish();
+                startActivity(new Intent(OpenNotification.this, MapCurrentPassengerActivity.class));
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
 
 }

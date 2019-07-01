@@ -55,6 +55,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 EndTripNotification.displayNotification(getApplicationContext(),title,body);
             }
+            if(title.equals("Trip is in Progress"))
+            {
+                StartTripNotification.displayNotification(getApplicationContext(),title,body);
+            }
 
             NotificationBodyCatcher = getBody().toString();
 
