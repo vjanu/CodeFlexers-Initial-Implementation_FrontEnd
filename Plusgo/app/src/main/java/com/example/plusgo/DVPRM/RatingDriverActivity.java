@@ -45,6 +45,11 @@ import java.io.UnsupportedEncodingException;
 
 public class RatingDriverActivity extends AppCompatActivity {
 
+    //Service to write average rating to CSV
+    private String TAG = "RatingDriverActivity";
+    IResult mResultCallback = null;
+    VolleyServiceForCSV mVolleyService;
+
     StringRequest stringRequest;
     RequestQueue requestQueue;
     BaseContent BASECONTENT = new BaseContent();
@@ -52,18 +57,21 @@ public class RatingDriverActivity extends AppCompatActivity {
     SharedPreferences sharedpreferences2;
     SharedPreferences sharedpreferences3;
     RatingBar ratingbarD;
-    CardView cardview,cardview2;
+    CardView cardview, cardview2;
     LinearLayout layoutSubmitD;
-    Button btnOther,keywd1,keywd2,keywd3,keywd4,keywd5;
+    Button btnOther, keywd1, keywd2, keywd3, keywd4, keywd5;
     EditText sentimentByDriver;
-
     Button btnsubmitdriver;
 
     private JsonArrayRequest request;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_driver);
+
+        initVolleyCallback();
+        mVolleyService = new VolleyServiceForCSV(mResultCallback, this);
 
         sharedpreferences2 = getSharedPreferences("userstore", Context.MODE_PRIVATE);
         String tempRatedBy = sharedpreferences2.getString("UId", "U0000000030");
@@ -80,23 +88,23 @@ public class RatingDriverActivity extends AppCompatActivity {
         editor.putString("TripId", tempTripID);
         editor.commit();
 
-        ratingbarD = (RatingBar)findViewById(R.id.ratingBarD);
-        cardview =(CardView)findViewById(R.id.cardViewForDriver);
-        cardview2 =(CardView)findViewById(R.id.cardViewForDriver2);
-        layoutSubmitD=(LinearLayout) findViewById(R.id.layoutsubmitD);
+        ratingbarD = (RatingBar) findViewById(R.id.ratingBarD);
+        cardview = (CardView) findViewById(R.id.cardViewForDriver);
+        cardview2 = (CardView) findViewById(R.id.cardViewForDriver2);
+        layoutSubmitD = (LinearLayout) findViewById(R.id.layoutsubmitD);
         ratingbarD.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
                 editor.putString("GivenRating", String.valueOf(rating));
                 editor.apply();
 //                Toast.makeText(getApplicationContext(),"Your Selected Ratings  : " + String.valueOf(rating),Toast.LENGTH_LONG).show();
-                if(rating == 5.0){
+                if (rating == 5.0) {
                     cardview.setVisibility(View.GONE);
                     layoutSubmitD.setVisibility(View.VISIBLE);
                     cardview2.setVisibility(View.GONE);
                     editor.putString("selectedKeyDriver", "none");
 
-                }else{
+                } else {
                     cardview.setVisibility(View.VISIBLE);
                     layoutSubmitD.setVisibility(View.GONE);
                     cardview2.setVisibility(View.GONE);
@@ -105,7 +113,7 @@ public class RatingDriverActivity extends AppCompatActivity {
             }
         });
 
-        btnOther =(Button)findViewById(R.id.keywd6);
+        btnOther = (Button) findViewById(R.id.keywd6);
         btnOther.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,9 +123,9 @@ public class RatingDriverActivity extends AppCompatActivity {
             }
         });
 
-        sentimentByDriver=(EditText) findViewById(R.id.sentimentByDriver);
+        sentimentByDriver = (EditText) findViewById(R.id.sentimentByDriver);
 
-        btnsubmitdriver =(Button)findViewById(R.id.btnsubmitdriver);
+        btnsubmitdriver = (Button) findViewById(R.id.btnsubmitdriver);
         btnsubmitdriver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,17 +138,17 @@ public class RatingDriverActivity extends AppCompatActivity {
                         setParmsToSend("");
                         Log.e("BUTTON SUBMIT", "no sentiment");
                     }
-                }catch (Exception e){
-                    Toast.makeText(getApplicationContext(),e.toString(),Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
 
-                }finally {
+                } finally {
                     editor.clear().commit();
 //                    finish();
                 }
             }
         });
 
-        keywd1 =(Button)findViewById(R.id.keywd1);
+        keywd1 = (Button) findViewById(R.id.keywd1);
         keywd1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +158,7 @@ public class RatingDriverActivity extends AppCompatActivity {
             }
         });
 
-        keywd2 =(Button)findViewById(R.id.keywd2);
+        keywd2 = (Button) findViewById(R.id.keywd2);
         keywd2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +168,7 @@ public class RatingDriverActivity extends AppCompatActivity {
             }
         });
 
-        keywd3 =(Button)findViewById(R.id.keywd3);
+        keywd3 = (Button) findViewById(R.id.keywd3);
         keywd3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,7 +178,7 @@ public class RatingDriverActivity extends AppCompatActivity {
             }
         });
 
-        keywd4 =(Button)findViewById(R.id.keywd4);
+        keywd4 = (Button) findViewById(R.id.keywd4);
         keywd4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,7 +188,7 @@ public class RatingDriverActivity extends AppCompatActivity {
             }
         });
 
-        keywd5 =(Button)findViewById(R.id.keywd5);
+        keywd5 = (Button) findViewById(R.id.keywd5);
         keywd5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,7 +200,7 @@ public class RatingDriverActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -200,7 +208,7 @@ public class RatingDriverActivity extends AppCompatActivity {
     }
 
     //To set correct parameters to enter rating to the DB
-    public void setParmsToSend(String Sentiment){
+    public void setParmsToSend(String Sentiment) {
 
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -209,27 +217,34 @@ public class RatingDriverActivity extends AppCompatActivity {
         String TripId = (sharedpreferences.getString("TripId", "00001"));
         String UserID = (sharedpreferences.getString("UserID", "U000001"));//PASSENGER ID
         String RatedBy = (sharedpreferences.getString("RatedBy", "U0000002"));//DRIVER ID
-//        String GivenRating = (sharedpreferences.getString("GivenRating", "5"));
         String GivenRating = String.valueOf(ratingbarD.getRating());
         String CalRating = (sharedpreferences.getString("CalRating", GivenRating));
         String Dissatis = (sharedpreferences.getString("selectedKeyDriver", "none"));
 
         ratingdriverpostrequest(TripId, UserID, UserType, RatedBy, GivenRating, CalRating, Dissatis, Sentiment);
+        final Handler handler = new Handler();
+        final String Userid = UserID;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mVolleyService.jsonrequestforRating(Userid);
+            }
+        }, 100);
+//        mVolleyService.jsonrequestforRating(UserID);
     }
 
     //insert ratings related to driver or co-passenger into the database
-    public void ratingdriverpostrequest(String TripId,String UserID,String UserType,String RatedBy,
-                                          String GivenRating,String CalRating,String Dissatis,String Sentiment) {
+    public void ratingdriverpostrequest(String TripId, String UserID, String UserType, String RatedBy,
+                                        String GivenRating, String CalRating, String Dissatis, String Sentiment) {
         try {
             String URL = null;
             RequestQueue requestQueue = Volley.newRequestQueue(this.getApplicationContext());
 
-            URL = BASECONTENT.IpAddress +"/ratings/passenger-rating";
+            URL = BASECONTENT.IpAddress + "/ratings/passenger-rating";
             Log.e("URL", URL);
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("TripId", TripId);
             jsonBody.put("UserID", UserID);
-//            jsonBody.put("UserType", UserType);
             jsonBody.put("RatedBy", RatedBy);
             jsonBody.put("GivenRating", GivenRating);
             jsonBody.put("CalculatedRating", CalRating);
@@ -237,7 +252,7 @@ public class RatingDriverActivity extends AppCompatActivity {
             jsonBody.put("Sentiment", Sentiment);
             final String mRequestBody = jsonBody.toString();
 
-            Log.e("VOLLEY", TripId+":"+UserID+":"+RatedBy+":"+GivenRating+":"+CalRating);
+            Log.e("VOLLEY", TripId + ":" + UserID + ":" + RatedBy + ":" + GivenRating + ":" + CalRating);
             stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -292,7 +307,7 @@ public class RatingDriverActivity extends AppCompatActivity {
     //Retrieve sentiment rating
     private void jsonrequestforsentimentcheck(String sentiment) {
 
-        String JSON_URL = BASECONTENT.DVPRMBASEIPROUTE +":8090/sentiment/"+sentiment;
+        String JSON_URL = BASECONTENT.DVPRMBASEIPROUTE + ":8090/sentiment/" + sentiment;
 
         final String senti = sentiment;
         final String finalJSON_URL = JSON_URL;
@@ -300,12 +315,12 @@ public class RatingDriverActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 Log.e("JSON_URL", finalJSON_URL);
                 JSONObject jsonObject = null;
-                if(response.length() > 0){
-                    try{
+                if (response.length() > 0) {
+                    try {
                         jsonObject = response.getJSONObject(0);
 
                         String ResultRating = jsonObject.getString("ResultRating");
-                        String ResultRatingType= jsonObject.getString("Type");
+                        String ResultRatingType = jsonObject.getString("Type");
 
                         SharedPreferences.Editor editor = getSharedPreferences("rating_preference", MODE_PRIVATE).edit();
 
@@ -314,7 +329,7 @@ public class RatingDriverActivity extends AppCompatActivity {
                         editor.putString("CalRatingType", ResultRatingType);
                         editor.commit();
 
-                        Toast.makeText(getBaseContext(), "CalculatedRating: "+ResultRating+" type: "+ResultRatingType, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "CalculatedRating: " + ResultRating + " type: " + ResultRatingType, Toast.LENGTH_LONG).show();
                         final Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -323,9 +338,9 @@ public class RatingDriverActivity extends AppCompatActivity {
                             }
                         }, 100);
 
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
-                        Log.e("JSONREQUEST","ERROR");
+                        Log.e("JSONREQUEST", "ERROR");
                     }
                 }
 
@@ -333,7 +348,7 @@ public class RatingDriverActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("JSONREQUEST_ERROR",error.toString());
+                Log.e("JSONREQUEST_ERROR", error.toString());
             }
         });
         request.setRetryPolicy(new DefaultRetryPolicy(500000,
@@ -341,5 +356,21 @@ public class RatingDriverActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue = Volley.newRequestQueue(RatingDriverActivity.this);
         requestQueue.add(request);
+    }
+
+    void initVolleyCallback() {
+        mResultCallback = new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.d(TAG, "Volley requester " + requestType);
+                Log.d(TAG, "Volley JSON post" + response);
+            }
+
+            @Override
+            public void notifyError(String requestType, VolleyError error) {
+                Log.d(TAG, "Volley requester " + requestType);
+                Log.d(TAG, "Volley JSON post" + "That didn't work!");
+            }
+        };
     }
 }

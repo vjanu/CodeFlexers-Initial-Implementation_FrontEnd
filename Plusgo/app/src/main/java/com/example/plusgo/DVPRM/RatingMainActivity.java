@@ -55,9 +55,13 @@ import static android.graphics.Color.RED;
 
 public class RatingMainActivity extends AppCompatActivity {
 
+    //Service to write average rating to CSV
+    private String TAG = "RatingMainActivity";
+    IResult mResultCallback = null;
+    VolleyServiceForCSV mVolleyService;
 
     BaseContent BASECONTENT = new BaseContent();
-    String VEHICLERETRIEVE_URL = BASECONTENT.IpAddress +"/vehicle/specificVID/";
+    String VEHICLERETRIEVE_URL = BASECONTENT.IpAddress + "/vehicle/specificVID/";
     StringRequest stringRequest;
     RequestQueue requestQueue;
     SharedPreferences sharedpreferences;
@@ -66,29 +70,32 @@ public class RatingMainActivity extends AppCompatActivity {
     LinearLayout layoutcomplement;
     LinearLayout layoutdissatis;
     LinearLayout layoutsubmit;
-    Button vehiclebtn,driverbtn,copassengerbtn,submit_rating,submit_complement;
+    Button vehiclebtn, driverbtn, copassengerbtn, submit_rating, submit_complement;
     EditText drivercompliment;
-    ImageView vehi,dri,coop;
+    ImageView vehi, dri, coop;
     JsonArrayRequest vehiclerequest;
     RequestQueue vehiclerequestQueue;
     String notificationBody;
     String driverId;
     String tripId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating_main);
 
+        //Service to write average rating to CSV
+        initVolleyCallback();
+        mVolleyService = new VolleyServiceForCSV(mResultCallback, this);
 
-
-        try{
+        try {
             notificationBody = MyFirebaseMessagingService.NotificationBodyCatcher;
-            Log.d("Check333" , notificationBody);
+            Log.d("Check333", notificationBody);
             driverId = notificationBody.split("\n")[7];
             tripId = notificationBody.split("\n")[8];
-        }catch(Exception e){
+        } catch (Exception e) {
             notificationBody = "4545465465465465456464645645645645646565";//TODO:comment
-            Log.d("Check333" , notificationBody);
+            Log.d("Check333", notificationBody);
             driverId = "U1558711443507";//TODO:comment
             tripId = "T111111111111";//TODO:comment
         }
@@ -106,31 +113,31 @@ public class RatingMainActivity extends AppCompatActivity {
         editor.putString("UserID", driverId);
         editor.commit();
 
-        submit_rating=(Button)findViewById(R.id.submit_rating);
-        submit_complement=(Button)findViewById(R.id.submit_complement);
-        drivercompliment=(EditText) findViewById(R.id.drivercompliment);
+        submit_rating = (Button) findViewById(R.id.submit_rating);
+        submit_complement = (Button) findViewById(R.id.submit_complement);
+        drivercompliment = (EditText) findViewById(R.id.drivercompliment);
 
-        ratingbar = (RatingBar)findViewById(R.id.ratingBar);
-        layoutcomplement = (LinearLayout)findViewById(R.id.layoutcomplement);
-        layoutdissatis = (LinearLayout)findViewById(R.id.layoutdissatis);
-        layoutsubmit = (LinearLayout)findViewById(R.id.layoutsubmit);
+        ratingbar = (RatingBar) findViewById(R.id.ratingBar);
+        layoutcomplement = (LinearLayout) findViewById(R.id.layoutcomplement);
+        layoutdissatis = (LinearLayout) findViewById(R.id.layoutdissatis);
+        layoutsubmit = (LinearLayout) findViewById(R.id.layoutsubmit);
 
-        vehi = (ImageView)findViewById(R.id.img);
-        dri = (ImageView)findViewById(R.id.img1);
-        coop = (ImageView)findViewById(R.id.img2);
+        vehi = (ImageView) findViewById(R.id.img);
+        dri = (ImageView) findViewById(R.id.img1);
+        coop = (ImageView) findViewById(R.id.img2);
 
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
 
 //                Toast.makeText(getApplicationContext(),"Your Selected Ratings  : " + String.valueOf(rating),Toast.LENGTH_LONG).show();
-                if(rating == 5.0){
+                if (rating == 5.0) {
                     layoutcomplement.setVisibility(View.VISIBLE);
                     layoutdissatis.setVisibility(View.GONE);
                     layoutsubmit.setVisibility(View.VISIBLE);
                     submit_complement.setVisibility(View.VISIBLE);
                     submit_rating.setVisibility(View.GONE);
-                }else{
+                } else {
                     layoutcomplement.setVisibility(View.GONE);
                     layoutdissatis.setVisibility(View.VISIBLE);
                     layoutsubmit.setVisibility(View.VISIBLE);
@@ -142,7 +149,7 @@ public class RatingMainActivity extends AppCompatActivity {
             }
         });
 
-        vehiclebtn=(Button)findViewById(R.id.selectedVehicle);
+        vehiclebtn = (Button) findViewById(R.id.selectedVehicle);
         vehiclebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +160,7 @@ public class RatingMainActivity extends AppCompatActivity {
             }
         });
 
-        driverbtn=(Button)findViewById(R.id.selectedDriver);
+        driverbtn = (Button) findViewById(R.id.selectedDriver);
         driverbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +172,7 @@ public class RatingMainActivity extends AppCompatActivity {
             }
         });
 
-        copassengerbtn=(Button)findViewById(R.id.selectedCoPass);
+        copassengerbtn = (Button) findViewById(R.id.selectedCoPass);
         copassengerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +183,7 @@ public class RatingMainActivity extends AppCompatActivity {
             }
         });
 
-        submit_rating=(Button)findViewById(R.id.submit_rating);
+        submit_rating = (Button) findViewById(R.id.submit_rating);
         submit_rating.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,8 +204,9 @@ public class RatingMainActivity extends AppCompatActivity {
         lockButtons();
 
     }
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         lockButtons();
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
@@ -216,14 +224,14 @@ public class RatingMainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         editor.clear().apply();
     }
 
-    public void lockButtons(){
+    public void lockButtons() {
         Date date = new Date();
         long timeMilli = date.getTime();
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
@@ -232,23 +240,23 @@ public class RatingMainActivity extends AppCompatActivity {
         String DONEcopassenger = (sharedpreferences.getString("done_copassenger", "NO"));
         String DONEvehicle = (sharedpreferences.getString("done_ratevehicle", "NO"));
 
-        if(DONEvehicle.equals("YES")){
+        if (DONEvehicle.equals("YES")) {
 //            vehiclebtn.setEnabled(false);
             vehiclebtn.setTextColor(GRAY);
             vehi.setImageResource(R.drawable.star);
         }
-        if(DONEdriver.equals("YES")){
+        if (DONEdriver.equals("YES")) {
             driverbtn.setTextColor(GRAY);
             dri.setImageResource(R.drawable.star);
         }
-        if(DONEcopassenger.equals("YES")){
+        if (DONEcopassenger.equals("YES")) {
             copassengerbtn.setTextColor(GRAY);
             coop.setImageResource(R.drawable.star);
         }
     }
 
     //To set correct parameters to enter rating to the DB
-    public void setParmsToSendCompliment(String Compliment){
+    public void setParmsToSendCompliment(String Compliment) {
         sharedpreferences = getSharedPreferences("rating_preference", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         String UserType = "driver";
@@ -259,16 +267,25 @@ public class RatingMainActivity extends AppCompatActivity {
         String CalRating = "5.0";
 
         drivercomplimentpostrequest(TripId, UserID, UserType, RatedBy, GivenRating, CalRating, Compliment);
+        final Handler handler = new Handler();
+        final String Userid = UserID;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mVolleyService.jsonrequestforRating(Userid);
+            }
+        }, 100);
+//        mVolleyService.jsonrequestforRating(UserID);
     }
 
     //insert ratings related to driver or co-passenger into the database
-    public void drivercomplimentpostrequest(String TripId,String UserID,String UserType,String RatedBy,
-                                          String GivenRating,String CalRating,String Compliment) {
+    public void drivercomplimentpostrequest(String TripId, String UserID, String UserType, String RatedBy,
+                                            String GivenRating, String CalRating, String Compliment) {
         try {
             String URL = null;
             requestQueue = Volley.newRequestQueue(this.getApplicationContext());
 
-                URL = BASECONTENT.IpAddress +"/ratings/driver-rating";
+            URL = BASECONTENT.IpAddress + "/ratings/driver-rating";
 
             Log.e("URL", URL);
             JSONObject jsonBody = new JSONObject();
@@ -281,7 +298,7 @@ public class RatingMainActivity extends AppCompatActivity {
 
             final String mRequestBody = jsonBody.toString();
 
-            Log.e("VOLLEY", TripId+":"+UserID+":"+UserType+":"+RatedBy+":"+GivenRating+":"+CalRating);
+            Log.e("VOLLEY", TripId + ":" + UserID + ":" + UserType + ":" + RatedBy + ":" + GivenRating + ":" + CalRating);
 
             stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
@@ -333,37 +350,37 @@ public class RatingMainActivity extends AppCompatActivity {
     private void vehiclejsonrequest(String UserID) {
         String JSON_URL = VEHICLERETRIEVE_URL + UserID;
 
-        Log.e("JSONREQUEST","started");
-        Log.e("JSON_URL_FIRST",JSON_URL);
+        Log.e("JSONREQUEST", "started");
+        Log.e("JSON_URL_FIRST", JSON_URL);
         final String finalJSON_URL = JSON_URL;
         vehiclerequest = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
             public void onResponse(JSONArray response) {
                 Log.e("JSON_URL", finalJSON_URL);
                 JSONObject jsonObject = null;
                 Log.e("VehicleID11111111111", String.valueOf(response));
-                if(response.length() > 0){
-                    try{
+                if (response.length() > 0) {
+                    try {
                         jsonObject = response.getJSONObject(0);
 
                         String vehicleID = jsonObject.getString("VehicleID");
-                        Log.e("VehicleID",vehicleID);
+                        Log.e("VehicleID", vehicleID);
 
-                        if(jsonObject.getString("VehicleID") != null){
+                        if (jsonObject.getString("VehicleID") != null) {
 
                             SharedPreferences.Editor editor = getSharedPreferences("rating_preference", MODE_PRIVATE).edit();
                             editor.putString("vehicleId", vehicleID);
                             editor.apply();
                         }
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         e.printStackTrace();
-                        Log.e("JSONREQUEST","ERROR");
+                        Log.e("JSONREQUEST", "ERROR");
                     }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("JSONREQUEST_ERROR",error.toString());
+                Log.e("JSONREQUEST_ERROR", error.toString());
             }
         });
         vehiclerequest.setRetryPolicy(new DefaultRetryPolicy(0,
@@ -371,5 +388,21 @@ public class RatingMainActivity extends AppCompatActivity {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         vehiclerequestQueue = Volley.newRequestQueue(RatingMainActivity.this);
         vehiclerequestQueue.add(vehiclerequest);
+    }
+
+    void initVolleyCallback() {
+        mResultCallback = new IResult() {
+            @Override
+            public void notifySuccess(String requestType, JSONObject response) {
+                Log.d(TAG, "Volley requester " + requestType);
+                Log.d(TAG, "Volley JSON post" + response);
+            }
+
+            @Override
+            public void notifyError(String requestType, VolleyError error) {
+                Log.d(TAG, "Volley requester " + requestType);
+                Log.d(TAG, "Volley JSON post" + "That didn't work!");
+            }
+        };
     }
 }
