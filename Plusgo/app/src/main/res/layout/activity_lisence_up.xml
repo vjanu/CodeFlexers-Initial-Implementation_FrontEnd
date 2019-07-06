@@ -44,7 +44,7 @@
             android:gravity="start|top|left"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:text="PLEASE UPLOAD YOUR LISENCE"
+            android:text="PLEASE UPLOAD YOUR LICENSE"
             android:textAlignment="center"
             android:textColor="@color/colorButton"
             android:textSize="18dp"
@@ -61,7 +61,7 @@
             android:drawableTint="@color/colorPrimaryDark"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
-            android:text="Click Here \n to Upload your \n Driving Lisence card" />
+            android:text="Click Here \n to Upload your \n Driving License card" />
 
         <Button
             android:id="@+id/lis_upload_verify"
