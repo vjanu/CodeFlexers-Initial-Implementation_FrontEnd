@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.plusgo.OPR.RiderMenu;
 import com.example.plusgo.OPR.UserMain;
+import com.example.plusgo.UPM.ReportDriversActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,14 +35,20 @@ public class MainActivity extends AppCompatActivity {
 
                     SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
                     boolean Islogin = user.getBoolean("Islogin", false);
+                    String status = user.getString("Status", null);
 
                     Log.d("login", String.valueOf(Islogin));
-                    if(Islogin)
+                    if(Islogin && status.equalsIgnoreCase("P"))
                     {   // condition true means user is already login
                         Intent home = new Intent(MainActivity.this, UserMain.class);
                         startActivity(home);
                     }
 
+                    if(Islogin && status.equalsIgnoreCase("S"))
+                    {   // condition true means user is already login
+                        Intent home = new Intent(MainActivity.this, ReportDriversActivity.class);
+                        startActivity(home);
+                    }
                     else
                     {
                         Intent home = new Intent(MainActivity.this, Login.class);

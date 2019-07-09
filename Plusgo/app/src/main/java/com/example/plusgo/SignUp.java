@@ -175,7 +175,7 @@ public class SignUp extends AppCompatActivity {
                     Log.e("uname",usrname);
                     Log.e("pwd",passw);
                     // Add new user
-                    addNewUser(usrname,passw,txtEmail);
+                    addNewUser(usrname,passw,txtEmail, "P");
                     // Go to Login page at success
 //                    finish();
 //                    Intent signUp;
@@ -219,7 +219,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     //insert new user into the database
-    public void addNewUser(String Username,String Password,String Email) {
+    public void addNewUser(String Username,String Password,String Email, String Status) {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(SignUp.this);
             String URL = BASECONTENT.IpAddress+"/login";
@@ -227,6 +227,7 @@ public class SignUp extends AppCompatActivity {
             jsonBody.put("Username", Username);
             jsonBody.put("Password", Password);
             jsonBody.put("Email", Email);
+            jsonBody.put("Status", Status);
             final String mRequestBody = jsonBody.toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

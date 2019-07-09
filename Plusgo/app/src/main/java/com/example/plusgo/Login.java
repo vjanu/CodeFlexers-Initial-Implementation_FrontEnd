@@ -27,6 +27,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.UPM.AddPreferenceActivity;
 import com.example.plusgo.UPM.NewUserActivity;
+import com.example.plusgo.UPM.ReportDriversActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,6 +116,7 @@ public class Login extends AppCompatActivity {
                         user.setPassword(jsonObject.getString("Password"));
                         user.setuID(jsonObject.getString("UserID"));
                         user.setName(jsonObject.getString("Email"));
+                        user.setStatus(jsonObject.getString("Status"));
                         users.add(user);
                         finish();
 
@@ -133,15 +135,28 @@ public class Login extends AppCompatActivity {
                         userStore.putString("UId", user.getuID());
                         userStore.putString("Name", user.getUsername());
                         userStore.putString("Email", user.getEmail());
+                        userStore.putString("Status", user.getStatus());
                         userStore.putBoolean("Islogin", true);
                         userStore.apply();
 
                     SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
                     boolean uid = user.getBoolean("Islogin", false);
+                    String status = user.getString("Status", "P");
                         Log.d("login1:", String.valueOf(uid));
+
+
+                        //checking whether the user is spouse or normal passenger
+
+                    if(status.equalsIgnoreCase("S")){
+                        finish();
+                        Intent intent = new Intent(Login.this, ReportDriversActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
                         finish();
                         Intent intent = new Intent(Login.this, NewUserActivity.class);
                         startActivity(intent);
+                    }
                 }
                 else{
                     pDialog.dismiss();

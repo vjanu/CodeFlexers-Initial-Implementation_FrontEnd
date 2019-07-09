@@ -8,16 +8,26 @@
 
 package com.example.plusgo.UPM;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -48,6 +58,7 @@ import com.example.plusgo.Login;
 import com.example.plusgo.OPR.MainActivity;
 import com.example.plusgo.OPR.UserMain;
 import com.example.plusgo.R;
+import com.example.plusgo.SignUp;
 import com.example.plusgo.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -65,6 +76,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Random;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -79,11 +91,12 @@ public class NewUserActivity extends AppCompatActivity {
     private JsonArrayRequest request;
     private String id, newToken;
     private RequestQueue requestQueue;
-
+    private final int MY_PERMISSIONS_REQUEST_SEND_SMS = 0;
     private BaseContent BASECONTENT = new BaseContent();
     private String JSON_URL_ADD_USER = BASECONTENT.IpAddress + "/users";
     private String JSON_URL_GET_USER = BASECONTENT.IpAddress + "/users/specific/";
     private String JSON_URL_UPDATE_USER = BASECONTENT.IpAddress + "/users/update/";
+    private String JSON_URL_ADD_SPOUSE = BASECONTENT.IpAddress + "/spouse";
 
     /*Added by Surath
      * For the Notification
@@ -104,6 +117,7 @@ public class NewUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_user);
+
 
         /*
         Added By Surath
@@ -266,13 +280,31 @@ public class NewUserActivity extends AppCompatActivity {
                 jsonObject.put("Token", newToken);
                 final String mRequestBody = jsonObject.toString();
 
+                Random r = new Random();
+                String spouseUserName = (char)(r.nextInt(26)+ 'a') + String.format("%04d", r.nextInt(1000));
+                String spousePassword = (char)(r.nextInt(26)+ 'a') + String.format("%05d", r.nextInt(10000));
+                String spouseID = (char)(r.nextInt(26)+ 'a') + String.format("%05d", r.nextInt(1000000000));
+                Log.d("spouseUserName", spouseUserName);
+                Log.d("spousePassword", spousePassword);
+                Log.d("spouseID", spouseID);
+
                 SharedPreferences.Editor selfData = getSharedPreferences("self", MODE_PRIVATE).edit();
                 selfData.putString("UID", id);
                 selfData.putString("Profession", profession.getSelectedItem().toString());
                 selfData.putInt("Age", Integer.parseInt(dob.getText().toString()));
                 selfData.putInt("Profession_Category", professionCategory(profession.getSelectedItem().toString()));
+                selfData.putLong("RPhone", Long.parseLong(Rphone.getText().toString()));
+                selfData.putString("username", spouseUserName);
+                selfData.putString("password", spousePassword);
+                selfData.putString("spouseID", spouseID);
                 selfData.apply();
 
+                //spouse activities
+                Log.d("signUp1", "signUp1");
+                addNewUser(spouseID, spouseUserName, spousePassword, "","S");
+                Log.d("signUp2", "signUp2");
+                //sendSMS(); //todo
+                addToSpouseTable(spouseID, id);
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_ADD_USER, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -585,7 +617,170 @@ public class NewUserActivity extends AppCompatActivity {
         startActivity(map);
     }
 
+    private void sendSMS() {
+        Log.d("call", "call12");
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.SEND_SMS)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.SEND_SMS},
+                        MY_PERMISSIONS_REQUEST_SEND_SMS);
+            }
+        }
+        else{
+//            sendTXT();
+            sendSMS1();
+        }
+    }
 
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    sendTXT();
+                    sendSMS1();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "SMS can't be sent, please try again.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
+
+    }
+
+    private void sendSMS1()
+    {
+
+        String SENT = "SMS_SENT";
+        String DELIVERED = "SMS_DELIVERED";
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0,
+                new Intent(SENT), 0);
+
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0,
+                new Intent(DELIVERED), 0);
+
+        SharedPreferences user = getSharedPreferences("self",MODE_PRIVATE);
+        String phone = user.getString("RPhone", null);
+        String username = user.getString("username", null);
+        String password = user.getString("password", null);
+
+        String message = "Plusgo Username: "+username + "and Password: "+password;
+
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phone, null, message, sentPI, deliveredPI);
+    }
+
+    //insert new user into the database
+    public void addNewUser(String UserID, String Username,String Password,String Email, String Status) {
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(NewUserActivity.this);
+            String URL = BASECONTENT.IpAddress+"/login/spouse";
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("UserID", UserID);
+            jsonBody.put("Username", Username);
+            jsonBody.put("Password", Password);
+            jsonBody.put("Email", Email);
+            jsonBody.put("Status", Status);
+            final String mRequestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("LOG_VOLLEY", response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOG_VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //insert new user into the database
+    public void addToSpouseTable(String suid, String puid) {
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(NewUserActivity.this);
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("SUID", suid);
+            jsonBody.put("PUID", puid);
+
+            final String mRequestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_ADD_SPOUSE, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+                    Log.i("LOG_VOLLEY", response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+
+                    Log.e("LOG_VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                    }
+                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     /*
     Added by Surath
      */
