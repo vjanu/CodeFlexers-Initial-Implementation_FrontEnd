@@ -1,4 +1,4 @@
-package com.example.plusgo.FC;
+package com.example.plusgo.FC.TripHistory;
 
 public class Driver {
     private String TripId;

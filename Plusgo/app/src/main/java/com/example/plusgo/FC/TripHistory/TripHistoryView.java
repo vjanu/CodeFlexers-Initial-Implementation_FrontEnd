@@ -1,4 +1,4 @@
-package com.example.plusgo.FC;
+package com.example.plusgo.FC.TripHistory;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ public class TripHistoryView extends AppCompatActivity {
         HistoryPagerAdapter adapter = new HistoryPagerAdapter(getSupportFragmentManager());
         //Adding Fragment
         adapter.AddFrgment(new PassengerFragment(),"Passenger");
-        adapter.AddFrgment(new DriverFragment(),"Driver");
+       adapter.AddFrgment(new DriverFragment(),"Driver");
 
 
         //adapter Setup

@@ -29,6 +29,14 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity android:name=".UPM.ReportDriversActivity"></activity>
+
+        <activity android:name=".FC.TripHistory.Trip_Details.TripDetails">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity android:name=".UPM.PaymentActivity" />
         <activity android:name=".FC.MapCurrentPassengerActivity">
 
@@ -40,6 +48,13 @@
             <!-- </intent-filter> -->
         </activity>
         <activity android:name=".FC.TripHistoryView" />
+        <activity android:name=".FC.TripHistory.TripHistoryView" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".FC.PassengerCurrentTrip" />
         <activity android:name=".Notification.OpenNotification">
 
@@ -67,18 +82,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DVPRM.DummyActivity">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
+        
+        <activity android:name=".DVPRM.DummyActivity" />
         <activity
             android:name=".DVPRM.DocUploadActivity"
             android:theme="@style/AppTheme.CustomTheme" />

@@ -211,52 +211,6 @@ public class NewUserActivity extends AppCompatActivity {
             }
             else {
 
-                /*
-                 * Firebase Authentication with Email with Password
-                 * */
-
-//                userEmail = email.getText().toString();
-//                userEmail = "teswt";
-////                Log.d("sss" , password );
-////                Log.d("sss1" , userEmail);
-//                mAuth.createUserWithEmailAndPassword(userEmail,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        //If Firebase Authentication Succeful Redirect to the Profile Activity
-//                        if(task.isSuccessful()){
-//                            //startProfileActivity();
-//                        }else{
-//                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
-//                               userLogin(userEmail,password);
-//                            }else{
-//                                // progressbar.setVisibility(View.INVISIBLE);
-//                                Toast.makeText(NewUserActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-//                            }
-//
-//                        }
-//
-//                    }
-//                });
-
-
-//                FirebaseInstanceId.getInstance().getInstanceId()
-//                        .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-//                                if(task.isSuccessful()){
-//                                    token = task.getResult().getToken();
-////                                    toke.setText(token);
-////                                    Log.d("qw1:", token);
-//
-//                                    saveToken(token);
-////                                    Log.d("qw2:", token);
-////                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
-////                            textView.setText("Token" + token);
-//                                }else{
-////                            textView.setText("Token is Not Generated");
-//                                }
-//                            }
-//                        });
 
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 JSONObject jsonObject = new JSONObject();

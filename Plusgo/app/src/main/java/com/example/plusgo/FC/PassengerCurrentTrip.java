@@ -136,7 +136,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         txtHiddenToken.setText(Token);
         txtTripStatus.setText(Status);
         //Need To user Image to the imgLogo
-        txtHiddenCurrentMileage.setText("5008");
+        txtHiddenCurrentMileage.setText("5017");
 
         Log.d("status",Status);
 
@@ -162,7 +162,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         Log.d("#@#driverId",driversId);
         Log.d("#@#passengerId",passengerId);
         Log.d("#@#tripId",tripId);
-        Log.d("#@#vehicleId",vehicleId);
+       // Log.d("#@#vehicleId",vehicleId);
 
         btnRating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,7 +219,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
             public void onClick(View view) {
                 double currentPassengers = Double.parseDouble(txtHiddenCurrentPassengers.getText().toString());
                 TripStartNotification();
-                UpdateFareCalculation();
+                UpdateFareCalculation_Start();
                 UpdateStatusWhenTripStart();//sucess
                 btnStartTrip.setVisibility(View.GONE);
                 btnEndTrip.setVisibility(View.VISIBLE);
@@ -228,6 +228,8 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                 {
                     UpdateStatusWhenDriverStartTrip();
                 }
+//                Intent verify = new Intent(PassengerCurrentTrip.this, MapCurrentPassengerActivity.class);
+//                startActivity(verify);
                 alertDialog.dismiss();
             }
         });
@@ -264,17 +266,19 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                 Log.d("Click BtnStart","check");
                 //GetDetailsOfSpecificCurrentUser();
                 btnRating.setVisibility(View.VISIBLE);
-                UpdateStatusWhenTripEnd();
-                UpdateFareCalculation();
-                UpdateFareForGetOffUser();
 
-                PriceOfThePAssenger();
+
+                UpdateFareCalculation_End();
+
+                //UpdateFareForGetOffUser();
+
+               // PriceOfThePAssenger();
 
                 //TODO:check condition
-                if(currentPassengers == 1 && accpetPassengers == 0){
-                    UpdateStatusWhenDriverEndTrip();
-                    migrateDataToTripHistory();//TODO::Tempory comment need to check several condition before execute this method
-                }
+//                if(currentPassengers == 1 && accpetPassengers == 0){
+//                    UpdateStatusWhenDriverEndTrip();
+//                    migrateDataToTripHistory();//TODO::Tempory comment need to check several condition before execute this method
+//                }
 
                 btnEndTrip.setVisibility(View.GONE);
                 btnStartTrip.setVisibility(View.GONE);
@@ -386,6 +390,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
             StringRequest stringRequest = new StringRequest(Request.Method.PUT, JSON_PUT_UPDATE_END_TRIP+tripId+"/"+passengerId+"/"+dId, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    PriceOfThePAssenger();
                     Log.i("LOG_VOLLEY", response);
                     Toast.makeText(PassengerCurrentTrip.this, "Trip Ended", Toast.LENGTH_SHORT).show();
                 }
@@ -531,7 +536,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray array =jsonObject.getJSONArray("startMileage");
                             Log.d("array.length()", String.valueOf(array.length()));
-                            for(int i=0;i<=array.length();i++){
+                            for(int i=0;i<array.length();i++){
                                 JSONObject o = array.getJSONObject(i);
                                 Current_Passenger items = new Current_Passenger(
                                         o.getString("startMileage")
@@ -561,41 +566,22 @@ public class PassengerCurrentTrip extends AppCompatActivity {
 
     }
 
-    public void calculatePrice(){
 
-
-        double StartMileage = Double.parseDouble(txtHiddenStartMileage.getText().toString()); //Get Start Mileage
-        double currentMileage = Double.parseDouble(txtHiddenCurrentMileage.getText().toString());//Get Current Mileage
-        double passengercount = Double.parseDouble(txtHiddenCurrentPassengers.getText().toString()); //Get Passenger Count
-        Log.d("@#StartMileage", String.valueOf(StartMileage));
-        double distance = currentMileage - StartMileage; //Travelled Distance
-        Log.d("@#currentMileage", String.valueOf(currentMileage));
-        Log.d("@#Pdistance", String.valueOf(distance));
-        double calculatePrice = distance*(15)/(passengercount+1); //Calculated Price
-        Log.d("@#passengercount", String.valueOf(passengercount));
-        Log.d("@#PcalculatePrice", String.valueOf(calculatePrice));
-        txtHiddenPrice.setText(String.valueOf(calculatePrice));
-    }
-
-    public void UpdateFareCalculation() {
+    public void UpdateFareCalculation_Start() {
         tripId = txtHiddenTripId.getText().toString();
         String dId = driverId;
 
         request = new JsonArrayRequest(JSON_URL_GET_TRIP_STARTED_USERS+tripId+"/"+dId, new Response.Listener<JSONArray>() {
 
             public void onResponse(JSONArray response) {
-                Log.d("response", String.valueOf(response));
+                Log.d("response-UpdateFare", String.valueOf(response));
                 JSONObject jsonObject = null;
-                if(response.length()>=0){
+
                 for (int i = 0; i < response.length(); i++) {
 
                     try {
-
+                        Log.d("response Length", String.valueOf(response.length() + " " + i));
                         jsonObject = response.getJSONObject(i);
-
-                        Log.d("123passengerId", jsonObject.getString("passengerId").toString());
-                        Log.d("123startMileage", jsonObject.getString("startMileage").toString());
-                        Log.d("123price", jsonObject.getString("price").toString());
 
                         tripId = txtHiddenTripId.getText().toString();
                         String dId = driverId;
@@ -617,6 +603,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                         //RequestQueue requestQueue = Volley.newRequestQueue(this);
                         JSONObject jsonObject1 = new JSONObject();
                         Log.d("231", "!@###");
+
                         jsonObject1.put("price", updatePrice);
                         jsonObject1.put("startMileage", txtHiddenCurrentMileage.getText().toString());
                         Log.d("@@updatePrice@@", String.valueOf(updatePrice));
@@ -628,8 +615,10 @@ public class PassengerCurrentTrip extends AppCompatActivity {
 
                             @Override
                             public void onResponse(String response) {
+                                Log.i("!!!!!!!LOG_VOLLEY", response);
+                                //UpdateStatusWhenTripEnd();  //TODO :: Rebuild Method
                                 Log.d("3211", "!@###");
-                                Log.i("LOG_VOLLEY", response);
+
 //                                Toast.makeText(PassengerCurrentTrip.this, "Trip Ended", Toast.LENGTH_SHORT).show();
                             }
                         }, new Response.ErrorListener() {
@@ -679,7 +668,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                         //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
                     }
                 }
-            }
+
 
             }
         }, new Response.ErrorListener() {
@@ -698,113 +687,109 @@ public class PassengerCurrentTrip extends AppCompatActivity {
     }
 
 
-    //to Update Fare for the get off passenger
-    public void UpdateFareForGetOffUser() {
+    public void UpdateFareCalculation_End() {
+        tripId = txtHiddenTripId.getText().toString();
         String dId = driverId;
 
-
-        //   Log.e("JSON_URL",JSON_URL+username+"/"+password);
-        request = new JsonArrayRequest(JSON_URL_GET_DROPOFF_USER_DETAILS+tripId+"/"+passengerId+"/"+dId, new Response.Listener<JSONArray>() {
+        request = new JsonArrayRequest(JSON_URL_GET_TRIP_STARTED_USERS+tripId+"/"+dId, new Response.Listener<JSONArray>() {
 
             public void onResponse(JSONArray response) {
-
+                Log.d("response-UpdateFare", String.valueOf(response));
                 JSONObject jsonObject = null;
-                if(response.length()>0){
-                    for (int i = 0; i < response.length(); i++) {
-//                        progressDialog.dismiss();
-                        try {
 
+                for (int i = 0; i < response.length(); i++) {
 
-                            jsonObject = response.getJSONObject(i);
-                            Log.d("@@@passengerId", jsonObject.getString("passengerId").toString());
-                            Log.d("@@@startMileage", jsonObject.getString("startMileage").toString());
-                            Log.d("@@@price", jsonObject.getString("price").toString());
+                    try {
+                        Log.d("response Length", String.valueOf(response.length() + " " + i));
+                        jsonObject = response.getJSONObject(i);
 
-                            tripId = txtHiddenTripId.getText().toString();
-                            String dId = driverId;
-                            String passengerId = jsonObject.getString("passengerId");
+                        tripId = txtHiddenTripId.getText().toString();
+                        String dId = driverId;
+                        String passengerId = jsonObject.getString("passengerId");
 
-                            double currentMileage = Double.parseDouble(txtHiddenCurrentMileage.getText().toString());
-                            double startMileage = Double.parseDouble(jsonObject.getString("startMileage").toString());
-                            double currentPrice = Double.parseDouble(jsonObject.getString("price").toString());
-                            double passengercount = Double.parseDouble(txtHiddenCurrentPassengers.getText().toString());
-                            double distance = currentMileage - startMileage;
-                            double calculatePrice = distance * (15) / (passengercount);
-                            Log.d("@@@distance", String.valueOf(distance));
-                            Log.d("@@@startMileage", String.valueOf(startMileage));
-                            Log.d("@@@PcalculatePrice", String.valueOf(calculatePrice));
-                            Log.d("@@@startMileageDouble", String.valueOf(startMileage));
+                        double currentMileage = Double.parseDouble(txtHiddenCurrentMileage.getText().toString());
+                        double startMileage = Double.parseDouble(jsonObject.getString("startMileage").toString());
+                        double currentPrice = Double.parseDouble(jsonObject.getString("price").toString());
+                        double passengercount = Double.parseDouble(txtHiddenCurrentPassengers.getText().toString());
+                        double distance = currentMileage - startMileage ;
+                        double calculatePrice = distance * (15) / (passengercount);
+                        Log.d("@#PcalculatePrice", String.valueOf(calculatePrice));
+                        Log.d("startMileageDouble", String.valueOf(startMileage));
 
-                            double updatePrice = currentPrice + calculatePrice;
+                        double updatePrice = currentPrice + calculatePrice;
 
-                            //Put Response Start
-                            //RequestQueue requestQueue = Volley.newRequestQueue(this);
-                            JSONObject jsonObject1 = new JSONObject();
-                            jsonObject1.put("price", updatePrice);
-                            jsonObject1.put("startMileage", txtHiddenCurrentMileage.getText().toString());
+                        Log.d("123", "!@###");
+                        //Put Response Start
+                        //RequestQueue requestQueue = Volley.newRequestQueue(this);
+                        JSONObject jsonObject1 = new JSONObject();
+                        Log.d("231", "!@###");
 
-                            final String mRequestBody = jsonObject1.toString();
-                            Log.d("~~~driverId","~~~driverId" );
-                            Log.d("~~~passengerId",passengerId );
-                            Log.d("~~~tripId",tripId );
-                            StringRequest stringRequest = new StringRequest(Request.Method.PUT, JSON_PUT_UPDATE_DROP_USER_DETAILS + tripId + "/" + passengerId + "/" + dId, new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    //TODO:Testing
+                        jsonObject1.put("price", updatePrice);
+                        jsonObject1.put("startMileage", txtHiddenCurrentMileage.getText().toString());
+                        Log.d("@@updatePrice@@", String.valueOf(updatePrice));
+                        Log.d("@@startMileage@@", String.valueOf(txtHiddenCurrentMileage.getText().toString()));
 
-                                    Log.i("LOG_VOLLEY", response);
-                                    Toast.makeText(PassengerCurrentTrip.this, "Trip Ended", Toast.LENGTH_SHORT).show();
+                        final String mRequestBody = jsonObject1.toString();
+                        Log.d("321", "!@###");
+                        StringRequest stringRequest = new StringRequest(Request.Method.PUT, JSON_PUT_UPDATE_FARE_CALCULATION + tripId + "/" + passengerId + "/" + dId, new Response.Listener<String>() {
+
+                            @Override
+                            public void onResponse(String response) {
+                                Log.i("!!!!!!!LOG_VOLLEY", response);
+                                UpdateStatusWhenTripEnd(); //TODO :: Rebuild Method
+                                Log.d("3211", "!@###");
+
+//                                Toast.makeText(PassengerCurrentTrip.this, "Trip Ended", Toast.LENGTH_SHORT).show();
+                            }
+                        }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("LOG_VOLLEY", error.toString());
+                                Toast.makeText(PassengerCurrentTrip.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+                            }
+                        }) {
+                            @Override
+                            public String getBodyContentType() {
+                                return "application/json; charset=utf-8";
+                            }
+
+                            @Override
+                            public byte[] getBody() throws AuthFailureError {
+                                try {
+                                    return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                                } catch (UnsupportedEncodingException uee) {
+                                    VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                                    return null;
                                 }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.e("LOG_VOLLEY", error.toString());
-                                    Toast.makeText(PassengerCurrentTrip.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                                String responseString = "";
+                                if (response != null) {
+                                    responseString = String.valueOf(response.statusCode);
                                 }
-                            }) {
-                                @Override
-                                public String getBodyContentType() {
-                                    return "application/json; charset=utf-8";
-                                }
-
-                                @Override
-                                public byte[] getBody() throws AuthFailureError {
-                                    try {
-                                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
-                                    } catch (UnsupportedEncodingException uee) {
-                                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
-                                        return null;
-                                    }
-                                }
-
-                                @Override
-                                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                                    String responseString = "";
-                                    if (response != null) {
-                                        responseString = String.valueOf(response.statusCode);
-                                    }
-                                    return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
-                                }
-                            };
-                            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
-                                    10000,
-                                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-                            requestQueue.add(stringRequest);
+                                return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                            }
+                        };
+                        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                                10000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                        requestQueue.add(stringRequest);
 
 
-                            //Put Response End
+                        //Put Response End
 
-                        } catch (JSONException e) {
+                    } catch (JSONException e) {
 
-                            e.printStackTrace();
-                            Log.d("JSONREQUEST", "ERROR");
-                            //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
-                        }
-
+                        e.printStackTrace();
+                        Log.d("JSONREQUEST", "ERROR");
+                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
                     }
                 }
 
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -820,6 +805,9 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         requestQueue.add(request);
 
     }
+
+
+
 
 
     public void PriceOfThePAssenger() {
@@ -847,7 +835,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray array =jsonObject.getJSONArray("price");
                             Log.d("array.length()", String.valueOf(array.length()));
-                            for(int i=0;i<=array.length();i++){
+                            for(int i=0;i<array.length();i++){
                                 Log.d("444","bxxxx");
                                 JSONObject o = array.getJSONObject(i);
                                 Current_Passenger items = new Current_Passenger(
@@ -855,7 +843,9 @@ public class PassengerCurrentTrip extends AppCompatActivity {
 
                                 );
                                 txtPrice.setText("Rs." +o.getString("price"));
-                                PriceNotification(); //TODO Commented
+
+                               PriceNotification(); //TODO Commented
+
                                 Log.d("PEICE SET",o.getString("price"));
 
                             }
@@ -874,7 +864,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
 //                        Toast.makeText(PassengerCurrentTrip.this,"HohOOO"+error.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });
-
+        //PriceNotification();
         RequestQueue requestQueue = Volley.newRequestQueue(PassengerCurrentTrip.this);
         requestQueue.add(stringRequest);
 
@@ -1205,7 +1195,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         String title = "Fare";
         String body = "Your Trip Amount is "+  txtPrice.getText().toString();
         //String passengerToken = "eSB2w-2RIB8:APA91bEdyhV30dCo5ZM_kfmjvUc02_yLPy4jkfE6mk-aODNUlkTpuUicRqV90YG1oMPGE2YBHtFXafwUvRdZl3c9UCZUyGeOuBBVqzqn3rNEMeSs6sWORM2cre71ngTh321gh5jZm9fc";
-        String passengerToken = "c3OpPkFkbvI:APA91bFgtVj-0GaKmGSLXb38NkmJgQk35TotbEP1XhrMWnrM3wJ7NzOmfYtMmHstxu_FINB3vSi8l8h5JpTncxqA_RUc53QHH1SgnS3skpsiNLhHXzH2YnxatXl6jFlFJCDEdtPYooae";
+        String passengerToken = txtHiddenToken.getText().toString() ;
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -1244,7 +1234,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         String title = "Trip is in Progress";
         String body = "You will get to the destination as expected";
         //String passengerToken = "eSB2w-2RIB8:APA91bEdyhV30dCo5ZM_kfmjvUc02_yLPy4jkfE6mk-aODNUlkTpuUicRqV90YG1oMPGE2YBHtFXafwUvRdZl3c9UCZUyGeOuBBVqzqn3rNEMeSs6sWORM2cre71ngTh321gh5jZm9fc";
-        String passengerToken = "c3OpPkFkbvI:APA91bFgtVj-0GaKmGSLXb38NkmJgQk35TotbEP1XhrMWnrM3wJ7NzOmfYtMmHstxu_FINB3vSi8l8h5JpTncxqA_RUc53QHH1SgnS3skpsiNLhHXzH2YnxatXl6jFlFJCDEdtPYooae";
+        String passengerToken = txtHiddenToken.getText().toString() ;
 
 
         Retrofit retrofit = new Retrofit.Builder()

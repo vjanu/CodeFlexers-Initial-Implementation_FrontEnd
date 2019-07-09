@@ -6,9 +6,11 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_margin="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        >
 
         <RelativeLayout
             android:id="@+id/displayLayout"
@@ -17,39 +19,127 @@
             android:layout_alignStart="@+id/cardView"
             android:layout_alignTop="@+id/cardView"
             android:orientation="horizontal"
-            android:padding="@dimen/activity_horizontal_padding1">
+            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/lblTripId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trip ID"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            <!--<TextView-->
+                <!--android:id="@+id/lblTripId"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Trip ID"-->
+                <!--android:textAppearance="@style/TextAppearance.AppCompat.Large"-->
 
-                />
+                <!--/>-->
+
+
 
             <TextView
                 android:id="@+id/txtTripId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lblTripId"
-
-                android:text="O12345678" />
+                android:text="O12345678"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:id="@+id/txtDate"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTripId"
-                android:text="2019-06-23" />
+                android:text="2019-06-23"
+                android:layout_alignParentLeft="true"
+                />
 
 
             <TextView
                 android:id="@+id/txtFare"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtTripId"
+                android:layout_toRightOf="@id/txtDate"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:text="Rs.1000.00" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/proImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@id/txtDate"
+                android:src="@drawable/user2"
+                app:civ_border_color="#313030"
+                app:civ_border_width="2dp" />
+
+            <TextView
+                android:id="@+id/txtDriverName"
+                android:layout_toRightOf="@id/proImage"
+
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtDate"
-                android:text="Rs.100" />
+                android:text="Dama"
+
+                />
+
+            <!--<TextView-->
+                <!--android:id="@+id/txtVehicle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/txtDriverName"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:gravity="left"-->
+                <!--android:text="Suzuki" />-->
+
+            <ImageView
+                android:id="@+id/logoStartPoint"
+                android:layout_toRightOf="@id/proImage"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtDriverName"
+                android:src="@drawable/greenpin"
+                />
+
+            <TextView
+                android:id="@+id/txtStartPoint"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/logoStartPoint"
+                android:layout_below="@id/txtDriverName"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="3dp"
+                android:gravity="right"
+                android:text="Start"
+                />
+
+            <ImageView
+                android:id="@+id/logoEndPoint"
+                android:layout_toRightOf="@id/proImage"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/logoStartPoint"
+                android:src="@drawable/redpin"
+                />
+
+            <TextView
+                android:id="@+id/txtEndPoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtStartPoint"
+                android:layout_toRightOf="@id/logoEndPoint"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="3dp"
+                android:gravity="right"
+                android:text="End"
+                />
+
+
+
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
