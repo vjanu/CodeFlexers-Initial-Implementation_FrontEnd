@@ -66,8 +66,10 @@
                 android:layout_below="@id/TripInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_horizontal"
+
+
                 >
 
                 <TextView
@@ -97,7 +99,7 @@
 
                 <TextView
                     android:id="@+id/lblEndPoint"
-                    android:layout_below="@id/lblStartPoint"
+                    android:layout_below="@id/txtStartPoint"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0dp"
@@ -113,7 +115,7 @@
                     android:layout_below="@id/txtStartPoint"
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="10dp"
-                    android:text="Kaduwela"
+                    android:text="Sri Lanka Instutute if Information Technology"
                     android:textSize="15dp"
 
                     />
@@ -121,7 +123,7 @@
 
                 <TextView
                     android:id="@+id/lblTripStatus"
-                    android:layout_below="@id/lblEndPoint"
+                    android:layout_below="@id/txtEndPoint"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0dp"
@@ -157,10 +159,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginLeft="0dp"
+                    android:layout_marginLeft="230dp"
                     android:layout_marginTop="0dp"
                     android:textSize="40dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
 
                     />
 
@@ -190,61 +192,6 @@
 
                     />
 
-                <Button
-                    android:id="@+id/btnRating"
-                    android:layout_below="@id/lblPrice"
-                    android:gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="Rate your Passenger"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorText"
-                    android:background="@drawable/ovel_drawable"
-                    android:backgroundTint="@color/colorButton"
-                    android:layout_gravity="center"
-
-
-
-                    />
-                <Button
-                    android:id="@+id/btnStartTrip"
-                    android:layout_below="@id/lblPrice"
-                    android:gravity="center_horizontal"
-                    android:backgroundTint="@color/colorButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="Start Trip"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorText"
-                    android:background="@drawable/ovel_drawable"
-                    android:layout_gravity="center"
-                    android:onClick="btn_StartConfirmation"
-
-                    />
-                <Button
-                    android:id="@+id/btnEndTrip"
-                    android:layout_below="@id/lblPrice"
-                    android:gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="End Trip"
-                    android:textSize="20dp"
-                    android:textColor="@color/colorText"
-                    android:background="@drawable/ovel_drawable"
-                    android:backgroundTint="@color/colorButton"
-                    android:layout_gravity="center"
-                    android:onClick="btn_EndConfirmation"
-
-                    />
 
 
 
@@ -253,11 +200,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginLeft="0dp"
+                android:layout_marginLeft="100dp"
                 android:layout_marginTop="0dp"
                 android:text="Mileage"
                 android:textSize="15dp"
-                android:visibility="invisible"
+                android:visibility="visible"
 
                 />
 
@@ -270,7 +217,7 @@
                     android:layout_marginTop="0dp"
                     android:text="Mileage"
                     android:textSize="15dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
 
                     />
 
@@ -302,7 +249,71 @@
                     />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TripInfo"
+                android:layout_marginTop="150dp"
+                android:gravity="center_horizontal"
+                >
 
+                <Button
+                    android:id="@+id/btnRating"
+
+                    android:gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="Rate your Passenger"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorText"
+                    android:background="@drawable/ovel_drawable"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_gravity="center"
+
+
+
+                    />
+                <Button
+                    android:id="@+id/btnStartTrip"
+
+                    android:gravity="center_horizontal"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="Start Trip"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorText"
+                    android:background="@drawable/ovel_drawable"
+                    android:layout_gravity="center"
+                    android:onClick="btn_StartConfirmation"
+
+                    />
+                <Button
+                    android:id="@+id/btnEndTrip"
+
+                    android:gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="End Trip"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorText"
+                    android:background="@drawable/ovel_drawable"
+                    android:backgroundTint="@color/colorButton"
+                    android:layout_gravity="center"
+                    android:onClick="btn_EndConfirmation"
+
+                    />
+
+            </RelativeLayout>
 
 
         <RelativeLayout

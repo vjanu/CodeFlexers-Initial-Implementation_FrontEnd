@@ -20,15 +20,23 @@
 
     <application
         android:name=".app.AppController"
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/logoplusgo_round"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/logoplusgo_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".UPM.PaymentActivity"></activity>
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
+
+        <activity android:name=".FC.TripHistory.Trip_Details.TripDetails">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".UPM.PaymentActivity" />
         <activity android:name=".FC.MapCurrentPassengerActivity">
 
             <!-- <intent-filter> -->
@@ -38,7 +46,13 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".FC.TripHistoryView" ></activity>
+        <activity android:name=".FC.TripHistory.TripHistoryView" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".FC.PassengerCurrentTrip" />
         <activity android:name=".Notification.OpenNotification">
 
@@ -51,12 +65,12 @@
         <activity android:name=".FC.LiveCalculation" />
         <activity
             android:name=".FC.TripSummaryActivity"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".FC.UserProfile"
             android:theme="@style/AppTheme" />
         <activity android:name=".UPM.VehicleActivity" />
-        <activity android:name=".UPM.AddPreferenceActivity"></activity>
+        <activity android:name=".UPM.AddPreferenceActivity" />
         <activity android:name=".UPM.NewUserActivity" />
         <activity android:name=".UPM.VerifyCodeActivity" />
         <activity android:name=".UPM.VerifyMobilePhoneActivity" />
@@ -64,46 +78,39 @@
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
 
-             <!--<intent-filter>-->
-             <!--<action android:name="android.intent.action.MAIN" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-             <!--<category android:name="android.intent.category.LAUNCHER" />-->
-             <!--</intent-filter>-->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".DVPRM.DummyActivity">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".DVPRM.DummyActivity" />
+        <activity
+            android:name=".DVPRM.DocUploadActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".DVPRM.LisenceUpActivity" />
+        <activity android:name=".DVPRM.NicUpActivity" />
+        <activity android:name=".DVPRM.NicUploadMainActivity" />
+        <activity android:name=".DVPRM.RatingMainActivity" />
+        <activity android:name=".DVPRM.RatingDriverActivity" />
+        <activity
+            android:name=".DVPRM.RatingPassActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity
+            android:name=".DVPRM.CopassengerListActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+        <activity android:name=".UPM.CameraActivity" />
+        <activity android:name=".UPM.TempGPSActivity" />
+        <activity android:name=".OPR.TrafficJam">
 
-
-            <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-       </activity>
-       <activity
-           android:name=".DVPRM.DocUploadActivity"
-           android:theme="@style/AppTheme.CustomTheme" />
-       <activity android:name=".DVPRM.LisenceUpActivity" />
-       <activity android:name=".DVPRM.NicUpActivity" />
-       <activity android:name=".DVPRM.NicUploadMainActivity" />
-       <activity android:name=".DVPRM.RatingMainActivity" />
-       <activity android:name=".DVPRM.RatingDriverActivity" />
-       <activity
-           android:name=".DVPRM.RatingPassActivity"
-           android:theme="@style/AppTheme.CustomTheme" />
-       <activity
-           android:name=".DVPRM.CopassengerListActivity"
-           android:theme="@style/AppTheme.CustomTheme" />
-       <activity android:name=".UPM.CameraActivity" />
-       <activity android:name=".UPM.TempGPSActivity" />
-       <activity android:name=".OPR.TrafficJam">
-
-           <!--
+            <!--
            <intent-filter>
                <action android:name="android.intent.action.MAIN" />
 
                <category android:name="android.intent.category.LAUNCHER" />
            </intent-filter>
-           -->
+            -->
         </activity>
         <activity android:name=".OPR.Accident">
 
@@ -116,11 +123,13 @@
             -->
         </activity>
         <activity android:name=".OPR.UserMain">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".OPR.RiderMenu">
 
@@ -132,7 +141,9 @@
             <!-- </intent-filter> -->
 
         </activity>
-        <activity android:name=".OPR.MainActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".OPR.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -156,7 +167,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

@@ -112,6 +112,33 @@ public class SignUp extends AppCompatActivity {
 
         }
 
+        username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                String txtEmail = String.valueOf(email.getText());
+                //String usrname = String.valueOf(username.getText());
+                String passw = "123456";
+                if (!hasFocus) {
+                    mAuth.createUserWithEmailAndPassword(txtEmail,passw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            //If Firebase Authentication Succeful Redirect to the Profile Activity
+                            if(!task.isSuccessful()){
+                                if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                    String Aemail = String.valueOf(email.getText());
+                                    String Apass = "123456";
+                                    userLogin(Aemail,Apass);
+                                }
+                            }
+                        }
+                    });
+                }else{
+                  //  Toast.makeText(this, "Get Focus", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
         pwd = (EditText) findViewById(R.id.signUpPassword);
 
         signupbtn = (Button) findViewById(R.id.btnSignUp);
@@ -126,27 +153,6 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Please Fill All Fields",Toast.LENGTH_SHORT).show();
                 }else{
 
-                    mAuth.createUserWithEmailAndPassword(txtEmail,passw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            //If Firebase Authentication Succeful Redirect to the Profile Activity
-                            if(task.isSuccessful()){
-                                //startProfileActivity();
-                            }else{
-                                if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                    String Aemail = String.valueOf(email.getText());
-                                    String Apass = String.valueOf(pwd.getText());
-                                   userLogin(Aemail,Apass);
-                                }else{
-                                   // progressbar.setVisibility(View.INVISIBLE);
-                                    Toast.makeText(SignUp.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-
-                        }
-                    });
-
                     FirebaseInstanceId.getInstance().getInstanceId()
                         .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                             @Override
@@ -157,15 +163,9 @@ public class SignUp extends AppCompatActivity {
                                     SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                                     editor.putString("fcmtoken", token);
                                     editor.apply();
-                                    try {
+
                                         saveToken(token);
-                                    }catch(Exception e){
 
-                                    }
-
-//                                    Log.d("qw2:", token);
-//                            Toast.makeText(ProfileActivity.this,token,Toast.LENGTH_LONG).show();
-//                            textView.setText("Token" + token);
                                 }else{
 //                            textView.setText("Token is Not Generated");
                                 }
@@ -176,14 +176,12 @@ public class SignUp extends AppCompatActivity {
                     Log.e("pwd",passw);
                     // Add new user
                     addNewUser(usrname,passw,txtEmail);
-                    // Go to Login page at success
-//                    finish();
-//                    Intent signUp;
-//                    signUp = new Intent(SignUp.this, VerifyMobilePhoneActivity.class);
-//                    startActivity(signUp);
+
                 }
             }
         });
+
+
     }
 
     //method to check whether the username has already registered
@@ -293,22 +291,15 @@ public class SignUp extends AppCompatActivity {
     }
 
 
+
+
     private void saveToken(String token)
     {
         //Create Firebase References
         DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
 
-        //FirebaseUser mCurrentUser = mAuth.getCurrentUser();
-//        if (mCurrentUser != null) {
-//            dbUsers=FirebaseDatabase.getInstance().getReference().child(NODE_USERS)
-//                    .child(mCurrentUser.getUid());
-//        }
-
-
        String email = mAuth.getCurrentUser().getEmail();
        User user = new User(email,token);
-
-
 
         //get Unique id from get current user
         dbUsers.child(mAuth.getCurrentUser().getUid())

@@ -3,6 +3,7 @@ package com.example.plusgo.FC;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -44,7 +45,7 @@ public class FragmentCurrentPassenger extends Fragment {
     private List<Current_Passenger> currentPassenger;
     View view;
     String TripId = "";
-    private boolean reloadNeed = true;
+    private RequestQueue requestQueue;
     private Handler handler;
 
     Handler mHandler;
@@ -75,6 +76,7 @@ public class FragmentCurrentPassenger extends Fragment {
         super.onStart();
 
         try {
+            currentPassenger.clear();
             mHandler.post(runnableCode);
 
 
@@ -91,8 +93,12 @@ public class FragmentCurrentPassenger extends Fragment {
         public void run() {
 
             try {
+                currentPassenger.clear();
+                try {
+                    loadCurrentPassengerData();
+                }catch(Exception ex){
 
-                loadCurrentPassengerData();
+                }
                 currentPassenger.clear();
                 mHandler.postDelayed(runnableCode, 10000);
 
@@ -127,12 +133,7 @@ public class FragmentCurrentPassenger extends Fragment {
 
 
     }
-    @Override
-    public void onResume() {
-        super.onResume();
 
-//     adapter.notifyDataSetChanged();
-    }
 
 
 
@@ -151,8 +152,8 @@ public class FragmentCurrentPassenger extends Fragment {
                         Log.d("sdss",response);
                         progressDialog.dismiss();
                         try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            JSONArray array =jsonObject.getJSONArray("currentUsers");
+                            //JSONObject jsonObject = new JSONObject(response);
+                            JSONArray array = new JSONArray(response);
                             Log.d("array.length()", String.valueOf(array.length()));
                             for(int i=0;i<array.length();i++){
                                 Log.d("444","bxxxx");
@@ -193,7 +194,11 @@ public class FragmentCurrentPassenger extends Fragment {
                     }
                 });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        //RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        if (requestQueue == null) {
+            requestQueue = Volley.newRequestQueue(getContext());
+
+        }
         requestQueue.add(stringRequest);
 
 

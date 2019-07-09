@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/copassenger_card"
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        app:cardMaxElevation="3dp"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp"
+        app:cardElevation="3dp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/displayLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/cardView"
+            android:layout_alignTop="@+id/cardView"
+            android:orientation="horizontal"
+            android:padding="@dimen/activity_horizontal_padding1">
+
+        <TextView
+            android:id="@+id/uidHidden"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="userId"
+            android:textColor="@color/colorBlack"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/proImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="30dp"
+
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/user2"
+                app:civ_border_color="#313030"
+                app:civ_border_width="2dp" />
+
+
+
+            <TextView
+                android:id="@+id/txtFullName"
+                android:layout_toRightOf="@id/proImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="14dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:text="Namal Perera" />
+
+
+
+
+                <TextView
+                    android:id="@+id/txtStarting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtFullName"
+                    android:layout_toRightOf="@id/proImage"
+                    android:text="Bambalapitiya"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_below="@id/txtFullName"
+                    android:layout_toRightOf="@id/txtStarting"
+                    app:srcCompat="@drawable/arrowright" />
+
+                <TextView
+                    android:id="@+id/txtDestination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:layout_toRightOf="@id/arrow"
+                    android:layout_below="@id/txtFullName"
+                    android:text="Colombo"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+
+
+        </RelativeLayout>
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

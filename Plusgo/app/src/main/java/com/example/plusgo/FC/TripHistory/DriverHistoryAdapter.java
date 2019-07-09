@@ -1,4 +1,4 @@
-package com.example.plusgo.FC;
+package com.example.plusgo.FC.TripHistory;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
