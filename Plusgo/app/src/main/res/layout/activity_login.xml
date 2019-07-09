@@ -204,7 +204,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btnLog"
             app:layout_constraintVertical_bias="1.0" />
-        
+
         <EditText
             android:id="@+id/hiddenEmail"
             android:layout_width="match_parent"
