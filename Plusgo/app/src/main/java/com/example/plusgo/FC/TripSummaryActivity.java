@@ -85,6 +85,7 @@ public class TripSummaryActivity extends AppCompatActivity {
     public String FCMtoken,image;
     public CircleImageView profile_image;
     String pickupPoint,dropOffPoint;
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
 
 
     public static final String CHANNEL_ID = "plus_go";
@@ -560,6 +561,12 @@ public class TripSummaryActivity extends AppCompatActivity {
         String UID = userStore.getString("UId", null);
         String Name = userStore.getString("Name", null);
 
+        String Token = txtToken.getText().toString(); //Driver Token
+
+        //Request Passenger Token
+        SharedPreferences tokenStore = getSharedPreferences(MY_PREFS_NAME,MODE_PRIVATE);
+        String PassengerToken = tokenStore.getString("fcmtoken", null);
+
 
         Log.d("Start1","Start1");
         String tripId = txtTripId.getText().toString();
@@ -569,14 +576,14 @@ public class TripSummaryActivity extends AppCompatActivity {
         String body = "You have been requested to the pickup";
         //String token = "eSB2w-2RIB8:APA91bEdyhV30dCo5ZM_kfmjvUc02_yLPy4jkfE6mk-aODNUlkTpuUicRqV90YG1oMPGE2YBHtFXafwUvRdZl3c9UCZUyGeOuBBVqzqn3rNEMeSs6sWORM2cre71ngTh321gh5jZm9fc";
         //real device
-        String token = "dVSo2gf80cs:APA91bFJ9eYm3Yf38bhnXrav_e8ERK61bO5AyNFs8zdaAcTx37rlEdDBGvjcTwIcY1bVas0i8FXlH5OhHUm1-uzpA3nCCjhV2MR7A7yVYKPG_GSJ9w1kVXlbnbyvXvTlxdCi2AM53TFG";
+        String token = Token;
         String reqPassenger = Name;
         String reqPassengerId = UID;
         String driverId  = txtUserId.getText().toString();
         String reqDriver = "DriverName";
         String source = pickupPoint;
         String destination = dropOffPoint;
-        String passengerToken = "cmB3lUxGv9g:APA91bFxfzwdMtChpUU2Qj8IOoDoIauhuCwN735ZpSmDFIoJAVTOWOf1z8WymlRauZfxKkrE8GHp8gT2xaKT8giyVofNGlhHNLS9i72g8T13wxE4TRH_NK4ljKcS8jHGsueZjZ_eBGzZ";
+        String passengerToken = PassengerToken;
 
 
 
@@ -591,7 +598,7 @@ public class TripSummaryActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 try {
-                 //Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
+                 Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

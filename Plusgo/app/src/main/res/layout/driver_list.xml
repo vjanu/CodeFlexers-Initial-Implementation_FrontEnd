@@ -33,7 +33,7 @@
             android:text=""
             android:textColor="@color/colorBlack"
             android:visibility="invisible"/>
-        txtTokenHidden
+
 
         <TextView
             android:id="@+id/txtTokenHidden"

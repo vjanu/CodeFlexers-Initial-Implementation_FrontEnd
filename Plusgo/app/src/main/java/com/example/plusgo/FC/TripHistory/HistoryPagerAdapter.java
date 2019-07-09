@@ -1,4 +1,4 @@
-package com.example.plusgo.FC;
+package com.example.plusgo.FC.TripHistory;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;

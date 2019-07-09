@@ -115,7 +115,7 @@ public class OpenNotification extends AppCompatActivity {
         String title = "Ride Confirmation";
         String body = "Driver will arriving soon. Please Wait until knocks at your place";
         //Emulator
-        String passengerToken = "c3OpPkFkbvI:APA91bFgtVj-0GaKmGSLXb38NkmJgQk35TotbEP1XhrMWnrM3wJ7NzOmfYtMmHstxu_FINB3vSi8l8h5JpTncxqA_RUc53QHH1SgnS3skpsiNLhHXzH2YnxatXl6jFlFJCDEdtPYooae";
+        String passengerToken = txtHiddenPassengerToken.getText().toString();
 
         //String passengerToken = "eoeP6RYSmVI:APA91bGHuI_4sJiju40TKFSscnO7EebMZJb6dwpIZoGtzudb7lIq3FbJjrlO8pxVkc-1SubX9-bnkiWmZr9qFU00bFibV6zE423cK-h9vhdFbDwLzJcMJsT4p_J-vYrEoTzSSB_knjPb";
         //String passengerToken = "dZmEhIH0hLg:APA91bG_zg0q2rWW9TGbiB8XE2tob5HUUZaX3S_NKyXa8m4G6SrP1ydGliWNRR682w4jpXe9HnnXCw_egk4kCB8Iv62hAqP7mRd933GWqkX8p9252_4Px4eIH87npZlUidQ74StzDUpR";
