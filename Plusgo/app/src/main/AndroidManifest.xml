@@ -28,6 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".UPM.ReportDriversActivity"></activity>
 
         <activity android:name=".FC.TripHistory.Trip_Details.TripDetails">
             <!--<intent-filter>-->
@@ -46,6 +47,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
+        <activity android:name=".FC.TripHistoryView" />
         <activity android:name=".FC.TripHistory.TripHistoryView" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,14 +79,14 @@
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        
         <activity android:name=".DVPRM.DummyActivity" />
         <activity
             android:name=".DVPRM.DocUploadActivity"

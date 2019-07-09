@@ -30,6 +30,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.UPM.AddPreferenceActivity;
 import com.example.plusgo.UPM.NewUserActivity;
+import com.example.plusgo.UPM.ReportDriversActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -39,6 +40,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -214,6 +216,7 @@ public class Login extends AppCompatActivity {
                         user.setPassword(jsonObject.getString("Password"));
                         user.setuID(jsonObject.getString("UserID"));
                         user.setName(jsonObject.getString("Email"));
+                        user.setStatus(jsonObject.getString("Status"));
                         users.add(user);
                         finish();
 
@@ -228,6 +231,15 @@ public class Login extends AppCompatActivity {
                 if (users.size() == 1) {
                     pDialog.dismiss();
 
+
+                        SharedPreferences.Editor userStore = getSharedPreferences("userStore", MODE_PRIVATE).edit();
+                        userStore.putString("UId", user.getuID());
+                        userStore.putString("Name", user.getUsername());
+                        userStore.putString("Email", user.getEmail());
+                        userStore.putString("Status", user.getStatus());
+                        userStore.putBoolean("Islogin", true);
+                        userStore.apply();
+
                     SharedPreferences.Editor userStore = getSharedPreferences("userStore", MODE_PRIVATE).edit();
                     userStore.putString("UId", user.getuID());
                     userStore.putString("Name", user.getUsername());
@@ -235,13 +247,35 @@ public class Login extends AppCompatActivity {
                     userStore.putBoolean("Islogin", true);
                     userStore.apply();
 
+
                     SharedPreferences user = getSharedPreferences("userStore", MODE_PRIVATE);
                     boolean uid = user.getBoolean("Islogin", false);
+
+                    String status = user.getString("Status", "P");
+                        Log.d("login1:", String.valueOf(uid));
+
+
+                        //checking whether the user is spouse or normal passenger
+
+                    if(status.equalsIgnoreCase("S")){
+                        finish();
+                        Intent intent = new Intent(Login.this, ReportDriversActivity.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        finish();
+                        Intent intent = new Intent(Login.this, NewUserActivity.class);
+                        startActivity(intent);
+                    }
+                }
+                else{
+
                     Log.d("login1:", String.valueOf(uid));
                     finish();
                     Intent intent = new Intent(Login.this, NewUserActivity.class);
                     startActivity(intent);
                 } else {
+
                     pDialog.dismiss();
                     Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
                 }
