@@ -6,9 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.plusgo.OPR.RiderMenu;
 import com.example.plusgo.OPR.UserMain;
-import com.example.plusgo.UPM.ReportDriversActivity;
+import com.example.plusgo.UPM.ReportedDriverListActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(Islogin && status.equalsIgnoreCase("S"))
                     {   // condition true means user is already login
-                        Intent home = new Intent(MainActivity.this, ReportDriversActivity.class);
+                        Intent home = new Intent(MainActivity.this, ReportedDriverListActivity.class);
                         startActivity(home);
                     }
                     else

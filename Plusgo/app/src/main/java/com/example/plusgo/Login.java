@@ -25,9 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.plusgo.UPM.AddPreferenceActivity;
 import com.example.plusgo.UPM.NewUserActivity;
-import com.example.plusgo.UPM.ReportDriversActivity;
+import com.example.plusgo.UPM.ReportedDriverListActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -149,7 +148,7 @@ public class Login extends AppCompatActivity {
 
                     if(status.equalsIgnoreCase("S")){
                         finish();
-                        Intent intent = new Intent(Login.this, ReportDriversActivity.class);
+                        Intent intent = new Intent(Login.this, ReportedDriverListActivity.class);
                         startActivity(intent);
                     }
                     else {

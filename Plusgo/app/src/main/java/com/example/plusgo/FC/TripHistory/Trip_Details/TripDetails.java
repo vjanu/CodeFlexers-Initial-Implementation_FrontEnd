@@ -24,29 +24,29 @@ public class TripDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trip_details);
-
-        Intent intent = getIntent();
-        String TripId = intent.getStringExtra("TID");
-        String Date = intent.getStringExtra("DATE");
-
-        txtDate = (TextView)findViewById(R.id.txtTripDate);
-        txtDate.setText(Date);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
-        //appBarLayout = (AppBarLayout) findViewById(R.id.appbarId);
-        viewPager = (ViewPager) findViewById(R.id.view_pager_history_id);
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+//        setContentView(R.layout.activity_trip_details);
+//
+//        Intent intent = getIntent();
+//        String TripId = intent.getStringExtra("TID");
+//        String Date = intent.getStringExtra("DATE");
+//
+//        txtDate = (TextView)findViewById(R.id.txtTripDate);
+//        txtDate.setText(Date);
+//
+//        tabLayout = (TabLayout) findViewById(R.id.tabLayoutId);
+//        //appBarLayout = (AppBarLayout) findViewById(R.id.appbarId);
+//        viewPager = (ViewPager) findViewById(R.id.view_pager_history_id);
+//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         //Adding Fragment
 
 
 
-        adapter.AddFrgment(new DriverHistoryDetailsFragment(),"Driver Details");
-        adapter.AddFrgment(new PassengerHistoryDetailsFragment(TripId),"Co-Passengers Details");
-        adapter.AddFrgment(new ReceiptFragment(),"Receipt");
-
-        //adapter Setup
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+//        adapter.AddFrgment(new DriverHistoryDetailsFragment(),"Driver Details");
+//        adapter.AddFrgment(new PassengerHistoryDetailsFragment(TripId),"Co-Passengers Details");
+//        adapter.AddFrgment(new ReceiptFragment(),"Receipt");
+//
+//        //adapter Setup
+//        viewPager.setAdapter(adapter);
+//        tabLayout.setupWithViewPager(viewPager);
     }
 }
