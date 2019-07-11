@@ -183,7 +183,7 @@ public class SignUp extends AppCompatActivity {
 //                    signUp = new Intent(SignUp.this, VerifyMobilePhoneActivity.class);
 //                    startActivity(signUp);
 
-                    addNewUser(usrname,passw,txtEmail);
+                    
 
 
                 }
@@ -318,7 +318,7 @@ public class SignUp extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful())
                 {
-                    Toast.makeText(SignUp.this,"Token Saved",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(SignUp.this,"Token Saved",Toast.LENGTH_LONG).show();
 
                 }
             }

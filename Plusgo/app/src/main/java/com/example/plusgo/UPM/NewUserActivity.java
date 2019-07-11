@@ -257,7 +257,7 @@ public class NewUserActivity extends AppCompatActivity {
                 Log.d("signUp1", "signUp1");
                 addNewUser(spouseID, spouseUserName, spousePassword, "","S");
                 Log.d("signUp2", "signUp2");
-                //sendSMS(); //todo
+                sendSMS(); //todo
                 addToSpouseTable(spouseID, id);
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_ADD_USER, new Response.Listener<String>() {
                     @Override
@@ -620,7 +620,7 @@ public class NewUserActivity extends AppCompatActivity {
                 new Intent(DELIVERED), 0);
 
         SharedPreferences user = getSharedPreferences("self",MODE_PRIVATE);
-        String phone = user.getString("RPhone", null);
+        String phone = String.valueOf(user.getLong("RPhone", 0));
         String username = user.getString("username", null);
         String password = user.getString("password", null);
 

@@ -25,82 +25,82 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.Adapters.DriverListAdapter;
+import com.example.plusgo.Adapters.ReportedDriverListAdapter;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.Login;
 import com.example.plusgo.OPR.MainActivity;
 import com.example.plusgo.R;
-import com.example.plusgo.Utility.Driver;
 import com.example.plusgo.Utility.DriverListItem;
+import com.example.plusgo.Utility.ReportedDriverListItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 
-public class DriverListActivity extends AppCompatActivity {
+public class ReportedDriverListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RequestQueue requestQueue;
     private static final String KEY_EMPTY = "";
     private RecyclerView.Adapter adapter;
-    private List<DriverListItem> driverListItems;
+    private List<ReportedDriverListItem> driverListItems;
     private List<String> drivers;
-    private List<Driver> reportedDrivers;
     private TextView rate, count, welcome, noDrivers;
     private ImageButton btnLogout;
     BaseContent BASECONTENT = new BaseContent();
     private String id;
     private String uid;
-//    String c = "U1558711443502";
     private TempGPSActivity tempGPSActivity;
-    private String URL_AVAILABLE_DRIVERS = BASECONTENT.IpAddress + "/available/driver/";
-    private String PYTHON_URL_GET_DRIVERS = BASECONTENT.pythonIpAddress + "/ridematching/kmeans/";
-    private String URL_REPORTED_DRIVERS = BASECONTENT.IpAddress + "/spouse/specific/report/passenger/";
-
-    //    private ImageView profileImage;
-//    private String JSON_URL = BASECONTENT.IpAddress + "/comments/specific/";
-//    private String JSON_URL = "https://gist.githubusercontent.com/vjanu/4720773fad79534af4460be44002789e/raw/f9125dfa3f728c91ab62ac5c5b7064e2808de2f5/drivers";
+    private String URL_DRIVERS = BASECONTENT.IpAddress + "/spouse/";
+    private String URL_PUID = BASECONTENT.IpAddress + "/spouse/specific/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_list);
-        tempGPSActivity = new TempGPSActivity();
+        setContentView(R.layout.activity_reported_driver_list);
 
         SharedPreferences user = getSharedPreferences("userStore",MODE_PRIVATE);
         uid = user.getString("UId", null);
 
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerviewid);
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerviewid1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        noDrivers = (TextView)findViewById(R.id.noDrivers);
         btnLogout = (ImageButton) findViewById(R.id.logout1);
 
 
         driverListItems = new ArrayList<>();
-        reportedDrivers = new ArrayList<>();
         //initiate methods
-//       getAvailableDriverList();
-        getReportedDrivers();
+        getPassengerID();
+
+
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,70 +111,15 @@ public class DriverListActivity extends AppCompatActivity {
 
     }
 
-    List<String> availableDrivers = new ArrayList<>();
-    List<String> singleQouteAvailableDrivers = new ArrayList<>();
-    public void getAvailableDriverList(final List<Driver> reportedDrivers) {
 
-        Log.e("too","started");
-        RequestQueue requestQueue = Volley.newRequestQueue(DriverListActivity.this);
-        StringRequest request = new StringRequest(PYTHON_URL_GET_DRIVERS+uid, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray jsonObject = new JSONArray(response);
-
-//                    Log.d("oo",  String.valueOf(jsonObject.length()));
-//                    Log.d("oo1",  String.valueOf(jsonObject.get(0)));
-//                    Log.d("oo2",  String.valueOf(jsonObject.get(1)));
-
-                    for(int i=0; i <jsonObject.length(); i++){
-                        availableDrivers.add(jsonObject.get(i).toString());
-
-                    }
-                    availableDrivers.remove(uid);
-
-                    Log.d("reportsize", String.valueOf(reportedDrivers.size()));
-                    for(int i=0; i<reportedDrivers.size();i++){
-                        availableDrivers.remove(reportedDrivers.get(i).getUID());
-                        Log.d("report", reportedDrivers.get(i).getUID());
-                    }
-
-                    for(int i=0; i<availableDrivers.size();i++){
-                        singleQouteAvailableDrivers.add("'"+availableDrivers.get(i)+"'");
-                        Log.d("rtt", "'"+availableDrivers.get(i)+"'");
-                    }
-                    loadDriverDetails(singleQouteAvailableDrivers);
-                }
-                catch(JSONException e){
-
-                    e.printStackTrace();
-                    Log.d("JSONREQUEST","ERROR");
-                }
-
-
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        requestQueue = Volley.newRequestQueue(DriverListActivity.this);
-        requestQueue.add(request);
-
-    }
     //load all relevant driver details from the database
-    private void loadDriverDetails(List<String> dri) {
+    private void loadDriverDetails(String puid) {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Drivers");
         progressDialog.show();
 
         try {
-            JsonArrayRequest stringRequest = new JsonArrayRequest(URL_AVAILABLE_DRIVERS+dri, new Response.Listener<JSONArray>() {
+            JsonArrayRequest stringRequest = new JsonArrayRequest(URL_DRIVERS+puid, new Response.Listener<JSONArray>() {
 
                 public void onResponse(JSONArray response) {
                     Log.d("qqq1", response.toString());
@@ -184,13 +129,16 @@ public class DriverListActivity extends AppCompatActivity {
                     for(int i= 0; i<response.length(); i++){
                         try{
 
+                            DecimalFormat dc = new DecimalFormat("#0.00");
                             jsonObject = response.getJSONObject(i);
-                           DriverListItem item = new DriverListItem(jsonObject.getString("OID"),jsonObject.getString("UserID"),jsonObject.getString("FullName"), jsonObject.getString("Source"),
-                                    jsonObject.getString("Destination"), jsonObject.getString("Model"), Double.parseDouble(jsonObject.getString("AverageRating")),
+                            ReportedDriverListItem item = new ReportedDriverListItem(
+                                    jsonObject.getString("PUID"),
+                                    jsonObject.getString("Fullname"),
+                                    String.format("Rs.%.2f",jsonObject.getDouble("Amt")),
+                                    Long.parseLong(jsonObject.getString("Count")),
                                     jsonObject.getString("img"),
-                                    jsonObject.getString("StartTime"),
-                                    jsonObject.getString("Token")
-                                   );
+                                    jsonObject.getString("DUID")
+                            );
 
                             driverListItems.add(item);
 
@@ -198,7 +146,7 @@ public class DriverListActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                    adapter = new DriverListAdapter(driverListItems, getApplicationContext());
+                    adapter = new ReportedDriverListAdapter(driverListItems, getApplicationContext());
                     recyclerView.setAdapter(adapter);
 
                 }
@@ -206,9 +154,6 @@ public class DriverListActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     progressDialog.dismiss();
-//                    noDrivers.setEnabled(true);
-                    noDrivers.setVisibility(View.VISIBLE);
-//                    Toast.makeText(DriverListActivity.this, "No Drivers Available", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -223,23 +168,44 @@ public class DriverListActivity extends AppCompatActivity {
         }
     }
 
-        private void getReportedDrivers() {
-            Log.d("getReportedDrivers", "getReportedDrivers");
-            JsonArrayRequest request = new JsonArrayRequest(URL_REPORTED_DRIVERS+uid, new Response.Listener<JSONArray>() {
+//    private void getPassengerID(){
+//        Log.i("getPassengerID", "getPassengerID");
+//        Log.i("ID", uid);
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_PUID+uid, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.i("spouseID", response);
+////                loadDriverDetails(response);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e("LOG_VOLLEY", error.toString());
+//            }
+//        }) ;
+//
+//        stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+//                10000,
+//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//        requestQueue.add(stringRequest);
+//    }
+
+    private void getPassengerID() {
+        Log.i("getPassengerID", "getPassengerID");
+        Log.i("ID", uid);
+        Log.e("JSONREQUEST","started");
+        JsonArrayRequest request = new JsonArrayRequest(URL_PUID+uid, new Response.Listener<JSONArray>() {
 
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-
                 for(int i= 0; i<response.length(); i++){
                     try{
                         jsonObject = response.getJSONObject(i);
                         if(jsonObject.length()!=0) {
-                            Driver reportedD = new Driver();
-                            reportedD.setUID(jsonObject.getString("DUID"));
-                            reportedDrivers.add(reportedD);
-                            Log.d("yoo",  reportedD.getUID());
-                        }
-                        else{
+                            Log.i("jsonObject", jsonObject.toString());
+                            loadDriverDetails(jsonObject.getString("PUID"));
+
 
                         }
 
@@ -247,7 +213,7 @@ public class DriverListActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                getAvailableDriverList(reportedDrivers);
+
 
 
             }
@@ -258,10 +224,11 @@ public class DriverListActivity extends AppCompatActivity {
             }
         });
 
-        RequestQueue requestQueue = Volley.newRequestQueue(DriverListActivity.this);
+        requestQueue = Volley.newRequestQueue(ReportedDriverListActivity.this);
         requestQueue.add(request);
 
     }
+
 
     //destroy the session created
     private void logout(){
@@ -274,14 +241,14 @@ public class DriverListActivity extends AppCompatActivity {
         Log.d("login2:", String.valueOf(uid));
 
         finish();
-        Intent login = new Intent(DriverListActivity.this, Login.class);
+        Intent login = new Intent(ReportedDriverListActivity.this, Login.class);
         startActivity(login);
 
     }
     @Override
     public void onBackPressed() {
         finish();
-        Intent map = new Intent(DriverListActivity.this, MainActivity.class);
+        Intent map = new Intent(ReportedDriverListActivity.this, ReportedDriverListActivity.class);
         startActivity(map);
 
 
