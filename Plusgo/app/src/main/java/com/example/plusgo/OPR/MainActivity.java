@@ -881,8 +881,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             runnable = new Runnable() {
                 @Override
                 public void run() {
-                    //Updating firebase store
-                  //  addDrivers();
+                    //Updating firebase store/
+                    addDrivers();
 
                     //And we execute it again
                     handler.postDelayed(this, EVERY_FIVE_SECOND);
@@ -1169,41 +1169,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
-//    private void getReportedDrivers() {
-//        JsonArrayRequest request = new JsonArrayRequest(JSON_URL_REPORTED_DRIVERS+uid, new Response.Listener<JSONArray>() {
-//
-//            public void onResponse(JSONArray response) {
-//                JSONObject jsonObject = null;
-//
-//                for(int i= 0; i<response.length(); i++){
-//                    try{
-//                        jsonObject = response.getJSONObject(i);
-//                        if(jsonObject.length()!=0) {
-//
-//
-//                        }
-//                        else{
-//
-//                        }
-//                    }catch (JSONException e){
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//
-//            }
-//        });
-//
-//        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
-//        requestQueue.add(request);
-//
-//    }
+
 
     @Override
     public void onBackPressed() {

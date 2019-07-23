@@ -198,7 +198,7 @@ public class LisenceUpActivity extends AppCompatActivity {
             Log.e("MATCHED_COUNT", String.valueOf(count));
 
             if (count < 10) {
-                Toast.makeText(this, "Please upload a clear lisence again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please upload a clear license again", Toast.LENGTH_SHORT).show();
                 proceedLISbtn.setVisibility(View.INVISIBLE);
             } else{
                 if(ExtractNIC.length() == 12) {
@@ -211,7 +211,7 @@ public class LisenceUpActivity extends AppCompatActivity {
             }
         }catch (Exception e){
             Log.e("editnic_EXCEPTION", e.toString());
-            Toast.makeText(this, "Error, Please Upload valid lisence ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error, Please Upload valid license ", Toast.LENGTH_SHORT).show();
         }
     }
 

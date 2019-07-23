@@ -16,6 +16,16 @@ public class User {
     String username;
     String password;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    String status;
+
     public String getName() {
         return name;
     }

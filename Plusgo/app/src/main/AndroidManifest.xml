@@ -30,10 +30,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FC.TripHistory.Trip_Details_Driver.AllPassengerHistoryDetailsFragment"></activity>
-        <activity android:name=".FC.TripHistory.Trip_Details_Driver.ReceiptFragmentDriver" />
-        <activity android:name=".FC.TripHistory.Trip_Details_Driver.PassengerHistoryDetailsFragment" />
+
         <activity android:name=".FC.TripHistory.Trip_Details_Driver.TripDetailsDriver" />
+
+        <activity android:name=".UPM.ViewReportTripHistoryActivity"></activity>
         <activity android:name=".FC.TripHistory.Trip_Details.TripDetails">
 
             <!-- <intent-filter> -->
@@ -55,12 +55,20 @@
         </activity>
         <activity android:name=".FC.TripHistory.TripHistoryView">
 
+
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+
         </activity>
         <activity android:name=".FC.PassengerCurrentTrip" />
         <activity android:name=".Notification.OpenNotification">
@@ -83,6 +91,7 @@
         <activity android:name=".UPM.NewUserActivity" />
         <activity android:name=".UPM.VerifyCodeActivity" />
         <activity android:name=".UPM.VerifyMobilePhoneActivity" />
+        <activity android:name=".UPM.ReportedDriverListActivity" />
         <activity android:name=".Login" />
         <activity android:name=".SignUp" />
         <activity android:name=".MainActivity">
