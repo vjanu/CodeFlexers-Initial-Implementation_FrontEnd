@@ -710,10 +710,20 @@ public class TripRecord implements DefineObdReader {
 
     public String getMileage()
     {
-        String result = getmDistanceTraveledAfterCodesCleared();
-        String MileageWithoutKm = result.split("km")[0];
-        return MileageWithoutKm;
+//        String result;
+//        result = mDistanceTraveledMilOn;
+//        //String MileageWithoutKm[] = result.split("km");
+//        // Log.d("mileage",MileageWithoutKm);
+//        return result;
+
+//        result = getmDistanceTraveledAfterCodesCleared();
+////        String MileageWithoutKm[] = result.split("km");
+//        return result ;
+       // return getmIdlingFuelConsumption();
+
+        return String.valueOf(getmIdlingFuelConsumption()+getmDrivingFuelConsumption());
+
     }
-
-
+//
+//+getmDrivingFuelConsumption()
 }

@@ -24,7 +24,7 @@ public class TripHistoryView extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager_id);
         HistoryPagerAdapter adapter = new HistoryPagerAdapter(getSupportFragmentManager());
         //Adding Fragment
-        adapter.AddFrgment(new PassengerFragment(),"Passenger");
+       adapter.AddFrgment(new PassengerFragment(),"Passenger");
        adapter.AddFrgment(new DriverFragment(),"Driver");
 
 

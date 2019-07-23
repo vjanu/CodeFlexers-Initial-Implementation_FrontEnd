@@ -4,12 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.plusgo.BaseContent;
 import com.example.plusgo.FC.Current_Passenger;
 import com.example.plusgo.FC.PassengerCurrentTrip;
 import com.example.plusgo.R;
@@ -17,8 +23,10 @@ import com.example.plusgo.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassengerAdapter.ViewHolder> {
+import de.hdodenhof.circleimageview.CircleImageView;
 
+public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassengerAdapter.ViewHolder> {
+    BaseContent BASECONTENT = new BaseContent();
     public CurrentPassengerAdapter(List<Current_Passenger> currentPassengerLists, Context context) {
         this.currentPassengerLists = currentPassengerLists;
         this.context = context;
@@ -42,6 +50,9 @@ public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassen
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.currentpassengerlist,viewGroup,false);
         return new CurrentPassengerAdapter.ViewHolder(v);
+
+
+
     }
 
     @Override
@@ -61,10 +72,18 @@ public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassen
         viewHolder.txtHiddenPassengerId.setText(current_passenger.getUserId());
         viewHolder.txtHiddenTripId.setText(current_passenger.getTripId());
         viewHolder.txtHiddenToken.setText(current_passenger.getToken());
-        viewHolder.txtHiddenuserImage.setText(current_passenger.getUserImage());
+        //viewHolder.txtHiddenuserImage.setText(current_passenger.getUserImage());
+        RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
+
+        //To load image using Glide
+        Glide.with(context)
+                .load(BASECONTENT.IpAddress  +current_passenger.getUserImage())
+                .apply(requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
+                .into(viewHolder.profileImage);
 
 
-        viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        viewHolder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, PassengerCurrentTrip.class);
@@ -77,20 +96,29 @@ public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassen
                 TextView name  =(TextView)view.findViewById(R.id.txtName);
                 TextView source  =(TextView)view.findViewById(R.id.txtSource);
                 TextView destination  =(TextView)view.findViewById(R.id.txtDestination);
-                //CircleImageView profileImage = (CircleImageView)view.findViewById(R.id.proImage);
+                CircleImageView profileImage = (CircleImageView)view.findViewById(R.id.proImage);
                 TextView txtToken = (TextView) view.findViewById(R.id.txtHiddenToken);
                 TextView txtStatus = (TextView) view.findViewById(R.id.txtTripStatus);
-                TextView txtHiddenuserImage = (TextView) view.findViewById(R.id.txtHiddenuserImage);
+                //TextView txtHiddenuserImage = (TextView) view.findViewById(R.id.txtHiddenuserImage);
+//                TextView txtMileage = (TextView) view.findViewById(R.id.txtMileage);
+
+                //TextView txtMileage = (TextView) v2.findViewById( R.id.txtMileage );
+               // Log.d("OBD",txtMileage.getText().toString());
+
+//                TextView txtMileage = (TextView) activity_map_current_passenger
+
 
                 i.putExtra("TripId", String.valueOf(tripId.getText()));
                 i.putExtra("PassengerId", String.valueOf(passengerId.getText()));
                 i.putExtra("Name", String.valueOf(name.getText()));
                 i.putExtra("Source", String.valueOf(source.getText()));
                 i.putExtra("Destination",String.valueOf(destination.getText()));
-                //i.putExtra("img",String.valueOf(profileImage));
+                i.putExtra("img",String.valueOf(current_passenger.getUserImage()));
                 i.putExtra("Token",String.valueOf(txtToken.getText()));
                 i.putExtra("Status",String.valueOf(txtStatus.getText()));
-                i.putExtra("userImage",String.valueOf(txtHiddenuserImage.getText()));
+               // i.putExtra("userImage",String.valueOf(txtHiddenuserImage.getText()));
+//                i.putExtra("currentMileage",String.valueOf(txtMileage.getText()+"12"));
+
 
                 //Test
 //                PassengerCurrentTrip passengerCurrentTrip = new PassengerCurrentTrip();
@@ -101,6 +129,13 @@ public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassen
 
             }
         });
+
+        //To load image using Glide
+        Glide.with(context)
+                .load(BASECONTENT.IpAddress  +current_passenger.getUserImage())
+                .apply(requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
+                .into(viewHolder.profileImage);
     }
 
 
@@ -120,8 +155,8 @@ public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassen
         public TextView txtHiddenPassengerId;
         public TextView txtHiddenTripId;
         public TextView txtHiddenToken;
-        public TextView txtHiddenuserImage;
-        public LinearLayout linearLayout;
+        public CircleImageView profileImage;
+        public RelativeLayout relativeLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -132,8 +167,8 @@ public class CurrentPassengerAdapter extends  RecyclerView.Adapter<CurrentPassen
             txtHiddenPassengerId = (TextView) itemView.findViewById(R.id.txtHiddenPassengerId);
             txtHiddenTripId = (TextView) itemView.findViewById(R.id.txtHiddenTripId);
             txtHiddenToken = (TextView) itemView.findViewById(R.id.txtHiddenToken);
-            txtHiddenuserImage = (TextView) itemView.findViewById(R.id.txtHiddenuserImage);
-            linearLayout = (LinearLayout) itemView.findViewById(R.id.linearLayout);
+            profileImage = (CircleImageView)itemView.findViewById(R.id.proImage);
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.relativeLayout);
 
         }
 

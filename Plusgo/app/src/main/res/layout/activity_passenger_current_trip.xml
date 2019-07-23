@@ -29,13 +29,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <!--<ImageView-->
+                    <!--android:id="@+id/imgLogo"-->
+                    <!--android:layout_width="200dp"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:layout_marginBottom="60dp"-->
+                    <!--android:src="@drawable/log10crop" />-->
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/imgLogo"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:layout_centerInParent="true"
                     android:layout_marginBottom="60dp"
-                    android:src="@drawable/log10crop" />
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/user2"
+                    app:civ_border_color="#313030"
+                    app:civ_border_width="2dp" />
 
                 <TextView
                     android:id="@+id/txtTripInfo"
@@ -153,6 +167,7 @@
                     android:layout_marginTop="10dp"
                     android:visibility="invisible"
                     android:text="Price"
+                    android:textStyle="bold"
                     android:textSize="15dp"  />
                 <TextView
                     android:id="@+id/txtHiddenCurrentPassengers"
@@ -174,7 +189,7 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
                     android:textSize="60dp"
-                    android:visibility="gone"
+                    android:visibility="visible"
 
                     />
 
@@ -188,6 +203,7 @@
                     android:layout_marginTop="10dp"
                     android:text="0.00"
                     android:visibility="invisible"
+                    android:textStyle="bold"
                     android:textSize="15dp"
 
                     />
@@ -204,7 +220,7 @@
                 android:layout_marginTop="0dp"
                 android:text="Mileage"
                 android:textSize="15dp"
-                android:visibility="visible"
+                android:visibility="gone"
 
                 />
 
@@ -217,7 +233,7 @@
                     android:layout_marginTop="0dp"
                     android:text="Mileage"
                     android:textSize="15dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
 
                     />
 
@@ -307,7 +323,7 @@
                     android:textSize="20dp"
                     android:textColor="@color/colorText"
                     android:background="@drawable/ovel_drawable"
-                    android:backgroundTint="@color/colorButton"
+                    android:backgroundTint="@color/quantum_googred700"
                     android:layout_gravity="center"
                     android:onClick="btn_EndConfirmation"
 

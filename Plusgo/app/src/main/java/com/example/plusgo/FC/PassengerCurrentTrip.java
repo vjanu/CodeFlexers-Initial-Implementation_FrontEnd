@@ -1,7 +1,10 @@
 package com.example.plusgo.FC;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +30,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.DVPRM.DummyActivity;
 import com.example.plusgo.DVPRM.RatingDriverActivity;
@@ -35,6 +41,16 @@ import com.example.plusgo.Notification.API;
 import com.example.plusgo.Notification.OpenNotification;
 import com.example.plusgo.R;
 import com.example.plusgo.UPM.NewUserActivity;
+import com.sohrab.obd.reader.application.ObdPreferences;
+import com.sohrab.obd.reader.obdCommand.ObdCommand;
+import com.sohrab.obd.reader.obdCommand.ObdConfiguration;
+import com.sohrab.obd.reader.obdCommand.SpeedCommand;
+import com.sohrab.obd.reader.obdCommand.control.DistanceMILOnCommand;
+import com.sohrab.obd.reader.obdCommand.control.DistanceSinceCCCommand;
+import com.sohrab.obd.reader.obdCommand.engine.RPMCommand;
+import com.sohrab.obd.reader.obdCommand.fuel.FindFuelTypeCommand;
+import com.sohrab.obd.reader.service.ObdReaderService;
+import com.sohrab.obd.reader.trip.TripRecord;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +58,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -50,6 +67,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.sohrab.obd.reader.constants.DefineObdReader.ACTION_OBD_CONNECTION_STATUS;
+import static com.sohrab.obd.reader.constants.DefineObdReader.ACTION_READ_OBD_REAL_TIME_DATA;
 
 public class PassengerCurrentTrip extends AppCompatActivity {
 
@@ -73,7 +93,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
     private final String JSON_GET_CURRENT_PASSENGER = BASECONTENT.IpAddress+"/trip/";
     private final String JSON_DELETE_CURRENT_PASSENGERS = BASECONTENT.IpAddress+"/trip/delete/currentPassengers/";
 
-    private TextView txtPassengerName,txtStartPoint,txtEndPoint,txtHiddenTripId,txtHiddenPassengerId,txtHiddenToken,txtTripStatus,
+    public TextView txtPassengerName,txtStartPoint,txtEndPoint,txtHiddenTripId,txtHiddenPassengerId,txtHiddenToken,txtTripStatus,
             txtHiddenCurrentMileage,txtHiddenCurrentPassengers,txtHiddenStartMileage,txtHiddenPrice,txtPrice,lblPrice,txtHiddenCurrentAcceptPassengers;
     public Button btnEndTrip,btnStartTrip,btnRating;
     RequestQueue requestQueue ;
@@ -83,6 +103,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
     private int passengercount;
     private String tripId,passengerId,driverId;
     double price;
+    public String currentMileageResult;
 
 
     @Override
@@ -104,7 +125,8 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         String endpoint = intent.getStringExtra("Destination");
         String Token = intent.getStringExtra("Token");
         String Status = intent.getStringExtra("Status");
-        String userImage = intent.getStringExtra("userImage");
+        String userImage = intent.getStringExtra("img");
+//        String currentMileage = intent.getStringExtra("currentMileage");
 
 
         //Variable assign With TextView Which is used in the layout
@@ -127,6 +149,15 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         btnRating = (Button) findViewById(R.id.btnRating);
         imgLogo = (ImageView) findViewById(R.id.imgLogo);
 
+        RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
+
+        //To load image using Glide
+        Glide.with(this)
+                .load(BASECONTENT.IpAddress  +userImage)
+                .apply(requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
+                .into(imgLogo);
+
         //Value Set for the initiallize variables
         txtHiddenTripId.setText(TripId);
         txtHiddenPassengerId.setText(PassengerId);
@@ -137,8 +168,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         txtTripStatus.setText(Status);
         //Need To user Image to the imgLogo
         txtHiddenCurrentMileage.setText("5017");
-
-        Log.d("status",Status);
+//        txtHiddenCurrentMileage.setText(currentMileage);
 
         GetCurrentPassengers();
         GetAcceptCurrentPassengers();
@@ -158,11 +188,6 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         String tripId = getRatingDetails.getString("tripId", null);
         String vehicleId = getRatingDetails.getString("vehicleId", null);
 
-        Log.d("Test","Test");
-        Log.d("#@#driverId",driversId);
-        Log.d("#@#passengerId",passengerId);
-        Log.d("#@#tripId",tripId);
-       // Log.d("#@#vehicleId",vehicleId);
 
         btnRating.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,16 +198,18 @@ public class PassengerCurrentTrip extends AppCompatActivity {
         });
 
 
-        if(Status.equals("1")){ //Trip Started
-            btnRating.setVisibility(View.GONE);
-            btnStartTrip.setVisibility(View.GONE);
-            btnEndTrip.setVisibility(View.VISIBLE);
-        }
 
-        else if(Status.equals("0")){ //Trip Not Started
+
+        if(Status.equals("Trip Not Started")){ //Trip Not Started
             btnEndTrip.setVisibility(View.GONE);
             btnStartTrip.setVisibility(View.VISIBLE);
             btnRating.setVisibility(View.GONE);
+        }
+
+        else if(Status.equals("Trip Started")){ //Trip Started
+            btnRating.setVisibility(View.GONE);
+            btnStartTrip.setVisibility(View.GONE);
+            btnEndTrip.setVisibility(View.VISIBLE);
         }
         else{
             //Trip Ended
@@ -191,7 +218,90 @@ public class PassengerCurrentTrip extends AppCompatActivity {
             btnStartTrip.setVisibility(View.GONE);
         }
 
-    }
+
+
+//        ArrayList<ObdCommand> obdCommands = new ArrayList<>();
+//        //obdCommands.add(new DistanceMILOnCommand());
+//        obdCommands.add(new FindFuelTypeCommand());
+//
+//        ObdConfiguration.setmObdCommands(this, obdCommands);
+        //TODO : BELOW CODE COMMENTED FOR THE DEMO
+//        //TODO : Commented
+//        // passing null means we are executing all OBD command for now, but you should add required command for fast retrieval like above commented lines.
+//        ObdConfiguration.setmObdCommands(this, null);
+//
+//
+//        // set gas price per litre so that gas cost can calculated. Default is 7 $/l
+//        float gasPrice = 7; // per litre, you should initialize according to your requirement.
+//        ObdPreferences.get(this).setGasPrice(gasPrice);
+//        /**
+//         * Register receiver with some action related to OBD connection status
+//         */
+//        IntentFilter intentFilter = new IntentFilter();
+//        intentFilter.addAction(ACTION_READ_OBD_REAL_TIME_DATA);
+//        intentFilter.addAction(ACTION_OBD_CONNECTION_STATUS);
+//        registerReceiver(mObdReaderReceiver, intentFilter);
+//
+//        //start service which will execute in background for connecting and execute command until you stop
+//        startService(new Intent(this, ObdReaderService.class));
+//
+//
+//    }
+//
+//
+//    //TODO:OBD TESTING
+//    /**
+//     * Broadcast Receiver to receive OBD connection status and real time data
+//     */
+//    private final BroadcastReceiver mObdReaderReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//
+//            // findViewById(R.id.progress_bar).setVisibility(View.GONE);
+//            txtHiddenCurrentMileage.setVisibility(View.VISIBLE);
+//            String action = intent.getAction();
+//
+//            if (action.equals(ACTION_OBD_CONNECTION_STATUS)) {
+//
+//                String connectionStatusMsg = intent.getStringExtra(ObdReaderService.INTENT_OBD_EXTRA_DATA);
+//                txtHiddenCurrentMileage.setText(connectionStatusMsg);
+//                //Toast.makeText(PassengerCurrentTrip.this, connectionStatusMsg, Toast.LENGTH_SHORT).show();
+//
+//                if (connectionStatusMsg.equals(getString(R.string.obd_connected))) {
+//                    //OBD connected  do what want after OBD connection
+//                } else if (connectionStatusMsg.equals(getString(R.string.connect_lost))) {
+//                    //OBD disconnected  do what want after OBD disconnection
+//                } else {
+//                    // here you could check OBD connection and pairing status
+//                }
+//
+//            } else if (action.equals(ACTION_READ_OBD_REAL_TIME_DATA)) {
+//
+//                TripRecord tripRecord = TripRecord.getTripRecode(PassengerCurrentTrip.this);
+//
+//                txtHiddenCurrentMileage.setText(tripRecord.getMileage());
+//                // here you can fetch real time data from TripRecord using getter methods like
+//                //tripRecord.getSpeed();
+//                //tripRecord.getEngineRpm();
+//                //tripRecord.getmDistanceTravel();
+//            }
+//
+//        }
+    };
+
+    //TODO : ABOVE CODE COMMENTED FOR THE DEMO
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        //unregister receiver
+//        unregisterReceiver(mObdReaderReceiver);
+//        //stop service
+//        stopService(new Intent(this, ObdReaderService.class));
+//        // This will stop background thread if any running immediately.
+//        ObdPreferences.get(this).setServiceRunningStatus(false);
+//    }
+
 
     //Confirmation Trip Strip Message Box
     public void btn_StartConfirmation(View view){
@@ -262,23 +372,13 @@ public class PassengerCurrentTrip extends AppCompatActivity {
             public void onClick(View view) {
                 double currentPassengers = Double.parseDouble(txtHiddenCurrentPassengers.getText().toString());
                 double accpetPassengers = Double.parseDouble(txtHiddenCurrentAcceptPassengers.getText().toString());
-
-                Log.d("Click BtnStart","check");
-                //GetDetailsOfSpecificCurrentUser();
                 btnRating.setVisibility(View.VISIBLE);
-
-
                 UpdateFareCalculation_End();
-
-                //UpdateFareForGetOffUser();
-
-               // PriceOfThePAssenger();
-
                 //TODO:check condition
-//                if(currentPassengers == 1 && accpetPassengers == 0){
-//                    UpdateStatusWhenDriverEndTrip();
-//                    migrateDataToTripHistory();//TODO::Tempory comment need to check several condition before execute this method
-//                }
+               if(currentPassengers == 1 && accpetPassengers == 0){
+                   UpdateStatusWhenDriverEndTrip();
+                    //migrateDataToTripHistory();//TODO::Tempory comment need to check several condition before execute this method
+               }
 
                 btnEndTrip.setVisibility(View.GONE);
                 btnStartTrip.setVisibility(View.GONE);
@@ -296,8 +396,6 @@ public class PassengerCurrentTrip extends AppCompatActivity {
 
 
 
-
-
     //When Start the trip passenger trip status will be changed and vehicle current mileage set to the current_passenger Table
     public void UpdateStatusWhenTripStart() {
         try {
@@ -305,12 +403,6 @@ public class PassengerCurrentTrip extends AppCompatActivity {
             String tripId = txtHiddenTripId.getText().toString();
             String passengerId = txtHiddenPassengerId.getText().toString();
             String dId = driverId;
-            //String driverId = "U1558711443513";
-
-
-            Log.d("$$$$$$$$$$$$DriverID",driverId);
-            Log.d("tripId",tripId);
-            Log.d("passengerId",passengerId);
 
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
                 JSONObject jsonObject = new JSONObject();
@@ -439,7 +531,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
     }
 
     //Get Current Passengers
-    public void GetCurrentPassengers() { //sucess
+    public void GetCurrentPassengers() {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Current Passengers");
         progressDialog.show();
@@ -809,22 +901,16 @@ public class PassengerCurrentTrip extends AppCompatActivity {
 
 
 
-
+    //Calculate fare for the each passenger who are travelling
     public void PriceOfThePAssenger() {
-
-
         tripId = txtHiddenTripId.getText().toString();
         passengerId = txtHiddenPassengerId.getText().toString();
-        Log.d("PassengerId1111",passengerId );
         String dId = driverId;
 
-
-//        String oid = txtHiddenTripId.getText().toString();;
-        Log.d("tripIdtripId", tripId);
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Start Mileage...");
         progressDialog.show();
-        Log.d("TripIDD",tripId);
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_PRICE+tripId+"/"+passengerId+"/"+dId,
                 new Response.Listener<String>() {
                     @Override
@@ -834,9 +920,9 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray array =jsonObject.getJSONArray("price");
-                            Log.d("array.length()", String.valueOf(array.length()));
+
                             for(int i=0;i<array.length();i++){
-                                Log.d("444","bxxxx");
+
                                 JSONObject o = array.getJSONObject(i);
                                 Current_Passenger items = new Current_Passenger(
                                         o.getString("price")
@@ -844,10 +930,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                                 );
                                 txtPrice.setText("Rs." +o.getString("price"));
 
-                               PriceNotification(); //TODO Commented
-
-                                Log.d("PEICE SET",o.getString("price"));
-
+                               PriceNotification();
                             }
 
                         } catch (JSONException e) {
@@ -859,7 +942,6 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("12435",error.getMessage());
 
 //                        Toast.makeText(PassengerCurrentTrip.this,"HohOOO"+error.getMessage(),Toast.LENGTH_LONG).show();
                     }
@@ -891,7 +973,7 @@ public class PassengerCurrentTrip extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     Log.i("LOG_VOLLEY", response);
-                    Toast.makeText(PassengerCurrentTrip.this, "---Trip Started---", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(PassengerCurrentTrip.this, "Trip Started", Toast.LENGTH_SHORT).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -1261,6 +1343,8 @@ public class PassengerCurrentTrip extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 

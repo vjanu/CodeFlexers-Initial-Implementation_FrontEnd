@@ -359,6 +359,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     SharedPreferences.Editor location = getSharedPreferences("LOCATION", MODE_PRIVATE).edit();
                     location.putString("source", source_location.getText().toString());
                     location.putString("destination", source_destination.getText().toString());
+                    location.putString("source_lat", String.valueOf(source_lat));
+                    location.putString("source_long", String.valueOf(source_long));
+                    location.putString("destination_lat", String.valueOf(destination_lat));
+                    location.putString("destination_long", String.valueOf(destination_long));
                     location.apply();
                 }
 

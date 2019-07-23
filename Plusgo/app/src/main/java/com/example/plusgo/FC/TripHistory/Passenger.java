@@ -9,8 +9,36 @@ public class Passenger {
     private String DestinationPoint;
     private Double Fare;
     private String DriverName;
+    private String Image;
+    private String SourceLatLong;
+    private String DestinationLatLong;
+
+    public String getSourceLatLong() {
+        return SourceLatLong;
+    }
+
+    public void setSourceLatLong(String sourceLatLong) {
+        this.SourceLatLong = sourceLatLong;
+    }
+
+    public String getDestinationLatLong() {
+        return DestinationLatLong;
+    }
+
+    public void setDestinationLatLong(String destinationLatLong) {
+        this.DestinationLatLong = destinationLatLong;
+    }
 
 
+
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
+    }
 
 
     public Passenger( String tripId,String passengerName, String startingPoint, String destinationPoint) {
@@ -19,6 +47,15 @@ public class Passenger {
         StartingPoint = startingPoint;
         DestinationPoint = destinationPoint;
     }
+
+    public Passenger( String tripId,String passengerName, String startingPoint, String destinationPoint , String image) {
+        PassengerName = passengerName;
+        TripId = tripId;
+        StartingPoint = startingPoint;
+        DestinationPoint = destinationPoint;
+        Image = image;
+    }
+
 
     public String getPassengerName() {
         return PassengerName;
@@ -56,13 +93,26 @@ public class Passenger {
 
 
 
-    public Passenger(String tripId, String driverName, String dateTime,String startingPoint,String destinationPoint, Double fare) {
+    public Passenger(String tripId, String driverName, String dateTime,String startingPoint,String destinationPoint, Double fare , String image) {
         TripId = tripId;
         DriverName = driverName;
         DateTime = dateTime;
         StartingPoint = startingPoint;
         DestinationPoint = destinationPoint;
         Fare = fare;
+        Image = image;
+    }
+
+    public Passenger(String tripId, String driverName, String dateTime,String startingPoint,String destinationPoint, Double fare , String image,String sourceLatLong , String destinationLatLong) {
+        TripId = tripId;
+        DriverName = driverName;
+        DateTime = dateTime;
+        StartingPoint = startingPoint;
+        DestinationPoint = destinationPoint;
+        Fare = fare;
+        Image = image;
+        SourceLatLong = sourceLatLong;
+        DestinationLatLong = destinationLatLong;
     }
 
     public Passenger() {

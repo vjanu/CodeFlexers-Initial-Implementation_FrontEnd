@@ -2,17 +2,11 @@ package com.example.plusgo.FC.TripHistory;
 
 public class Driver {
     private String TripId;
-    private String DateTime;
+    private String Date;
     private Double Earn;
-
-    public Driver() {
-    }
-
-    public Driver(String tripId, String dateTime, Double earn) {
-        TripId = tripId;
-        DateTime = dateTime;
-        Earn = earn;
-    }
+    private String Source;
+    private String Destination;
+    private String Time;
 
     public String getTripId() {
         return TripId;
@@ -22,12 +16,12 @@ public class Driver {
         TripId = tripId;
     }
 
-    public String getDateTime() {
-        return DateTime;
+    public String getDate() {
+        return Date;
     }
 
-    public void setDateTime(String dateTime) {
-        DateTime = dateTime;
+    public void setDate(String date) {
+        Date = date;
     }
 
     public Double getEarn() {
@@ -37,6 +31,52 @@ public class Driver {
     public void setEarn(Double earn) {
         Earn = earn;
     }
+
+    public String getSource() {
+        return Source;
+    }
+
+    public void setSource(String source) {
+        Source = source;
+    }
+
+    public String getDestination() {
+        return Destination;
+    }
+
+    public void setDestination(String destination) {
+        Destination = destination;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
+
+
+
+
+
+    public Driver(String tripId, String date, Double earn, String source, String destination, String time) {
+        TripId = tripId;
+        Date = date;
+        Earn = earn;
+        Source = source;
+        Destination = destination;
+        Time = time;
+    }
+
+
+
+    public Driver() {
+    }
+
+
+
+
 
 
 }

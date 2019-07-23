@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.plusgo.BaseContent;
 import com.example.plusgo.FC.TripHistory.Trip_Details.TripDetails;
 import com.example.plusgo.FC.TripSummaryActivity;
 import com.example.plusgo.R;
@@ -22,6 +26,7 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
     //Create List item to the store details
     private List<Passenger> passengerList;
     private Context context;
+    BaseContent BASECONTENT = new BaseContent();
 
     public PassengerHistoryAdpter(List<Passenger> passengerList, Context context) {
         this.passengerList = passengerList;
@@ -50,6 +55,16 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
         viewHolder.txtDriverName.setText(passengerItems.getDriverName());
         viewHolder.txtStartPoint.setText(passengerItems.getStartingPoint());
         viewHolder.txtEndPoint.setText(passengerItems.getDestinationPoint());
+        viewHolder.txtsourceLatLong.setText(passengerItems.getSourceLatLong());
+        viewHolder.txtdestinationLatLong.setText(passengerItems.getDestinationLatLong());
+        RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
+
+        //To load image using Glide
+        Glide.with(context)
+                .load(BASECONTENT.IpAddress  +passengerItems.getImage())
+                .apply(requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true))
+                .into(viewHolder.profileImage);
 
         viewHolder.displayLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,11 +75,22 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
                 //tripid, userid, fullname, source detination
                 TextView tid  =(TextView)view.findViewById(R.id.txtTripId);
                 TextView txtDate  =(TextView)view.findViewById(R.id.txtDate);
+                TextView txtFare  =(TextView)view.findViewById(R.id.txtFare);
+                TextView txtStartPoint  =(TextView)view.findViewById(R.id.txtStartPoint);
+                TextView txtEndPoint  =(TextView)view.findViewById(R.id.txtEndPoint);
+                TextView txtsourceLatLong  =(TextView)view.findViewById(R.id.txtsourceLatLong);
+                TextView txtdestinationLatLong  =(TextView)view.findViewById(R.id.txtdestinationLatLong);
 
 
 
                 i.putExtra("TID", String.valueOf(tid.getText()));
                 i.putExtra("DATE", txtDate.getText().toString());
+                i.putExtra("FARE", txtFare.getText().toString());
+                i.putExtra("START", txtStartPoint.getText().toString());
+                i.putExtra("END", txtEndPoint.getText().toString());
+                i.putExtra("txtsourceLatLong", txtsourceLatLong.getText().toString());
+                i.putExtra("txtdestinationLatLong", txtdestinationLatLong.getText().toString());
+                //i.putExtra("DATE", txtF.getText().toString());
                 view.getContext().startActivity(i);
             }
         });
@@ -79,6 +105,9 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView txtTripId,txtDate,txtFare,txtStartPoint,txtEndPoint,txtDriverName;
+        public TextView txtsourceLatLong;
+        public TextView txtdestinationLatLong;
+        public CircleImageView profileImage;
         public RelativeLayout displayLayout;
         public ViewHolder(@NonNull View itemView) {
 
@@ -89,6 +118,9 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
             txtStartPoint = (TextView) itemView.findViewById(R.id.txtStartPoint);
             txtEndPoint = (TextView) itemView.findViewById(R.id.txtEndPoint);
             txtDriverName = (TextView) itemView.findViewById(R.id.txtDriverName);
+            txtsourceLatLong = (TextView) itemView.findViewById(R.id.txtsourceLatLong);
+            txtdestinationLatLong = (TextView) itemView.findViewById(R.id.txtdestinationLatLong);
+            profileImage = (CircleImageView)itemView.findViewById(R.id.proImage);
             displayLayout = (RelativeLayout) itemView.findViewById(R.id.displayLayout);
         }
     }

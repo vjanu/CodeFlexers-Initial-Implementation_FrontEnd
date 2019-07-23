@@ -200,5 +200,103 @@ public class Login extends AppCompatActivity {
         Log.d("yo","122");
 
     }
+
+
+    private void userLogin(String email, String password){
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(Login.this,"userLoginffff",Toast.LENGTH_LONG).show();
+                        }else{
+                            // progressbar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(Login.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
+    }
+
+
+
+
+    private void saveToken(String token)
+    {
+        //Create Firebase References
+        DatabaseReference dbUsers = FirebaseDatabase.getInstance().getReference(NODE_USERS);
+
+        String email = mAuth.getCurrentUser().getEmail();
+        User user = new User(email,token);
+
+        //get Unique id from get current user
+        dbUsers.child(mAuth.getCurrentUser().getUid())
+                .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(Login.this,"Token Saved",Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+    }
+
+
+
+    public void getEmail() {
+    String username = etUsername.getText().toString();
+
+        request = new JsonArrayRequest(JSON_GET_EMAIL + username, new Response.Listener<JSONArray>() {
+
+            public void onResponse(JSONArray response) {
+
+                JSONObject jsonObject = null;
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        jsonObject = response.getJSONObject(i);
+//                        String useremail = jsonObject.getString("Email");
+
+//                        SharedPreferences.Editor emailStore = getSharedPreferences("emailStore", MODE_PRIVATE).edit();
+//                        emailStore.putString("email", jsonObject.getString("Email"));
+//                        emailStore.apply();
+//
+//                        Log.d("--Test--","--Test--");
+//
+//                        SharedPreferences emailStore1 = getSharedPreferences("emailStore", MODE_PRIVATE);
+//                        getEmail = emailStore1.getString("email", null);
+//                        Log.d("getEmail",getEmail);
+
+                        etEmail.setText(jsonObject.getString("Email"));
+
+
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+                        Log.d("JSONREQUEST", "ERROR");
+                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
+                    }
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //pDialog.dismiss();
+                Log.d("xxx", error.toString());
+                //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        requestQueue = Volley.newRequestQueue(Login.this);
+        requestQueue.add(request);
+    }
+
+
+
 }
 
