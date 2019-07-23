@@ -24,7 +24,12 @@
             android:text="Driver Dashboard"
             android:textSize="20dp"
             android:textColor="#fff"/>
+
+
     </android.support.design.widget.AppBarLayout>
+
+
+
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

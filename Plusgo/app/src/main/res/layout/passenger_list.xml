@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTripId"
                 android:text="2019-06-23"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 />
 
 
@@ -54,8 +54,8 @@
                 android:id="@+id/txtFare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtTripId"
-                android:layout_toRightOf="@id/txtDate"
+                android:layout_below="@id/txtDate"
+
                 android:layout_alignParentRight="true"
                 android:gravity="right"
                 android:text="Rs.1000.00" />
@@ -69,7 +69,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="30dp"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/txtDate"
+
                 android:src="@drawable/user2"
                 app:civ_border_color="#313030"
                 app:civ_border_width="2dp" />
@@ -80,7 +80,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtDate"
+
                 android:text="Dama"
 
                 />
@@ -118,6 +118,7 @@
 
             <ImageView
                 android:id="@+id/logoEndPoint"
+                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@id/proImage"
                 android:layout_width="10dp"
                 android:layout_height="wrap_content"
@@ -135,6 +136,32 @@
                 android:layout_marginLeft="3dp"
                 android:gravity="right"
                 android:text="End"
+                />
+
+            <TextView
+                android:id="@+id/txtsourceLatLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtEndPoint"
+                android:layout_toRightOf="@id/logoEndPoint"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="3dp"
+                android:gravity="left"
+                android:text="Source Lat Long"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/txtdestinationLatLong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtEndPoint"
+                android:layout_toRightOf="@id/logoEndPoint"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="100dp"
+                android:layout_alignParentRight="true"
+                android:text="destination Lat Long"
+                android:visibility="gone"
                 />
 
 

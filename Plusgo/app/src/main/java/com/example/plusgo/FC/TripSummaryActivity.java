@@ -71,12 +71,13 @@ public class TripSummaryActivity extends AppCompatActivity {
     private String PYTHON_URL_GET_DISTANCE = BASECONTENT.pythonIpAddressGetDistance + "/map/";
     private String PYTHON_URL_FUEL_ESTIMATE = BASECONTENT.pythonIpAddressGetEstimateFuel + "/fuel/";
     private String JSON_URL_POST_NEW_REQUEST = BASECONTENT.IpAddress + "/trip/newRequest";
+    private String JSON_URL_PUT_CANCEL_REQUEST = BASECONTENT.IpAddress + "/trip/cancel/";
 
     //Define Variables in Globally
     private TextView txtDate,txtTime,txtCurrentPassenger,txtEstimateCost,txtWaitingTime,txtDistance,txtViewProfile,txtTripId,txtUserId,txtVehicle,txtToken,VehicleId;
     private String date,time,waitingTime;
     public String  vehicleId,brand,model ,manYear,regYear,cylinders,fuel,capacity,kw,mileage;
-    Button btnJoinRide;
+    Button btnJoinRide,btnCancelJoinRide;
     RequestQueue requestQueue ;
     private JsonArrayRequest request;
     private TextView txtUserName;
@@ -84,7 +85,7 @@ public class TripSummaryActivity extends AppCompatActivity {
     public String userId; //User ID
     public String FCMtoken,image;
     public CircleImageView profile_image;
-    String pickupPoint,dropOffPoint;
+    String pickupPoint,dropOffPoint,source_lat,source_long,destination_lat,destination_long;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
 
 
@@ -129,6 +130,7 @@ public class TripSummaryActivity extends AppCompatActivity {
         txtToken = (TextView)findViewById(R.id.FCMToken);
         profile_image = (CircleImageView)findViewById(R.id.profile_image);
         btnJoinRide = (Button) findViewById(R.id.btnJoinRide);
+        btnCancelJoinRide = (Button) findViewById(R.id.btnCancelRide);
 
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
 
@@ -142,6 +144,11 @@ public class TripSummaryActivity extends AppCompatActivity {
         SharedPreferences location = getSharedPreferences("LOCATION",MODE_PRIVATE);
         pickupPoint = location.getString("source", null);
         dropOffPoint = location.getString("destination", null);
+        source_lat = location.getString("source_lat", null);
+        source_long = location.getString("source_long", null);
+        destination_lat = location.getString("destination_lat", null);
+        destination_long = location.getString("destination_long", null);
+
 
         //added Viraj------------
         txtUserName.setText(FullName);
@@ -188,10 +195,6 @@ public class TripSummaryActivity extends AppCompatActivity {
 
     //Confirmation Trip Message Box
     public void btn_showConfirmation(View view){
-        btnJoinRide.setEnabled(false);
-        //btnJoinRide.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        btnJoinRide.setText("Please Wait for the Driver Response");
-        //btnJoinRide.setBackgroundColor(2);
 
         final AlertDialog.Builder alert = new AlertDialog.Builder(TripSummaryActivity.this);
         View mView = getLayoutInflater().inflate(R.layout.join_a_ride_dialog,null);
@@ -215,9 +218,45 @@ public class TripSummaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
                 AddNewRequest();
                 sendNotification();
+                btnJoinRide.setEnabled(false);
+                btnJoinRide.setText("Please Wait for the Driver Response");
+                btnCancelJoinRide.setVisibility(View.VISIBLE);
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+
+    public void btn_cancel_showConfirmation(View view){
+
+
+        final AlertDialog.Builder alert = new AlertDialog.Builder(TripSummaryActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.cancel_a_ride,null);
+
+        Button btnNo = (Button)mView.findViewById(R.id.btnNo);
+        Button btnYes = (Button)mView.findViewById(R.id.btnYes);
+
+        alert.setView(mView);
+
+        final  AlertDialog alertDialog = alert.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //ToDo : trip staus should updated
+                updateCancel();
                 alertDialog.dismiss();
             }
         });
@@ -235,18 +274,15 @@ public class TripSummaryActivity extends AppCompatActivity {
         progressDialog.show();
 
         //Get Id from the UserID TextView
-
         tripId = txtTripId.getText().toString();
-        Log.d("tripId",tripId);
 
-        Log.d("Check Get user ", tripId);
         //Call the Web Service which is implementing node js and it pass to the name parameter to get relevant information of the trip
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, JSON_URL_TRIP_SUMMARY+tripId,null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        Log.d("sdss", String.valueOf(response));
+                        Log.d("response Trip Summary", String.valueOf(response));
                         progressDialog.dismiss();
                         try {
 
@@ -254,13 +290,9 @@ public class TripSummaryActivity extends AppCompatActivity {
                             time = response.getString("StartTime");
                             waitingTime = response.getString("WaitingTime");
 
-                            Log.d("testDate", String.valueOf(date));
-
                             txtDate.setText(date);
                             txtTime.setText(time);
                             txtWaitingTime.setText(waitingTime + " mins");
-
-                            //Log.d("testSetDate", String.valueOf(date));
 
                         } catch (JSONException e) {
                             Log.d("expe1",e.toString());
@@ -296,21 +328,11 @@ public class TripSummaryActivity extends AppCompatActivity {
                         Log.d("sdss", String.valueOf(response));
                         progressDialog.dismiss();
                         try {
-
-
                             String count = response.getString("Count");
-
-
-                            Log.d("testcount", String.valueOf(count));
-
                             txtCurrentPassenger.setText(count);
-
-                            //Log.d("testSetDate", String.valueOf(date));
-
                         } catch (JSONException e) {
                             Log.d("expe2",e.toString());
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -319,7 +341,6 @@ public class TripSummaryActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 });
-
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -388,8 +409,6 @@ public class TripSummaryActivity extends AppCompatActivity {
         kw = getVehicleDetails.getString("kw", null);
         mileage = getVehicleDetails.getString("mileage", null);
 
-//        Log.d("@@@@brand",brand);
-//        Log.d("@@@@model",model);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, PYTHON_URL_FUEL_ESTIMATE+manYear+"/"+regYear+"/"+cylinders+"/"+fuel+"/"+capacity+"/"+kw+"/"+mileage,null,
                 new Response.Listener<JSONObject>() {
@@ -510,50 +529,6 @@ public class TripSummaryActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void GetToken() {
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading Data...");
-        progressDialog.show();
-        //   Log.e("JSON_URL",JSON_URL+username+"/"+password);
-        request = new JsonArrayRequest(JSON_URL_USER_DETAILS+userId, new Response.Listener<JSONArray>() {
-
-            public void onResponse(JSONArray response) {
-
-                JSONObject jsonObject = null;
-                for(int i= 0; i<response.length(); i++){
-                    progressDialog.dismiss();
-                    try{
-                        jsonObject = response.getJSONObject(i);
-                        Log.d("PassengeToken",jsonObject.getString("Token"));
-                        txtToken.setText(jsonObject.getString("Token"));
-
-                    }catch (JSONException e){
-
-                        e.printStackTrace();
-                        Log.d("JSONREQUEST","ERROR");
-                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //  pDialog.dismiss();
-                Log.d("xxx", error.toString());
-                Toast.makeText(getApplicationContext(),error.getMessage(),Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(request);
-
-    }
-
-
 
     private void sendNotification(){
         Log.d("Start","Start");
@@ -598,7 +573,7 @@ public class TripSummaryActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                 try {
-                 Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
+                // Toast.makeText(TripSummaryActivity.this,response.body().string(),Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -617,8 +592,9 @@ public class TripSummaryActivity extends AppCompatActivity {
 
             String source = pickupPoint;
             String destination = dropOffPoint;
+            String sourceLatLong = source_lat + "," + source_long;
+            String destinationLatLong = destination_lat + "," + destination_long;
             SharedPreferences userStore = getSharedPreferences("userStore",MODE_PRIVATE);
-
             String UID = userStore.getString("UId", null);
 
 
@@ -632,6 +608,9 @@ public class TripSummaryActivity extends AppCompatActivity {
             jsonObject.put("driverId", txtUserId.getText().toString());
             jsonObject.put("source", source);
             jsonObject.put("destination", destination);
+            jsonObject.put("sourceLatLong", sourceLatLong);
+            jsonObject.put("destinationLatLong", destinationLatLong);
+
             final String mRequestBody = jsonObject.toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, JSON_URL_POST_NEW_REQUEST, new Response.Listener<String>() {
@@ -669,6 +648,75 @@ public class TripSummaryActivity extends AppCompatActivity {
                         responseString = String.valueOf(response.statusCode);
                     }
                     return Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
+                }
+            };
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    10000,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            requestQueue.add(stringRequest);
+
+
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    //Todo Need to implement
+    public void updateCancel() {
+        try {
+
+            SharedPreferences userStore = getSharedPreferences("userStore",MODE_PRIVATE);
+            String UID = userStore.getString("UId", null);
+
+            Intent intent = getIntent();
+            String tripId = intent.getStringExtra("TID");
+            String driverId = intent.getStringExtra("UID");
+            String passengerId = UID;
+
+
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("trip_status", 4);
+//
+            final String mRequestBody = jsonObject.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.PUT, JSON_URL_PUT_CANCEL_REQUEST+tripId+"/"+passengerId+"/"+driverId, new com.android.volley.Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.i("LOG_VOLLEY", response);
+                    Toast.makeText(TripSummaryActivity.this, "Cancel the Ride", Toast.LENGTH_SHORT).show();
+                }
+            }, new com.android.volley.Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("LOG_VOLLEY", error.toString());
+                    Toast.makeText(TripSummaryActivity.this, "Error Occurred", Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return mRequestBody == null ? null : mRequestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected com.android.volley.Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                    }
+                    return com.android.volley.Response.success(responseString, HttpHeaderParser.parseCacheHeaders(response));
                 }
             };
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(

@@ -6,9 +6,11 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_margin="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        >
 
         <RelativeLayout
             android:id="@+id/displayLayout"
@@ -17,38 +19,127 @@
             android:layout_alignStart="@+id/cardView"
             android:layout_alignTop="@+id/cardView"
             android:orientation="horizontal"
-            android:padding="@dimen/activity_horizontal_padding1">
+            android:padding="10dp">
 
-            <TextView
-                android:id="@+id/lblTripId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Trip ID"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-
-                />
 
             <TextView
                 android:id="@+id/txtTripId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/lblTripId"
-
-                android:text="O12345678" />
+                android:text="O12345678"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/txtDate"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTripId"
-                android:text="2019-06-23" />
+                android:text="2019-06-23"
+
+                />
+
 
             <TextView
-                android:id="@+id/txtEarn"
-                android:layout_width="match_parent"
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtTripId"
+                android:layout_toRightOf="@id/txtDate"
+
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:text="8.12 AM" />
+
+
+            <ImageView
+                android:id="@+id/logoStartPoint"
+                android:layout_width="10dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtDate"
-                android:text="Rs.100" />
+                android:src="@drawable/greenpin"
+                />
+
+            <TextView
+                android:id="@+id/txtStartPoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/logoStartPoint"
+                android:layout_below="@id/txtDate"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="3dp"
+                android:gravity="right"
+                android:text="Start"
+                />
+
+            <ImageView
+                android:id="@+id/logoEndPoint"
+
+
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/logoStartPoint"
+                android:src="@drawable/redpin"
+                />
+
+            <TextView
+                android:id="@+id/txtEndPoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtStartPoint"
+                android:layout_toRightOf="@id/logoEndPoint"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="3dp"
+                android:gravity="right"
+                android:text="End"
+                />
+
+                <TextView
+                    android:id="@+id/txtEarn"
+                    android:layout_below="@id/txtEndPoint"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rs: 342.23 "
+                    android:textSize="14dp"
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    />
+
+
+
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/txtsourceLatLong"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/txtEndPoint"-->
+                <!--android:layout_toRightOf="@id/logoEndPoint"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:layout_marginLeft="3dp"-->
+                <!--android:gravity="left"-->
+                <!--android:text="Source Lat Long"-->
+                <!--android:visibility="gone"-->
+                <!--/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/txtdestinationLatLong"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/txtEndPoint"-->
+                <!--android:layout_toRightOf="@id/logoEndPoint"-->
+                <!--android:layout_marginTop="15dp"-->
+                <!--android:layout_marginLeft="100dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:text="destination Lat Long"-->
+                <!--android:visibility="gone"-->
+                <!--/>-->
+
+
+
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

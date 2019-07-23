@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".FC.TripHistory.PassengerFragment">
+    tools:context=".FC.TripHistory.Trip_Details_Driver.AllPassengerHistoryDetailsFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/passengerRecycleView"
@@ -16,5 +15,3 @@
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
-
-

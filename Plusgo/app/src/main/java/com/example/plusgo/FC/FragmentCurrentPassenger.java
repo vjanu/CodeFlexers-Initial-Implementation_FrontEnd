@@ -2,6 +2,10 @@ package com.example.plusgo.FC;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,6 +31,10 @@ import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
 import com.example.plusgo.FC.Adapters.CurrentPassengerAdapter;
 import com.example.plusgo.R;
+import com.sohrab.obd.reader.application.ObdPreferences;
+import com.sohrab.obd.reader.obdCommand.ObdConfiguration;
+import com.sohrab.obd.reader.service.ObdReaderService;
+import com.sohrab.obd.reader.trip.TripRecord;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
+import static com.sohrab.obd.reader.constants.DefineObdReader.ACTION_OBD_CONNECTION_STATUS;
+import static com.sohrab.obd.reader.constants.DefineObdReader.ACTION_READ_OBD_REAL_TIME_DATA;
 
 public class FragmentCurrentPassenger extends Fragment {
 
@@ -43,10 +54,11 @@ public class FragmentCurrentPassenger extends Fragment {
     private RecyclerView recyclerView;
     public RecyclerView.Adapter CPassengeradapter;
     private List<Current_Passenger> currentPassenger;
-    View view;
+    View view,view2;
     String TripId = "";
     private RequestQueue requestQueue;
     private Handler handler;
+    private TextView txtMileage;
 
     Handler mHandler;
 
@@ -117,8 +129,6 @@ public class FragmentCurrentPassenger extends Fragment {
         super.onCreate(savedInstanceState);
         currentPassenger = new ArrayList<>();
         Log.d("SharedTripId" ,TripId );
-//        currentPassenger.clear();
-//        loadCurrentPassengerData();
     }
 
 
@@ -128,6 +138,7 @@ public class FragmentCurrentPassenger extends Fragment {
         view = inflater.inflate(R.layout.activity_fragment_current_passenger,container,false);
         recyclerView = (RecyclerView) view.findViewById(R.id.currentPassengerRecycleView);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setItemAnimator(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
 
@@ -149,14 +160,14 @@ public class FragmentCurrentPassenger extends Fragment {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.d("sdss",response);
+
                         progressDialog.dismiss();
                         try {
-                            //JSONObject jsonObject = new JSONObject(response);
-                            JSONArray array = new JSONArray(response);
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray array = jsonObject.getJSONArray("currentUsers");
                             Log.d("array.length()", String.valueOf(array.length()));
                             for(int i=0;i<array.length();i++){
-                                Log.d("444","bxxxx");
+
                                 JSONObject o = array.getJSONObject(i);
                                 Current_Passenger items = new Current_Passenger(
                                         o.getString("FullName"),
@@ -165,8 +176,8 @@ public class FragmentCurrentPassenger extends Fragment {
                                         o.getString("source"),
                                         o.getString("destination"),
                                         o.getString("trip_status"),
-                                        o.getString("Token")
-                                        //o.getString("img")
+                                        o.getString("Token"),
+                                        o.getString("img")
 
                                 );
                                 Log.d("for",o.getString("trip_status"));
@@ -188,7 +199,7 @@ public class FragmentCurrentPassenger extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("12435",error.getMessage());
+//                        Log.d("12435",error.getMessage());
 
                         Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
                     }

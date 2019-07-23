@@ -359,7 +359,7 @@ public class Login extends AppCompatActivity {
 
                         e.printStackTrace();
                         Log.d("JSONREQUEST", "ERROR");
-                        Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
                     }
 
                 }
@@ -370,7 +370,7 @@ public class Login extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 //pDialog.dismiss();
                 Log.d("xxx", error.toString());
-                Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
+                //Toast.makeText(Login.this, "Login Failed", Toast.LENGTH_LONG).show();
 
             }
         });

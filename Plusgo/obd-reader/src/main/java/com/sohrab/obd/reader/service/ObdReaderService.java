@@ -76,7 +76,7 @@ public class ObdReaderService extends IntentService implements DefineObdReader {
 
 
     //   private static final int NOTIFICATION_ID = 101;
-    private static final int DELAY_FIFTEEN_SECOND = 15000;
+    private static final int DELAY_FIFTEEN_SECOND = 5000;
     private static final int DELAY_TWO_SECOND = 2000;
     // this is used to find TroubleCode if true. This is used in InspectionActivity where fault is shown.
     public boolean mIsFaultCodeRead = true;
@@ -458,7 +458,7 @@ public class ObdReaderService extends IntentService implements DefineObdReader {
     }
 */
 
-   /* *//**
+    /* *//**
      * Updates the notification.
      *//*
     private void updateNotification(String text) {
@@ -554,7 +554,7 @@ public class ObdReaderService extends IntentService implements DefineObdReader {
         isConnected = false;
         closeSocket();
         L.i("socket disconnected :: ");
-      //  broadcastUpdate(ACTION_OBD_DISCONNECTED);
+        //  broadcastUpdate(ACTION_OBD_DISCONNECTED);
         sendBroadcast(ACTION_OBD_CONNECTION_STATUS, getString(R.string.connect_lost));
     }
 
@@ -563,7 +563,7 @@ public class ObdReaderService extends IntentService implements DefineObdReader {
 
         ObdPreferences.get(getApplicationContext()).setIsOBDconnected(true);
         isConnected = true;
-       // sendBroadcast(ACTION_OBD_CONNECTED, String.valueOf(isFromBle));
+        // sendBroadcast(ACTION_OBD_CONNECTED, String.valueOf(isFromBle));
         sendBroadcast(ACTION_OBD_CONNECTION_STATUS, getString(R.string.obd_connected));
     }
 

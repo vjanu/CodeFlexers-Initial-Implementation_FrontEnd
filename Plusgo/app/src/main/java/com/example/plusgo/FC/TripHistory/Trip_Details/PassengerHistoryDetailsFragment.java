@@ -64,7 +64,7 @@ public class PassengerHistoryDetailsFragment extends Fragment {
         SharedPreferences user = getActivity().getSharedPreferences("userStore",MODE_PRIVATE);
         userId = user.getString("UId", null);
 
-        loadCoPassengers();
+        loadAllPassengers();
     }
 
     @Nullable
@@ -77,7 +77,7 @@ public class PassengerHistoryDetailsFragment extends Fragment {
         return view;
     }
 
-    private void loadCoPassengers() {
+    private void loadAllPassengers() {
 
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Data...");
@@ -100,7 +100,9 @@ public class PassengerHistoryDetailsFragment extends Fragment {
                                         o.getString("tripId"),
                                         o.getString("FullName"),
                                         o.getString("source"),
-                                        o.getString("destination")
+                                        o.getString("destination"),
+                                        o.getString("img")
+
 
                                 );
                                 //   Log.d("for",o.getString("description"));

@@ -25,43 +25,43 @@
             android:orientation="horizontal"
             android:padding="@dimen/activity_horizontal_padding1">
 
-        <TextView
-            android:id="@+id/uidHidden"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="userId"
-            android:textColor="@color/colorBlack"
-            android:visibility="gone"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/proImage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="30dp"
-
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/user2"
-                app:civ_border_color="#313030"
-                app:civ_border_width="2dp" />
-
-
-
             <TextView
-                android:id="@+id/txtFullName"
-                android:layout_toRightOf="@id/proImage"
-                android:layout_width="match_parent"
+                android:id="@+id/uidHidden"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textSize="14dp"
+                android:text="userId"
                 android:textColor="@color/colorBlack"
-                android:textStyle="bold"
-                android:text="Namal Perera" />
+                android:visibility="gone"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/proImage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="11dp"
+                    android:layout_marginRight="30dp"
+
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/user2"
+                    app:civ_border_color="#313030"
+                    app:civ_border_width="2dp" />
+
+
+
+                <TextView
+                    android:id="@+id/txtFullName"
+                    android:layout_toRightOf="@id/proImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    android:text="Namal Perera" />
 
 
 
@@ -101,7 +101,7 @@
 
 
 
-        </RelativeLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 

@@ -428,6 +428,20 @@
             android:textColor="@color/colorText"
             android:onClick="btn_showConfirmation"
             />
+
+        <Button
+            android:id="@+id/btnCancelRide"
+            android:layout_width="374dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/quantum_googred700"
+            android:text="Cancel a Ride"
+            android:background="@drawable/ovel_drawable"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorText"
+            android:onClick="btn_cancel_showConfirmation"
+            android:visibility="invisible"
+            />
     </LinearLayout>
 
 

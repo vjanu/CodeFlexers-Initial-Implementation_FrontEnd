@@ -13,6 +13,14 @@ public class Current_Passenger {
 
     private String Name;
     private String UserId; //passenger Id
+    private String TripId;
+    private String Source;
+    private String Destination;
+    private String Status;
+    private String Token;
+    private String UserImage;
+    private String mileage;
+    private Double price;
 
     public Current_Passenger(String name, String source, String destination, String status, String mileage , Double price) {
         Name = name;
@@ -23,14 +31,7 @@ public class Current_Passenger {
         this.price = price;
     }
 
-    private String TripId;
-    private String Source;
-    private String Destination;
-    private String Status;
-    private String Token;
-    private String UserImage;
-    private String mileage;
-    private Double price;
+
 
     public String getMileage() {
         return mileage;
@@ -109,6 +110,18 @@ public class Current_Passenger {
         Destination = destination;
         Status = status;
         Token = token;
-       // UserImage = userImage;
+
+    }
+
+    public Current_Passenger(String name, String userId, String tripId, String source, String destination, String status,String token,String userImage) {
+        Name = name;
+        UserId = userId;
+        TripId = tripId;
+        Source = source;
+        Destination = destination;
+        Status = status;
+        Token = token;
+        UserImage = userImage;
+
     }
 }

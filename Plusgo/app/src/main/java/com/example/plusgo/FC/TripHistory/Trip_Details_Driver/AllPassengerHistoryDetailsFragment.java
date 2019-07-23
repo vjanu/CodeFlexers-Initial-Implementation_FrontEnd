@@ -1,12 +1,13 @@
-package com.example.plusgo.FC.TripHistory;
+package com.example.plusgo.FC.TripHistory.Trip_Details_Driver;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,6 +23,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
+import com.example.plusgo.FC.TripHistory.Passenger;
+import com.example.plusgo.FC.TripHistory.Trip_Details.PassengerHistoryDetailsAdapter;
 import com.example.plusgo.R;
 
 import org.json.JSONArray;
@@ -31,78 +34,87 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PassengerFragment extends Fragment {
+import static android.content.Context.MODE_PRIVATE;
+
+public class AllPassengerHistoryDetailsFragment extends Fragment {
 
     BaseContent BASECONTENT = new BaseContent();
-    private final String JSON_GET_HISTORY_PASSENGER = BASECONTENT.IpAddress+"/trip/history/passenger/";
+    private final String JSON_GET_PASSENGERS = BASECONTENT.IpAddress + "/trip/history/copassengers/";
+    View view;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<Passenger> passengersList;
-    View view;
     private String userId;
+    String TripId = "";
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_passenger_fragment,container,false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.passengerRecycleView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        return view;
+    public AllPassengerHistoryDetailsFragment() {
+    }
+
+    @SuppressLint("ValidFragment")
+    public AllPassengerHistoryDetailsFragment(String tripId) {
+        this.TripId = tripId;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // this = your fragment
-        //TODO::check shared pefences
-        SharedPreferences user = this.getActivity().getSharedPreferences("userStore", Context.MODE_PRIVATE);
-        userId = user.getString("UId", null);
+
         passengersList = new ArrayList<>();
-        loadPassengerHistory();
+
+        SharedPreferences user = getActivity().getSharedPreferences("userStore",MODE_PRIVATE);
+        userId = user.getString("UId", null);
+
+        loadAllPassengers();
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_all_passenger_history_details_fragment,container,false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.passengerRecycleView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        return view;
 
-    private void loadPassengerHistory() {
+    }
+
+    private void loadAllPassengers() {
 
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_HISTORY_PASSENGER+userId,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, JSON_GET_PASSENGERS + TripId + "/"+userId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.d("sdss",response);
+                        Log.d("sdss", response);
                         progressDialog.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            JSONArray array =jsonObject.getJSONArray("passenger");
+                            JSONArray array = jsonObject.getJSONArray("coPassengers");
 
-                            for(int i=0;i<array.length();i++){
-                                Log.d("444","bxxxx");
+                            for (int i = 0; i < array.length(); i++) {
+                                Log.d("444", "bxxxx");
                                 JSONObject o = array.getJSONObject(i);
                                 Passenger item = new Passenger(
                                         o.getString("tripId"),
                                         o.getString("FullName"),
-                                        o.getString("dateTime"),
                                         o.getString("source"),
                                         o.getString("destination"),
-                                        Double.parseDouble(o.getString("price")),
-                                        o.getString("img"),
-                                        o.getString("sourceLatLong"),
-                                        o.getString("destinationLatLong")
+                                        o.getString("img")
+
 
                                 );
-                             //   Log.d("for",o.getString("description"));
+                                //   Log.d("for",o.getString("description"));
                                 passengersList.add(item);
-                                Log.d("for",item.toString());
+                                Log.d("for", item.toString());
                             }
-                            adapter = new PassengerHistoryAdpter(passengersList,getContext());
+                            adapter = new PassengerHistoryDetailsAdapter(passengersList, getContext());
                             recyclerView.setAdapter(adapter);
 
                         } catch (JSONException e) {
-                            Log.d("expe",e.toString());
+                            Log.d("expe", e.toString());
                         }
 
                     }
@@ -112,14 +124,12 @@ public class PassengerFragment extends Fragment {
                     public void onErrorResponse(VolleyError error) {
 //                       Log.d("12435",error.getMessage());
 
-                        Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
-
     }
-
 }
