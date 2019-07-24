@@ -10,26 +10,33 @@ package com.example.plusgo.OPR;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -40,9 +47,21 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.BaseContent;
+import com.example.plusgo.FC.MapCurrentPassengerActivity;
+import com.example.plusgo.OPR.helpers.CroudSourcingNotificationHelper;
 import com.example.plusgo.R;
-import com.github.ybq.android.spinkit.sprite.Sprite;
-import com.github.ybq.android.spinkit.style.FoldingCube;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,8 +70,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -131,12 +152,11 @@ public class TrafficJam extends AppCompatActivity {
 
 
 */
-private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
+private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2,AUTOCOMPLETE_REQUEST_CODE = 3;
     ImageView image_view;
     Button btnlater;
     Button btnreport;
     Button btn_upload_traffic;
-    TextView input_location;
     RadioButton radio_standstill;
     RadioButton radio_moderate;
     RadioButton radio_heavy;
@@ -150,10 +170,22 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
     private InputStream inputStreamImg;
     private String imgPath = null;
 
+
+    private String TAG = "TrafficJam";
+
+    EditText input_location;
+
+    private GoogleApiClient mGoogleApiClient;
+    private double source_lat, source_long;
+    private String place_str;
+    private CroudSourcingNotificationHelper croudSourcingNotificationHelper = new CroudSourcingNotificationHelper();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_traffic_jam);
+        Places.initialize(this, "AIzaSyD_gxGkVFP_a2v0_VopWLlvFZe-u46TV7M"); //Please put application code in a secure place
+
 
         image_view = findViewById(R.id.image_view_traffic);
         btnlater = findViewById(R.id.btnlater);
@@ -186,6 +218,20 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
         });
 
         final boolean flag_standstill = false, flag_moderate = false, flag_heavy = false;
+
+        input_location.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                input_location.setPressed(true);
+                input_location.setSelection(input_location.getText().length());
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    drawAutocompleteIntent();
+                }
+                return false;
+            }
+        });
+
+
 
         radio_standstill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -306,6 +352,28 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
                 e.printStackTrace();
             }
         }
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                Log.i(TAG, "Place: " + place.getName() + ", " + place.getId());
+
+                if (place != null) {
+                    LatLng latLng = place.getLatLng();
+                    source_lat = latLng.latitude;
+                    source_long = latLng.longitude;
+                    place_str = place.getName();
+                    input_location.setText(place.getName());
+                }
+
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i(TAG, status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+
     }
 
     public String getRealPathFromURI(Uri contentUri) {
@@ -326,9 +394,9 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
 
         // set the custom dialog components - text, image and button
 
-      //  ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.Circle);
-    //    Sprite animation = new FoldingCube();
-      //  progressBar.setIndeterminateDrawable(animation);
+//        ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.Circle);
+//        Sprite animation = new FoldingCube();
+//       progressBar.setIndeterminateDrawable(animation);
 
         dialog.show();
 
@@ -375,7 +443,74 @@ private final int PICK_IMAGE_CAMERA = 1, PICK_IMAGE_GALLERY = 2;
         rQueue = Volley.newRequestQueue(TrafficJam.this);
         rQueue.add(sr);
 
+        popUpNotification();
+
+    }
+//    @Override
+//    public void onLocationChanged(Location location) {
+//
+//    }
+
+
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 
+    private void drawAutocompleteIntent() {
+        // Set the fields to specify which types of place data to
+        List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+
+        // Start the autocomplete intent.
+        Intent intent = new Autocomplete.IntentBuilder(
+                AutocompleteActivityMode.OVERLAY, fields)
+                .build(this);
+        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+    }
+
+    public void popUpNotification() {
+        DatabaseReference refOnlineDrivers = croudSourcingNotificationHelper.getOnlineDriversDatabaseReference();
+        refOnlineDrivers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                float[] dist = new float[1];
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    Location.distanceBetween(source_lat, source_long, ds.child("latitude").getValue(Double.class), ds.child("longitude").getValue(Double.class), dist);
+                    if(dist[0]/1000 <= 1) //within 1Km radius area
+                        showNotification("Traffic", "You will facing a huge traffic near " + place_str  );
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void showNotification(String title, String content) {
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("default",
+                    "CHANNEL_NAME",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("CHANNEL_DISCRIPTION");
+            mNotificationManager.createNotificationChannel(channel);
+        }
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), "default")
+                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
+                .setContentTitle(title) // title for notification
+                .setContentText(content)// message for notification
+                .setAutoCancel(true); // clear notification after click
+        Intent intent = new Intent(getApplicationContext(), MapCurrentPassengerActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(pi);
+        mNotificationManager.notify(0, mBuilder.build());
+    }
 
 }
