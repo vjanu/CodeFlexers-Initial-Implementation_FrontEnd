@@ -13,7 +13,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +30,15 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.plusgo.UPM.NewUserActivity;
 import com.example.plusgo.UPM.ReportedDriverListActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,11 +55,16 @@ public class Login extends AppCompatActivity {
     private static final String KEY_EMPTY = "";
     private EditText etUsername;
     private EditText etPassword;
+    private EditText etEmail;
     private String username;
     private String password;
     private ProgressDialog pDialog;
+    private FirebaseAuth mAuth;
+    public static final String NODE_USERS = "users";
     BaseContent BASECONTENT = new BaseContent();
     private String JSON_URL = BASECONTENT.IpAddress + "/login/specific/";
+    private String JSON_GET_EMAIL = BASECONTENT.IpAddress + "/login/validate/";
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
 
 
     private JsonArrayRequest request;
@@ -58,7 +75,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mAuth = FirebaseAuth.getInstance();
         users = new ArrayList<>();
         user = new User();
 
@@ -66,6 +83,7 @@ public class Login extends AppCompatActivity {
 
         etUsername = findViewById(R.id.username);
         etPassword = findViewById(R.id.password);
+        etEmail = findViewById(R.id.hiddenEmail);
 
         Button login = findViewById(R.id.btnLog);
 
@@ -79,12 +97,90 @@ public class Login extends AppCompatActivity {
 //                startActivity(new Intent(Login.this, AddPreferenceActivity.class));
 
                 if (validateInputs()) {
+                    FirebaseInstanceId.getInstance().getInstanceId()
+                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                    if(task.isSuccessful()){
+                                        String token = task.getResult().getToken();
+
+                                        SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                                        editor.putString("fcmtoken", token);
+                                        editor.apply();
+                                        try {
+                                            saveToken(token);
+                                        }catch(Exception e){
+
+                                        }
+                                    }else{
+//                            textView.setText("Token is Not Generated");
+                                    }
+                                }
+                            });
                     login(username, password);
                 }
 //                else {
 //                    Toast.makeText(getApplicationContext(),
 //                            "Fields Cannot be Empty", Toast.LENGTH_SHORT).show();
 //                }
+            }
+        });
+
+        etUsername.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable e) {
+                try {
+                    getEmail();
+                }catch (Exception ex){
+
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //nothing needed here...
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //nothing needed here...
+            }
+        });
+
+        etUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+
+//                getEmail();
+                String txtEmail = etEmail.getText().toString();
+                //String usrname = String.valueOf(username.getText());
+                String passw = "123456";
+
+                if (!hasFocus) {
+                    try{
+                        mAuth.createUserWithEmailAndPassword(txtEmail,passw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                //If Firebase Authentication Succeful Redirect to the Profile Activity
+                                if(!task.isSuccessful()){
+                                    if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                        String Aemail = etEmail.getText().toString();
+                                        String Apass = "123456";
+
+                                        userLogin(Aemail,Apass);
+
+                                    }
+                                }
+                            }
+                        });
+                    }catch (Exception ex){
+
+                    }
+                }else{
+                    //  Toast.makeText(this, "Get Focus", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -209,7 +305,7 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(Login.this,"userLoginffff",Toast.LENGTH_LONG).show();
+                           // Toast.makeText(Login.this,"userLoginffff",Toast.LENGTH_LONG).show();
                         }else{
                             // progressbar.setVisibility(View.INVISIBLE);
                             Toast.makeText(Login.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();

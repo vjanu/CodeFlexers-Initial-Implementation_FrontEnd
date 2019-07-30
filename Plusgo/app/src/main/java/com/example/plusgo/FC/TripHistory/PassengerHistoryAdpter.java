@@ -57,6 +57,7 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
         viewHolder.txtEndPoint.setText(passengerItems.getDestinationPoint());
         viewHolder.txtsourceLatLong.setText(passengerItems.getSourceLatLong());
         viewHolder.txtdestinationLatLong.setText(passengerItems.getDestinationLatLong());
+        viewHolder.txtDriverId.setText(passengerItems.getDriverId());
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
 
         //To load image using Glide
@@ -80,6 +81,7 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
                 TextView txtEndPoint  =(TextView)view.findViewById(R.id.txtEndPoint);
                 TextView txtsourceLatLong  =(TextView)view.findViewById(R.id.txtsourceLatLong);
                 TextView txtdestinationLatLong  =(TextView)view.findViewById(R.id.txtdestinationLatLong);
+                TextView txtDriverId  =(TextView)view.findViewById(R.id.txtDriverId);
 
 
 
@@ -90,6 +92,7 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
                 i.putExtra("END", txtEndPoint.getText().toString());
                 i.putExtra("txtsourceLatLong", txtsourceLatLong.getText().toString());
                 i.putExtra("txtdestinationLatLong", txtdestinationLatLong.getText().toString());
+                i.putExtra("txtDriverId", txtDriverId.getText().toString());
                 //i.putExtra("DATE", txtF.getText().toString());
                 view.getContext().startActivity(i);
             }
@@ -104,7 +107,7 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView txtTripId,txtDate,txtFare,txtStartPoint,txtEndPoint,txtDriverName;
+        public TextView txtTripId,txtDate,txtFare,txtStartPoint,txtEndPoint,txtDriverName,txtDriverId;
         public TextView txtsourceLatLong;
         public TextView txtdestinationLatLong;
         public CircleImageView profileImage;
@@ -118,6 +121,7 @@ public class PassengerHistoryAdpter extends RecyclerView.Adapter<PassengerHistor
             txtStartPoint = (TextView) itemView.findViewById(R.id.txtStartPoint);
             txtEndPoint = (TextView) itemView.findViewById(R.id.txtEndPoint);
             txtDriverName = (TextView) itemView.findViewById(R.id.txtDriverName);
+            txtDriverId = (TextView) itemView.findViewById(R.id.txtDriverId);
             txtsourceLatLong = (TextView) itemView.findViewById(R.id.txtsourceLatLong);
             txtdestinationLatLong = (TextView) itemView.findViewById(R.id.txtdestinationLatLong);
             profileImage = (CircleImageView)itemView.findViewById(R.id.proImage);

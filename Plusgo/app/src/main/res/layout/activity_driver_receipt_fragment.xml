@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FC.TripHistory.Trip_Details_Driver.AllPassengerHistoryDetailsFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/passengerRecycleView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <TextView
+
+        android:layout_below="@id/passengerRecycleView"
+        android:id="@+id/lblAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Total Earn"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        />
+
+    <TextView
+
+        android:layout_below="@id/passengerRecycleView"
+        android:id="@+id/txtAmountvalue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:textStyle="bold"
+        android:text="100"
+        android:textSize="20dp"
+        android:layout_marginRight="5dp"
+        />
+
+</RelativeLayout>

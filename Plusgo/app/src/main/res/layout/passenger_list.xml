@@ -77,12 +77,18 @@
             <TextView
                 android:id="@+id/txtDriverName"
                 android:layout_toRightOf="@id/proImage"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="Dama"
+                />
 
+            <TextView
+                android:id="@+id/txtDriverId"
+                android:layout_toRightOf="@id/proImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Id"
+                android:visibility="gone"
                 />
 
             <!--<TextView-->

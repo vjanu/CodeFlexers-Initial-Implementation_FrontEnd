@@ -26,7 +26,7 @@ public class TripDetails extends AppCompatActivity {
     private TabLayout tabLayout;
     //private AppBarLayout appBarLayout;
     private ViewPager viewPager;
-    private TextView txtDate,txtFare,txtStartPoint,txtEndPoint;
+    private TextView txtDate,txtFare,txtStartPoint,txtEndPoint,txtDriverId;
     public ImageView imgLogo;
 
     @Override
@@ -42,9 +42,11 @@ public class TripDetails extends AppCompatActivity {
         String End = intent.getStringExtra("END");
         String txtsourceLatLong = intent.getStringExtra("txtsourceLatLong");
         String txtdestinationLatLong = intent.getStringExtra("txtdestinationLatLong");
+        String txtDriverId = intent.getStringExtra("txtDriverId"); // Passed value to the DriverHistoryDetailsFragment() fragment
 
         Log.d("txtsourceLatLong",txtsourceLatLong);
         Log.d("txtdestinationLatLong",txtdestinationLatLong);
+        Log.d("txtDriverId",txtDriverId);
 
         String soureLang = txtsourceLatLong.split(",")[0];
         String soureLat = txtsourceLatLong.split(",")[1];
@@ -55,6 +57,9 @@ public class TripDetails extends AppCompatActivity {
         double centerLang = (Double.parseDouble(soureLang)+Double.parseDouble(destinationLang))/2;
         double centerLat = (Double.parseDouble(soureLat)+Double.parseDouble(destinationLat))/2;
 
+        SharedPreferences userStore = getSharedPreferences("userStore",MODE_PRIVATE);
+        String UID = userStore.getString("UId", null);
+
         Log.d("centerLang", String.valueOf(centerLang));
         Log.d("centerLat", String.valueOf(centerLat));
 
@@ -64,6 +69,8 @@ public class TripDetails extends AppCompatActivity {
         txtStartPoint = (TextView)findViewById(R.id.txtStartPoint);
         txtEndPoint = (TextView)findViewById(R.id.txtEndPoint);
         imgLogo = (ImageView)findViewById(R.id.imgLogo);
+
+
 
         txtDate.setText(Date);
         txtFare.setText(Fare);
@@ -87,11 +94,12 @@ public class TripDetails extends AppCompatActivity {
 
 
 
-        adapter.AddFrgment(new DriverHistoryDetailsFragment(),"Driver Details");
+        adapter.AddFrgment(new DriverHistoryDetailsFragment(txtDriverId),"Driver Details");
         adapter.AddFrgment(new PassengerHistoryDetailsFragment(TripId),"Co-Passengers Details");
-        adapter.AddFrgment(new ReceiptFragment(),"Receipt");
+        adapter.AddFrgment(new ReceiptActivityPassenger(UID,TripId),"Receipt");
 
         //adapter Setup
+
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }
