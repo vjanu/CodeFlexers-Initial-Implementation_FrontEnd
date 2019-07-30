@@ -30,10 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".FC.TripHistory.Trip_Details_Driver.DriverReceiptFragment"></activity>
         <activity android:name=".FC.TripHistory.Trip_Details_Driver.TripDetailsDriver" />
-
-        <activity android:name=".UPM.ViewReportTripHistoryActivity"></activity>
+        <activity android:name=".UPM.ViewReportTripHistoryActivity" />
         <activity android:name=".FC.TripHistory.Trip_Details.TripDetails">
 
             <!-- <intent-filter> -->
@@ -55,7 +54,6 @@
         </activity>
         <activity android:name=".FC.TripHistory.TripHistoryView">
 
-
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
 
@@ -63,11 +61,13 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
 
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
         </activity>
         <activity android:name=".FC.PassengerCurrentTrip" />

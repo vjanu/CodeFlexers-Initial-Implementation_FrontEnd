@@ -12,6 +12,30 @@ public class Passenger {
     private String Image;
     private String SourceLatLong;
     private String DestinationLatLong;
+    private String DriverId;
+
+    public Passenger(String tripId, String passengerName,  String image,Double fare) {
+        PassengerName = passengerName;
+        TripId = tripId;
+        Fare = fare;
+        Image = image;
+    }
+
+    public Passenger(Double fare) {
+        Fare = fare;
+    }
+
+
+
+    public String getDriverId() {
+        return DriverId;
+    }
+
+    public void setDriverId(String driverId) {
+        DriverId = driverId;
+    }
+
+
 
     public String getSourceLatLong() {
         return SourceLatLong;
@@ -103,7 +127,7 @@ public class Passenger {
         Image = image;
     }
 
-    public Passenger(String tripId, String driverName, String dateTime,String startingPoint,String destinationPoint, Double fare , String image,String sourceLatLong , String destinationLatLong) {
+    public Passenger(String tripId, String driverName, String dateTime,String startingPoint,String destinationPoint, Double fare , String image,String sourceLatLong , String destinationLatLong ,String driverId) {
         TripId = tripId;
         DriverName = driverName;
         DateTime = dateTime;
@@ -113,6 +137,7 @@ public class Passenger {
         Image = image;
         SourceLatLong = sourceLatLong;
         DestinationLatLong = destinationLatLong;
+        DriverId = driverId;
     }
 
     public Passenger() {

@@ -20,35 +20,33 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PassengerHistoryDetailsAdapter extends RecyclerView.Adapter<PassengerHistoryDetailsAdapter.ViewHolder> {
-
-
+public class DriverReceiptAdapter extends RecyclerView.Adapter<DriverReceiptAdapter.ViewHolder> {
     private List<Passenger> passengerList;
     private Context context;
     BaseContent BASECONTENT = new BaseContent();
 
-    public PassengerHistoryDetailsAdapter(List<Passenger> passengerList, Context context) {
+    public DriverReceiptAdapter(List<Passenger> passengerList, Context context) {
         this.passengerList = passengerList;
         this.context = context;
     }
-
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.all_passenger_history_list,viewGroup,false);
-        return new PassengerHistoryDetailsAdapter.ViewHolder(v);
+                .inflate(R.layout.receipt_all_passenger,viewGroup,false);
+        return new DriverReceiptAdapter.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PassengerHistoryDetailsAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull DriverReceiptAdapter.ViewHolder viewHolder, int i) {
         final Passenger passengerItems = passengerList.get(i);
         //txtHead textview set the value from the getters in ListItem.java file
         viewHolder.uidHidden.setText(passengerItems.getTripId());
         viewHolder.txtFullName.setText(passengerItems.getPassengerName());
-        viewHolder.txtStarting.setText(passengerItems.getStartingPoint());
-        viewHolder.txtDestination.setText(passengerItems.getDestinationPoint());
+        //viewHolder.txtPrice.setText(passengerItems.getFare().toString());
+        viewHolder.txtPrice.setText(String.format("Rs.%.2f",passengerItems.getFare()));
+
 
         RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.user2).error(R.drawable.user2);
 
@@ -58,7 +56,6 @@ public class PassengerHistoryDetailsAdapter extends RecyclerView.Adapter<Passeng
                 .apply(requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true))
                 .into(viewHolder.profileImage);
-
     }
 
     @Override
@@ -69,8 +66,7 @@ public class PassengerHistoryDetailsAdapter extends RecyclerView.Adapter<Passeng
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView uidHidden;
         public TextView txtFullName;
-        public TextView txtStarting;
-        public TextView txtDestination;
+        public TextView txtPrice;
 
         public CircleImageView profileImage;
         public RelativeLayout displayLayout;
@@ -79,11 +75,10 @@ public class PassengerHistoryDetailsAdapter extends RecyclerView.Adapter<Passeng
             super(itemView);
             uidHidden = (TextView) itemView.findViewById(R.id.uidHidden);
             txtFullName = (TextView) itemView.findViewById(R.id.txtFullName);
-            txtStarting = (TextView) itemView.findViewById(R.id.txtStarting);
-            txtDestination = (TextView) itemView.findViewById(R.id.txtDestination);
-
+            txtPrice = (TextView) itemView.findViewById(R.id.txtPrice);
             profileImage = (CircleImageView)itemView.findViewById(R.id.proImage);
             displayLayout = (RelativeLayout) itemView.findViewById(R.id.displayLayout);
         }
     }
+
 }

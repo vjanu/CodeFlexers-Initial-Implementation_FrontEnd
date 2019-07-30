@@ -5,11 +5,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.plusgo.FC.TripHistory.Trip_Details.DriverHistoryDetailsFragment;
-import com.example.plusgo.FC.TripHistory.Trip_Details.ReceiptFragment;
 import com.example.plusgo.FC.ViewPagerAdapter;
 import com.example.plusgo.R;
 
@@ -51,7 +48,7 @@ public class TripDetailsDriver extends AppCompatActivity {
         txtEndPoint.setText(End);
 
         adapter.AddFrgment(new AllPassengerHistoryDetailsFragment(TripId),"Passengers");
-        adapter.AddFrgment(new ReceiptFragment(),"Receipt");
+        adapter.AddFrgment(new DriverReceiptFragment(TripId),"Receipt");
 
         //adapter Setup
         viewPager.setAdapter(adapter);

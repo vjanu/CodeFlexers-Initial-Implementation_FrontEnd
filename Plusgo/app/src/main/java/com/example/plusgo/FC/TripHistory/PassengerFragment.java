@@ -91,7 +91,8 @@ public class PassengerFragment extends Fragment {
                                         Double.parseDouble(o.getString("price")),
                                         o.getString("img"),
                                         o.getString("sourceLatLong"),
-                                        o.getString("destinationLatLong")
+                                        o.getString("destinationLatLong"),
+                                        o.getString("driverId")
 
                                 );
                              //   Log.d("for",o.getString("description"));

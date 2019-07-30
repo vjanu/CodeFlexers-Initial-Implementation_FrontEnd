@@ -10,7 +10,7 @@ public class BaseContent {
 
     //TODO : ADD THE IP OF SERVER WITH NODE JS HERE
 
-    final public String BASEIPROUTE = "http://192.168.43.102";
+    final public String BASEIPROUTE = "http://192.168.8.100";
     public String IpAddress = BASEIPROUTE+":8083";
 
     /*
@@ -19,20 +19,20 @@ public class BaseContent {
     //PORTS 8088,8089,8090 - USED IN DVPRM
     final public String DVPRMBASEIPROUTE ="http://192.168.8.100"; //TODO : DVPRM CHANGE ACCORDINGLY
     //image upload service written in php
-    public String phpIP = DVPRMBASEIPROUTE+":80";
+    public String phpIP = DVPRMBASEIPROUTE+":8080";
 
     /*
     USER PROFILING
      */
-    final public String UPMBASEIPROUTE ="http://192.168.43.102"; //TODO : UPM CHANGE ACCORDINGLY
+    final public String UPMBASEIPROUTE ="http://192.168.8.100"; //TODO : UPM CHANGE ACCORDINGLY
     public String pythonIpAddress = UPMBASEIPROUTE+":99";
 
     /*
     FARE CALCULATION
      */
-    final public String FCBASEIPROUTE ="http://192.168.43.100"; //TODO : FC CHANGE ACCORDINGLY
+    final public String FCBASEIPROUTE ="http://192.168.8.100"; //TODO : FC CHANGE ACCORDINGLY
     public String pythonIpAddressGetDistance = FCBASEIPROUTE+":97";
-    public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":96";
+    public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":896";
 
     /*
     OPTIMUM PATH RECOGNITION
