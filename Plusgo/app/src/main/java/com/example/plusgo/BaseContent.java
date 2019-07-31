@@ -10,33 +10,33 @@ public class BaseContent {
 
     //TODO : ADD THE IP OF SERVER WITH NODE JS HERE
 
-    final public String BASEIPROUTE = "http://192.168.8.100";
+    final public String BASEIPROUTE = "http://3.14.29.42";
     public String IpAddress = BASEIPROUTE+":8083";
 
     /*
     DOCUMENT VALIDATION AND PROFILE RATING MAINTAINANCE
      */
     //PORTS 8088,8089,8090 - USED IN DVPRM
-    final public String DVPRMBASEIPROUTE ="http://192.168.8.100"; //TODO : DVPRM CHANGE ACCORDINGLY
+    final public String DVPRMBASEIPROUTE ="http://3.14.29.42"; //TODO : DVPRM CHANGE ACCORDINGLY
     //image upload service written in php
     public String phpIP = DVPRMBASEIPROUTE+":8080";
 
     /*
     USER PROFILING
      */
-    final public String UPMBASEIPROUTE ="http://192.168.8.100"; //TODO : UPM CHANGE ACCORDINGLY
-    public String pythonIpAddress = UPMBASEIPROUTE+":99";
+    final public String UPMBASEIPROUTE ="http://3.14.29.42"; //TODO : UPM CHANGE ACCORDINGLY
+    public String pythonIpAddress = UPMBASEIPROUTE+":8099";
 
     /*
     FARE CALCULATION
      */
-    final public String FCBASEIPROUTE ="http://192.168.8.100"; //TODO : FC CHANGE ACCORDINGLY
-    public String pythonIpAddressGetDistance = FCBASEIPROUTE+":97";
-    public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":896";
+    final public String FCBASEIPROUTE ="http://3.14.29.42"; //TODO : FC CHANGE ACCORDINGLY
+    public String pythonIpAddressGetDistance = FCBASEIPROUTE+":8097";
+    public String pythonIpAddressGetEstimateFuel = FCBASEIPROUTE+":8096";
 
     /*
     OPTIMUM PATH RECOGNITION
      */
-    final public String OPRBASEIPROUTE ="http://192.168.8.100"; //TODO : OPR CHANGE ACCORDINGLY
+    final public String OPRBASEIPROUTE ="http://3.14.29.42"; //TODO : OPR CHANGE ACCORDINGLY
 
 }
