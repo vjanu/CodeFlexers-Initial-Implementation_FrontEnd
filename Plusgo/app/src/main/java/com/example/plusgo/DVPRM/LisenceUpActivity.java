@@ -34,11 +34,13 @@ import java.util.Date;
 
 public class LisenceUpActivity extends AppCompatActivity {
 
+    SharedPreferences sharedpref;
     BaseContent BASECONTENT = new BaseContent();
 
     //Add the relavent IP to retrieve NIC from image
 //    String LISENCE_URL ="http://192.168.1.4:81/lisence/test.png";
-    String LISENCE_URL = BASECONTENT.DVPRMBASEIPROUTE +":8088/lisence/test.png";
+//    String LISENCE_URL = BASECONTENT.DVPRMBASEIPROUTE +":8088/lisence/test.png";
+    String LISENCE_URL = BASECONTENT.DVPRMBASEIPROUTE +":8088/lisence/";
 
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
@@ -53,6 +55,7 @@ public class LisenceUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lisence_up);
+
         SharedPreferences preferences = getSharedPreferences("dvprm", Context.MODE_PRIVATE);
         String nic_validated = preferences.getString("nic_validated", "000000000000");
 
@@ -128,7 +131,11 @@ public class LisenceUpActivity extends AppCompatActivity {
 
     //Retrieve Lisence
     private void jsonrequest() {
-        String JSON_URL = LISENCE_URL;
+        sharedpref = getSharedPreferences("unique", Context.MODE_PRIVATE);
+        String time = sharedpref.getString("uniqueID", "test");
+
+//        String JSON_URL = LISENCE_URL;
+        String JSON_URL = LISENCE_URL+time+".png";
 
         final ProgressDialog loading = ProgressDialog.show(this, "Verifying Image...", "Please wait...", false, false);
         Log.e("JSONREQUEST","started");
