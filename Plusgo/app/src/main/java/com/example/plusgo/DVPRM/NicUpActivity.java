@@ -29,13 +29,17 @@ import org.json.JSONObject;
 
 public class NicUpActivity extends AppCompatActivity {
 
+    SharedPreferences sharedpref;
     BaseContent BASECONTENT = new BaseContent();
+    final long time= System.currentTimeMillis();
 
+//        Log.e("TIMEINMIL", String.valueOf(time));
     // TODO:Add the relavent IP to retrieve NIC from image
-//    String NIC_URL ="http://192.168.1.4/nic/test.png";
-    String NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8089/nic/test.png";
-//    String ELEC_NIC_URL ="http://192.168.1.4/nic/test.png";
-    String ELEC_NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8087/enic/test.png";
+//    String NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8089/nic/test.png";
+    String NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8089/nic/"+time+".png";
+
+//    String ELEC_NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8087/enic/test.png";
+    String ELEC_NIC_URL = BASECONTENT.DVPRMBASEIPROUTE +":8087/enic/"+time+".png";
 
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
@@ -49,6 +53,15 @@ public class NicUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nic_up);
+
+        sharedpref = getSharedPreferences("unique", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpref.edit();
+        editor.putString("uniqueID", String.valueOf(time));
+        editor.commit();
+
+        Log.e("TIMEINMIL",sharedpref.getString("uniqueID", "test"));
+
+
 
         niclayout = (LinearLayout) findViewById(R.id.nic_up_layout);
         niclayout.setVisibility(View.INVISIBLE);

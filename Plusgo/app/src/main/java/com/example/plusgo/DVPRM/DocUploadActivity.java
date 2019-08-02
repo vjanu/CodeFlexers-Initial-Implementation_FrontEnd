@@ -58,7 +58,7 @@ public class DocUploadActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
-
+    SharedPreferences sharedpref;
     BaseContent BASECONTENT = new BaseContent();
     Button buttonChoose,photoButton;
     FloatingActionButton buttonUpload;
@@ -100,7 +100,10 @@ public class DocUploadActivity extends AppCompatActivity {
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonUpload = (FloatingActionButton) findViewById(R.id.buttonUpload);
 
+        sharedpref = getSharedPreferences("unique", Context.MODE_PRIVATE);
+        String time = sharedpref.getString("uniqueID", "test");
         txt_name = (EditText) findViewById(R.id.editText1);
+        txt_name.setText(time);
 
         imageView = (ImageView) findViewById(R.id.imageView1);
 
